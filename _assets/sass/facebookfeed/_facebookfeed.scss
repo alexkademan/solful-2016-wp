@@ -1,6 +1,5 @@
 ul.fb_feed {
-  padding: 0 ($gutter / 2);
-
+  position: relative;
   li {
     list-style: none;
     padding: 0 0 ($gutter / 2);
@@ -63,7 +62,7 @@ ul.fb_feed {
 
 ul.fb_feed {
   img {
-    max-width: 100%;
+    width: 100%;
   }
   li,
   span.frame,

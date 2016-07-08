@@ -14,7 +14,19 @@
 	</li>
 	<script type="text/template" id="fb_template">
 	  <li class="fbPost <%- 'id-' + id %>">
-			<!-- <header><%- order  %> - </header> -->
+			<header>
+			  <span class="avatar">&nbsp;</span>
+			  <hgroup>
+			    <h1><%
+			_.each(headline, function(post){
+			  if(post.url){ print('<a href="' + post.url + '">' + post.name + '</a>');
+			  } else { print(post.name); }
+			});
+			%></h1>
+			    <h2><%- r_time %>
+			  </hgroup>
+
+			</header>
 	    <% if(type === 'photo'){ %>
 				<% if ( message ){ print('<span class="message">' + message + '</span>') } %>
 				<% if ( wireframe ){ %><div class="wireframe_image">image</div><% } else { %>

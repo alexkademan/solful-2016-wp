@@ -19,9 +19,14 @@ module.exports = Backbone.View.extend({
     this.model.set({ 'backgroundScroll': backgroundScroll });
     this.model.set({ 'menuHeight': this.$('span').height() });
 
+    // console.log( app.mainNavMasthead.checkOnHeight() );
+    // console.log('button push?');
+
+
     var navStyle = '';
         navStyle += 'height: ' + this.model.get('menuHeight') + 'px;';
-        navStyle += 'top: ' + 0 + 'px;';
+        // navStyle += 'top: ' + 0 + 'px;';
+        navStyle += 'top: ' + app.mainNavMasthead.checkOnHeight() + 'px;';
 
     this.$el.attr('style', navStyle);
     window.scrollTo(0, 0); // make sure that the top of the nav is visible!!!!
@@ -48,6 +53,7 @@ module.exports = Backbone.View.extend({
 
       var navStyle = '';
           navStyle += 'height: ' + 0 + 'px;';
+          navStyle += ' top: ' + app.mainNavMasthead.checkOnHeight() + 'px;';
           navStyle += ' margin-top: ' + scrollPosition + 'px';
 
       this.$el.attr('style', navStyle);

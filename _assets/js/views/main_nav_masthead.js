@@ -62,6 +62,12 @@ module.exports = Backbone.View.extend({
       // show
       $(document.body).removeClass('hiddenMasthead');
     }
+  },
+
+  checkOnHeight: function() {
+    // console.log('checkOnHeight');
+    // console.log(this.model);
+    return this.$el.height();
   }
 
 });

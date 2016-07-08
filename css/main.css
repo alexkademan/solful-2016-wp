@@ -2904,7 +2904,7 @@ div.entry-content {
       margin-right: 0; } }
 
 ul.fb_feed {
-  padding: 0 0.809em; }
+  position: relative; }
   ul.fb_feed li {
     list-style: none;
     padding: 0 0 0.809em;
@@ -2943,7 +2943,7 @@ ul.fb_feed {
       padding-top: 0.125em; }
 
 ul.fb_feed img {
-  max-width: 100%; }
+  width: 100%; }
 
 ul.fb_feed li,
 ul.fb_feed span.frame,
