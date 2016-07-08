@@ -1,0 +1,81 @@
+
+// Breakpoints
+$width-medium: pem(641); /* 768px */
+$width-small:  pem(640); /* 640px */
+
+
+$max-width: pem(1240);
+$small_size: pem(720);
+$large_size: pem(1140);
+
+$col_reading_width: pem(580);
+
+$medium-breakpoint: 'min-width: ' + $small_size;
+$large-breakpoint: 'min-width: ' + $large_size;
+
+// Typography
+@include font-face( capture-it, '../fonts/capture_it-webfont' );
+$base-font-family: $font-stack-system;
+
+// Font Sizes
+$base-font-size: 1em;
+
+// Line height
+$base-line-height: 1.5;
+$heading-line-height: 1.2;
+
+// Other Sizes
+$base-border-radius: 3px;
+$base-spacing: $base-line-height * 1em;
+$small-spacing: $base-spacing / 2;
+$base-z-index: 0;
+
+// Colors
+$blue: #1565c0;
+$dark-gray: #333;
+$medium-gray: #999;
+$light-gray: #ddd;
+
+// Font Colors
+$base-font-color: $dark-gray;
+$action-color: $blue;
+
+// Border
+$base-border-color: $light-gray;
+$base-border: 1px solid $base-border-color;
+
+// Background Colors
+$base-background-color: #fff;
+$secondary-background-color: tint($base-border-color, 75%);
+
+// Forms
+$form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
+$form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
+
+// Animations
+$base-duration: 150ms;
+$base-timing: ease;
+
+// * * * * * * * * * * * * * * * *
+//  * * * * * * * * * * * * * * *
+// * * * * * * * * * * * * * * * *
+
+// Change the grid settings (not from Bitters)
+$max-width: pem(1200);
+$main_gutter: ($gutter * 0.75);
+
+// masthead:
+$mh_med_height: 50px;
+$mh_med_padding-top: pem(4);
+$mh_med_padding-sides: pem(4);
+$mh_med_padding-bottom: pem(4);
+
+// NAV vars:
+$nav-off-canvas-width: 87%;
+$nav-height-mobile: pem( 60 );
+$nav-height-medium: pem( 120 );
+
+$nav-height-main-medium: pem(70);
+$nav-height-sub-medium: pem(50);
+
+$main_logo_width: pem(120);

@@ -1,0 +1,47 @@
+html,
+body {
+  // this color fills out the footer
+  background: #F4F4F4;
+}
+
+body > div.site,
+body > div.site > .main-bg {
+  // body of the page.
+  // (everything between the header and the footer)
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+}
+
+body > div.site > .main-bg {
+  background: #FFF;
+}
+
+.hid {
+  @include hidden;
+}
+
+div.content,
+.site-footer {
+  padding-left: $main-gutter;
+  padding-right: $main-gutter;
+  display: block;
+  clear: both;
+  @include outer-container;
+
+}
+.site-footer {
+  padding-top: $main-gutter;
+  padding-bottom: pem(70);
+}
+
+.left-col,
+.full-width,
+.widget-area {
+  @include span-columns(12);
+}
+
+div.entry-content {
+  width: 100% !important; // override for calendar plugin.
+}

@@ -1,0 +1,6 @@
+.left-col {
+  @include span-columns(8);
+}
+.widget-area {
+  @include span-columns(4);
+}

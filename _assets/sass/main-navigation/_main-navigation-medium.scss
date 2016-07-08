@@ -1,0 +1,110 @@
+div.content {
+  // an override:
+  padding-top: 0;
+}
+
+/* ***********************
+  basics
+*********************** */
+header.site_header {
+  min-height: $nav-height-medium;
+  span.toggle_menu {
+    @include hidden;
+  }
+
+  li,
+  li a {
+    width: auto;
+    clear: none;
+  }
+}
+header.site_header span.stripe {
+  z-index: auto;
+  display: block;
+  width: auto;
+  height: 0;
+  background-color: #CCC;
+  position: relative;
+  transition: margin 0;
+
+  @include outer-container;
+}
+a.site-title {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+
+  background-color: #CCC;
+
+  width: $main_logo_width;
+  height: $main_logo_width;
+
+}
+
+nav.site-nav {
+  // overriding all of the palm sized styles:
+  display: block;
+  position: relative;
+  float: left;
+  clear: none;
+  top: 0;
+  width: 100%;
+  background: transparent;
+  z-index: 0; // must fall behind a.site-title.
+  min-height: $nav-height-medium;
+  border-bottom: none;
+  overflow: visible;
+}
+
+nav.site-nav span.mn,
+nav.site-nav span.sn {
+  float: none;
+  clear: none;
+  width: 100%;
+  padding: 0;
+  background-color: transparent;
+  // background: #FCF;
+  border-bottom: 1px #999 solid;
+
+  & > span {
+    display: block;
+    padding-left: $nav-height-medium;
+    @include outer-container;
+  }
+}
+
+nav.site-nav span.mn {
+  background-color: #F4F4F4;
+}
+ul.mainNav li a {
+  line-height: $nav-height-main-medium;
+  .no-touchevents &:hover {
+    background: #CCC;
+  }
+}
+ul.mainNav li a,
+ul.subNav li a {
+  background-color: transparent;
+  padding: 0 $main_gutter;
+}
+
+ul.subNav {
+  float: right;
+  background-color: transparent;
+  width: auto;
+  display: block;
+
+}
+ul.subNav li a {
+  line-height: $nav-height-sub-medium;
+  .no-touchevents &:hover {
+    background: #f4f4f4;
+  }
+}
+/* **********************
+  masthead HIDDEN:
+********************** */
+body.hiddenMasthead header.site_header span.stripe {
+  margin-top: 0;
+}

@@ -1,0 +1,8 @@
+
+@import 'basic-structure';
+// @import 'footer';
+
+@media($medium-breakpoint) {
+  @import 'basic-structure-medium';
+  // @import 'footer-medium';
+}
