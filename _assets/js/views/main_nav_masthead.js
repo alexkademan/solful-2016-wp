@@ -65,8 +65,6 @@ module.exports = Backbone.View.extend({
   },
 
   checkOnHeight: function() {
-    // console.log('checkOnHeight');
-    // console.log(this.model);
     return this.$el.height();
   }
 

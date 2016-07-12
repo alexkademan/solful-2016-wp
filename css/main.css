@@ -2642,6 +2642,7 @@ nav.site-nav span.sn {
 
 nav.site-nav span.mn {
   padding-top: 3.75em;
+  margin-top: -3.75em;
   background-color: #FFF; }
 
 nav.site-nav span.sn {

@@ -19,9 +19,6 @@ module.exports = Backbone.View.extend({
     this.model.set({ 'backgroundScroll': backgroundScroll });
     this.model.set({ 'menuHeight': this.$('span').height() });
 
-    // console.log( app.mainNavMasthead.checkOnHeight() );
-    // console.log('button push?');
-
 
     var navStyle = '';
         navStyle += 'height: ' + this.model.get('menuHeight') + 'px;';

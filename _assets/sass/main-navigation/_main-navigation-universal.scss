@@ -91,6 +91,7 @@ nav.site-nav span.sn {
 }
 nav.site-nav span.mn {
   padding-top: $nav-height-mobile;
+  margin-top: -$nav-height-mobile;
   background-color: #FFF;
 }
 nav.site-nav span.sn {
