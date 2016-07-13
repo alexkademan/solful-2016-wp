@@ -1,8 +1,10 @@
 
 @import 'basic-structure';
+@import 'sign-up-now';
 // @import 'footer';
 
 @media($medium-breakpoint) {
   @import 'basic-structure-medium';
+  @import 'sign-up-now-medium';
   // @import 'footer-medium';
 }

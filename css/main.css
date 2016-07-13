@@ -2888,6 +2888,31 @@ div.content,
 div.entry-content {
   width: 100% !important; }
 
+a.sign_up_now {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  background: #7c7c7c;
+  color: #FFF;
+  overflow: hidden;
+  -webkit-transition: height 0.5s ease-in-out;
+  transition: height 0.5s ease-in-out;
+  height: 0; }
+  a.sign_up_now .classes {
+    display: block;
+    width: 100%;
+    padding: 1.618em;
+    text-align: center; }
+
+span.closeBtn {
+  display: block;
+  float: right;
+  clear: none;
+  width: 2em;
+  height: 2em;
+  background: #FCF; }
+
 @media (min-width: 45em) {
   .left-col {
     float: left;
@@ -2902,7 +2927,30 @@ div.entry-content {
     margin-right: 2.35765%;
     width: 31.76157%; }
     .widget-area:last-child {
-      margin-right: 0; } }
+      margin-right: 0; }
+  a.sign_up_now {
+    display: block;
+    float: left;
+    clear: both;
+    width: 100%;
+    background: #7c7c7c;
+    color: #FFF;
+    overflow: hidden;
+    -webkit-transition: height 0.5s ease-in-out;
+    transition: height 0.5s ease-in-out;
+    height: 0; }
+    a.sign_up_now .classes {
+      display: block;
+      width: 100%;
+      padding: 1.618em;
+      text-align: center; }
+  span.closeBtn {
+    display: block;
+    float: right;
+    clear: none;
+    width: 2em;
+    height: 2em;
+    background: #FCF; } }
 
 ul.fb_feed {
   position: relative; }

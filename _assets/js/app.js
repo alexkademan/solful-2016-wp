@@ -5,6 +5,8 @@ var WindowStatsView = require('./views/window_stats_view');
 var MainNavModel = require('./models/main_nav_model');
 var MainNavView = require('./views/main_nav_view');
 
+var MindBodyButton = require('./views/mindbody_button');
+
 var WPadminHider = require('./views/wp_admin_hider_view');
 
 var domReady = require('domready');
@@ -25,6 +27,8 @@ module.exports = {
       app.windowStatus = new WindowStatsModel();
       app.windowStatusView = new WindowStatsView({ model : app.windowStatus });
 
+      app.mindBodyButton = new MindBodyButton();
+      
       app.mainNavModel = new MainNavModel();
       app.mainNav = new MainNavView({ model: app.mainNavModel });
 

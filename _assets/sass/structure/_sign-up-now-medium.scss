@@ -1,0 +1,28 @@
+a.sign_up_now {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  background: #7c7c7c;
+  color: #FFF;
+  overflow: hidden;
+  transition: height 0.5s ease-in-out;
+  height: 0;
+
+  .classes {
+    display: block;
+    width: 100%;
+    padding: $gutter;
+    text-align: center;
+  }
+}
+
+span.closeBtn {
+  display: block;
+  float: right;
+  clear: none;
+  width: 2em;
+  height: 2em;
+  background: #FCF;
+
+}
