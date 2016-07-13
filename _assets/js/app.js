@@ -28,7 +28,7 @@ module.exports = {
       app.windowStatusView = new WindowStatsView({ model : app.windowStatus });
 
       app.mindBodyButton = new MindBodyButton();
-      
+
       app.mainNavModel = new MainNavModel();
       app.mainNav = new MainNavView({ model: app.mainNavModel });
 

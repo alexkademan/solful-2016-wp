@@ -8,7 +8,7 @@ module.exports = Backbone.View.extend({
   el: '#sign_up_now',
 
   events: {
-    'click': 'launchMINDBODY'
+    'click': 'openOrClose'
   },
 
   initialize: function() {
@@ -27,9 +27,19 @@ module.exports = Backbone.View.extend({
     this.$el.attr('style', 'height: ' + callOutHeight + 'px');
     // console.log(this.$el);
   },
+  openOrClose: function(e) {
+    e.preventDefault();
+
+    if(e.target.className === 'closeBtn') {
+      this.$el.attr('style', 'height: 0px');
+
+    } else {
+      this.launchMINDBODY();
+
+    }
+  },
 
   launchMINDBODY: function(e) {
-    e.preventDefault();
     var theLink = this.$el[0].href;
 
     //window height and width

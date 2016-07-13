@@ -17,7 +17,9 @@ body > div.site > .main-bg {
 body > div.site > .main-bg {
   background: #FFF;
 }
-
+.outer {
+  @include outer-container;
+}
 .hid {
   @include hidden;
 }

@@ -3,6 +3,7 @@ a.sign_up_now {
   float: left;
   clear: both;
   width: 100%;
+  position: relative;
   background: #7c7c7c;
   color: #FFF;
   overflow: hidden;
@@ -18,11 +19,38 @@ a.sign_up_now {
 }
 
 span.closeBtn {
-  display: block;
-  float: right;
-  clear: none;
-  width: 2em;
-  height: 2em;
-  background: #FCF;
+  position: absolute;
+  right: 0;
+  top: 0;
+  // background: #FCF;
+  padding: ($gutter * 1.4) $gutter;
+  min-width: 5em;
+  min-height: 10em;
 
+  span.top,
+  span.bottom {
+    display: block;
+    float: left;
+    width: 100%;
+    height: 2px;
+    background: #FFF;
+    transition: background 0.25s ease-in-out;
+  }
+
+  span.top {
+    transform: rotateZ( 45deg );
+
+  }
+  span.bottom {
+    margin-top: -2px;
+    transform: rotateZ( -45deg );
+
+  }
+}
+span.closeBtn:hover {
+  // background: #FCF;
+  span.top,
+  span.bottom {
+    background: #000;
+  }
 }

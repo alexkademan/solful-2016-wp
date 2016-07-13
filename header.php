@@ -46,8 +46,13 @@ require get_template_directory() . '/custom-objects/custom-objects.php';
 	<div id="page" class="site">
 
 	<a href="http://clients.mindbodyonline.com/ws.asp?studioid=44288&amp;stype=-7" id="sign_up_now" class="sign_up_now" target="_blank">
-		<div class="outer classes">Sign Up For A Class Now!</div>
-		<span class="outer closeBtn">X</span>
+		<div class="outer classes">
+			Sign Up For A Class Now!
+		</div>
+		<span class="closeBtn">
+			<span class="top"></span>
+			<span class="bottom"></span>
+		</span>
 	</a>
 
 	<span class="main-bg">
