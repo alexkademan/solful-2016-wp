@@ -33,16 +33,27 @@ div.content,
   @include outer-container;
 
 }
+div.content {
+}
+
+// .full-width,
+.left-column,
+.full-width,
+.widget-area {
+  @include span-columns(12);
+}
+
+.left-column,
+.widget-area {
+  padding-top: $main-gutter;
+  padding-bottom: $gutter;
+}
 .site-footer {
   padding-top: $main-gutter;
   padding-bottom: pem(70);
 }
 
-.left-col,
-.full-width,
-.widget-area {
-  @include span-columns(12);
-}
+
 
 div.entry-content {
   width: 100% !important; // override for calendar plugin.

@@ -39,7 +39,9 @@ require get_template_directory() . '/custom-objects/custom-objects.php';
 	  			<div class="line line-3"></div>
 	        <a class="toggle"></a>
 	      </span>
-	      <a class="site-title" href="<?php echo get_bloginfo('wpurl') ?>"><?php echo get_bloginfo('title') ?></a>
+	      <a class="site-title" href="<?php echo get_bloginfo('wpurl') ?>">
+					<h1><?php echo get_bloginfo('title') ?></h1>
+				</a>
 	    </span>
 			<?php get_template_part( 'template-parts/content', 'main-nav' ); ?>
 	</header>
@@ -52,6 +54,7 @@ require get_template_directory() . '/custom-objects/custom-objects.php';
 		<span class="closeBtn">
 			<span class="top"></span>
 			<span class="bottom"></span>
+			<span class="closeBtnTrigger"></span>
 		</span>
 	</a>
 

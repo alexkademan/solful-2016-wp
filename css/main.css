@@ -193,8 +193,24 @@ html {
 /* 768px */
 /* 640px */
 @font-face {
-  font-family: capture-it;
-  src: url("../fonts/capture_it-webfont.woff2") format("woff2"), url("../fonts/capture_it-webfont.woff") format("woff"), url("../fonts/capture_it-webfont.ttf") format("truetype"); }
+  font-family: bebas-bold;
+  src: url("../fonts/bebasneue_bold-webfont.woff2") format("woff2"), url("../fonts/bebasneue_bold-webfont.woff") format("woff"), url("../fonts/bebasneue_bold-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: bebas-book;
+  src: url("../fonts/bebasneue_book-webfont.woff2") format("woff2"), url("../fonts/bebasneue_book-webfont.woff") format("woff"), url("../fonts/bebasneue_book-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: bebas-light;
+  src: url("../fonts/bebasneue_light-webfont.woff2") format("woff2"), url("../fonts/bebasneue_light-webfont.woff") format("woff"), url("../fonts/bebasneue_light-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: bebas-regular;
+  src: url("../fonts/bebasneue_regular-webfont.woff2") format("woff2"), url("../fonts/bebasneue_regular-webfont.woff") format("woff"), url("../fonts/bebasneue_regular-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: bebas-thin;
+  src: url("../fonts/bebasneue_thin-webfont.woff2") format("woff2"), url("../fonts/bebasneue_thin-webfont.woff") format("woff"), url("../fonts/bebasneue_thin-webfont.ttf") format("truetype"); }
 
 button, [type='button'], [type='reset'], [type='submit'] {
   -webkit-appearance: none;
@@ -375,8 +391,14 @@ h6 {
 
 h1,
 h2 {
-  font-family: 'capture-it';
-  letter-spacing: 0.09em; }
+  font-family: 'bebas-bold';
+  letter-spacing: 0.045em; }
+
+h1 {
+  font-size: 1.8em; }
+
+h2 {
+  font-size: 1.6em; }
 
 p {
   margin: 0 0 0.75em; }
@@ -2562,7 +2584,7 @@ hr {
   overflow: visible;
   clip: auto; }
 
-div.content {
+div.site {
   padding-top: 3.75em; }
 
 /* ***********************
@@ -2741,13 +2763,13 @@ body.main_nav_on span.toggle_menu .line-3 {
   transform: rotateZ(-45deg); }
 
 @media (min-width: 45em) {
-  div.content {
+  div.site {
     padding-top: 0; }
   /* ***********************
   basics
 *********************** */
   header.site_header {
-    min-height: 7.5em; }
+    min-height: 5em; }
     header.site_header span.toggle_menu {
       display: none !important;
       visibility: hidden; }
@@ -2776,9 +2798,22 @@ body.main_nav_on span.toggle_menu .line-3 {
     left: 0;
     top: 0;
     z-index: 10;
-    background-color: #CCC;
+    background: url("../images/solful-fitness-logo.svg") no-repeat;
+    background-position: 30% 0.3125em;
+    background-size: 75%;
     width: 7.5em;
-    height: 7.5em; }
+    height: 6.125em; }
+    .no-svg a.site-title {
+      background: url("../images/solful-fitness-logo.png") no-repeat; }
+    a.site-title h1 {
+      border: 0;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px; }
   nav.site-nav {
     display: block;
     position: relative;
@@ -2786,9 +2821,9 @@ body.main_nav_on span.toggle_menu .line-3 {
     clear: none;
     top: 0;
     width: 100%;
-    background: transparent;
+    background: #000;
     z-index: 0;
-    min-height: 7.5em;
+    min-height: 5em;
     border-bottom: none;
     overflow: visible; }
   nav.site-nav span.mn,
@@ -2797,8 +2832,7 @@ body.main_nav_on span.toggle_menu .line-3 {
     clear: none;
     width: 100%;
     padding: 0;
-    background-color: transparent;
-    border-bottom: 1px #999 solid; }
+    background-color: transparent; }
     nav.site-nav span.mn > span,
     nav.site-nav span.sn > span {
       display: block;
@@ -2812,9 +2846,11 @@ body.main_nav_on span.toggle_menu .line-3 {
         content: "";
         display: block; }
   nav.site-nav span.mn {
-    background-color: #F4F4F4; }
+    background-color: #333;
+    background-image: -webkit-linear-gradient(#424242 0px, #000);
+    background-image: linear-gradient(#424242 0px, #000); }
   ul.mainNav li a {
-    line-height: 4.375em; }
+    line-height: 5em; }
     .no-touchevents ul.mainNav li a:hover {
       background: #CCC; }
   ul.mainNav li a,
@@ -2826,10 +2862,6 @@ body.main_nav_on span.toggle_menu .line-3 {
     background-color: transparent;
     width: auto;
     display: block; }
-  ul.subNav li a {
-    line-height: 3.125em; }
-    .no-touchevents ul.subNav li a:hover {
-      background: #f4f4f4; }
   /* **********************
   masthead HIDDEN:
 ********************** */
@@ -2878,21 +2910,26 @@ div.content,
     content: "";
     display: block; }
 
-.site-footer {
-  padding-top: 1.2135em;
-  padding-bottom: 4.375em; }
-
-.left-col,
+.left-column,
 .full-width,
 .widget-area {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 100%; }
-  .left-col:last-child,
+  .left-column:last-child,
   .full-width:last-child,
   .widget-area:last-child {
     margin-right: 0; }
+
+.left-column,
+.widget-area {
+  padding-top: 1.2135em;
+  padding-bottom: 1.618em; }
+
+.site-footer {
+  padding-top: 1.2135em;
+  padding-bottom: 4.375em; }
 
 div.entry-content {
   width: 100% !important; }
@@ -2903,7 +2940,10 @@ a.sign_up_now {
   clear: both;
   width: 100%;
   position: relative;
-  background: #7c7c7c;
+  background: url(../images/solful-banner-bg-20.svg) no-repeat;
+  background-size: 10.9375em;
+  background-position: left top;
+  background-color: #c91a10;
   color: #FFF;
   overflow: hidden;
   -webkit-transition: height 0.5s ease-in-out;
@@ -2913,7 +2953,7 @@ a.sign_up_now {
     display: block;
     width: 100%;
     padding: 1.618em;
-    text-align: center; }
+    text-align: left; }
 
 span.closeBtn {
   position: absolute;
@@ -2938,26 +2978,36 @@ span.closeBtn {
     margin-top: -2px;
     -webkit-transform: rotateZ(-45deg);
     transform: rotateZ(-45deg); }
+  span.closeBtn span.closeBtnTrigger {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 10em; }
 
 span.closeBtn:hover span.top,
 span.closeBtn:hover span.bottom {
   background: #000; }
 
 @media (min-width: 45em) {
-  .left-col {
+  .left-column {
+    padding-right: 1.618em;
     float: left;
     display: block;
     margin-right: 2.35765%;
     width: 65.88078%; }
-    .left-col:last-child {
+    .left-column:last-child {
       margin-right: 0; }
   .widget-area {
     float: left;
     display: block;
     margin-right: 2.35765%;
-    width: 31.76157%; }
+    width: 31.76157%;
+    margin-right: 0; }
     .widget-area:last-child {
-      margin-right: 0; } }
+      margin-right: 0; }
+  a.sign_up_now .classes {
+    text-align: center; } }
 
 ul.fb_feed {
   position: relative; }

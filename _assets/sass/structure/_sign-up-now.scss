@@ -4,7 +4,11 @@ a.sign_up_now {
   clear: both;
   width: 100%;
   position: relative;
-  background: #7c7c7c;
+  background: url(../images/solful-banner-bg-20.svg) no-repeat;
+  background-size: pem(175);
+  background-position: left top;
+
+  background-color: darken($color-solful-red, 15%);
   color: #FFF;
   overflow: hidden;
   transition: height 0.5s ease-in-out;
@@ -14,7 +18,7 @@ a.sign_up_now {
     display: block;
     width: 100%;
     padding: $gutter;
-    text-align: center;
+    text-align: left;
   }
 }
 
@@ -22,7 +26,6 @@ span.closeBtn {
   position: absolute;
   right: 0;
   top: 0;
-  // background: #FCF;
   padding: ($gutter * 1.4) $gutter;
   min-width: 5em;
   min-height: 10em;
@@ -45,6 +48,13 @@ span.closeBtn {
     margin-top: -2px;
     transform: rotateZ( -45deg );
 
+  }
+  span.closeBtnTrigger {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 10em;
   }
 }
 span.closeBtn:hover {

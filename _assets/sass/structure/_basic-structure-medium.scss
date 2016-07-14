@@ -1,6 +1,8 @@
-.left-col {
+.left-column {
+  padding-right: $gutter; // I DON'T KNOW WHY I HAVE TO DO THIS !!!!
   @include span-columns(8);
 }
 .widget-area {
-  @include span-columns(4);
+  @include span-columns(4 of 12);
+  @include omega();
 }

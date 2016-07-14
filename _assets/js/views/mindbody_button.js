@@ -13,13 +13,17 @@ module.exports = Backbone.View.extend({
 
   initialize: function() {
     if(this.$el.length === 1) {
-      // the "sign up now" button is within the dom
-      this.$el.attr('style', 'height: 0px');
-
-      setTimeout(function(){
-        app.mindBodyButton.enlargeBanner();
-      }, 750);
+      // the "sign up now" button is within the DOM
+      this.resetBanner();
     };
+  },
+
+  resetBanner: function() {
+    this.$el.attr('style', 'height: 0px');
+
+    setTimeout(function(){
+      app.mindBodyButton.enlargeBanner();
+    }, 750);
   },
 
   enlargeBanner: function() {
@@ -30,7 +34,7 @@ module.exports = Backbone.View.extend({
   openOrClose: function(e) {
     e.preventDefault();
 
-    if(e.target.className === 'closeBtn') {
+    if(e.target.className === 'closeBtnTrigger') {
       this.$el.attr('style', 'height: 0px');
 
     } else {

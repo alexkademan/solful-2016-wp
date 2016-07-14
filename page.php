@@ -27,7 +27,7 @@ get_header();
 ?>
 
 	<div id="primary" class="content-area">
-		<main id="main" class="site-main<?php if($has_sidebar){ echo ' left-col'; }else{ echo ' full-width'; } ?>" role="main">
+		<main id="main" class="site-main<?php if($has_sidebar){ echo ' left-column'; }else{ echo ' full-width'; } ?>" role="main">
 
 
 			<?php

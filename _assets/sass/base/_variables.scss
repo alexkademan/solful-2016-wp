@@ -14,7 +14,11 @@ $medium-breakpoint: 'min-width: ' + $small_size;
 $large-breakpoint: 'min-width: ' + $large_size;
 
 // Typography
-@include font-face( capture-it, '../fonts/capture_it-webfont' );
+@include font-face( bebas-bold, '../fonts/bebasneue_bold-webfont' );
+@include font-face( bebas-book, '../fonts/bebasneue_book-webfont' );
+@include font-face( bebas-light, '../fonts/bebasneue_light-webfont' );
+@include font-face( bebas-regular, '../fonts/bebasneue_regular-webfont' );
+@include font-face( bebas-thin, '../fonts/bebasneue_thin-webfont' );
 $base-font-family: $font-stack-system;
 
 // Font Sizes
@@ -35,6 +39,9 @@ $blue: #1565c0;
 $dark-gray: #333;
 $medium-gray: #999;
 $light-gray: #ddd;
+
+$color-solful-red: rgb( 239, 65, 55 );
+
 
 // Font Colors
 $base-font-color: $dark-gray;
@@ -73,9 +80,10 @@ $mh_med_padding-bottom: pem(4);
 // NAV vars:
 $nav-off-canvas-width: 87%;
 $nav-height-mobile: pem( 60 );
-$nav-height-medium: pem( 120 );
+$nav-height-medium: pem( 80 );
 
-$nav-height-main-medium: pem(70);
-$nav-height-sub-medium: pem(50);
+$nav-height-main-medium: $nav-height-medium; // main navigation
+// $nav-height-sub-medium: pem(50); // secondary (sub) navigation
 
-$main_logo_width: pem(120);
+$main-logo-width: pem(120);
+$main-logo-height: pem(98);
