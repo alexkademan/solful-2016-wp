@@ -44,8 +44,9 @@ $color-solful-red: rgb( 239, 65, 55 );
 
 
 // Font Colors
-$base-font-color: $dark-gray;
-$action-color: $blue;
+// $base-font-color: $dark-gray;
+$base-font-color: darken($medium-gray, 30%);
+$action-color: darken($color-solful-red, 20%);
 
 // Border
 $base-border-color: $light-gray;

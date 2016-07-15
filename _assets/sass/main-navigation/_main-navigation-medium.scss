@@ -58,7 +58,6 @@ nav.site-nav {
   clear: none;
   top: 0;
   width: 100%;
-  // background: transparent;
   background: #000;
   z-index: 0; // must fall behind a.site-title.
   min-height: $nav-height-medium;
@@ -73,8 +72,6 @@ nav.site-nav span.sn {
   width: 100%;
   padding: 0;
   background-color: transparent;
-  // background: #FCF;
-  // border-bottom: 1px #999 solid;
 
   & > span {
     display: block;
@@ -85,8 +82,7 @@ nav.site-nav span.sn {
 
 nav.site-nav span.mn {
   background-color: #333;
-  // @include linear-gradient(to top, #8fdce5, #3dc3d1);
-  background-image:linear-gradient(#424242 0px, #000);
+  background-image: linear-gradient( #424242 0px, #000 );
 }
 ul.mainNav li a {
   line-height: $nav-height-main-medium;
@@ -105,13 +101,6 @@ ul.subNav {
   background-color: transparent;
   width: auto;
   display: block;
-
-}
-ul.subNav li a {
-  // line-height: $nav-height-sub-medium;
-  // .no-touchevents &:hover {
-  //   background: #f4f4f4;
-  // }
 }
 /* **********************
   masthead HIDDEN:

@@ -17,8 +17,12 @@ a.sign_up_now {
   .classes {
     display: block;
     width: 100%;
-    padding: $gutter;
+    padding: ($gutter * 0.75) $gutter;
     text-align: left;
+  }
+  h1 {
+    padding-bottom: 0;
+    margin-bottom: 0;
   }
 }
 

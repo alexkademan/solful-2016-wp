@@ -18,16 +18,14 @@ h6 {
   margin: 0 0 $small-spacing;
 }
 
-h1,
-h2 {
-  font-family: 'bebas-bold';
-  letter-spacing: 0.045em;
-}
-
 h1 {
+  font-family: 'bebas-regular';
+  letter-spacing: 0.045em;
   font-size: 1.8em;
 }
 h2 {
+  font-family: 'bebas-regular';
+  letter-spacing: 0.045em;
   font-size: 1.6em;
 }
 
@@ -43,7 +41,8 @@ a {
   &:active,
   &:focus,
   &:hover {
-    color: shade($action-color, 25%);
+    color: lighten($action-color, 25%);
+    text-decoration: underline;
   }
 }
 

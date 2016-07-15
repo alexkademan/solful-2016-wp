@@ -150,7 +150,7 @@ class get_fb_page_posts {
 
     // I'm pulling the node ID from the "link" q... this feels very flimsy, but I don't have a better solution at this time:
     $vidID = explode('/', $the_post['link']);
-    $vidID = $vidID[count($vidID) - 2]; // its the last part of the link but has a trailing slash so the explode array has a bunch of hooey in it.
+    $vidID = $vidID[count($vidID) -2]; // its the last part of the link but has a trailing / so the explode array has a bunch of hooey in it.
 
     $video_stuff = $this->makeRequest($vidID, '/?fields=format');
     $video_stuff = $video_stuff->getDecodedBody();

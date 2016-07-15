@@ -49,7 +49,7 @@ require get_template_directory() . '/custom-objects/custom-objects.php';
 
 	<a href="http://clients.mindbodyonline.com/ws.asp?studioid=44288&amp;stype=-7" id="sign_up_now" class="sign_up_now" target="_blank">
 		<div class="outer classes">
-			Sign Up For A Class Now!
+			<h1>Sign Up Now!</h1>
 		</div>
 		<span class="closeBtn">
 			<span class="top"></span>

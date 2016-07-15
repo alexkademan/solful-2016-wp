@@ -17,7 +17,7 @@ if( isset($_GET['postID']) ){
   // that will be brought into
   // javascript via AJAX request
   // ********************************************************
-  print_r( json_encode( $get_fb_page_posts->get_post($_GET['postID']), JSON_UNESCAPED_UNICODE) );
+  print_r( json_encode( $get_fb_page_posts->get_post($_GET['postID']), JSON_UNESCAPED_UNICODE ) );
   // print_r( $get_fb_page_posts->get_post($_GET['postID']) );
 
 } elseif( isset($_GET['avatarID']) ){
@@ -25,7 +25,7 @@ if( isset($_GET['postID']) ){
   // seperate request, this time for the profile photo of the
   // FB account that published the post:
   // ********************************************************
-  print_r( json_encode( $get_fb_page_posts->get_avatar($_GET['avatarID']), JSON_UNESCAPED_UNICODE) );
+  print_r( json_encode( $get_fb_page_posts->get_avatar($_GET['avatarID']), JSON_UNESCAPED_UNICODE ) );
 }
 
 ?>

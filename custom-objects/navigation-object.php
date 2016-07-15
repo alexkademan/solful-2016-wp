@@ -18,9 +18,8 @@ class get_main_navigation {
 
     if( count($pages) > 0 ) { // there ARE some pages so:
       for($i = 0; $i < count($pages); ++$i) { // loop thru 'em:
-
         if(
-          $pages[$i]->post_name != 'wfca' // the home page name
+          $pages[$i]->post_name != 'home' // the home page name
           && $pages[$i]->post_name != 'info' // my sub "category" name
 
           ){
