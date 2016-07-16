@@ -1,0 +1,7 @@
+@import 'google-map-universal';
+
+@media($medium-breakpoint) {
+  .map_canvas {
+    height: pem(350); // taller for bigger screens
+  }
+}

@@ -193,10 +193,6 @@ html {
 /* 768px */
 /* 640px */
 @font-face {
-  font-family: bebas-bold;
-  src: url("../fonts/bebasneue_bold-webfont.woff2") format("woff2"), url("../fonts/bebasneue_bold-webfont.woff") format("woff"), url("../fonts/bebasneue_bold-webfont.ttf") format("truetype"); }
-
-@font-face {
   font-family: bebas-book;
   src: url("../fonts/bebasneue_book-webfont.woff2") format("woff2"), url("../fonts/bebasneue_book-webfont.woff") format("woff"), url("../fonts/bebasneue_book-webfont.ttf") format("truetype"); }
 
@@ -207,10 +203,6 @@ html {
 @font-face {
   font-family: bebas-regular;
   src: url("../fonts/bebasneue_regular-webfont.woff2") format("woff2"), url("../fonts/bebasneue_regular-webfont.woff") format("woff"), url("../fonts/bebasneue_regular-webfont.ttf") format("truetype"); }
-
-@font-face {
-  font-family: bebas-thin;
-  src: url("../fonts/bebasneue_thin-webfont.woff2") format("woff2"), url("../fonts/bebasneue_thin-webfont.woff") format("woff"), url("../fonts/bebasneue_thin-webfont.ttf") format("truetype"); }
 
 button, [type='button'], [type='reset'], [type='submit'] {
   -webkit-appearance: none;
@@ -399,6 +391,14 @@ h2 {
   letter-spacing: 0.045em;
   font-size: 1.6em; }
 
+nav.site-nav a {
+  color: #000; }
+
+a.sign_up_now h1 {
+  font-family: 'bebas-book';
+  padding-bottom: 0;
+  margin-bottom: 0; }
+
 p {
   margin: 0 0 0.75em; }
 
@@ -407,7 +407,8 @@ a {
   text-decoration: none;
   -webkit-transition: color 150ms ease;
   transition: color 150ms ease; }
-  a:active, a:focus, a:hover {
+  a:active, a:focus,
+  .no-touchevents a:hover {
     color: #f1574f;
     text-decoration: underline; }
 
@@ -417,6 +418,13 @@ hr {
   border-right: 0;
   border-top: 0;
   margin: 1.5em 0; }
+
+@media (min-width: 45em) {
+  ul.mainNav li a {
+    color: #F4F4F4;
+    font-size: 22px;
+    font-family: 'bebas-light';
+    letter-spacing: 0.07em; } }
 
 /*!
  *  Font Awesome 4.6.1 by @davegandy - http://fontawesome.io - @fontawesome
@@ -2585,16 +2593,18 @@ hr {
   clip: auto; }
 
 div.site {
-  padding-top: 3.75em; }
+  padding-top: 60px; }
 
 /* ***********************
   basics
 *********************** */
 header.site_header span.stripe {
-  height: 3.75em;
+  height: 60px;
   position: fixed;
   width: 100%;
-  background-color: #F4F4F4;
+  background-color: #333;
+  background-image: -webkit-linear-gradient(#424242 0px, #000);
+  background-image: linear-gradient(#424242 0px, #000);
   z-index: 1500;
   -webkit-transition: margin 0.5s ease-in-out;
   transition: margin 0.5s ease-in-out; }
@@ -2602,7 +2612,7 @@ header.site_header span.stripe {
 header.site_header span.main-nav {
   position: absolute;
   left: 0;
-  top: 3.75em; }
+  top: 60px; }
 
 header.site_header li,
 header.site_header li a {
@@ -2620,8 +2630,22 @@ a.site-title {
   vertical-align: bottom;
   float: left;
   clear: none;
-  width: 7.5em;
-  height: 3.75em; }
+  width: 5em;
+  height: 60px;
+  background: url("../images/solful-fitness-logo.svg") no-repeat;
+  background-position: 30% 0.125em;
+  background-size: 69%; }
+  .no-svg a.site-title {
+    background: url("../images/solful-fitness-logo.png") no-repeat; }
+  a.site-title h1 {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px; }
 
 span.mobile_shader {
   position: fixed;
@@ -2663,12 +2687,12 @@ nav.site-nav span.sn {
   width: 100%; }
 
 nav.site-nav span.mn {
-  padding-top: 3.75em;
-  margin-top: -3.75em;
+  padding-top: 60px;
+  margin-top: -60px;
   background-color: #FFF; }
 
 nav.site-nav span.sn {
-  padding-bottom: 3.75em;
+  padding-bottom: 60px;
   background-color: transparent; }
 
 ul.mainNav,
@@ -2684,6 +2708,11 @@ ul.subNav li a {
 
 ul.subNav li a {
   background: #CCC; }
+
+.no-touchevents nav.site-nav a:hover {
+  text-decoration: none;
+  color: #000;
+  background: #F4F4F4; }
 
 /* **********************
   mobile menu ON:
@@ -2704,19 +2733,22 @@ body.main_nav_on span.mobile_shader {
   masthead HIDDEN:
 ********************** */
 body.hiddenMasthead header.site_header span.stripe {
-  margin-top: -3.75em; }
+  margin-top: -60px; }
 
 span.toggle_menu {
   display: block;
   float: left;
   clear: none;
-  width: 3.75em;
-  height: 3.75em;
-  background-color: #FFF;
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+  -webkit-transition: background-color 0.25s ease-in-out;
+  transition: background-color 0.25s ease-in-out;
   color: #FFF; }
   span.toggle_menu .line {
     position: relative;
     background: #000;
+    background: #ef4137;
     height: 3px;
     width: 32px;
     border-radius: 3px;
@@ -2729,38 +2761,36 @@ span.toggle_menu {
     position: absolute;
     left: 0;
     top: 0;
-    width: 3.75em;
-    height: 3.75em;
+    width: 60px;
+    height: 60px;
     background-color: transparent;
     cursor: pointer; }
 
-body.main_nav_on span.toggle_menu .line-1,
-body.main_nav_on span.toggle_menu .line-2,
-body.main_nav_on span.toggle_menu .line-3 {
-  position: relative;
-  left: 0;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out; }
-
-body.main_nav_on span.toggle_menu .line-2 {
-  background: transparent; }
-
-body.main_nav_on span.toggle_menu .line-1, body.main_nav_on span.toggle_menu .line-3 {
-  width: 29px; }
-
-body.main_nav_on span.toggle_menu .line-1 {
-  margin: 21px 0 0 16.5px;
-  -webkit-transform-origin: 10% 100%;
-  transform-origin: 10% 100%;
-  -webkit-transform: rotateZ(45deg);
-  transform: rotateZ(45deg); }
-
-body.main_nav_on span.toggle_menu .line-3 {
-  margin: -1.5px 0 0 19px;
-  -webkit-transform-origin: 10% 100%;
-  transform-origin: 10% 100%;
-  -webkit-transform: rotateZ(-45deg);
-  transform: rotateZ(-45deg); }
+body.main_nav_on span.toggle_menu {
+  background-color: #FFF; }
+  body.main_nav_on span.toggle_menu .line-1,
+  body.main_nav_on span.toggle_menu .line-2,
+  body.main_nav_on span.toggle_menu .line-3 {
+    position: relative;
+    left: 0;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out; }
+  body.main_nav_on span.toggle_menu .line-2 {
+    background: transparent; }
+  body.main_nav_on span.toggle_menu .line-1, body.main_nav_on span.toggle_menu .line-3 {
+    width: 29px; }
+  body.main_nav_on span.toggle_menu .line-1 {
+    margin: 21px 0 0 16.5px;
+    -webkit-transform-origin: 10% 100%;
+    transform-origin: 10% 100%;
+    -webkit-transform: rotateZ(45deg);
+    transform: rotateZ(45deg); }
+  body.main_nav_on span.toggle_menu .line-3 {
+    margin: -1.5px 0 0 19px;
+    -webkit-transform-origin: 10% 100%;
+    transform-origin: 10% 100%;
+    -webkit-transform: rotateZ(-45deg);
+    transform: rotateZ(-45deg); }
 
 @media (min-width: 45em) {
   div.site {
@@ -2769,7 +2799,7 @@ body.main_nav_on span.toggle_menu .line-3 {
   basics
 *********************** */
   header.site_header {
-    min-height: 5em; }
+    min-height: 80px; }
     header.site_header span.toggle_menu {
       display: none !important;
       visibility: hidden; }
@@ -2799,21 +2829,12 @@ body.main_nav_on span.toggle_menu .line-3 {
     top: 0;
     z-index: 10;
     background: url("../images/solful-fitness-logo.svg") no-repeat;
-    background-position: 30% 0.3125em;
+    background-position: 55% 0.3125em;
     background-size: 75%;
     width: 7.5em;
     height: 6.125em; }
     .no-svg a.site-title {
       background: url("../images/solful-fitness-logo.png") no-repeat; }
-    a.site-title h1 {
-      border: 0;
-      clip: rect(0 0 0 0);
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      width: 1px; }
   nav.site-nav {
     display: block;
     position: relative;
@@ -2823,45 +2844,46 @@ body.main_nav_on span.toggle_menu .line-3 {
     width: 100%;
     background: #000;
     z-index: 0;
-    min-height: 5em;
+    min-height: 80px;
     border-bottom: none;
     overflow: visible; }
-  nav.site-nav span.mn,
-  nav.site-nav span.sn {
+  nav.site-nav > span {
+    position: absolute;
+    height: auto;
+    left: 0;
+    top: 0;
+    bottom: auto; }
+  nav.site-nav span.mn {
     float: none;
     clear: none;
     width: 100%;
     padding: 0;
-    background-color: transparent; }
-    nav.site-nav span.mn > span,
-    nav.site-nav span.sn > span {
+    background-color: transparent;
+    height: 80px; }
+    nav.site-nav span.mn > span {
       display: block;
       padding-left: 7.5em;
       max-width: 75em;
       margin-left: auto;
       margin-right: auto; }
-      nav.site-nav span.mn > span::after,
-      nav.site-nav span.sn > span::after {
+      nav.site-nav span.mn > span::after {
         clear: both;
         content: "";
         display: block; }
   nav.site-nav span.mn {
+    margin-top: 0;
     background-color: #333;
     background-image: -webkit-linear-gradient(#424242 0px, #000);
     background-image: linear-gradient(#424242 0px, #000); }
   ul.mainNav li a {
-    line-height: 5em; }
+    background-color: transparent;
+    padding: 36px 0.40046em 22px;
+    line-height: 22px;
+    -webkit-transition: color 0.25s;
+    transition: color 0.25s; }
     .no-touchevents ul.mainNav li a:hover {
-      background: #CCC; }
-  ul.mainNav li a,
-  ul.subNav li a {
-    background-color: transparent;
-    padding: 0 1.2135em; }
-  ul.subNav {
-    float: right;
-    background-color: transparent;
-    width: auto;
-    display: block; }
+      color: #43ff43;
+      background: transparent; }
   /* **********************
   masthead HIDDEN:
 ********************** */
@@ -2910,19 +2932,19 @@ div.content,
     content: "";
     display: block; }
 
-.left-column,
+.site-main,
 .full-width,
 .widget-area {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 100%; }
-  .left-column:last-child,
+  .site-main:last-child,
   .full-width:last-child,
   .widget-area:last-child {
     margin-right: 0; }
 
-.left-column,
+.site-main,
 .widget-area {
   padding-top: 1.2135em;
   padding-bottom: 1.618em; }
@@ -2946,17 +2968,18 @@ a.sign_up_now {
   background-color: #c91a10;
   color: #FFF;
   overflow: hidden;
-  -webkit-transition: height 0.5s ease-in-out;
-  transition: height 0.5s ease-in-out;
-  height: 0; }
+  height: 0;
+  -webkit-transition: height 0.5s ease-in-out, background-color 0.25s ease-out;
+  transition: height 0.5s ease-in-out, background-color 0.25s ease-out; }
   a.sign_up_now .classes {
     display: block;
     width: 100%;
     padding: 1.2135em 1.618em;
     text-align: left; }
-  a.sign_up_now h1 {
-    padding-bottom: 0;
-    margin-bottom: 0; }
+  .no-touchevents a.sign_up_now:hover {
+    background-color: #e11d12;
+    color: #FFF;
+    text-decoration: none; }
 
 span.closeBtn {
   position: absolute;
@@ -2992,14 +3015,48 @@ span.closeBtn:hover span.top,
 span.closeBtn:hover span.bottom {
   background: #000; }
 
+hr.redstripe {
+  margin: 0;
+  border: none;
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 0em;
+  background-color: #c91a10; }
+
+.map_canvas {
+  height: 12.5em;
+  width: 100%; }
+
+.map_canvas img {
+  max-width: none; }
+
+.map_canvas .content {
+  padding: 0 0.5em 1em 0.5em; }
+
+.map_canvas .firstHeading {
+  font-size: 1em;
+  font-weight: bold;
+  line-height: 1em;
+  margin: 0; }
+
+.map_canvas #bodyContent p {
+  font-size: 10em;
+  margin: 0; }
+
 @media (min-width: 45em) {
-  .left-column {
+  .map_canvas {
+    height: 21.875em; } }
+
+@media (min-width: 45em) {
+  .site-main {
     padding-right: 1.618em;
     float: left;
     display: block;
     margin-right: 2.35765%;
     width: 65.88078%; }
-    .left-column:last-child {
+    .site-main:last-child {
       margin-right: 0; }
   .widget-area {
     float: left;

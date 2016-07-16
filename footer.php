@@ -13,7 +13,11 @@
 
 	</div><!-- #content -->
 </span><!-- .main-bg -->
-
+<?php
+if($post->post_title == 'Contact Us'){
+	echo '<div id="map_canvas" class="map_canvas"></div>';
+}
+?>
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="site-info">
 			&copy; <?php echo date('Y') . ' ' . get_bloginfo('title'); ?>
@@ -23,5 +27,10 @@
 
 <?php wp_footer(); ?>
 <script type='text/javascript' src='<?php echo get_bloginfo('template_url') ?>/js/bundle.js'></script>
+<?php
+if($post->post_title == 'Contact Us'){ // bring in the js for the map part...
+	get_template_part( 'template-parts/content', 'location-map' );
+}
+?>
 </body>
 </html>

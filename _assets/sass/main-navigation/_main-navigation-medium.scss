@@ -34,7 +34,7 @@ a.site-title {
   z-index: 10;
 
   background: url('../images/solful-fitness-logo.svg') no-repeat;
-  background-position: 30% pem(5);
+  background-position: 55% pem(5);
   background-size: 75%;
 
   width: $main-logo-width;
@@ -42,10 +42,6 @@ a.site-title {
 
   .no-svg & {
     background: url('../images/solful-fitness-logo.png') no-repeat;
-  }
-
-  h1 {
-    @include visuallyhidden;
   }
 
 }
@@ -64,14 +60,20 @@ nav.site-nav {
   border-bottom: none;
   overflow: visible;
 }
-
-nav.site-nav span.mn,
-nav.site-nav span.sn {
+nav.site-nav > span {
+  position: absolute;
+  height: auto;
+  left: 0;
+  top: 0;
+  bottom: auto;
+}
+nav.site-nav span.mn {
   float: none;
   clear: none;
   width: 100%;
   padding: 0;
   background-color: transparent;
+  height: $nav-height-medium;
 
   & > span {
     display: block;
@@ -81,26 +83,19 @@ nav.site-nav span.sn {
 }
 
 nav.site-nav span.mn {
+  margin-top: 0; // another override
   background-color: #333;
   background-image: linear-gradient( #424242 0px, #000 );
 }
 ul.mainNav li a {
-  line-height: $nav-height-main-medium;
+  background-color: transparent;
+  padding: 36px ($main_gutter * 0.33) 22px;
+  line-height: 22px;
+  transition: color 0.25s;
   .no-touchevents &:hover {
-    background: #CCC;
+    color: lighten($color-solful-neon-green, 0%);
+    background: transparent;
   }
-}
-ul.mainNav li a,
-ul.subNav li a {
-  background-color: transparent;
-  padding: 0 $main_gutter;
-}
-
-ul.subNav {
-  float: right;
-  background-color: transparent;
-  width: auto;
-  display: block;
 }
 /* **********************
   masthead HIDDEN:

@@ -1,4 +1,4 @@
-.left-column {
+.site-main {
   padding-right: $gutter; // I DON'T KNOW WHY I HAVE TO DO THIS !!!!
   @include span-columns(8);
 }

@@ -50,4 +50,5 @@ get_header();
 if($has_sidebar) {
 	get_sidebar();
 }
+
 get_footer();

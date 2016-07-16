@@ -11,8 +11,8 @@ a.sign_up_now {
   background-color: darken($color-solful-red, 15%);
   color: #FFF;
   overflow: hidden;
-  transition: height 0.5s ease-in-out;
   height: 0;
+  transition: height 0.5s ease-in-out, background-color 0.25s ease-out;
 
   .classes {
     display: block;
@@ -20,9 +20,11 @@ a.sign_up_now {
     padding: ($gutter * 0.75) $gutter;
     text-align: left;
   }
-  h1 {
-    padding-bottom: 0;
-    margin-bottom: 0;
+
+  .no-touchevents &:hover {
+    background-color: darken($color-solful-red, 10%);
+    color: #FFF;
+    text-decoration: none;
   }
 }
 
@@ -67,4 +69,15 @@ span.closeBtn:hover {
   span.bottom {
     background: #000;
   }
+}
+
+hr.redstripe {
+  margin: 0;
+  border: none;
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  height: pem(0);
+  background-color: darken($color-solful-red, 15%);
 }

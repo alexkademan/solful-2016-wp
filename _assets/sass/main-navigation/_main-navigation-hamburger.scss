@@ -4,12 +4,14 @@ span.toggle_menu {
   clear: none;
   width: $nav-height-mobile;
   height: $nav-height-mobile;
-  background-color: #FFF;
+  background-color: transparent;
+  transition: background-color 0.25s ease-in-out;
   color: #FFF;
 
   .line {
   	position: relative;
   	background: #000;
+  	background: $color-solful-red;
   	height: 3px;
   	width: 32px;
   	border-radius: 3px;
@@ -31,6 +33,7 @@ span.toggle_menu {
 }
 
 body.main_nav_on span.toggle_menu { // when the menu is showing:
+  background-color: #FFF;
 
   .line-1,
   .line-2,

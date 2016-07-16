@@ -37,13 +37,13 @@ div.content {
 }
 
 // .full-width,
-.left-column,
+.site-main,
 .full-width,
 .widget-area {
   @include span-columns(12);
 }
 
-.left-column,
+.site-main,
 .widget-area {
   padding-top: $main-gutter;
   padding-bottom: $gutter;

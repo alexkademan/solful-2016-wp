@@ -9,7 +9,8 @@ header.site_header span.stripe {
   height: $nav-height-mobile;
   position: fixed;
   width: 100%;
-  background-color: #F4F4F4;
+  background-color: #333;
+  background-image: linear-gradient( #424242 0px, #000 );
   z-index: 1500; // always on top !!!
   transition: margin 0.5s ease-in-out;
 }
@@ -38,9 +39,21 @@ a.site-title {
   float: left;
   clear: none;
 
-  width: $main_logo_width;
+  width: $main_logo_width-mobile;
   height: $nav-height-mobile;
 
+  background: url('../images/solful-fitness-logo.svg') no-repeat;
+  background-position: 30% pem(2);
+  background-size: 69%;
+
+  .no-svg & {
+    background: url('../images/solful-fitness-logo.png') no-repeat;
+  }
+
+
+  h1 {
+    @include visuallyhidden;
+  }
 }
 span.mobile_shader {
   position: fixed;
@@ -110,6 +123,15 @@ ul.subNav li a {
 }
 ul.subNav li a {
   background: #CCC;
+}
+
+nav.site-nav a {
+  // color: #000;
+  .no-touchevents &:hover {
+    text-decoration: none;
+    color: #000;
+    background: #F4F4F4;
+  }
 }
 
 /* **********************

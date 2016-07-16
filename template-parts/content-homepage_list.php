@@ -1,10 +1,7 @@
 <?php
 /**
- * Template part for displaying page content in page.php.
+ * Template for displaying list of events on events calendar
  *
- * @link https://codex.wordpress.org/Template_Hierarchy
- *
- * @package _s
  */
 
 $event_args = array(
