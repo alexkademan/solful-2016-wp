@@ -2882,7 +2882,7 @@ body.main_nav_on span.toggle_menu {
     -webkit-transition: color 0.25s;
     transition: color 0.25s; }
     .no-touchevents ul.mainNav li a:hover {
-      color: #43ff43;
+      color: #cccccc;
       background: transparent; }
   /* **********************
   masthead HIDDEN:
@@ -2892,7 +2892,7 @@ body.main_nav_on span.toggle_menu {
 
 html,
 body {
-  background: #F4F4F4; }
+  background: #999999; }
 
 body > div.site,
 body > div.site > .main-bg {
@@ -2951,7 +2951,8 @@ div.content,
 
 .site-footer {
   padding-top: 1.2135em;
-  padding-bottom: 4.375em; }
+  padding-bottom: 4.375em;
+  color: rgba(255, 255, 255, 0.7); }
 
 div.entry-content {
   width: 100% !important; }

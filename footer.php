@@ -20,6 +20,14 @@ if($post->post_title == 'Contact Us'){
 ?>
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="site-info">
+
+			<?php
+				// echo 'hello???';
+				if( function_exists( 'mc4wp_show_form' ) ) {
+				  mc4wp_show_form();
+				}
+			?>
+
 			&copy; <?php echo date('Y') . ' ' . get_bloginfo('title'); ?>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->

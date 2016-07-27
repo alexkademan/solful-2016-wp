@@ -1,7 +1,8 @@
 html,
 body {
   // this color fills out the footer
-  background: #F4F4F4;
+  // background: darken($color-solful-red, 10%);
+  background: darken( #999, 0%);
 }
 
 body > div.site,
@@ -51,6 +52,7 @@ div.content {
 .site-footer {
   padding-top: $main-gutter;
   padding-bottom: pem(70);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 

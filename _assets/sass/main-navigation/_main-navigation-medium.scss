@@ -93,7 +93,7 @@ ul.mainNav li a {
   line-height: 22px;
   transition: color 0.25s;
   .no-touchevents &:hover {
-    color: lighten($color-solful-neon-green, 0%);
+    color: darken(#FFF, 20%);
     background: transparent;
   }
 }
