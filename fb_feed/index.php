@@ -27,5 +27,3 @@ if( isset($_GET['postID']) ){
   // ********************************************************
   print_r( json_encode( $get_fb_page_posts->get_avatar($_GET['avatarID']), JSON_UNESCAPED_UNICODE ) );
 }
-
-?>
