@@ -1,22 +1,67 @@
 <?php
-class getMINDBODYclasses extends \DevinCrossman\Mindbody\MB_API {
+/*
+** This class is intended to interact with the MB_API.php file
+** MB_API is the wrapper that handles all interactions with the
+** MINDBODY API.
+*/
 
-  // \DevinCrossman\Mindbody\MB_API
-  function __construct($config, $start_stop_dates) {
+class get_MINDBODY_classes extends \DevinCrossman\Mindbody\MB_API {
+
+  function __construct($config) {
+    // run config vars up the flagpole
     parent::__construct($config);
+  }
 
+  /*
+  ** make the call to the SOAP server and sort out the data that gets returned.
+  */
+  public function getScheduleData($start_stop_dates) {
+    // ask the API for the raw data based on the days on the calendar we are requesting:
     $class_data = parent::GetClasses( $start_stop_dates );
-
 
     if(!empty($class_data['GetClassesResult']['Classes']['Class'])){
       $classes = parent::makeNumericArray( $class_data['GetClassesResult']['Classes']['Class'] );
-      print_r($classes);
-    };
-    // $this->classes = $class_data;
+      $classes = $this->sortClassesByDate($classes);
+      $this->classes = $classes;
+      return $classes;
+
+    } else {
+      if(!empty($class_data['GetClassesResult']['Message'])) {
+    		return $class_data['GetClassesResult']['Message'];
+    	} else {
+    		$errMessage = "Error getting classes<br />";
+    		$errMessage .= '<pre>' . print_r( $class_data, 1 ) . '</pre>';
+        return $errMessage;
+    	}
+    }
   }
 
-  public function pull_class_data($start_stop_array) {
-    // print_r($start_stop_array);
+
+  /*
+  ** This method is copied form the example file that came with the API wrapper:
+  ** https://github.com/devincrossman/mindbody-php-api
+  ** examples/class-schedule-example/index.php
+  */
+  private function sortClassesByDate( $classes = [] ) {
+    $classesByDate = array();
+    foreach($classes as $class) {
+      $classDate = date("Y-m-d", strtotime($class['StartDateTime']));
+      if(!empty($classesByDate[$classDate])) {
+        $classesByDate[$classDate] = array_merge($classesByDate[$classDate], array($class));
+      } else {
+        $classesByDate[$classDate] = array($class);
+      }
+    }
+    ksort($classesByDate);
+    foreach($classesByDate as $classDate => &$classes) {
+      usort($classes, function($a, $b) {
+        if(strtotime($a['StartDateTime']) == strtotime($b['StartDateTime'])) {
+          return 0;
+        }
+        return $a['StartDateTime'] < $b['StartDateTime'] ? -1 : 1;
+      });
+    }
+    return $classesByDate;
 
   }
 

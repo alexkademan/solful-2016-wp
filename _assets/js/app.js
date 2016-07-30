@@ -14,6 +14,8 @@ var domReady = require('domready');
 var FBfeedModel = require('./models/fb_feed_model');
 var FBfeed = require('./views/fb_feed_view');
 
+var MBmodel = require('./models/mb_model');
+var MBview = require('./views/mb_view');
 
 module.exports = {
   // this is the the whole app init'er
@@ -34,6 +36,9 @@ module.exports = {
 
       app.fbFeedModel = new FBfeedModel();
       app.fbFeed = new FBfeed({ model : app.fbFeedModel });
+
+      app.mindbodyModel = new MBmodel();
+      app.mindbodyView = new MBview({ model : app.mindbodyModel });
 
     });
 
