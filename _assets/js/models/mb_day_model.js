@@ -5,10 +5,7 @@ module.exports = Backbone.Model.extend({
 
   defaults: {
     date: '', // date in format that MINDBODY returns YYYY-MM-DD
-    dayOfWeek: '', // monday thru sunday.
-    numericDate: '', // rearrangedDate MM/DD/YYYY
-    unixTime: ''
-
+    info: '' // array that holds all the datat about today.
   },
 
   initialize: function() {
