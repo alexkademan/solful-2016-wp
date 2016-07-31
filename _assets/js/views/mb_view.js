@@ -5,23 +5,24 @@ var _ = require ('underscore');
 var $ = require ('jquery');
 
 var DaysCollection = require('./../models/mb_days_collection');
-var ClassesCollection = require('./../models/mb_classes_collection');
+var DayInfo = require('./mb_days_info');
+var DayView = require('./mb_day_view');
 
 module.exports = Backbone.View.extend({
 
   el: '#mb_schedule',
 
   initialize: function() {
+    // single method to suss out the info about the date in question:
+    app.findDayInfo = new DayInfo();
+
     if(this.$el.length == 1){
+
       // #mb_sched is within the DOM, so lets go to work:
-
       var mbURL = this.$('a.url');
-
       if(mbURL.length > 0 && mbURL[0].href !== undefined && mbURL[0].href !== '') {
-
         // empty collections for the days and the classes within each day:
         app.mbDays = new DaysCollection();
-        // app.mbClasses = new ClassesCollection();
 
         // we have found the URL for the AJAX calls:
         this.model.set({ 'mbFeedURL': mbURL[0].href });
@@ -30,22 +31,6 @@ module.exports = Backbone.View.extend({
       };
 
     };
-  },
-
-  findWeekDayName: function(unixTime) {
-
-    var weekday = new Array(7);
-    weekday[0]=  "Sunday";
-    weekday[1] = "Monday";
-    weekday[2] = "Tuesday";
-    weekday[3] = "Wednesday";
-    weekday[4] = "Thursday";
-    weekday[5] = "Friday";
-    weekday[6] = "Saturday";
-
-    var day = new Date(unixTime);
-    return weekday[day.getDay()];
-
   },
 
   makeAJAXcall: function( file ) {
@@ -57,59 +42,31 @@ module.exports = Backbone.View.extend({
       dataType: 'json'
 
     }).done(function( data ) {
-      // console.log( data );
+      // we have the info for the calendar, so build out the models,
+      // and then display the first of our stuff on the page.
       for(var key in data) {
+        // var dayInfo = app.mindbodyView.findDayInfo(key);
+        var dayInfo = app.findDayInfo.findDayInfo(key);
+        // var dayInfo2 = JSON.stringify(dayInfo);
+        // console.log(dayInfo2);
 
-        var rearrangeDate = key.split('-');
-        var year = rearrangeDate[0];
-        rearrangeDate = rearrangeDate[1] + "/" + rearrangeDate[2] + "/" + rearrangeDate[0];
-
-        var unixTime = new Date(rearrangeDate).getTime();
-        var dayOfWeek = app.mindbodyView.findWeekDayName(unixTime);
-
-
-        app.mbDays.add({
-            date: key,
-            numericDate: rearrangeDate,
-            unixTime: unixTime,
-            dayOfWeek: dayOfWeek,
-            year: year
-        });
-
-        // console.log(app.mbDays.get(key).get('dayOfWeek'));
-        // console.log(data[key]);
+        // build out the day:
+        app.mbDays.add({ date: key, info: dayInfo });
 
         for( var appointment in data[key] ) {
-          // populate today's collection:
-          // console.log(data[key][appointment]);
-
+          // add each of the workouts to the individual days.
           app.mbDays.get(key).get('appointments').add(data[key][appointment]);
-          // app.mbDays.get(key).appointments.add(data[key][appointment]);
-
         }
 
       }
-      // console.log( app.mbDays.get('2016-07-31').get('dayOfWeek') );
-      console.log( app.mbDays );
+      app.mbDays.each( app.mindbodyView.eachDay, this );
 
     });
+  },
+
+  eachDay: function(theDay) {
+    var view = new DayView({model: theDay});
+    app.mindbodyView.$el.append(view.render().el);
   }
 
 });
-
-
-
-// var Library = Backbone.Collection.extend({
-//   modelId: function(attrs) {
-//     return attrs.type + attrs.id;
-//   }
-// });
-//
-// var library = new Library([
-//   {type: 'dvd', id: 1},
-//   {type: 'vhs', id: 1}
-// ]);
-//
-// var dvdId = library.get('dvd1').id;
-// var vhsId = library.get('vhs1').id;
-// console.log('dvd: ' + dvdId + ', vhs: ' + vhsId);
