@@ -3,17 +3,22 @@
 require_once __DIR__ . '/mb-config.php';
 require_once __DIR__ . '/mindbody-php-api/src/MB_API.php';
 require_once __DIR__ . '/classes/mb-get-classes.php';
-// require_once __DIR__ . '/functions/mb_show_classes.php';
 
-// $sched_start = date('c');
-$sched_start = date('c', strtotime('today + 2 days'));
-$sched_end = date('c', strtotime('today + 2 days'));
+
+if(isset($_GET['startTime'])){
+	$sched_start = date('c', $_GET['startTime']);
+	// 604800 is the number of seconds in a week
+	// 518400 is the number of seconds in 6 days. Show today plus the rest of a week.
+	$sched_end = date('c', $_GET['startTime'] + 518400);
+} else {
+	$sched_start = date('c');
+	$sched_end = date('c', strtotime('today + 7 days'));
+};
 
 $start_stop_dates = [
 	'StartDateTime'=> $sched_start,
 	'EndDateTime'=> $sched_end
 ];
-
 
 $class_info = new get_MINDBODY_classes( $mb_config );
 $data = $class_info->getScheduleData( $start_stop_dates );
