@@ -42,5 +42,42 @@ module.exports = Backbone.View.extend({
 
     // console.log(dayInfo);
     return dayInfo;
+  },
+
+  findClassInfo: function( workout, dayInfo ) {
+    // find information about the start and end of these classes:
+    workout['classStart'] = this.parseTimestamp(workout['StartDateTime'], dayInfo);
+    workout['classEnd'] = this.parseTimestamp(workout['EndDateTime'], dayInfo);
+
+    // find length in miliseconds, then divide down:
+    workout['duration'] = workout['classEnd']['unixTime'] - workout['classStart']['unixTime']
+    workout['duration'] = (workout['duration'] / 1000) / 60;
+
+    if(workout['duration'] === 60) {
+      workout['durationReadable'] = '1 hour';
+    } else {
+      workout['durationReadable'] = workout['duration'] + ' minutes';
+    }
+
+    return workout;
+
+  },
+  parseTimestamp: function( timestamp, dayInfo ) {
+    var time = [];
+
+    timestamp = timestamp.split('T');
+    timestamp = timestamp[1].split(':');
+
+    time['hour'] = timestamp[0];
+    time['minutes'] = timestamp[1];
+
+    var theDate = new Date(dayInfo['year'], dayInfo['month'], dayInfo['day'], time['hour'], time['minutes']);
+
+    if(time['hour'] >= 12) { time['am_pm'] = 'pm'; } else { time['am_pm'] = 'am'; }
+    if(time['hour'] > 12 ) { time['hourCivilian'] = time['hour'] - 12 } else {time['hourCivilian'] = parseInt(time['hour'], 10) }
+
+    time['unixTime'] = theDate.getTime();
+
+    return time;
   }
 });

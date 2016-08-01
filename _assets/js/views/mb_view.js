@@ -13,10 +13,11 @@ module.exports = Backbone.View.extend({
   el: '#mb_schedule',
 
   initialize: function() {
-    // single method to suss out the info about the date in question:
-    app.findDayInfo = new DayInfo();
+
 
     if(this.$el.length == 1){
+      // single method to suss out the info about the date in question:
+      app.findDayInfo = new DayInfo();
 
       // #mb_sched is within the DOM, so lets go to work:
       var mbURL = this.$('a.url');
@@ -47,15 +48,24 @@ module.exports = Backbone.View.extend({
       for(var key in data) {
         // var dayInfo = app.mindbodyView.findDayInfo(key);
         var dayInfo = app.findDayInfo.findDayInfo(key);
-        // var dayInfo2 = JSON.stringify(dayInfo);
-        // console.log(dayInfo2);
 
         // build out the day:
         app.mbDays.add({ date: key, info: dayInfo });
 
         for( var appointment in data[key] ) {
-          // add each of the workouts to the individual days.
-          app.mbDays.get(key).get('appointments').add(data[key][appointment]);
+
+          var thisAppointment = data[key][appointment];
+
+          if(thisAppointment['IsCanceled'] === true && thisAppointment['HideCancel'] === true){
+            // this class is hidden AND canceled, so skip it
+          } else {
+            // add each of the workouts to the individual days.
+            data[key][appointment] = app.findDayInfo.findClassInfo(data[key][appointment], dayInfo);
+            // console.log( workout );
+            // console.log( data[key][appointment] );
+            app.mbDays.get(key).get('appointments').add(data[key][appointment]);
+
+          }
         }
 
       }
@@ -63,7 +73,9 @@ module.exports = Backbone.View.extend({
 
     });
   },
-
+  /*
+  ** assign the model to the view, then render:
+  */
   eachDay: function(theDay) {
     var view = new DayView({model: theDay});
     app.mindbodyView.$el.append(view.render().el);
