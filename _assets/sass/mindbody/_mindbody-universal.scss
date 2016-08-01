@@ -9,3 +9,63 @@ ul.mb_schedule span.loader {
   background: #F4F4F4;
 
 }
+
+ul.classes,
+ul.classes li,
+ul.classes hgroup,
+ul.classes li div.workout-desc {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+}
+ul.classes {
+  padding-bottom: 1em;
+  li {
+    background: #F4F4F4;
+    margin-bottom: 0.5em;
+    padding: 0.25em 0.4em
+  }
+}
+
+.no-touchevents ul.classes > li > hgroup.available {
+  transition: color 0.25s ease-in-out;
+}
+.no-touchevents ul.classes > li.showInfo > hgroup.available,
+.no-touchevents ul.classes > li > hgroup.available:hover {
+  color: darken($color-solful-red, 20%);
+  cursor: pointer;
+}
+
+ul.classes hgroup.unavailable {
+  color: lighten($base-font-color, 40%);
+}
+ul.classes hgroup.canceled h2 {
+  text-decoration: line-through;
+}
+
+ul.classes li div.workout-desc {
+  padding: ($main_gutter * 0.25) 0 $main_gutter;
+}
+ul.classes li div.workout-desc div.desc {
+  max-width: pem(600);
+}
+ul.classes li div.workout-desc img {
+  float: right;
+  margin-left: 1em;
+  max-width: 45%;
+}
+
+// toggle Info:
+ul.classes li div.classNFO {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+}
+ul.classes li.showInfo div.classNFO {
+  // background: #FCF;
+  height: auto;
+}

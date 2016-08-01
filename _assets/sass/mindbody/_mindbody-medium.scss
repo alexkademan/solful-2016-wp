@@ -1,0 +1,17 @@
+
+$top-adjust: 6px;
+
+ul.mb_schedule hgroup {
+  padding-top: $top-adjust;
+}
+ul.mb_schedule h2 {
+  display: block;
+  float: left;
+  clear: none;
+  margin-top: -$top-adjust;
+}
+ul.mb_schedule h3 {
+  display: block;
+  float: right;
+  clear: none;
+}

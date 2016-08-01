@@ -31,7 +31,12 @@ module.exports = Backbone.View.extend({
 
         // we have found the URL for the AJAX calls:
         this.model.set({ 'mbFeedURL': mbURL[0].href });
-        this.makeAJAXcall('sched-01.php?startTime=' + Math.round(new Date().getTime()/1000) ); // look with start date defined as right now.
+        // look with start date defined as right now.
+        this.makeAJAXcall('sched-01.php?startTime=' + Math.round(new Date().getTime()/1000) );
+
+        // 86400 seconds in a day
+        // this.makeAJAXcall('sched-01.php?startTime=' + ((Math.round(new Date().getTime()/1000)) - 86400) );
+
 
       };
 
@@ -97,8 +102,9 @@ module.exports = Backbone.View.extend({
   ** assign the model to the view, then render:
   */
   eachDay: function(theDay) {
-    var view = new DayView({model: theDay});
-    app.mindbodyView.$el.append(view.render().el);
+    var workout = new DayView({model: theDay});
+
+    app.mindbodyView.$el.append(workout.render().el);
   }
 
 });

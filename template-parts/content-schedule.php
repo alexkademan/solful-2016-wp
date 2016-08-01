@@ -12,14 +12,30 @@ echo '</ul>';
 // underscore templates:
 echo '<script type="text/template" id="mb-day-template">';
 echo   '<h1><%- info["dayOfWeek"] %> <%- info["fullMonth"] %> <%- info["day"] %></h1>';
-echo   '<ul></ul>';
+echo   '<ul class="classes"></ul>';
 echo '</script>';
 ?>
 <script type="text/template" id="mb-appointment-template">
-  <h2><%- ClassDescription["Name"] %></h2>
-  <span>
-    <%- classStart["hourCivilian"] %>:<%- classStart["minutes"] %> -
-    <%- classEnd["hourCivilian"] %>:<%- classEnd["minutes"] %>,
-    <%- durationReadable %>
-  </span>
+  <hgroup class="toggle<%- IsAvailable ? ' available' : ' unavailable' %><%- IsCanceled ? ' canceled' : '' %>">
+    <h2><%- ClassDescription["Name"] %></h2>
+    <h3>
+      <%- classStart["hourCivilian"] + ':' + classStart["minutes"] + ' - ' %>
+      <%- classEnd["hourCivilian"] + ':' + classEnd["minutes"] + ' ' + classEnd["am_pm"] %>
+      <%- IsCanceled ? Staff['Name'] : '' %>
+    </h3>
+  </hgroup>
+</script>
+
+<script type="text/template" id="mb-appointment-nfo">
+  <div class="classNFO">
+    <span>
+      <%- IsCanceled ? Staff['Name'] : 'Instructor: '+Staff['Name'] %><br />
+      <%= IsCanceled ? '' : "<p>" + durationReadable + "</p>" %>
+
+      <div class="workout-desc">
+        <%= ClassDescription['ImageURL'] ? '<img src="' + ClassDescription['ImageURL'] + '" />' : '' %>
+        <%= '<div class="desc">' + ClassDescription['Description'] + '</div>' %>
+      </div>
+    </span>
+  <div>
 </script>

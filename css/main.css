@@ -391,6 +391,22 @@ h2 {
   letter-spacing: 0.045em;
   font-size: 1.6em; }
 
+ul.mb_schedule h1 {
+  color: #4d4d4d;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 1em;
+  letter-spacing: normal;
+  margin-bottom: 0.25em; }
+
+ul.mb_schedule h2 {
+  font-size: 1.5em;
+  margin-bottom: 0; }
+
+ul.mb_schedule h3 {
+  font-weight: normal;
+  font-size: 1em;
+  margin-bottom: 0; }
+
 nav.site-nav a {
   color: #000; }
 
@@ -3167,6 +3183,72 @@ ul.mb_schedule span.loader {
   text-align: center;
   padding: 1.618em 0;
   background: #F4F4F4; }
+
+ul.classes,
+ul.classes li,
+ul.classes hgroup,
+ul.classes li div.workout-desc {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%; }
+
+ul.classes {
+  padding-bottom: 1em; }
+  ul.classes li {
+    background: #F4F4F4;
+    margin-bottom: 0.5em;
+    padding: 0.25em 0.4em; }
+
+.no-touchevents ul.classes > li > hgroup.available {
+  -webkit-transition: color 0.25s ease-in-out;
+  transition: color 0.25s ease-in-out; }
+
+.no-touchevents ul.classes > li.showInfo > hgroup.available,
+.no-touchevents ul.classes > li > hgroup.available:hover {
+  color: #b2170e;
+  cursor: pointer; }
+
+ul.classes hgroup.unavailable {
+  color: #b3b3b3; }
+
+ul.classes hgroup.canceled h2 {
+  text-decoration: line-through; }
+
+ul.classes li div.workout-desc {
+  padding: 0.30338em 0 1.2135em; }
+
+ul.classes li div.workout-desc div.desc {
+  max-width: 37.5em; }
+
+ul.classes li div.workout-desc img {
+  float: right;
+  margin-left: 1em;
+  max-width: 45%; }
+
+ul.classes li div.classNFO {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 0;
+  overflow: hidden; }
+
+ul.classes li.showInfo div.classNFO {
+  height: auto; }
+
+@media (min-width: 45em) {
+  ul.mb_schedule hgroup {
+    padding-top: 6px; }
+  ul.mb_schedule h2 {
+    display: block;
+    float: left;
+    clear: none;
+    margin-top: -6px; }
+  ul.mb_schedule h3 {
+    display: block;
+    float: right;
+    clear: none; } }
 
 /* Text meant only for screen readers. */
 .screen-reader-text {

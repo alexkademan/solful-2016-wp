@@ -27,6 +27,23 @@ h2 {
   letter-spacing: 0.045em;
   font-size: 1.6em;
 }
+ul.mb_schedule h1 {
+  color: lighten($base-font-color, 0%);
+  font-family: $base-font-family;
+
+  font-size: 1em;
+  letter-spacing: normal;
+  margin-bottom: 0.25em;
+}
+ul.mb_schedule h2 {
+  font-size: 1.5em;
+  margin-bottom: 0;
+}
+ul.mb_schedule h3 {
+  font-weight: normal;
+  font-size: 1em;
+  margin-bottom: 0;
+}
 nav.site-nav a {
   color: #000;
 }
