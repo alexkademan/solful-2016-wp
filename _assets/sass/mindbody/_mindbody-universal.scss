@@ -1,1 +1,11 @@
 // mindbody-universal
+ul.mb_schedule span.loader {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  text-align: center;
+  padding: $gutter 0;
+  background: #F4F4F4;
+
+}

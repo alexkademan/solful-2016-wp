@@ -3159,6 +3159,15 @@ ul.fb_feed footer {
   ul.fb_feed footer a {
     font-size: 0.8em; }
 
+ul.mb_schedule span.loader {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  text-align: center;
+  padding: 1.618em 0;
+  background: #F4F4F4; }
+
 /* Text meant only for screen readers. */
 .screen-reader-text {
   clip: rect(1px, 1px, 1px, 1px);

@@ -5,7 +5,7 @@
  */
 
 echo '<ul id="mb_schedule" class="mb_schedule">';
-echo 	'<i class="fa fa-refresh fa-spin fa-2x"></i>';
+echo 	'<span class="loader"><i class="fa fa-refresh fa-spin fa-2x"></i></span>';
 echo  '<a class="hid url" href="' . get_bloginfo('template_url') . '/MINDBODY/">link</a>' ;
 echo '</ul>';
 

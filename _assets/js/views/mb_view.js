@@ -1,4 +1,5 @@
 // app.mindbodyView
+// model: app.mindbodyModel
 
 var Backbone = require ('backbone');
 var _ = require ('underscore');
@@ -14,7 +15,6 @@ module.exports = Backbone.View.extend({
 
   initialize: function() {
 
-
     if(this.$el.length == 1){
       // single method to suss out the info about the date in question:
       app.findDayInfo = new DayInfo();
@@ -22,6 +22,10 @@ module.exports = Backbone.View.extend({
       // #mb_sched is within the DOM, so lets go to work:
       var mbURL = this.$('a.url');
       if(mbURL.length > 0 && mbURL[0].href !== undefined && mbURL[0].href !== '') {
+
+        // listen for the ajax call to come back to begin the render process:
+        this.model.on('change:requestStatus', this.adjustState);
+
         // empty collections for the days and the classes within each day:
         app.mbDays = new DaysCollection();
 
@@ -67,12 +71,28 @@ module.exports = Backbone.View.extend({
 
           }
         }
-
       }
+      // add increment to the main model so we know theres a big state change coming:
+      app.mindbodyView.model.set({requestStatus: app.mindbodyView.model.get('requestStatus') + 1});
       app.mbDays.each( app.mindbodyView.eachDay, this );
 
     });
   },
+
+  /*
+  ** fires everytime app.mindbodyModel.get('requestStatus') gets incremented:
+  */
+  adjustState: function() {
+    switch (app.mindbodyModel.get('requestStatus')) {
+      case 1:
+        // just hide the loader.
+        app.mindbodyView.$('span.loader').addClass('hid');
+        break;
+      default:
+
+    }
+  },
+
   /*
   ** assign the model to the view, then render:
   */
