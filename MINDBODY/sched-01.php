@@ -7,8 +7,11 @@ require_once __DIR__ . '/classes/mb-get-classes.php';
 
 if(isset($_GET['startTime'])){
 	$sched_start = date('c', $_GET['startTime']);
+	// 3600 seconds in an hour
+	// 86400 seconds in a day
 	// 604800 is the number of seconds in a week
 	// 518400 is the number of seconds in 6 days. Show today plus the rest of a week.
+	// 1123200 13 days
 	$sched_end = date('c', $_GET['startTime'] + 518400);
 } else {
 	$sched_start = date('c');

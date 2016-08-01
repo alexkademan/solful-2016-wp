@@ -10,7 +10,6 @@ echo  '<a class="hid url" href="' . get_bloginfo('template_url') . '/MINDBODY/">
 echo '</ul>';
 
 // underscore templates:
-
 echo '<script type="text/template" id="mb-day-template">';
 echo   '<h1><%- info["dayOfWeek"] %> <%- info["fullMonth"] %> <%- info["day"] %></h1>';
 echo   '<ul></ul>';
