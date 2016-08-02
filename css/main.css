@@ -407,6 +407,11 @@ ul.mb_schedule h3 {
   font-size: 1em;
   margin-bottom: 0; }
 
+ul.mb_schedule a.sign-in-button,
+ul.mb_schedule div.trainerName {
+  font-family: 'bebas-regular';
+  font-size: 1.6em; }
+
 nav.site-nav a {
   color: #000; }
 
@@ -3189,7 +3194,9 @@ ul.classes li,
 ul.classes hgroup,
 ul.classes li div.workout-desc,
 ul.classes li div.classNFO,
-ul.classes li div.trainerNFO {
+ul.classes li div.trainerNFO,
+ul.mb_schedule a.sign-in-button,
+ul.mb_schedule div.trainerName {
   display: block;
   float: left;
   clear: both;
@@ -3218,14 +3225,19 @@ ul.classes hgroup.canceled h2 {
   text-decoration: line-through; }
 
 ul.classes li div.workout-desc {
-  padding: 0.30338em 0 1.2135em; }
+  padding: 0.30338em 0 0.60675em;
+  margin-bottom: 0.60675em; }
 
 ul.classes li div.workout-desc div.desc {
   max-width: 37.5em; }
 
+ul.classes li div.bio {
+  border-bottom: 1px #4d4d4d solid; }
+
 ul.classes li div.workout-desc img {
   float: right;
-  margin-left: 1em;
+  margin-left: 0.5em;
+  margin-bottom: 0.25em;
   max-width: 45%; }
 
 ul.classes li div.classNFO,
@@ -3238,6 +3250,21 @@ ul.classes li.showInfo div.classNFO {
 
 ul.classes li.showTrainer div.trainerNFO {
   height: auto; }
+
+ul.mb_schedule a.sign-in-button {
+  background: #ef4137;
+  text-align: center;
+  color: #FFF;
+  -webkit-transition: background 0.25s ease-in-out;
+  transition: background 0.25s ease-in-out; }
+  .no-touchevents ul.mb_schedule a.sign-in-button:hover {
+    background: #e11d12; }
+
+ul.mb_schedule div.trainerName {
+  background: transparent; }
+  .no-touchevents ul.mb_schedule div.trainerName:hover {
+    cursor: pointer;
+    text-decoration: underline; }
 
 @media (min-width: 45em) {
   ul.mb_schedule hgroup {

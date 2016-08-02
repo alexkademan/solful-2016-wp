@@ -44,7 +44,7 @@ module.exports = Backbone.View.extend({
     return dayInfo;
   },
 
-  findClassInfo: function( workout, dayInfo ) {
+  findClassInfo: function( workout, dayInfo, urlBase, studioID ) {
     // find information about the start and end of these classes:
     workout['classStart'] = this.parseTimestamp(workout['StartDateTime'], dayInfo);
     workout['classEnd'] = this.parseTimestamp(workout['EndDateTime'], dayInfo);
@@ -59,15 +59,24 @@ module.exports = Backbone.View.extend({
       workout['durationReadable'] = workout['duration'] + ' minutes';
     }
 
+    workout['signupURL'] = urlBase;
+    workout['signupURL'] += '?sDate=' + dayInfo['numericDate'];
+    workout['signupURL'] += '&sLoc=' + workout['Location']['ID'];
+    workout['signupURL'] += '&sTG=' + workout['ClassDescription']['Program']['ID'];
+    workout['signupURL'] += '&sType=' +  '-7';
+    workout['signupURL'] += '&sclassid=' + workout['ClassScheduleID'];
+    workout['signupURL'] += '&studioid=' + studioID;
+
     return workout;
 
   },
   parseTimestamp: function( timestamp, dayInfo ) {
     var time = [];
 
+    // time['urlTime'] = dayInfo['numericDate'];
+
     timestamp = timestamp.split('T');
     timestamp = timestamp[1].split(':');
-
     time['hour'] = timestamp[0];
     time['minutes'] = timestamp[1];
 

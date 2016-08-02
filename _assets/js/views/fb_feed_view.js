@@ -52,7 +52,7 @@ module.exports = Backbone.View.extend({
   getIndividualPost: function( post ) {
     var thisID = app.fbFeedModel.get('fetchedPosts');
     var thisNumber = app.fbPosts.models[thisID].id;
-    console.log(app.fbFeedModel.get('fbFeedURL') + '?postID=IDs');
+    // console.log(app.fbFeedModel.get('fbFeedURL') + '?postID=IDs');
     $.ajax({
       // url: 'fb_feed/?postID=' + app.fbPosts.models[thisID].id,
       url: app.fbFeedModel.get('fbFeedURL') + '?postID=' + app.fbPosts.models[thisID].id,

@@ -15,7 +15,9 @@ ul.classes li,
 ul.classes hgroup,
 ul.classes li div.workout-desc,
 ul.classes li div.classNFO,
-ul.classes li div.trainerNFO {
+ul.classes li div.trainerNFO,
+ul.mb_schedule a.sign-in-button,
+ul.mb_schedule div.trainerName {
   display: block;
   float: left;
   clear: both;
@@ -47,14 +49,19 @@ ul.classes hgroup.canceled h2 {
 }
 
 ul.classes li div.workout-desc {
-  padding: ($main_gutter * 0.25) 0 $main_gutter;
+  padding: ($main_gutter * 0.25) 0 ($main_gutter * 0.5);
+  margin-bottom: ($main_gutter * 0.5);
 }
 ul.classes li div.workout-desc div.desc {
   max-width: pem(600);
 }
+ul.classes li div.bio {
+  border-bottom: 1px $base-font-color solid;
+}
 ul.classes li div.workout-desc img {
   float: right;
-  margin-left: 1em;
+  margin-left: 0.5em;
+  margin-bottom: 0.25em;
   max-width: 45%;
 }
 
@@ -69,4 +76,30 @@ ul.classes li.showInfo div.classNFO {
 }
 ul.classes li.showTrainer div.trainerNFO {
   height: auto;
+}
+
+// buttons
+ul.mb_schedule a.sign-in-button {
+  background: $color-solful-red;
+  text-align: center;
+  color: #FFF;
+  transition: background 0.25s ease-in-out;
+
+  .no-touchevents &:hover {
+    background: darken($color-solful-red, 10%);
+  }
+}
+
+ul.mb_schedule div.trainerName {
+  background: transparent;
+  // color: #FFF;
+  // transition: background 0.25s ease-in-out;
+  // text-decoration: underline;
+
+  .no-touchevents &:hover {
+    // background: lighten(#000, 70%);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
 }

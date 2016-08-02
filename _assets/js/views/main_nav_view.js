@@ -1,4 +1,5 @@
 // app.mainNav
+// model: app.mainNavModel
 
 var Backbone = require ('backbone');
 var _ = require ('underscore');

@@ -29,11 +29,12 @@ echo '</script>';
 <script type="text/template" id="mb-appointment-nfo">
   <div class="classNFO">
     <span>
-      <%= IsCanceled ? Staff['Name'] : '<div class="trainerName">Instructor: '+Staff['Name'] + '</div>' %><br />
-      <!-- <%= IsCanceled ? '' : "<p>" + durationReadable + "</p>" %> -->
+      <%= IsAvailable ? '<a href="' + signupURL + '" class="sign-in-button">Sign in now!</a>' : '' %>
+      <%= IsCanceled ? '' : "" + durationReadable + "" %>
+      <%= IsCanceled ? Staff['Name'] : '<div class="trainerName">With: '+Staff['Name'] + '</div>' %><br />
 
       <div class="trainerNFO">
-        <div class="workout-desc">
+        <div class="workout-desc bio">
           <%= Staff['ImageURL'] ? '<img src="' + Staff['ImageURL'] + '" />' : '' %>
           <%= '<div class="desc">' + Staff['Bio'] + '</div>' %>
         </div>

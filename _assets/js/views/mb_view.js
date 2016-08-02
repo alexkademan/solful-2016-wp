@@ -69,9 +69,10 @@ module.exports = Backbone.View.extend({
             // this class is hidden AND canceled, so skip it
           } else {
             // add each of the workouts to the individual days.
-            data[key][appointment] = app.findDayInfo.findClassInfo(data[key][appointment], dayInfo);
-            // console.log( workout );
-            // console.log( data[key][appointment] );
+            data[key][appointment] = app.findDayInfo.findClassInfo(
+              data[key][appointment], dayInfo, app.mindbodyModel.get('signupURLbase'), app.mindbodyModel.get('studioID')
+            );
+
             app.mbDays.get(key).get('appointments').add(data[key][appointment]);
 
           }

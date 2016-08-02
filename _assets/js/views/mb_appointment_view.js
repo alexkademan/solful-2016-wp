@@ -59,7 +59,6 @@ module.exports = Backbone.View.extend({
 
   // show AND hide info...
   toggleInfo: function() {
-    // console.log(this.model);
     if(this.model.get('toggleInfo') === false){
       this.$el.removeClass('showInfo');
     } else {
@@ -68,8 +67,6 @@ module.exports = Backbone.View.extend({
   },
 
   toggleInstructor: function() {
-    // console.log('toggleInstructor');
-    // console.log(this.model.get('toggleInstructor'));
     if(this.model.get('toggleInstructor') === false){
       this.$el.removeClass('showTrainer');
     } else {

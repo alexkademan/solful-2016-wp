@@ -38,8 +38,10 @@ module.exports = Backbone.View.extend({
   },
 
   openShader: function() {
-    // this.$el.attr('style', 'height: ' + app.windowStatus.get('documentHeight') + 'px');
-    this.$el.setAttribute("style", 'height: ' + app.windowStatus.get('documentHeight') + 'px');
+    if( app.mainNavModel.get('mobileMenu') === true ){
+      // this.$el.attr('style', 'height: ' + app.windowStatus.get('documentHeight') + 'px');
+      this.$el.setAttribute("style", 'height: ' + app.windowStatus.get('documentHeight') + 'px');
+    };
   },
 
   closeShader: function() {
