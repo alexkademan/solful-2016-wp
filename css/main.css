@@ -3187,7 +3187,9 @@ ul.mb_schedule span.loader {
 ul.classes,
 ul.classes li,
 ul.classes hgroup,
-ul.classes li div.workout-desc {
+ul.classes li div.workout-desc,
+ul.classes li div.classNFO,
+ul.classes li div.trainerNFO {
   display: block;
   float: left;
   clear: both;
@@ -3226,15 +3228,15 @@ ul.classes li div.workout-desc img {
   margin-left: 1em;
   max-width: 45%; }
 
-ul.classes li div.classNFO {
-  display: block;
-  float: left;
-  clear: both;
-  width: 100%;
+ul.classes li div.classNFO,
+ul.classes li div.trainerNFO {
   height: 0;
   overflow: hidden; }
 
 ul.classes li.showInfo div.classNFO {
+  height: auto; }
+
+ul.classes li.showTrainer div.trainerNFO {
   height: auto; }
 
 @media (min-width: 45em) {

@@ -29,8 +29,15 @@ echo '</script>';
 <script type="text/template" id="mb-appointment-nfo">
   <div class="classNFO">
     <span>
-      <%- IsCanceled ? Staff['Name'] : 'Instructor: '+Staff['Name'] %><br />
-      <%= IsCanceled ? '' : "<p>" + durationReadable + "</p>" %>
+      <%= IsCanceled ? Staff['Name'] : '<div class="trainerName">Instructor: '+Staff['Name'] + '</div>' %><br />
+      <!-- <%= IsCanceled ? '' : "<p>" + durationReadable + "</p>" %> -->
+
+      <div class="trainerNFO">
+        <div class="workout-desc">
+          <%= Staff['ImageURL'] ? '<img src="' + Staff['ImageURL'] + '" />' : '' %>
+          <%= '<div class="desc">' + Staff['Bio'] + '</div>' %>
+        </div>
+      </div>
 
       <div class="workout-desc">
         <%= ClassDescription['ImageURL'] ? '<img src="' + ClassDescription['ImageURL'] + '" />' : '' %>

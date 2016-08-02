@@ -9,7 +9,8 @@ module.exports = Backbone.View.extend({
   tagName: 'li',
 
   events: {
-    "click hgroup.toggle": 'showInfo'
+    "click hgroup.toggle": 'showInfo',
+    "click div.trainerName": 'showTrainer'
   },
 
   initialize: function() {
@@ -46,6 +47,16 @@ module.exports = Backbone.View.extend({
     }
   },
 
+  // when the hgroup is clicked on,
+  // the info about the class needs to show:
+  showTrainer: function() {
+    if(this.model.get('toggleInstructor') === false){
+      this.model.set({toggleInstructor: true});
+    } else {
+      this.model.set({toggleInstructor: false});
+    }
+  },
+
   // show AND hide info...
   toggleInfo: function() {
     // console.log(this.model);
@@ -53,6 +64,16 @@ module.exports = Backbone.View.extend({
       this.$el.removeClass('showInfo');
     } else {
       this.$el.addClass('showInfo');
+    }
+  },
+
+  toggleInstructor: function() {
+    // console.log('toggleInstructor');
+    // console.log(this.model.get('toggleInstructor'));
+    if(this.model.get('toggleInstructor') === false){
+      this.$el.removeClass('showTrainer');
+    } else {
+      this.$el.addClass('showTrainer');
     }
   }
 

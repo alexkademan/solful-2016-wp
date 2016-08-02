@@ -26,14 +26,14 @@ module.exports = Backbone.View.extend({
   },
 
   addAppointment: function(info) {
-    // console.log(info);
     var appointment = new Appointment({model: info});
-    // appointment.model.on('change:toggleInfo', appointment.showInfo);
+
     appointment.model.on('change:toggleInfo', function(){
       appointment.toggleInfo();
     });
-
-
+    appointment.model.on('change:toggleInstructor', function(){
+      appointment.toggleInstructor();
+    });
     // make the whole thing visible...
     this.$('ul.classes').append(appointment.render().el);
 
