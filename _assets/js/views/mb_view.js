@@ -9,7 +9,7 @@ var DaysCollection = require('./../models/mb_days_collection');
 var DayInfo = require('./mb_days_info');
 var DayView = require('./mb_day_view');
 
-var TrainerView = require('./../models/mb_trainers_collection');
+var TrainersCollection = require('./../models/mb_trainers_collection');
 var TrainerView = require('./mb_trainer_view');
 
 module.exports = Backbone.View.extend({
@@ -32,6 +32,7 @@ module.exports = Backbone.View.extend({
 
         // empty collections for the days and the classes within each day:
         app.mbDays = new DaysCollection();
+        app.mbTrainers = new TrainersCollection();
 
         // we have found the URL for the AJAX calls:
         this.model.set({ 'mbFeedURL': mbURL[0].href });
@@ -69,6 +70,12 @@ module.exports = Backbone.View.extend({
 
   weHaveTrainers: function(data) {
     console.log(data);
+    for(var key in data) {
+      app.mbTrainers.add(data);
+    }
+    console.log('trainers: ');
+    console.log(app.mbTrainers);
+
   },
 
   weHaveSchedule: function(data) {
