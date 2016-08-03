@@ -27,8 +27,8 @@ module.exports = Backbone.View.extend({
       if(mbURL.length > 0 && mbURL[0].href !== undefined && mbURL[0].href !== '') {
 
         // listen for the ajax call to come back to begin the render process:
-        // this.model.on('change:requestStatus', this.adjustState);
-        this.model.on('change:schedLoaded', this.renderSchedule);
+        this.model.on('change:requestStatus', this.adjustState);
+        // this.model.on('change:schedLoaded', this.renderSchedule);
 
         // empty collections for the days and the classes within each day:
         app.mbDays = new DaysCollection();
@@ -65,16 +65,17 @@ module.exports = Backbone.View.extend({
         app.mindbodyView.weHaveTrainers(data);
       }
 
+      app.mindbodyView.model.set({ requestStatus: app.mindbodyView.model.get('requestStatus') + 1 });
+
     });
   },
 
   weHaveTrainers: function(data) {
-    console.log(data);
     for(var key in data) {
-      app.mbTrainers.add(data);
+      app.mbTrainers.add(data[key]);
     }
-    console.log('trainers: ');
-    console.log(app.mbTrainers);
+    // add increment to the main model so we know theres a big state change coming:
+    app.mindbodyView.model.set({ trainersLoaded: true });
 
   },
 
@@ -101,16 +102,20 @@ module.exports = Backbone.View.extend({
       }
     }
 
-    // add increment to the main model so we know theres a big state change coming:
-    app.mindbodyView.model.set({
-      requestStatus: app.mindbodyView.model.get('requestStatus') + 1,
-      schedLoaded: true
-    });
+    app.mindbodyView.model.set({ schedLoaded: true });
   },
 
-  /*
-  ** handle how the schedule gets rendered:
-  */
+  adjustState: function() {
+
+    if( app.mindbodyModel.get('schedLoaded') === true && app.mindbodyModel.get('trainersLoaded') === true ){
+      app.mindbodyView.renderSchedule();
+    };
+    // this fires after every single successful AJAX request
+  },
+
+  // ************************
+  // handle how the schedule gets rendered:
+  // ************************
   renderSchedule: function() {
     // first clear out the spot:
     app.mindbodyView.$el.empty();

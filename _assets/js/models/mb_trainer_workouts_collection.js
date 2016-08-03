@@ -1,11 +1,11 @@
 var Backbone = require ('backbone');
-var Trainer = require ('./mb_trainer_model');
+var Workout = require ('./mb_trainer_workout_model');
 
 module.exports = Backbone.Collection.extend({
-  model: Trainer,
+  model: Workout,
 
   modelId: function(attrs) {
-    return attrs.Name;
+    return attrs.date;
   }
 
 });
