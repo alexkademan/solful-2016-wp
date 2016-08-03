@@ -9,6 +9,9 @@ var DaysCollection = require('./../models/mb_days_collection');
 var DayInfo = require('./mb_days_info');
 var DayView = require('./mb_day_view');
 
+var TrainerView = require('./../models/mb_trainers_collection');
+var TrainerView = require('./mb_trainer_view');
+
 module.exports = Backbone.View.extend({
 
   el: '#mb_schedule',
@@ -24,7 +27,8 @@ module.exports = Backbone.View.extend({
       if(mbURL.length > 0 && mbURL[0].href !== undefined && mbURL[0].href !== '') {
 
         // listen for the ajax call to come back to begin the render process:
-        this.model.on('change:requestStatus', this.adjustState);
+        // this.model.on('change:requestStatus', this.adjustState);
+        this.model.on('change:schedLoaded', this.renderSchedule);
 
         // empty collections for the days and the classes within each day:
         app.mbDays = new DaysCollection();
@@ -32,80 +36,82 @@ module.exports = Backbone.View.extend({
         // we have found the URL for the AJAX calls:
         this.model.set({ 'mbFeedURL': mbURL[0].href });
         // look with start date defined as right now.
-        this.makeAJAXcall('sched-01.php?startTime=' + Math.round(new Date().getTime()/1000) );
+        this.makeAJAXcall('sched-01.php?startTime=' + Math.round(new Date().getTime()/1000), 'schedule');
+        this.makeAJAXcall('trainers-01.php', 'trainers');
 
         // 86400 seconds in a day
         // this.makeAJAXcall('sched-01.php?startTime=' + ((Math.round(new Date().getTime()/1000)) - 86400) );
-
 
       };
 
     };
   },
 
-  makeAJAXcall: function( file ) {
+  makeAJAXcall: function( file, section ) {
     if( file == undefined ){ file = 'sched-01.php'; }
-
+    // console.log(app.mindbodyModel.get('mbFeedURL') + file);
     $.ajax({
-      // url: './fb_feed/?postID=IDs',
       url: app.mindbodyModel.get('mbFeedURL') + file,
       dataType: 'json'
 
     }).done(function( data ) {
-      // we have the info for the calendar, so build out the models,
-      // and then display the first of our stuff on the page.
-      for(var key in data) {
-        // var dayInfo = app.mindbodyView.findDayInfo(key);
-        var dayInfo = app.findDayInfo.findDayInfo(key);
+      // console.log(section);
 
-        // build out the day:
-        app.mbDays.add({ date: key, info: dayInfo });
-
-        for( var appointment in data[key] ) {
-
-          var thisAppointment = data[key][appointment];
-
-          if(thisAppointment['IsCanceled'] === true && thisAppointment['HideCancel'] === true){
-            // this class is hidden AND canceled, so skip it
-          } else {
-            // add each of the workouts to the individual days.
-            data[key][appointment] = app.findDayInfo.findClassInfo(
-              data[key][appointment], dayInfo, app.mindbodyModel.get('signupURLbase'), app.mindbodyModel.get('studioID')
-            );
-
-            app.mbDays.get(key).get('appointments').add(data[key][appointment]);
-
-          }
-        }
+      if(section === 'schedule'){
+        // we have the info for the schedule, so build out the models
+        app.mindbodyView.weHaveSchedule(data);
+      } else if (section === 'trainers') {
+        app.mindbodyView.weHaveTrainers(data);
       }
-      // add increment to the main model so we know theres a big state change coming:
-      app.mindbodyView.model.set({requestStatus: app.mindbodyView.model.get('requestStatus') + 1});
-      app.mbDays.each( app.mindbodyView.eachDay, this );
 
     });
   },
 
-  /*
-  ** fires everytime app.mindbodyModel.get('requestStatus') gets incremented:
-  */
-  adjustState: function() {
-    switch (app.mindbodyModel.get('requestStatus')) {
-      case 1:
-        // just hide the loader.
-        app.mindbodyView.$('span.loader').addClass('hid');
-        break;
-      default:
+  weHaveTrainers: function(data) {
+    console.log(data);
+  },
 
+  weHaveSchedule: function(data) {
+    for(var key in data) {
+      // var dayInfo = app.mindbodyView.findDayInfo(key);
+      var dayInfo = app.findDayInfo.findDayInfo(key);
+
+      // build out the day:
+      app.mbDays.add({ date: key, info: dayInfo });
+
+      for( var appointment in data[key] ) {
+
+        if(data[key][appointment]['IsCanceled'] === true && data[key][appointment]['HideCancel'] === true){
+          // this class is hidden AND canceled, so skip it
+        } else {
+          // add each of the workouts to the individual days.
+          data[key][appointment] = app.findDayInfo.findClassInfo(
+            data[key][appointment], dayInfo, app.mindbodyModel.get('signupURLbase'), app.mindbodyModel.get('studioID')
+          );
+
+          app.mbDays.get(key).get('appointments').add(data[key][appointment]);
+        }
+      }
     }
+
+    // add increment to the main model so we know theres a big state change coming:
+    app.mindbodyView.model.set({
+      requestStatus: app.mindbodyView.model.get('requestStatus') + 1,
+      schedLoaded: true
+    });
   },
 
   /*
-  ** assign the model to the view, then render:
+  ** handle how the schedule gets rendered:
   */
-  eachDay: function(theDay) {
-    var workout = new DayView({model: theDay});
+  renderSchedule: function() {
+    // first clear out the spot:
+    app.mindbodyView.$el.empty();
 
-    app.mindbodyView.$el.append(workout.render().el);
+    app.mbDays.each(function(day){
+      var today = new DayView({model: day});
+      app.mindbodyView.$el.append(today.render().el);
+    });
   }
 
 });

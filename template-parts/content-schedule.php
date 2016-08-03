@@ -14,6 +14,7 @@ echo '<script type="text/template" id="mb-day-template">';
 echo   '<h1><%- info["dayOfWeek"] %> <%- info["fullMonth"] %> <%- info["day"] %></h1>';
 echo   '<ul class="classes"></ul>';
 echo '</script>';
+
 ?>
 <script type="text/template" id="mb-appointment-template">
   <hgroup class="toggle<%- IsAvailable ? ' available' : ' unavailable' %><%- IsCanceled ? ' canceled' : '' %>">

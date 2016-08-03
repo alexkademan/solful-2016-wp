@@ -34,7 +34,7 @@ module.exports = Backbone.View.extend({
     var infoTemplate = _.template($('#mb-appointment-nfo').html());
     this.$el.append(infoTemplate(this.model.toJSON()));
     this.toggleInfo();
-    console.log( this.model );
+    // console.log( this.model );
   },
 
   // when the hgroup is clicked on,

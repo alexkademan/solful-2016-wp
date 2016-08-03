@@ -8,6 +8,7 @@ var Appointments = require ('../models/mb_classes_collection');
 var Appointment = require ('./mb_appointment_view');
 
 module.exports = Backbone.View.extend({
+
   tagName: 'li',
 
   initialize: function() {
@@ -34,6 +35,7 @@ module.exports = Backbone.View.extend({
     appointment.model.on('change:toggleInstructor', function(){
       appointment.toggleInstructor();
     });
+
     // make the whole thing visible...
     this.$('ul.classes').append(appointment.render().el);
 
