@@ -126,13 +126,6 @@ module.exports = Backbone.View.extend({
       // console.log( app.mbTrainers );
       // console.log( app.mbDays );
 
-      app.mbTrainers.each(function(trainer){
-        // console.log(trainer.get('ID') + ' - ' + trainer.get('Name'));
-        // console.log(trainer);
-      });
-
-      // console.log('every class **************************************************');
-
       // every day:
       app.mbDays.each(function(day){
         var trainerInfo = [];
@@ -141,15 +134,28 @@ module.exports = Backbone.View.extend({
           trainerInfo[trainer.get('Name')] = 0;
         });
 
-
         // every workout:
         day.get('appointments').each(function(workout){
           if(workout.get('IsAvailable') === true){
+
+            // add to an array for the day.
             trainerInfo[workout.get('Staff')['Name']]++;
+
+            // keep running tally of all available workouts (cancelled won't make it in here)
+            var increment = app.mindbodyModel.get('totalWorkouts') + 1;
+            app.mindbodyModel.set({ totalWorkouts: increment });
+
+            // add increment to individual trainer in trainers collection:
+            app.mbTrainers.get(workout.get('Staff')['Name']).set({
+              workoutCount: app.mbTrainers.get(workout.get('Staff')['Name'])+1
+            });
+
+            // add to the day's model. today's total.
+            app.mbDays.get(day.get('date')).set({
+              totalWorkouts: app.mbDays.get(day.get('date')).get('totalWorkouts') +1
+            });
+
           }
-          // keep running tally of all available workouts (cancelled won't make it in here)
-          var increment = app.mindbodyModel.get('totalWorkouts') + 1;
-          app.mindbodyModel.set({ totalWorkouts: increment });
 
         });
 
@@ -157,6 +163,8 @@ module.exports = Backbone.View.extend({
         app.mbDays.get(day.get('date')).set({
           scheduledTrainers: trainerInfo
         });
+
+        console.log(app.mbDays);
 
       });
     };
