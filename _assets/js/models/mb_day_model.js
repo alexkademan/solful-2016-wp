@@ -5,7 +5,8 @@ module.exports = Backbone.Model.extend({
 
   defaults: {
     date: '', // date in format that MINDBODY returns YYYY-MM-DD
-    info: '' // array that holds all the datat about today.
+    info: '', // array that holds all the datat about today.
+    scheduledTrainers: [] // every trainer with the number of classes they're doing today.
   },
 
   initialize: function() {

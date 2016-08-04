@@ -65,14 +65,21 @@ module.exports = Backbone.View.extend({
         app.mindbodyView.weHaveTrainers(data);
       }
 
-      app.mindbodyView.model.set({ requestStatus: app.mindbodyView.model.get('requestStatus') + 1 });
+      // add an increment, this will call 'this.adjustState'
+      app.mindbodyView.model.set({
+        requestStatus: app.mindbodyView.model.get('requestStatus') + 1
+      });
 
     });
   },
 
   weHaveTrainers: function(data) {
     for(var key in data) {
-      app.mbTrainers.add(data[key]);
+
+      if(data[key]['ID'] > 1){
+        // negative IDs aren't useful to me, and '1' is something named STAFF STAFF
+        app.mbTrainers.add(data[key]);
+      }
     }
     // add increment to the main model so we know theres a big state change coming:
     app.mindbodyView.model.set({ trainersLoaded: true });
@@ -107,10 +114,52 @@ module.exports = Backbone.View.extend({
 
   adjustState: function() {
 
-    if( app.mindbodyModel.get('schedLoaded') === true && app.mindbodyModel.get('trainersLoaded') === true ){
+    if( app.mindbodyModel.get('schedLoaded') === true && app.mindbodyModel.get('schedRendered') === false ){
+      // render the sched as soon as we've got it. Don't wait for trainers info.
       app.mindbodyView.renderSchedule();
+      app.mindbodyModel.get({'schedRendered': true})
+    }
+
+
+    if( app.mindbodyModel.get('schedLoaded') === true && app.mindbodyModel.get('trainersLoaded') === true ){
+      // co-mingle the 2 collections, (app.mbDays and app.mbTrainers)
+      // console.log( app.mbTrainers );
+      // console.log( app.mbDays );
+
+      app.mbTrainers.each(function(trainer){
+        // console.log(trainer.get('ID') + ' - ' + trainer.get('Name'));
+        // console.log(trainer);
+      });
+
+      // console.log('every class **************************************************');
+
+      // every day:
+      app.mbDays.each(function(day){
+        var trainerInfo = [];
+
+        app.mbTrainers.each(function(trainer) {
+          trainerInfo[trainer.get('Name')] = 0;
+        });
+
+
+        // every workout:
+        day.get('appointments').each(function(workout){
+          if(workout.get('IsAvailable') === true){
+            trainerInfo[workout.get('Staff')['Name']]++;
+          }
+          // keep running tally of all available workouts (cancelled won't make it in here)
+          var increment = app.mindbodyModel.get('totalWorkouts') + 1;
+          app.mindbodyModel.set({ totalWorkouts: increment });
+
+        });
+
+        // copy the array of trainer class counts to the days model.
+        app.mbDays.get(day.get('date')).set({
+          scheduledTrainers: trainerInfo
+        });
+
+      });
     };
-    // this fires after every single successful AJAX request
   },
 
   // ************************
