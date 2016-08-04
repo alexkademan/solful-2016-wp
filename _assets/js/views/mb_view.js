@@ -120,54 +120,53 @@ module.exports = Backbone.View.extend({
       app.mindbodyModel.get({'schedRendered': true})
     }
 
-
     if( app.mindbodyModel.get('schedLoaded') === true && app.mindbodyModel.get('trainersLoaded') === true ){
       // co-mingle the 2 collections, (app.mbDays and app.mbTrainers)
-      // console.log( app.mbTrainers );
-      // console.log( app.mbDays );
-
-      // every day:
-      app.mbDays.each(function(day){
-        var trainerInfo = [];
-
-        app.mbTrainers.each(function(trainer) {
-          trainerInfo[trainer.get('Name')] = 0;
-        });
-
-        // every workout:
-        day.get('appointments').each(function(workout){
-          if(workout.get('IsAvailable') === true){
-
-            // add to an array for the day.
-            trainerInfo[workout.get('Staff')['Name']]++;
-
-            // keep running tally of all available workouts (cancelled won't make it in here)
-            var increment = app.mindbodyModel.get('totalWorkouts') + 1;
-            app.mindbodyModel.set({ totalWorkouts: increment });
-
-            // add increment to individual trainer in trainers collection:
-            app.mbTrainers.get(workout.get('Staff')['Name']).set({
-              workoutCount: app.mbTrainers.get(workout.get('Staff')['Name'])+1
-            });
-
-            // add to the day's model. today's total.
-            app.mbDays.get(day.get('date')).set({
-              totalWorkouts: app.mbDays.get(day.get('date')).get('totalWorkouts') +1
-            });
-
-          }
-
-        });
-
-        // copy the array of trainer class counts to the days model.
-        app.mbDays.get(day.get('date')).set({
-          scheduledTrainers: trainerInfo
-        });
-
-        console.log(app.mbDays);
-
-      });
+      app.mindbodyView.blendModels();
     };
+  },
+
+  blendModels: function() {
+    // // co-mingle the 2 collections, (app.mbDays and app.mbTrainers)
+    // and tally all the workouts by trainer, and by day.
+    // // every day:
+    app.mbDays.each(function(day){
+      var trainerInfo = [];
+
+      app.mbTrainers.each(function(trainer) {
+        trainerInfo[trainer.get('Name')] = 0;
+      });
+
+      // every workout:
+      day.get('appointments').each(function(workout){
+        if(workout.get('IsAvailable') === true){
+
+          // add to an array for the day.
+          trainerInfo[workout.get('Staff')['Name']]++;
+
+          // keep running tally of all available workouts (cancelled won't make it in here)
+          app.mindbodyModel.set({ totalWorkouts: app.mindbodyModel.get('totalWorkouts') + 1 });
+
+          // add increment to individual trainer in trainers collection:
+          var trainerName = workout.get('Staff')['Name'];
+          app.mbTrainers.get(trainerName).set({
+            workoutCount: app.mbTrainers.get(trainerName).get('workoutCount') + 1
+          });
+
+          // add to the day's model. today's total.
+          app.mbDays.get(day.get('date')).set({
+            totalWorkouts: app.mbDays.get(day.get('date')).get('totalWorkouts') + 1
+          });
+        }
+        // console.log(workout.get('Staff')['Name']);
+      });
+
+      // copy the array of trainer class counts to the day's model.
+      app.mbDays.get(day.get('date')).set({
+        scheduledTrainers: trainerInfo
+      });
+    });
+
   },
 
   // ************************
