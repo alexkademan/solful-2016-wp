@@ -20,13 +20,21 @@ module.exports = Backbone.View.extend({
 
   },
 
-  render: function(){
+  renderDay: function(trainerName, pageName){
     this.$el.html(this.template(this.model.toJSON()));
-    this.model.get('appointments').each( this.addAppointment, this);
+    // this.model.get('appointments').each( this.addAppointment, this);
+    this.model.get('appointments').each( function(workout){
+      if(trainerName === 'all') {
+        this.addAppointment(workout, pageName);
+      }else if( trainerName === workout.get('Staff')['Name'] ){
+        this.addAppointment(workout, pageName);
+      }
+    }, this);
     return this; // enable chained calls
   },
 
-  addAppointment: function(info) {
+  addAppointment: function(info, pageName) {
+    console.log(pageName);
     var appointment = new Appointment({model: info});
 
     appointment.model.on('change:toggleInfo', function(){

@@ -12,6 +12,7 @@ h4,
 h5,
 h6 {
   font-family: $base-font-family;
+  font-weight: normal;
   font-size: modular-scale(1);
   line-height: $heading-line-height;
   margin: 0 0 $small-spacing;
@@ -27,7 +28,7 @@ h2 {
   letter-spacing: 0.045em;
   font-size: 1.6em;
 }
-ul.mb_schedule h1 {
+ul.mb_data h1 {
   color: lighten($base-font-color, 0%);
   font-family: $base-font-family;
 
@@ -35,17 +36,17 @@ ul.mb_schedule h1 {
   letter-spacing: normal;
   margin-bottom: 0.25em;
 }
-ul.mb_schedule h2 {
+ul.mb_data h2 {
   font-size: 1.5em;
   margin-bottom: 0;
 }
-ul.mb_schedule h3 {
+ul.mb_data h3 {
   font-weight: normal;
   font-size: 1em;
   margin-bottom: 0;
 }
-ul.mb_schedule a.sign-in-button,
-ul.mb_schedule div.trainerName {
+ul.mb_data a.sign-in-button,
+ul.mb_data div.trainerName {
   font-family: 'bebas-regular';
   font-size: 1.6em;
 }

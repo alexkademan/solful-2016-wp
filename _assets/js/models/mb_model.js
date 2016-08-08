@@ -6,9 +6,10 @@ module.exports = Backbone.Model.extend({
 
   defaults: {
     studioID: 44288,
+    wpSlug: '', // match the slug from WordPress
     requestStatus: 0, // add one everytime an AJAX request is returned.
     schedLoaded: false,
-    schedRendered: false,
+    mainColRendered: false,
     trainersLoaded: false,
     instructor: false, // instructor ID. False for ALL instructors (complete schedule)
     totalWorkouts: 0, // total number of workouts on schedule.

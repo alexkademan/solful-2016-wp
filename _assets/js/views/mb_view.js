@@ -11,10 +11,11 @@ var DayView = require('./mb_day_view');
 
 var TrainersCollection = require('./../models/mb_trainers_collection');
 var TrainerView = require('./mb_trainer_view');
+// var MergeTrainersSchedule = require('./mb_merge_trainers');
 
 module.exports = Backbone.View.extend({
 
-  el: '#mb_schedule',
+  el: '#mb_app',
 
   initialize: function() {
 
@@ -23,28 +24,37 @@ module.exports = Backbone.View.extend({
       app.findDayInfo = new DayInfo();
 
       // #mb_sched is within the DOM, so lets go to work:
-      var mbURL = this.$('a.url');
-      if(mbURL.length > 0 && mbURL[0].href !== undefined && mbURL[0].href !== '') {
+      var mbURL = this.$('a.url-MINDBODY');
+      var wpSlug = this.$('span.slug');
+
+      // IF we have the MINDBODY URL and the page slug:
+      if(
+        (mbURL.length > 0 && mbURL[0].href !== undefined && mbURL[0].href !== '')
+        && (wpSlug.length > 0 && wpSlug[0].innerHTML !== undefined && wpSlug[0].innerHTML !== '')
+      ) {
+
+        // we have found the base AJAX URL, and the current page slug:
+        this.model.set({
+          mbFeedURL: mbURL[0].href,
+          wpSlug: wpSlug[0].innerHTML
+        });
+
+        // console.log(this.model);
 
         // listen for the ajax call to come back to begin the render process:
         this.model.on('change:requestStatus', this.adjustState);
-        // this.model.on('change:schedLoaded', this.renderSchedule);
 
-        // empty collections for the days and the classes within each day:
-        app.mbDays = new DaysCollection();
-        app.mbTrainers = new TrainersCollection();
+        if(this.model.get('wpSlug') === 'schedule' || this.model.get('wpSlug') === 'trainers') {
 
-        // we have found the URL for the AJAX calls:
-        this.model.set({ 'mbFeedURL': mbURL[0].href });
-        // look with start date defined as right now.
-        this.makeAJAXcall('sched-01.php?startTime=' + Math.round(new Date().getTime()/1000), 'schedule');
-        this.makeAJAXcall('trainers-01.php', 'trainers');
+          app.mbDays = new DaysCollection();
+          app.mbTrainers = new TrainersCollection();
 
-        // 86400 seconds in a day
-        // this.makeAJAXcall('sched-01.php?startTime=' + ((Math.round(new Date().getTime()/1000)) - 86400) );
+          // look with start date defined as right now.
+          this.makeAJAXcall('sched-02.php?startTime=' + Math.round(new Date().getTime()/1000), 'schedule');
+          this.makeAJAXcall('trainers-01.php', 'trainers');
 
+        }
       };
-
     };
   },
 
@@ -112,20 +122,6 @@ module.exports = Backbone.View.extend({
     app.mindbodyView.model.set({ schedLoaded: true });
   },
 
-  adjustState: function() {
-
-    if( app.mindbodyModel.get('schedLoaded') === true && app.mindbodyModel.get('schedRendered') === false ){
-      // render the sched as soon as we've got it. Don't wait for trainers info.
-      app.mindbodyView.renderSchedule();
-      app.mindbodyModel.get({'schedRendered': true})
-    }
-
-    if( app.mindbodyModel.get('schedLoaded') === true && app.mindbodyModel.get('trainersLoaded') === true ){
-      // co-mingle the 2 collections, (app.mbDays and app.mbTrainers)
-      app.mindbodyView.blendModels();
-    };
-  },
-
   blendModels: function() {
     // // co-mingle the 2 collections, (app.mbDays and app.mbTrainers)
     // and tally all the workouts by trainer, and by day.
@@ -158,7 +154,6 @@ module.exports = Backbone.View.extend({
             totalWorkouts: app.mbDays.get(day.get('date')).get('totalWorkouts') + 1
           });
         }
-        // console.log(workout.get('Staff')['Name']);
       });
 
       // copy the array of trainer class counts to the day's model.
@@ -169,17 +164,57 @@ module.exports = Backbone.View.extend({
 
   },
 
-  // ************************
-  // handle how the schedule gets rendered:
-  // ************************
-  renderSchedule: function() {
-    // first clear out the spot:
-    app.mindbodyView.$el.empty();
+  adjustState: function() {
 
-    app.mbDays.each(function(day){
-      var today = new DayView({model: day});
-      app.mindbodyView.$el.append(today.render().el);
-    });
+    if( app.mindbodyModel.get('schedLoaded') === true && app.mindbodyModel.get('trainersLoaded') === true ){
+      // we have the trainers info AND the full week schedule.
+      if(app.mindbodyModel.get('mainColRendered') === false) {
+        app.mindbodyView.blendModels();
+        app.mindbodyView.renderMainColumn();
+        app.mindbodyModel.set({ mainColRendered: true });
+      }
+    };
+  },
+
+  // ************************
+  // handle how the main column gets rendered:
+  // ************************
+  renderMainColumn: function() {
+    // clean slate:
+    this.$el.empty();
+
+    if(this.model.get('wpSlug') === 'schedule'){
+      // render the schedule page:
+      app.mbDays.each(function(day){
+        var today = new DayView({model: day});
+        app.mindbodyView.$el.append(today.renderDay('all', 'schedule').el);
+      });
+
+    } else if (this.model.get('wpSlug') === 'trainers'){
+      app.mbTrainers.each(function(trainer){
+        var trainer = new TrainerView({model: trainer});
+        app.mindbodyView.$el.append(trainer.renderTrainer().el);
+
+        if( trainer.model.get('workoutCount') > 0 ){
+          // this trainer has classes this week:
+          var trainerName =  trainer.model.get('Name');
+
+          app.mbDays.each(function(day){
+            var classCount =  day.get('scheduledTrainers')[trainerName];
+            if(classCount > 0) {
+              // today this trainer has at least one class:
+              var today = day.get('date');
+              // show this day. Because there are workouts with the trainer in question.
+              var todayView = new DayView({model: app.mbDays.get( today )});
+              trainer.$('ul.workouts').append( todayView.renderDay(trainerName, 'trainers').el );
+
+            }
+          });
+        };
+
+      });
+    }
+
   }
 
 });

@@ -1,12 +1,12 @@
 // mindbody-universal
-ul.mb_schedule span.loader {
+ul.mb_data span.loader {
   display: block;
   float: left;
   clear: both;
   width: 100%;
   text-align: center;
   padding: $gutter 0;
-  background: #F4F4F4;
+  // background: #F4F4F4;
 
 }
 
@@ -16,8 +16,13 @@ ul.classes hgroup,
 ul.classes li div.workout-desc,
 ul.classes li div.classNFO,
 ul.classes li div.trainerNFO,
-ul.mb_schedule a.sign-in-button,
-ul.mb_schedule div.trainerName {
+
+ul.mb_data li,
+ul.mb_data a.sign-in-button,
+ul.mb_data div.trainerNamem
+
+ul.mb_trainers,
+ul.mb_trainers li {
   display: block;
   float: left;
   clear: both;
@@ -79,7 +84,7 @@ ul.classes li.showTrainer div.trainerNFO {
 }
 
 // buttons
-ul.mb_schedule a.sign-in-button {
+ul.mb_data a.sign-in-button {
   background: $color-solful-red;
   text-align: center;
   color: #FFF;
@@ -90,7 +95,7 @@ ul.mb_schedule a.sign-in-button {
   }
 }
 
-ul.mb_schedule div.trainerName {
+ul.mb_data div.trainerName {
   background: transparent;
   // color: #FFF;
   // transition: background 0.25s ease-in-out;

@@ -40,5 +40,7 @@
 	</footer><!-- .entry-footer -->
 </article><!-- #post-## -->
 <?php
-if($post->post_name == 'schedule'){ get_template_part( 'template-parts/content', 'schedule' );
+if($post->post_name == 'schedule' || $post->post_name == 'trainers'){
+	get_template_part( 'template-parts/content', 'underscore-schedule' );
+	get_template_part( 'template-parts/content', 'underscore-trainers' );
 }
