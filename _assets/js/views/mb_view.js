@@ -191,6 +191,7 @@ module.exports = Backbone.View.extend({
       });
 
     } else if (this.model.get('wpSlug') === 'trainers'){
+      // render the trainers page:
       app.mbTrainers.each(function(trainer){
         var trainer = new TrainerView({model: trainer});
         app.mindbodyView.$el.append(trainer.renderTrainer().el);

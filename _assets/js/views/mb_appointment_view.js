@@ -13,28 +13,33 @@ module.exports = Backbone.View.extend({
     "click div.trainerName": 'showTrainer'
   },
 
-  initialize: function() {
-    // have to call for the underscore template here. It's not on every other page...
-    // Learning a new templating engine is on my to-do list.
-    this.template = _.template($('#mb-appointment-template').html());
+  render: function(pageName){
+    // a default:
+    var appointmentTemplate = _.template($('#mb-appointment-template').html());
+    this.$el.html(appointmentTemplate(this.model.toJSON()));
+    this.renderClassInfo(pageName);
 
-    // this.model.on('change:toggleInfo', this.showInfo);
-  },
-
-  render: function(){
-    // console.log(this.model);
-    this.$el.html(this.template(this.model.toJSON()));
     return this; // enable chained calls
   },
 
   // calling this from the "day" view,
   // renders the class info to the DOM.
-  renderClassInfo: function() {
+  renderClassInfo: function(pageName) {
     // new template for almost all of the info:
-    var infoTemplate = _.template($('#mb-appointment-nfo').html());
+    if(pageName === 'schedule'){
+      var infoTemplate = _.template($('#mb-appointment-nfo').html());
+    } else if(pageName === 'trainers') {
+      var infoTemplate = _.template($('#mb-trainer-appointment-template').html());
+    }
+
     this.$el.append(infoTemplate(this.model.toJSON()));
     this.toggleInfo();
-    // console.log( this.model );
+
+    return this;
+  },
+
+  renderTrainerInfo: function() {
+    var trainerInfoTemplate = _.template($('#mb-trainer-nfo').html());
   },
 
   // when the hgroup is clicked on,

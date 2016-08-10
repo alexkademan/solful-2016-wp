@@ -7,13 +7,14 @@
  * @package _s
  */
 
+
+// if($post->post_name == 'schedule' || $post->post_name == 'trainers'){
+// 	get_template_part( 'template-parts/content', 'underscore-schedule' );
+// 	get_template_part( 'template-parts/content', 'underscore-trainers' );
+// } else {
+
 ?>
-
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-	</header><!-- .entry-header -->
-
+<main id="main" class="site-main" role="main">
 	<div class="entry-content">
 		<?php
 			the_content();
@@ -38,9 +39,4 @@
 			// );
 		?>
 	</footer><!-- .entry-footer -->
-</article><!-- #post-## -->
-<?php
-if($post->post_name == 'schedule' || $post->post_name == 'trainers'){
-	get_template_part( 'template-parts/content', 'underscore-schedule' );
-	get_template_part( 'template-parts/content', 'underscore-trainers' );
-}
+</main><!-- #main -->

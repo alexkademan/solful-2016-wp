@@ -12,43 +12,51 @@
  * @package _s
  */
 // print_r($post->post_title);
-if(
-	isset($post->post_title)
-	&& $post->post_title == "Solful Fitness"
-){
-	$has_sidebar = true;
-
-} else {
-	$has_sidebar = false;
-};
+// if(
+// 	isset($post->post_title)
+// 	&& $post->post_title == "Solful Fitness"
+// ){
+// 	$has_sidebar = true;
+//
+// } else {
+// 	$has_sidebar = false;
+// };
 
 get_header();
 
 ?>
 
 	<div id="primary" class="content-area">
-		<main id="main" class="site-main<?php if($has_sidebar){ echo ' left-column'; }else{ echo ' full-width'; } ?>" role="main">
+		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<?php
+		// regular ol' page heading
+		get_template_part('template-parts/content', 'page-headline');
 
+		// MINDBODY pages:
+		if($post->post_name == 'schedule') {
+			get_template_part( 'template-parts/content', 'schedule' );
+			// MINDBODY underscore templates:
+			get_template_part( 'template-parts/content', 'schedule-underscore' );
+			get_template_part( 'template-parts/content', 'trainers-underscore' );
 
-			<?php
+		} else if($post->post_name == 'trainers') {
+			get_template_part( 'template-parts/content', 'trainers' );
+			// MINDBODY underscore templates:
+			get_template_part( 'template-parts/content', 'schedule-underscore' );
+			get_template_part( 'template-parts/content', 'trainers-underscore' );
+			
+		} else {
+			// regular ol' page.
 			while ( have_posts() ) : the_post();
-
 				get_template_part( 'template-parts/content', 'page' );
-
-				// If comments are open or we have at least one comment, load up the comment template.
-				// if ( comments_open() || get_comments_number() ) :
-				// 	comments_template();
-				// endif;
-
 			endwhile; // End of the loop.
-			?>
-
-		</main><!-- #main -->
+		}
+?>
+		</article><!-- #post-## -->
 	</div><!-- #primary -->
 
 <?php
-if($has_sidebar) {
-	get_sidebar();
-}
+get_sidebar();
+
 
 get_footer();

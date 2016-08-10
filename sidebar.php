@@ -22,14 +22,5 @@ if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 	){
 		get_template_part( 'template-parts/content', 'facebook_list' );
 	}
-
-	// dynamic_sidebar( 'sidebar-1' );
-	// list of upcoming events for the home page:
-	// if($post->post_name == 'home'){
-	//
-	// 	echo "<h1>Upcoming Events</h1>";
-	// 	get_template_part( 'template-parts/content', 'homepage_list' );
-	// 	echo '<h3><a href="' . get_bloginfo('url') . '/calendar">View Full Calendar</a>';
-	// }
 	?>
 </aside><!-- #secondary -->

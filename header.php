@@ -42,6 +42,7 @@ require get_template_directory() . '/custom-objects/custom-objects.php';
 	      <a class="site-title" href="<?php echo get_bloginfo('wpurl') ?>">
 					<h1><?php echo get_bloginfo('title') ?></h1>
 				</a>
+				<?php get_template_part( 'template-parts/content', 'login' ); ?>
 	    </span>
 			<?php get_template_part( 'template-parts/content', 'main-nav' ); ?>
 	</header>

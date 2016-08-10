@@ -34,9 +34,9 @@ module.exports = Backbone.View.extend({
   },
 
   addAppointment: function(info, pageName) {
-    console.log(pageName);
     var appointment = new Appointment({model: info});
 
+    // add some listeners:
     appointment.model.on('change:toggleInfo', function(){
       appointment.toggleInfo();
     });
@@ -45,9 +45,7 @@ module.exports = Backbone.View.extend({
     });
 
     // make the whole thing visible...
-    this.$('ul.classes').append(appointment.render().el);
-
-    appointment.renderClassInfo();
+    this.$('ul.classes').append(appointment.render(pageName).el);
   }
 
 });

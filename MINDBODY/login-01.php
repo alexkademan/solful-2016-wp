@@ -1,32 +1,48 @@
 <?php
-
+session_start();
 require_once __DIR__ . '/mb-config.php';
 require_once __DIR__ . '/mindbody-php-api/src/MB_API.php';
-require_once __DIR__ . '/classes/mb-get-classes.php';
 
+$mb = new \DevinCrossman\Mindbody\MB_API( $mb_config );
 
-// if(isset($_GET['startTime'])){
-// 	$sched_start = date('c', $_GET['startTime']);
-// 	$sched_end = date('c', $_GET['startTime'] + 518400);
-// } else {
-// 	$sched_start = date('c');
-// 	$sched_end = date('c', strtotime('today + 7 days'));
-// };
-//
-// $start_stop_dates = [
-// 	'StartDateTime'=> $sched_start,
-// 	'EndDateTime'=> $sched_end
-// ];
+if(!empty($_POST)) {
+	$validateLogin = $mb->ValidateLogin(array(
+		'Username' => $_POST['username'],
+		'Password' => $_POST['password']
+	));
+	if(!empty($validateLogin['ValidateLoginResult']['GUID'])) {
+		$_SESSION['MINDBODY']['login']['GUID'] = $validateLogin['ValidateLoginResult']['GUID'];
+		$_SESSION['MINDBODY']['login']['client'] = $validateLogin['ValidateLoginResult']['Client'];
+		displayWelcome();
+	} else {
+		if(!empty($validateLogin['ValidateLoginResult']['Message'])) {
+			echo $validateLogin['ValidateLoginResult']['Message'];
+		} else {
+			echo "Invalid Login<br />";
+		}
+		displayLoginForm();
+	}
+} else if(empty($_SESSION['MINDBODY']['login']['GUID'])) {
+	displayLoginForm();
+} else {
+	displayWelcome();
+}
 
-$class_info = new get_MINDBODY_classes( $mb_config );
-$data = $class_info->getScheduleData( );
+function displayLoginForm() {
+	echo <<<EOD
+<form method="POST">
+	<input type="text" name="username" placeholder="username" />
+	<input type="password" name="password" placeholder="password" />
+	<button type="submit">Log in</button> <a href="signup.php">Sign up</a>
+</form>
+EOD;
+}
 
-if(gettype($data) == 'string') {
-	// it returned an error of some sort:
-	echo 'this thing was a string all along....';
-} elseif(gettype($data) == 'array') {
-	// this is probably running correctly then:
-	print_r( $data );
-	// print_r( json_encode($data) );
+function displayWelcome() {
+	echo "Welcome ".$_SESSION['MINDBODY']['login']['client']['FirstName'].' '.$_SESSION['MINDBODY']['login']['client']['LastName'];
+	echo "<br />";
+	echo "<a href='logout-01.php'>Log out</a>";
+
+	print_r($_SESSION['MINDBODY']['login']);
 
 }

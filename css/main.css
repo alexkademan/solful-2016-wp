@@ -3048,6 +3048,9 @@ hr.redstripe {
   height: 0em;
   background-color: #c91a10; }
 
+div.login {
+  color: #FFF; }
+
 .map_canvas {
   height: 12.5em;
   width: 100%; }
@@ -3231,13 +3234,15 @@ ul.classes li div.workout-desc {
   padding: 0.30338em 0 0.60675em;
   margin-bottom: 0.60675em; }
 
-ul.classes li div.workout-desc div.desc {
+ul.classes li div.desc,
+ul.mb_trainers div.bio div.desc {
   max-width: 37.5em; }
 
 ul.classes li div.bio {
   border-bottom: 1px #4d4d4d solid; }
 
-ul.classes li div.workout-desc img {
+ul.classes li div.workout-desc img,
+ul.mb_trainers div.bio img {
   float: right;
   margin-left: 0.5em;
   margin-bottom: 0.25em;
@@ -3269,9 +3274,33 @@ ul.mb_data div.trainerName {
     cursor: pointer;
     text-decoration: underline; }
 
+ul.mb_trainers,
+ul.mb_trainers li,
+ul.mb_trainers li h1,
+ul.mb_trainers div.trainer {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%; }
+
 ul.mb_trainers li {
-  background: #F4F4F4;
   margin-bottom: 0.5em; }
+
+ul.mb_trainers div.bio {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 57.35098%; }
+  ul.mb_trainers div.bio:last-child {
+    margin-right: 0; }
+
+ul.mb_trainers aside.workouts {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 40.29137%; }
+  ul.mb_trainers aside.workouts:last-child {
+    margin-right: 0; }
 
 @media (min-width: 45em) {
   ul.mb_schedule hgroup {

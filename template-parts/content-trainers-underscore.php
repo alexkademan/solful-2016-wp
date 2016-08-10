@@ -7,9 +7,12 @@
 
 <script type="text/template" id="mb-trainer-template">
   <h1><%= Name %></h1>
-  <div class="workout-desc bio">
-    <!-- <%= Bio ? '<div class="desc">' + Bio + '</div>' : '' %> -->
-    <%= ImageURL ? '<img src="' + ImageURL + '" />' : '' %>
+  <div class="trainer">
+
+    <div class="bio">
+      <%= ImageURL ? '<img src="' + ImageURL + '" />' : '' %>
+      <%= Bio ? '<div class="desc">' + Bio + '</div>' : '' %>
+    </div>
 
     <aside class="workouts">
       <% if (workoutCount > 0) { %>
@@ -21,7 +24,4 @@
       <% } %>
     </aside>
   </div>
-</script>
-
-<script type="text/template" id="mb-trainer-available-workout">
 </script>

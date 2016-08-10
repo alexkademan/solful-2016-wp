@@ -1,7 +1,19 @@
-ul.mb_trainers {
-
+ul.mb_trainers,
+ul.mb_trainers li,
+ul.mb_trainers li h1,
+ul.mb_trainers div.trainer {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
 }
 ul.mb_trainers li {
-  background: #F4F4F4;
+  // background: #F4F4F4;
   margin-bottom: 0.5em;
+}
+ul.mb_trainers div.bio {
+  @include span-columns(7 of 12);
+}
+ul.mb_trainers aside.workouts {
+  @include span-columns(5 of 12);
 }

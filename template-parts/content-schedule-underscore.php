@@ -1,23 +1,12 @@
 <?php
-/**
- * Template part for displaying MINDBODY schedule.
- *
- */
-// print_r($post->post_name);
 
-echo '<ul id="mb_app" class="mb_data mb_' . $post->post_name . '">';
-echo 	'<span class="loader"><i class="fa fa-refresh fa-spin fa-2x"></i></span>';
-echo  '<a class="hid url-MINDBODY" href="' . get_bloginfo('template_url') . '/MINDBODY/">link</a>' ;
-echo  '<span class="hid slug">' . $post->post_name . '</span>' ;
-echo '</ul>';
-
-// underscore templates:
-echo '<script type="text/template" id="mb-day-template">';
-echo   '<h1><%- info["dayOfWeek"] %> <%- info["fullMonth"] %> <%- info["day"] %></h1>';
-echo   '<ul class="classes"></ul>';
-echo '</script>';
-
+// underscore templates: --------------------------------------------------------------------------------
 ?>
+<script type="text/template" id="mb-day-template">
+  <h1><%- info["dayOfWeek"] %> <%- info["fullMonth"] %> <%- info["day"] %></h1>
+  <ul class="classes"></ul>
+</script>
+
 <script type="text/template" id="mb-appointment-template">
   <hgroup class="toggle<%- IsAvailable ? ' available' : ' unavailable' %><%- IsCanceled ? ' canceled' : '' %>">
     <h2><%- ClassDescription["Name"] %></h2>
@@ -42,6 +31,21 @@ echo '</script>';
           <%= '<div class="desc">' + Staff['Bio'] + '</div>' %>
         </div>
       </div>
+
+      <div class="workout-desc">
+        <%= ClassDescription['ImageURL'] ? '<img src="' + ClassDescription['ImageURL'] + '" />' : '' %>
+        <%= '<div class="desc">' + ClassDescription['Description'] + '</div>' %>
+      </div>
+    </span>
+  <div>
+</script>
+
+
+<script type="text/template" id="mb-trainer-appointment-template">
+  <div class="classNFO">
+    <span>
+      <%= IsAvailable ? '<a href="' + signupURL + '" class="sign-in-button">Sign in now!</a>' : '' %>
+      <%= IsCanceled ? Staff['Name'] : durationReadable + ' with '+Staff['Name'] %>
 
       <div class="workout-desc">
         <%= ClassDescription['ImageURL'] ? '<img src="' + ClassDescription['ImageURL'] + '" />' : '' %>
