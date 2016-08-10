@@ -9,7 +9,6 @@ if(isset($GLOBALS['this_site']['navigation'])) {
   foreach($GLOBALS['this_site']['navigation'] as $key1=>$item) {
     echo '<li><a href="' . $item['permalink'] . '">' . $item['title'] . '</a></li>';
   }
-
   echo    '</ul>';
   echo   '</span>';
   echo  '</span>';
@@ -30,5 +29,6 @@ if(isset($GLOBALS['this_site']['sub_navigation'])) {
   echo  '</span>';
 }
 ?>
+  <?php // get_template_part( 'template-parts/content', 'login' ); ?>
   </span>
 </nav>

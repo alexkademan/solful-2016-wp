@@ -13,33 +13,34 @@ var TrainersCollection = require('./../models/mb_trainers_collection');
 var TrainerView = require('./mb_trainer_view');
 // var MergeTrainersSchedule = require('./mb_merge_trainers');
 
+// var LoginModel = require('../models/mb_login_model');
+var LoginView = require('./mb_login_view');
+
 module.exports = Backbone.View.extend({
 
   el: '#mb_app',
 
   initialize: function() {
 
+    app.mbLogInView = new LoginView({model: app.mindbodyModel});
+    // app.mbLogInView.setBaseURL();
+    // console.log(this.model);
+
     if(this.$el.length == 1){
-      // single method to suss out the info about the date in question:
+      // helper methods for use later:
       app.findDayInfo = new DayInfo();
 
-      // #mb_sched is within the DOM, so lets go to work:
-      var mbURL = this.$('a.url-MINDBODY');
+      // the slug has been printed to the DOM. like its 2013 or something !@#!@
       var wpSlug = this.$('span.slug');
 
       // IF we have the MINDBODY URL and the page slug:
       if(
-        (mbURL.length > 0 && mbURL[0].href !== undefined && mbURL[0].href !== '')
+        this.model.get('mbFeedURL') !== false
         && (wpSlug.length > 0 && wpSlug[0].innerHTML !== undefined && wpSlug[0].innerHTML !== '')
       ) {
 
-        // we have found the base AJAX URL, and the current page slug:
-        this.model.set({
-          mbFeedURL: mbURL[0].href,
-          wpSlug: wpSlug[0].innerHTML
-        });
-
-        // console.log(this.model);
+        // we have found the current page slug:
+        this.model.set({ wpSlug: wpSlug[0].innerHTML });
 
         // listen for the ajax call to come back to begin the render process:
         this.model.on('change:requestStatus', this.adjustState);

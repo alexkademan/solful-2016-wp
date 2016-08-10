@@ -3048,8 +3048,18 @@ hr.redstripe {
   height: 0em;
   background-color: #c91a10; }
 
-div.login {
-  color: #FFF; }
+div.MB-login {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #FFF;
+  z-index: 1;
+  height: 60px;
+  padding: 0.9708em 6.0675em 0 0.60675em; }
+
+div.MB-login:hover {
+  text-decoration: underline;
+  cursor: pointer; }
 
 .map_canvas {
   height: 12.5em;
@@ -3093,7 +3103,10 @@ div.login {
     .widget-area:last-child {
       margin-right: 0; }
   a.sign_up_now .classes {
-    text-align: center; } }
+    text-align: center; }
+  div.MB-login {
+    height: 80px;
+    padding: 2.1034em 0.60675em 0; } }
 
 ul.fb_feed {
   position: relative; }

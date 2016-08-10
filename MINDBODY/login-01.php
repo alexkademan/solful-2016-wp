@@ -1,8 +1,8 @@
 <?php
 session_start();
+
 require_once __DIR__ . '/mb-config.php';
 require_once __DIR__ . '/mindbody-php-api/src/MB_API.php';
-
 $mb = new \DevinCrossman\Mindbody\MB_API( $mb_config );
 
 if(!empty($_POST)) {
@@ -10,7 +10,15 @@ if(!empty($_POST)) {
 		'Username' => $_POST['username'],
 		'Password' => $_POST['password']
 	));
+
+	// print_r($_SESSION['ValidateLoginResult']['GUID']);
+	// print_r($validateLogin['ValidateLoginResult']['GUID']);
+
+
 	if(!empty($validateLogin['ValidateLoginResult']['GUID'])) {
+		if(isset($_SESSION['MINDBODY']['login'])){
+			unset($_SESSION['MINDBODY']['login']);
+		}
 		$_SESSION['MINDBODY']['login']['GUID'] = $validateLogin['ValidateLoginResult']['GUID'];
 		$_SESSION['MINDBODY']['login']['client'] = $validateLogin['ValidateLoginResult']['Client'];
 		displayWelcome();
@@ -22,8 +30,10 @@ if(!empty($_POST)) {
 		}
 		displayLoginForm();
 	}
+
 } else if(empty($_SESSION['MINDBODY']['login']['GUID'])) {
 	displayLoginForm();
+
 } else {
 	displayWelcome();
 }
@@ -43,6 +53,6 @@ function displayWelcome() {
 	echo "<br />";
 	echo "<a href='logout-01.php'>Log out</a>";
 
-	print_r($_SESSION['MINDBODY']['login']);
+	// print_r($_SESSION['MINDBODY']['login']);
 
 }

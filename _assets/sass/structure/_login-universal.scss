@@ -1,3 +1,14 @@
-div.login {
+div.MB-login {
+  position: absolute;
+  top: 0;
+  right: 0;
   color: #FFF;
+  z-index: 1;
+  height: $nav-height-mobile;
+  padding: ($gutter * 0.6) ($main-gutter * 5) 0 ($main-gutter * 0.5);
+  
+}
+div.MB-login:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }

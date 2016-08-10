@@ -13,8 +13,12 @@ module.exports = Backbone.Model.extend({
     trainersLoaded: false,
     instructor: false, // instructor ID. False for ALL instructors (complete schedule)
     totalWorkouts: 0, // total number of workouts on schedule.
-    mbFeedURL: '', // I'm pulling the URL from the page, WP's get_bloginfo is handy in this instance.
-    signupURLbase: 'https://clients.mindbodyonline.com/ws.asp'
+    mbFeedURL: false, // I'm pulling the URL from the page, WP's get_bloginfo is handy in this instance.
+    signupURLbase: 'https://clients.mindbodyonline.com/ws.asp',
+
+    loggedIn: false,
+    GUID: false, // USER ID with MINDBODY issued at login.
+    client: false // array of info that comes back from the API about the user.
   }
 
 });

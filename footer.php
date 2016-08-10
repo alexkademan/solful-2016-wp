@@ -39,6 +39,7 @@ if($post->post_title == 'Contact Us'){
 if($post->post_title == 'Contact Us'){ // bring in the js for the map part...
 	get_template_part( 'template-parts/content', 'location-map' );
 }
+get_template_part( 'template-parts/content', 'login-underscore' ); // templates for login button within masthead.
 ?>
 </body>
 </html>
