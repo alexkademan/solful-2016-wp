@@ -60,13 +60,11 @@ module.exports = Backbone.View.extend({
       });
     } else {
 
-      // console.log(data['GUID']);
-      console.log(data);
-
       app.mindbodyModel.set({
         GUID: data['GUID'],
         client: data['client'],
-        loggedIn: true
+        loggedIn: true,
+        loginFormVisible: false
       });
     };
   },

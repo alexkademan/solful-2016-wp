@@ -28,7 +28,7 @@ module.exports = Backbone.View.extend({
   loginToggle: function(){
     if(app.mindbodyModel.get('loginFormVisible') === true){
       app.mbLogInForm.showForm();
-    } else if (app.mindbodyModel.get('lgoinFormVisible') === false ){
+    } else if (app.mindbodyModel.get('loginFormVisible') === false ){
       app.mbLogInForm.$el.empty();
     }
   },
