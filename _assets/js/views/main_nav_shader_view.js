@@ -29,7 +29,6 @@ module.exports = Backbone.View.extend({
   events: {
     'click': function(e) {
       app.mainNav.closeMenus();
-      console.log('is this going on now?');
     }
   },
 

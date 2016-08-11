@@ -53,6 +53,7 @@ module.exports = Backbone.View.extend({
           // look with start date defined as right now.
           this.makeAJAXcall('sched-02.php?startTime=' + Math.round(new Date().getTime()/1000), 'schedule');
           this.makeAJAXcall('trainers-01.php', 'trainers');
+          this.makeAJAXcall('login-status.php', 'login');
 
         }
       };
@@ -61,9 +62,10 @@ module.exports = Backbone.View.extend({
 
   makeAJAXcall: function( file, section ) {
     if( file == undefined ){ file = 'sched-01.php'; }
-    // console.log(app.mindbodyModel.get('mbFeedURL') + file);
+    var thisURL = app.mindbodyModel.get('mbFeedURL') + file;
+    console.log(thisURL);
     $.ajax({
-      url: app.mindbodyModel.get('mbFeedURL') + file,
+      url: thisURL,
       dataType: 'json'
 
     }).done(function( data ) {
@@ -74,6 +76,8 @@ module.exports = Backbone.View.extend({
         app.mindbodyView.weHaveSchedule(data);
       } else if (section === 'trainers') {
         app.mindbodyView.weHaveTrainers(data);
+      } else if (section === 'login') {
+        app.mbLogInView.logInOut(data);
       }
 
       // add an increment, this will call 'this.adjustState'

@@ -51,9 +51,4 @@ if(
 	}
 }
 
-// print_r($_SESSION['MINDBODY']['schedule']['time']);
-// echo "\n";
-// print_r(time());
-// echo "\n\n\n\n";
-
 print_r($_SESSION['MINDBODY']['schedule']['info']);

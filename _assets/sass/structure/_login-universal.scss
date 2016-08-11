@@ -5,10 +5,52 @@ div.MB-login {
   color: #FFF;
   z-index: 1;
   height: $nav-height-mobile;
-  padding: ($gutter * 0.6) ($main-gutter * 5) 0 ($main-gutter * 0.5);
-  
+  padding: ($gutter * 1.3) ($main-gutter * 0.5) 0;
+
 }
 div.MB-login:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+
+// the login form pop-over:
+div.loginForm{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 0;
+  overflow: visible;
+  background-color: #FCF;
+  z-index:1501; // yeah, these numbers are getting outta hand. !@!
+}
+div.loginForm > div.non-mobile-shader {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  height: pem(500);
+  background-color: rgba(0,0,0,0.7);
+  padding: pem(20) $main_gutter 0;
+}
+div.loginForm div.login {
+  display: block;
+
+  margin: 0 auto;
+  background: #FFF;
+  max-width: pem(500);
+  padding: $gutter;
+
+  $this-things-border: pem(5);
+  @include border-top-radius($this-things-border);
+  @include border-right-radius($this-things-border);
+  @include border-bottom-radius($this-things-border);
+  @include border-left-radius($this-things-border);
+}
+input.mb-password {
+  // make the letters look like bullets
+  -webkit-text-security: disc;
+  -moz-text-security: disc;
+  text-security: disc;
 }

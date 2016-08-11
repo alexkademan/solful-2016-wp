@@ -18,7 +18,8 @@ module.exports = Backbone.Model.extend({
 
     loggedIn: false,
     GUID: false, // USER ID with MINDBODY issued at login.
-    client: false // array of info that comes back from the API about the user.
+    client: false, // array of info that comes back from the API about the user.
+    loginFormVisible: false // toggle login form visibility.
   }
 
 });

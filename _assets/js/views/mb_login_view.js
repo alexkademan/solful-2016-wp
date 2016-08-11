@@ -5,6 +5,8 @@ var Backbone = require ('backbone');
 var _ = require ('underscore');
 var $ = require ('jquery');
 
+var LoginForm = require('./mb_login_form_view')
+
 module.exports = Backbone.View.extend({
   el: '#MB-login',
 
@@ -14,7 +16,6 @@ module.exports = Backbone.View.extend({
   },
 
   initialize: function() {
-    // this function is basically an init.
     // this is necessary to the whole program, because I'm able to
     // more efficiently get the full URL to the program out of
     // WP than I can out of JS. This is just to keep things portable.
@@ -23,56 +24,62 @@ module.exports = Backbone.View.extend({
     if( mbURL ){
       // set the needed var for the whole application,
       this.model.set({mbFeedURL: mbURL});
-      // then get rolling:
-      this.checkSession('login-status.php', 'login');
-      // this.renderStatus();
+      // new view for login form:
+      app.mbLogInForm = new LoginForm({model: this.model});
+      app.mindbodyModel.on('change:loginFormVisible', function(){
+        app.mbLogInForm.loginToggle();
+      });
+      app.mindbodyModel.on('change:loggedIn', function(){
+        app.mbLogInView.renderStatus();
+      });
+      // app.mindbodyModel.on('change:loggedIn', this.renderStatus);
+
+      this.renderStatus();
+
     };
   },
 
   logOutUser: function() {
     if(this.model.get('loggedIn') === true){
-      this.checkSession('login-status.php?leave=true', 'login')
+      app.mindbodyView.makeAJAXcall('login-status.php?leave=true', 'login');
     };
   },
 
   logInUser: function() {
-    console.log('logInUser');
+    this.model.set({loginFormVisible: true});
   },
 
-  checkSession: function(file, section) {
-    // ask PHP to check and see if we are logged into MINDBODY:
-    console.log(app.mindbodyModel.get('mbFeedURL') + file);
-    $.ajax({
-      url: app.mindbodyModel.get('mbFeedURL') + file,
-      dataType: 'json'
+  logInOut: function(data){
 
-    }).done(function( data ) {
-      if(data === 'stranger'){
-        // NOT logged in whatsoever:
-        app.mindbodyModel.set({
-          GUID: false,
-          client: false,
-          loggedIn: false
-        });
-      } else {
-        console.log(data);
-        app.mindbodyModel.set({
-          GUID: data['GUID'],
-          client: data['client'],
-          loggedIn: true
-        });
-      };
-      app.mbLogInView.renderStatus();
-    });
+    if(data === 'stranger'){
+      // NOT logged in whatsoever:
+      app.mindbodyModel.set({
+        GUID: false,
+        client: false,
+        loggedIn: false
+      });
+    } else {
+
+      // console.log(data['GUID']);
+      console.log(data);
+
+      app.mindbodyModel.set({
+        GUID: data['GUID'],
+        client: data['client'],
+        loggedIn: true
+      });
+    };
   },
 
   renderStatus: function() {
+    console.log('renderStatus')
     if(this.model.get('loggedIn') === false){
       // client is NOT logged into MINDBODY:
-      console.log(this.model);
+      console.log('client is NOT logged into MINDBODY');
       this.renderStranger();
     }else if (this.model.get('loggedIn') === true){
       // client IS logged into MINDBODY:
+      console.log('client IS logged into MINDBODY');
       this.renderUser();
     };
 
