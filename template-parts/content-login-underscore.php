@@ -14,6 +14,7 @@
   <div class="non-mobile-shader">
     <div class="login">
       <h3>Already a member? Sign in here:</h3>
+      <span class="error"></span>
       <form>
         <label for="mb-username">Username:</label>
         <input type="text" name="username" id="mb-username">
@@ -23,6 +24,12 @@
 
         <input type="submit" value="Sign in" class="mb-login-button">
       </form>
+      <span class="loading hid"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></span>
     </div>
   </div>
+</script>
+
+
+<script type="text/template" id="mb-login-form-error">
+  <%= loginERRmessage ? '<p>' + loginERRmessage + '</p>' : '' %>
 </script>

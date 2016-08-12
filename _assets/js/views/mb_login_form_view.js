@@ -7,7 +7,6 @@ var $ = require ('jquery');
 
 module.exports = Backbone.View.extend({
 
-  // el: 'html',
   el: document.body,
 
   events: {
@@ -21,8 +20,6 @@ module.exports = Backbone.View.extend({
 
     this.$el = $(node); // cache for ... THE FUTURE!!!
     this.template = _.template($('#mb-login-form').html());
-
-    // this.model.on('change:loginFormVisible', this.loginToggle);
   },
 
   loginToggle: function(){
@@ -45,6 +42,7 @@ module.exports = Backbone.View.extend({
     if(e.target.className === 'mb-login-button'){
       // the submit input on the form was used:
       e.preventDefault();
+      this.model.set({'loginERRmessage': ''});
       this.checkForm();
     }
   },
@@ -54,15 +52,52 @@ module.exports = Backbone.View.extend({
     var username = this.$('#mb-username').val();
     var password = this.$('#mb-password').val();
 
-    var argString = '?un=' + username + '&pw=' + password;
-
-    app.mindbodyView.makeAJAXcall('login-03.php' + argString, 'login');
-
+    if(username === '') {
+      this.model.set({'loginERRmessage': 'You must enter your username'});
+    } else if(password === '') {
+      this.model.set({'loginERRmessage': 'You must enter your password'});
+    } else {
+      // call the API for the user information:
+      var argString = '?un=' + username + '&pw=' + password;
+      app.mindbodyView.makeAJAXcall('login-03.php' + argString, 'login');
+      this.model.set({'loginFormWaiting': true});
+    }
   },
 
   showForm: function() {
     this.$el.html(this.template(this.model.toJSON()));
     this.$('#mb-username').focus();
+  },
+
+  loginWaiting: function() {
+    var loadingSpan = this.$('div.login span.loading');
+    if(this.model.get('loginFormWaiting') === true){
+      // console.log('loginWaiting');
+      loadingSpan.removeClass('hid');
+
+    } else {
+      loadingSpan.addClass('hid');
+    }
+  },
+
+  renderErrorMessage: function() {
+    var errorSpan = this.$('span.error');
+    console.log(errorSpan);
+
+    errorSpan.empty();
+    console.log(this.model);
+
+    var errorTemplate = _.template($('#mb-login-form-error').html());
+    errorSpan.html(errorTemplate(this.model.toJSON()));
+
+    if(this.model.get('loginERRmessage') !== ''){
+      // flash red then fade to transparent
+      errorSpan.addClass('flash');
+      setTimeout(function(){
+        errorSpan.removeClass('flash');
+      }, 50);
+    }
+
   }
 
 });

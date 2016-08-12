@@ -19,7 +19,10 @@ module.exports = Backbone.Model.extend({
     loggedIn: false,
     GUID: false, // USER ID with MINDBODY issued at login.
     client: false, // array of info that comes back from the API about the user.
-    loginFormVisible: false // toggle login form visibility.
+    loginFormRendered: false,
+    loginFormVisible: false, // toggle login form visibility.
+    loginFormWaiting: false, // when you click "Sign In" the form needs to wait for response from API
+    loginERRmessage: '' // probably wrong username or password.
   }
 
 });

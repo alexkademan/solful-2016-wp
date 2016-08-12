@@ -27,16 +27,16 @@ if( isset($_GET['un']) && isset($_GET['pw']) ){
 
 		} else {
 			if(!empty($validateLogin['ValidateLoginResult']['Message'])) {
-				echo 'err?';
-				print_r(json_encode($validateLogin['ValidateLoginResult']['Message']));
+				echo json_encode($validateLogin);
 			} else {
-				echo '"Invalid Login"';
+				echo '"error"';
 			}
-			echo 'uhhuuhuhuh';
 		}
+	} else {
+		echo json_encode($validateLogin);
 	}
 
 
 } else {
-	print_r (json_encode('missing info'));
+	echo '"error"';
 }

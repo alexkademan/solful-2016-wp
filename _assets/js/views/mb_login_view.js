@@ -27,12 +27,21 @@ module.exports = Backbone.View.extend({
       // new view for login form:
       app.mbLogInForm = new LoginForm({model: this.model});
       app.mindbodyModel.on('change:loginFormVisible', function(){
+        // show or hide the login form:
         app.mbLogInForm.loginToggle();
       });
       app.mindbodyModel.on('change:loggedIn', function(){
+        // manage the username or 'sign in' button in the masthead
         app.mbLogInView.renderStatus();
       });
-      // app.mindbodyModel.on('change:loggedIn', this.renderStatus);
+      app.mindbodyModel.on('change:loginERRmessage', function(){
+        // display (or remove) the login error message
+        app.mbLogInForm.renderErrorMessage();
+      });
+      app.mindbodyModel.on('change:loginFormWaiting', function(){
+        // show/hide loader while login form waits for response from API
+        app.mbLogInForm.loginWaiting();
+      });
 
       this.renderStatus();
 
@@ -52,32 +61,36 @@ module.exports = Backbone.View.extend({
   logInOut: function(data){
 
     if(data === 'stranger'){
-      // NOT logged in whatsoever:
+      // user not logged in and hasn't tried.
       app.mindbodyModel.set({
         GUID: false,
         client: false,
         loggedIn: false
       });
-    } else {
-
+    } else if(data['GUID']) {
+      // the user JUST got her login credentials.
       app.mindbodyModel.set({
         GUID: data['GUID'],
         client: data['client'],
         loggedIn: true,
+        loginFormWaiting: false,
         loginFormVisible: false
+      });
+    } else if(data['ValidateLoginResult']){
+      // we caught an error message.
+      app.mindbodyModel.set({
+        loginFormWaiting: false,
+        loginERRmessage: data.ValidateLoginResult.Message
       });
     };
   },
 
   renderStatus: function() {
-    console.log('renderStatus')
     if(this.model.get('loggedIn') === false){
       // client is NOT logged into MINDBODY:
-      console.log('client is NOT logged into MINDBODY');
       this.renderStranger();
     }else if (this.model.get('loggedIn') === true){
       // client IS logged into MINDBODY:
-      console.log('client IS logged into MINDBODY');
       this.renderUser();
     };
 

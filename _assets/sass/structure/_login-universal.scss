@@ -1,3 +1,13 @@
+div.loginForm div.login,
+div.loginForm div.login > span.error  p,
+div.loginForm div.login span.loading {
+  $this-things-border: pem(5);
+  @include border-top-radius($this-things-border);
+  @include border-right-radius($this-things-border);
+  @include border-bottom-radius($this-things-border);
+  @include border-left-radius($this-things-border);
+}
+
 div.MB-login {
   position: absolute;
   top: 0;
@@ -24,7 +34,9 @@ div.loginForm{
   overflow: visible;
   background-color: #FCF;
   z-index:1501; // yeah, these numbers are getting outta hand. !@!
+
 }
+
 div.loginForm > div.non-mobile-shader {
   display: block;
   float: left;
@@ -36,21 +48,43 @@ div.loginForm > div.non-mobile-shader {
 }
 div.loginForm div.login {
   display: block;
+  position: relative;
 
   margin: 0 auto;
   background: #FFF;
   max-width: pem(500);
   padding: $gutter;
-
-  $this-things-border: pem(5);
-  @include border-top-radius($this-things-border);
-  @include border-right-radius($this-things-border);
-  @include border-bottom-radius($this-things-border);
-  @include border-left-radius($this-things-border);
 }
+
+div.loginForm div.login > span.error p,
+div.loginForm div.login form {
+  display:block;
+}
+div.loginForm div.login > span.error  p {
+  padding: pem(5);
+  color: darken($action-color, 10%);
+  background: lighten($action-color, 60%);
+  border: 2px $action-color solid;
+  transition: background 0.75s ease-out;
+}
+div.loginForm div.login > span.flash p {
+  background: lighten($action-color, 0%);
+  transition: background 0s ease-out;
+}
+
 input.mb-password {
   // make the letters look like bullets
   -webkit-text-security: disc;
   -moz-text-security: disc;
   text-security: disc;
+}
+div.loginForm div.login span.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255, 0.8);
+  text-align: center;
+  padding-top: 25%;
 }

@@ -6,6 +6,7 @@ var $ = require ('jquery');
 
 
 module.exports = Backbone.View.extend({
+  
   tagName: 'li',
 
   events: {

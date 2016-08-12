@@ -3048,6 +3048,18 @@ hr.redstripe {
   height: 0em;
   background-color: #c91a10; }
 
+div.loginForm div.login,
+div.loginForm div.login > span.error p,
+div.loginForm div.login span.loading {
+  border-top-left-radius: 0.3125em;
+  border-top-right-radius: 0.3125em;
+  border-bottom-right-radius: 0.3125em;
+  border-top-right-radius: 0.3125em;
+  border-bottom-left-radius: 0.3125em;
+  border-bottom-right-radius: 0.3125em;
+  border-bottom-left-radius: 0.3125em;
+  border-top-left-radius: 0.3125em; }
+
 div.MB-login {
   position: absolute;
   top: 0;
@@ -3082,23 +3094,43 @@ div.loginForm > div.non-mobile-shader {
 
 div.loginForm div.login {
   display: block;
+  position: relative;
   margin: 0 auto;
   background: #FFF;
   max-width: 31.25em;
-  padding: 1.618em;
-  border-top-left-radius: 0.3125em;
-  border-top-right-radius: 0.3125em;
-  border-bottom-right-radius: 0.3125em;
-  border-top-right-radius: 0.3125em;
-  border-bottom-left-radius: 0.3125em;
-  border-bottom-right-radius: 0.3125em;
-  border-bottom-left-radius: 0.3125em;
-  border-top-left-radius: 0.3125em; }
+  padding: 1.618em; }
+
+div.loginForm div.login > span.error p,
+div.loginForm div.login form {
+  display: block; }
+
+div.loginForm div.login > span.error p {
+  padding: 0.3125em;
+  color: #83110a;
+  background: #fef4f4;
+  border: 2px #b2170e solid;
+  -webkit-transition: background 0.75s ease-out;
+  transition: background 0.75s ease-out; }
+
+div.loginForm div.login > span.flash p {
+  background: #b2170e;
+  -webkit-transition: background 0s ease-out;
+  transition: background 0s ease-out; }
 
 input.mb-password {
   -webkit-text-security: disc;
   -moz-text-security: disc;
   text-security: disc; }
+
+div.loginForm div.login span.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding-top: 25%; }
 
 .map_canvas {
   height: 12.5em;
