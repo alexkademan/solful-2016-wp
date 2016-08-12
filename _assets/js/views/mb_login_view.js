@@ -76,6 +76,10 @@ module.exports = Backbone.View.extend({
         loginFormWaiting: false,
         loginFormVisible: false
       });
+
+      // now that we're logged in, get info about the client:
+      
+
     } else if(data['ValidateLoginResult']){
       // we caught an error message.
       app.mindbodyModel.set({

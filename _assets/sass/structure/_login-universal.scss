@@ -42,7 +42,7 @@ div.loginForm > div.non-mobile-shader {
   float: left;
   clear: both;
   width: 100%;
-  height: pem(500);
+  height: pem(5000);
   background-color: rgba(0,0,0,0.7);
   padding: pem(20) $main_gutter 0;
 }
@@ -72,11 +72,15 @@ div.loginForm div.login > span.flash p {
   transition: background 0s ease-out;
 }
 
-input.mb-password {
+div.loginForm input.mb-password {
   // make the letters look like bullets
   -webkit-text-security: disc;
   -moz-text-security: disc;
   text-security: disc;
+}
+div.loginForm input.mb-login-button {
+  // display: block;
+  // margin: 0 auto;
 }
 div.loginForm div.login span.loading {
   position: absolute;
@@ -87,4 +91,23 @@ div.loginForm div.login span.loading {
   background: rgba(255,255,255, 0.8);
   text-align: center;
   padding-top: 25%;
+}
+div.loginForm div.login div.new-user {
+  padding-top: 1em;
+  border-top: 1px #CCC solid;
+  margin-top: 1.5em;
+  a h3 {
+    color: $base-font-color;
+  }
+  .no-touchevents & a:hover h3 {
+    color: $color-solful-red;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+}
+div.loginForm div.login img {
+  display: block;
+  margin: 0 auto;
+  max-width: pem(200);
 }

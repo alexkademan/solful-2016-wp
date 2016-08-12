@@ -10,7 +10,8 @@ module.exports = Backbone.View.extend({
   el: document.body,
 
   events: {
-    'click div.non-mobile-shader': 'clickScreen'
+    'click div.non-mobile-shader': 'clickScreen',
+    'keydown': 'keyAction'
   },
 
   initialize: function(){
@@ -28,6 +29,12 @@ module.exports = Backbone.View.extend({
     } else if (app.mindbodyModel.get('loginFormVisible') === false ){
       app.mbLogInForm.$el.empty();
     }
+  },
+  keyAction: function(e) {
+    if(e.keyCode === 27 && this.model.get('loginFormVisible') === true){
+      // escape key:
+      this.model.set({'loginFormVisible': false});
+    };
   },
 
   clickScreen: function(e) {

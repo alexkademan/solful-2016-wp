@@ -63,7 +63,7 @@ module.exports = Backbone.View.extend({
   makeAJAXcall: function( file, section ) {
     if( file == undefined ){ file = 'sched-01.php'; }
     var thisURL = app.mindbodyModel.get('mbFeedURL') + file;
-    console.log(thisURL);
+    // console.log(thisURL);
     $.ajax({
       url: thisURL,
       dataType: 'json'

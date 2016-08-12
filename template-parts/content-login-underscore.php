@@ -24,6 +24,12 @@
 
         <input type="submit" value="Sign in" class="mb-login-button">
       </form>
+      <div class="new-user">
+        <a href="https://clients.mindbodyonline.com/classic/home?studioid=<%- studioID %>" target="_blank">
+          <h3>Or join us now with MINDBODY!</h3>
+          <img src="<%- mbFeedURL %>../images/MINDBODY-company-logo.png">
+        </a>
+      </div>
       <span class="loading hid"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></span>
     </div>
   </div>

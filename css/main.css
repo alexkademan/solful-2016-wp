@@ -3088,7 +3088,7 @@ div.loginForm > div.non-mobile-shader {
   float: left;
   clear: both;
   width: 100%;
-  height: 31.25em;
+  height: 312.5em;
   background-color: rgba(0, 0, 0, 0.7);
   padding: 1.25em 1.2135em 0; }
 
@@ -3117,7 +3117,7 @@ div.loginForm div.login > span.flash p {
   -webkit-transition: background 0s ease-out;
   transition: background 0s ease-out; }
 
-input.mb-password {
+div.loginForm input.mb-password {
   -webkit-text-security: disc;
   -moz-text-security: disc;
   text-security: disc; }
@@ -3131,6 +3131,22 @@ div.loginForm div.login span.loading {
   background: rgba(255, 255, 255, 0.8);
   text-align: center;
   padding-top: 25%; }
+
+div.loginForm div.login div.new-user {
+  padding-top: 1em;
+  border-top: 1px #CCC solid;
+  margin-top: 1.5em; }
+  div.loginForm div.login div.new-user a h3 {
+    color: #4d4d4d; }
+  .no-touchevents div.loginForm div.login div.new-user a:hover h3 {
+    color: #ef4137; }
+  div.loginForm div.login div.new-user a:hover {
+    text-decoration: none; }
+
+div.loginForm div.login img {
+  display: block;
+  margin: 0 auto;
+  max-width: 12.5em; }
 
 .map_canvas {
   height: 12.5em;
