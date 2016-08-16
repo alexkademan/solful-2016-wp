@@ -20,8 +20,6 @@ module.exports = Backbone.View.extend({
     // and reach a little further for span.avatar
     var avatarSpan = this.$('li.id-' + this.model.get('id') + ' .avatar');
     var avatarTemplate = _.template( this.$('#fb_template_avatar').html() );
-
-    // console.log(avatarModel.toJSON());
     avatarSpan.html(avatarTemplate(avatarModel.toJSON()));
 
   }

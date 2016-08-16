@@ -29,6 +29,8 @@ module.exports = Backbone.View.extend({
 
   getFBdata: function() {
     // this function pulls all the IDs for each post that we need.
+    var request = app.fbFeedModel.get('fbFeedURL') + '?postID=IDs';
+    // console.log( request );
     $.ajax({
       // url: './fb_feed/?postID=IDs',
       url: app.fbFeedModel.get('fbFeedURL') + '?postID=IDs',
@@ -52,7 +54,9 @@ module.exports = Backbone.View.extend({
   getIndividualPost: function( post ) {
     var thisID = app.fbFeedModel.get('fetchedPosts');
     var thisNumber = app.fbPosts.models[thisID].id;
-    // console.log(app.fbFeedModel.get('fbFeedURL') + '?postID=IDs');
+
+    var request = app.fbFeedModel.get('fbFeedURL') + '?postID=' + app.fbPosts.models[thisID].id;
+    // console.log( request );
     $.ajax({
       // url: 'fb_feed/?postID=' + app.fbPosts.models[thisID].id,
       url: app.fbFeedModel.get('fbFeedURL') + '?postID=' + app.fbPosts.models[thisID].id,
@@ -100,11 +104,12 @@ module.exports = Backbone.View.extend({
   },
 
   renderInOrder: function(view) {
+    this.hideLoadingSpinner();
     // as the posts load back into framework, this method makes sure that they
     // render to the DOM in the proper order:
     var thisCount = parseInt(view.model.get('order'));
     if( thisCount === 0 ){
-      // previous doesn't need to be loaded, because there IS no previous post
+      // previous doesn't need to be loaded, because this is the first one.
       this.renderPost(view);
 
     } else if(
@@ -129,6 +134,7 @@ module.exports = Backbone.View.extend({
   },
 
   renderPost: function(view) {
+    console.log(view);
     if(parseInt(view.model.get('order')) === 0) {
       // this is the first post to render,
       // so hide the loader:
@@ -150,12 +156,17 @@ module.exports = Backbone.View.extend({
   },
 
   hideLoadingSpinner: function() {
+    // this is being run more than once, but JQuery is okay with that.
+    // I'm not proud of this, but, this program is a MESS right now.
     this.$('li.loading').addClass('hid');
   },
 
   collectAvatar: function( avatarID ) {
     // add to the collection before casting the request
     app.fbAvatars.add( { id: avatarID } );
+
+    var request = app.fbFeedModel.get('fbFeedURL') + '?avatarID=' + avatarID;
+    // console.log( request );
     $.ajax({
       url: app.fbFeedModel.get('fbFeedURL') + '?avatarID=' + avatarID,
       dataType: 'json'

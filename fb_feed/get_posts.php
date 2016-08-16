@@ -35,8 +35,13 @@ class get_fb_page_posts {
         case 'video':
           $the_post['video'] = $this->get_the_video($the_post);
           break;
+
+        case 'event':
+          $the_post['event'] = $this->get_the_event($the_post);
+          break;
       }
 
+      // print_r( $the_post );
       return $the_post;
 
     }
@@ -164,6 +169,10 @@ class get_fb_page_posts {
       return $video_stuff;
     }
 
+  }
+
+  private function get_the_event($the_post) {
+    // print_r( $the_post );
   }
 
   private function makeRequest($id, $args) {

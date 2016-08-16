@@ -19,8 +19,11 @@
 			  <hgroup>
 			    <h1><%
 			_.each(headline, function(post){
-			  if(post.url){ print('<a href="' + post.url + '">' + post.name + '</a>');
-			  } else { print(post.name); }
+			  if(post.url){
+					print('<a href="' + post.url + '">' + post.name + '</a>');
+			  } else {
+					print(post.name);
+				}
 			});
 			%></h1>
 			    <h2><%- r_time %>
@@ -64,8 +67,11 @@
 				  <% print('</a>'); %>
 				<% } %>
 
+
+	    <% } else if(type === 'event'){ %>
+				<%- description %>
 	    <% } else { %>
-	      <%- id + ' - ' + type %>
+				<%- description %>
 	    <% } %>
 			<footer>
 			<%
