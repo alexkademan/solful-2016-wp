@@ -29,7 +29,7 @@ h2 {
   font-size: 1.6em;
 }
 ul.mb_data h1 {
-  color: lighten($base-font-color, 0%);
+  color: darken($color-solful-red, 20%);
   font-family: $base-font-family;
 
   font-size: 1em;
@@ -44,6 +44,11 @@ ul.mb_data h3 {
   font-weight: normal;
   font-size: 1em;
   margin-bottom: 0;
+}
+ul.mb_trainers > li > h1 {
+  font-family: 'bebas-regular';
+  letter-spacing: 0.045em;
+  font-size: 1.6em;
 }
 ul.mb_data a.sign-in-button,
 ul.mb_data div.trainerName {

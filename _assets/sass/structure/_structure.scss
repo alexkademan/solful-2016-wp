@@ -1,13 +1,9 @@
 
 @import 'basic-structure-universal';
-@import 'sign-up-now';
-@import 'login-universal';
 @import 'google-map';
 // @import 'footer';
 
 @media($medium-breakpoint) {
   @import 'basic-structure-medium';
-  @import 'sign-up-now-medium';
-  @import 'login-medium';
   // @import 'footer-medium';
 }

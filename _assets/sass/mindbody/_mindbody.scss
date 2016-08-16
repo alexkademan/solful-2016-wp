@@ -1,8 +1,15 @@
 
-@import 'mindbody-universal';
-@import 'mindbody-trainers';
-@import 'mindbody-toggle';
+@import 'mb-universal';
+@import 'mb-trainers-universal';
+@import 'mb-toggle';
+
+@import 'mb-sign-up-now';
+@import 'mb-login-universal';
 
 @media($medium-breakpoint) {
-  @import 'mindbody-medium';
+  @import 'mb-medium';
+  @import 'mb-trainers-medium';
+
+  @import 'mb-sign-up-now-medium';
+  @import 'mb-login-medium';
 }

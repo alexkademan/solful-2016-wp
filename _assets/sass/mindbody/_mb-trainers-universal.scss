@@ -11,6 +11,15 @@ ul.mb_trainers li {
   // background: #F4F4F4;
   margin-bottom: 0.5em;
 }
+ul.mb_trainers li h1 {
+  color: $color-solful-red;
+}
+ul.mb_trainers > li > h1 {
+  // Traners names
+  color: $base-font-color;
+  border-bottom: pem(1) #CCC   solid;
+}
+
 ul.mb_trainers div.bio {
   @include span-columns(7 of 12);
 }

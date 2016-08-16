@@ -17,17 +17,17 @@
       <span class="error"></span>
       <form>
         <label for="mb-username">Username:</label>
-        <input type="text" name="username" id="mb-username">
+        <input type="text" name="username" id="mb-username" />
 
         <label for="mb-password">Password:</label>
-        <input type="text" name="password" id="mb-password" class="mb-password">
+        <input type="text" name="password" id="mb-password" class="mb-password" autocomplete="off" />
 
-        <input type="submit" value="Sign in" class="mb-login-button">
+        <input type="submit" value="Sign in" class="mb-login-button" />
       </form>
       <div class="new-user">
         <a href="https://clients.mindbodyonline.com/classic/home?studioid=<%- studioID %>" target="_blank">
           <h3>Or join us now with MINDBODY!</h3>
-          <img src="<%- mbFeedURL %>../images/MINDBODY-company-logo.png">
+          <img src="<%- mbFeedURL %>../images/MINDBODY-company-logo.png" />
         </a>
       </div>
       <span class="loading hid"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></span>

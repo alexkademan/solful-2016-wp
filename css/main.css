@@ -393,7 +393,7 @@ h2 {
   font-size: 1.6em; }
 
 ul.mb_data h1 {
-  color: #4d4d4d;
+  color: #b2170e;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 1em;
   letter-spacing: normal;
@@ -407,6 +407,11 @@ ul.mb_data h3 {
   font-weight: normal;
   font-size: 1em;
   margin-bottom: 0; }
+
+ul.mb_trainers > li > h1 {
+  font-family: 'bebas-regular';
+  letter-spacing: 0.045em;
+  font-size: 1.6em; }
 
 ul.mb_data a.sign-in-button,
 ul.mb_data div.trainerName {
@@ -2979,6 +2984,265 @@ div.content,
 div.entry-content {
   width: 100% !important; }
 
+.map_canvas {
+  height: 12.5em;
+  width: 100%; }
+
+.map_canvas img {
+  max-width: none; }
+
+.map_canvas .content {
+  padding: 0 0.5em 1em 0.5em; }
+
+.map_canvas .firstHeading {
+  font-size: 1em;
+  font-weight: bold;
+  line-height: 1em;
+  margin: 0; }
+
+.map_canvas #bodyContent p {
+  font-size: 10em;
+  margin: 0; }
+
+@media (min-width: 45em) {
+  .map_canvas {
+    height: 21.875em; } }
+
+@media (min-width: 45em) {
+  .site-main {
+    padding-right: 1.618em;
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 65.88078%; }
+    .site-main:last-child {
+      margin-right: 0; }
+  .widget-area {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 31.76157%;
+    margin-right: 0; }
+    .widget-area:last-child {
+      margin-right: 0; } }
+
+ul.fb_feed {
+  position: relative; }
+  ul.fb_feed li {
+    list-style: none;
+    padding: 0 0 0.809em;
+    margin: 0 0 1.618em;
+    border-bottom: 1px #CCC solid; }
+    ul.fb_feed li:last-child {
+      margin-bottom: 0;
+      border-bottom: none; }
+  ul.fb_feed li.loading {
+    padding: 1.618em;
+    text-align: center;
+    border: none; }
+  ul.fb_feed header {
+    padding-bottom: 0.5em; }
+    ul.fb_feed header span.avatar,
+    ul.fb_feed header hgroup {
+      display: block;
+      float: left;
+      clear: none;
+      position: relative; }
+    ul.fb_feed header span.avatar {
+      width: 15%; }
+    ul.fb_feed header hgroup {
+      width: 82%;
+      padding-left: 3%; }
+    ul.fb_feed header span.avatar img {
+      width: 100%; }
+    ul.fb_feed header hgroup h1,
+    ul.fb_feed header hgroup h2 {
+      padding: 0;
+      margin: 0;
+      font-weight: normal;
+      font-size: 1.2em; }
+    ul.fb_feed header hgroup h2 {
+      font-size: 0.8em;
+      padding-top: 0.125em; }
+
+ul.fb_feed img {
+  width: 100%; }
+
+ul.fb_feed li,
+ul.fb_feed span.frame,
+ul.fb_feed header,
+ul.fb_feed .message,
+ul.fb_feed .link,
+ul.fb_feed .caption,
+ul.fb_feed .title,
+ul.fb_feed footer {
+  display: block;
+  float: left;
+  clear: left;
+  width: 100%; }
+
+ul.fb_feed span.frame {
+  position: relative; }
+  ul.fb_feed span.frame img {
+    width: 100%; }
+  ul.fb_feed span.frame iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0; }
+
+ul.fb_feed .message {
+  padding: 0.5em 0; }
+
+ul.fb_feed .title {
+  padding: 0.25em 0; }
+
+ul.fb_feed a.link {
+  font-size: 1.2em;
+  padding: 0.25em;
+  background-color: #F4F4F4; }
+  .no-touchevents ul.fb_feed a.link:hover span.link {
+    text-decoration: underline; }
+  ul.fb_feed a.link .caption {
+    padding: 0.75em, 0;
+    font-size: 0.6em;
+    text-decoration: none; }
+
+ul.fb_feed footer {
+  padding: 0.5em 0 0; }
+  ul.fb_feed footer a {
+    font-size: 0.8em; }
+
+ul.mb_data span.loader {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  text-align: center;
+  padding: 1.618em 0; }
+
+ul.classes,
+ul.classes li,
+ul.classes hgroup,
+ul.classes li div.workout-desc,
+ul.classes li div.classNFO,
+ul.classes li div.trainerNFO,
+ul.mb_data li,
+ul.mb_data a.sign-in-button,
+ul.mb_data div.trainerNamem
+ul.mb_trainers,
+ul.mb_trainers li {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%; }
+
+ul.classes {
+  padding-bottom: 1em; }
+  ul.classes li {
+    background: #F4F4F4;
+    margin-bottom: 0.5em;
+    padding: 0.25em 0.4em; }
+
+.no-touchevents ul.classes > li > hgroup.available {
+  -webkit-transition: color 0.25s ease-in-out;
+  transition: color 0.25s ease-in-out; }
+
+.no-touchevents ul.classes > li.showInfo > hgroup.available,
+.no-touchevents ul.classes > li > hgroup.available:hover {
+  color: #b2170e;
+  cursor: pointer; }
+
+ul.classes hgroup.unavailable {
+  color: #b3b3b3; }
+
+ul.classes hgroup.canceled h2 {
+  text-decoration: line-through; }
+
+ul.classes li div.workout-desc {
+  padding: 0.30338em 0 0.60675em;
+  margin-bottom: 0.60675em; }
+
+ul.classes li div.desc,
+ul.mb_trainers div.bio div.desc {
+  max-width: 34.0625em; }
+
+ul.mb_trainers div.bio div.desc {
+  padding-bottom: 1.75em; }
+
+ul.classes li div.bio {
+  border-bottom: 1px #4d4d4d solid; }
+
+ul.classes li div.workout-desc img,
+ul.mb_trainers div.bio img {
+  float: right;
+  margin-left: 0.75em;
+  margin-bottom: 0.5em;
+  max-width: 45%; }
+
+ul.classes li div.classNFO,
+ul.classes li div.trainerNFO {
+  height: 0;
+  overflow: hidden; }
+
+ul.classes li.showInfo div.classNFO {
+  height: auto; }
+
+ul.classes li.showTrainer div.trainerNFO {
+  height: auto; }
+
+ul.mb_data a.sign-in-button {
+  background: #ef4137;
+  text-align: center;
+  color: #FFF;
+  -webkit-transition: background 0.25s ease-in-out;
+  transition: background 0.25s ease-in-out; }
+  .no-touchevents ul.mb_data a.sign-in-button:hover {
+    background: #e11d12; }
+
+ul.mb_data div.trainerName {
+  background: transparent; }
+  .no-touchevents ul.mb_data div.trainerName:hover {
+    cursor: pointer;
+    text-decoration: underline; }
+
+ul.mb_trainers,
+ul.mb_trainers li,
+ul.mb_trainers li h1,
+ul.mb_trainers div.trainer {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%; }
+
+ul.mb_trainers li {
+  margin-bottom: 0.5em; }
+
+ul.mb_trainers li h1 {
+  color: #ef4137; }
+
+ul.mb_trainers > li > h1 {
+  color: #4d4d4d;
+  border-bottom: 0.0625em #CCC solid; }
+
+ul.mb_trainers div.bio {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 57.35098%; }
+  ul.mb_trainers div.bio:last-child {
+    margin-right: 0; }
+
+ul.mb_trainers aside.workouts {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 40.29137%; }
+  ul.mb_trainers aside.workouts:last-child {
+    margin-right: 0; }
+
 a.sign_up_now {
   display: block;
   float: left;
@@ -3148,262 +3412,6 @@ div.loginForm div.login img {
   margin: 0 auto;
   max-width: 12.5em; }
 
-.map_canvas {
-  height: 12.5em;
-  width: 100%; }
-
-.map_canvas img {
-  max-width: none; }
-
-.map_canvas .content {
-  padding: 0 0.5em 1em 0.5em; }
-
-.map_canvas .firstHeading {
-  font-size: 1em;
-  font-weight: bold;
-  line-height: 1em;
-  margin: 0; }
-
-.map_canvas #bodyContent p {
-  font-size: 10em;
-  margin: 0; }
-
-@media (min-width: 45em) {
-  .map_canvas {
-    height: 21.875em; } }
-
-@media (min-width: 45em) {
-  .site-main {
-    padding-right: 1.618em;
-    float: left;
-    display: block;
-    margin-right: 2.35765%;
-    width: 65.88078%; }
-    .site-main:last-child {
-      margin-right: 0; }
-  .widget-area {
-    float: left;
-    display: block;
-    margin-right: 2.35765%;
-    width: 31.76157%;
-    margin-right: 0; }
-    .widget-area:last-child {
-      margin-right: 0; }
-  a.sign_up_now .classes {
-    text-align: center; }
-  div.MB-login {
-    height: 80px;
-    padding: 1.2135em 1.2135em 0 0.60675em; }
-  div.loginForm > div.non-mobile-shader {
-    padding-top: 4.6875em; } }
-
-ul.fb_feed {
-  position: relative; }
-  ul.fb_feed li {
-    list-style: none;
-    padding: 0 0 0.809em;
-    margin: 0 0 1.618em;
-    border-bottom: 1px #CCC solid; }
-    ul.fb_feed li:last-child {
-      margin-bottom: 0;
-      border-bottom: none; }
-  ul.fb_feed li.loading {
-    padding: 1.618em;
-    text-align: center;
-    border: none; }
-  ul.fb_feed header {
-    padding-bottom: 0.5em; }
-    ul.fb_feed header span.avatar,
-    ul.fb_feed header hgroup {
-      display: block;
-      float: left;
-      clear: none;
-      position: relative; }
-    ul.fb_feed header span.avatar {
-      width: 15%; }
-    ul.fb_feed header hgroup {
-      width: 82%;
-      padding-left: 3%; }
-    ul.fb_feed header span.avatar img {
-      width: 100%; }
-    ul.fb_feed header hgroup h1,
-    ul.fb_feed header hgroup h2 {
-      padding: 0;
-      margin: 0;
-      font-weight: normal;
-      font-size: 1.2em; }
-    ul.fb_feed header hgroup h2 {
-      font-size: 0.8em;
-      padding-top: 0.125em; }
-
-ul.fb_feed img {
-  width: 100%; }
-
-ul.fb_feed li,
-ul.fb_feed span.frame,
-ul.fb_feed header,
-ul.fb_feed .message,
-ul.fb_feed .link,
-ul.fb_feed .caption,
-ul.fb_feed .title,
-ul.fb_feed footer {
-  display: block;
-  float: left;
-  clear: left;
-  width: 100%; }
-
-ul.fb_feed span.frame {
-  position: relative; }
-  ul.fb_feed span.frame img {
-    width: 100%; }
-  ul.fb_feed span.frame iframe {
-    border: none;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0; }
-
-ul.fb_feed .message {
-  padding: 0.5em 0; }
-
-ul.fb_feed .title {
-  padding: 0.25em 0; }
-
-ul.fb_feed a.link {
-  font-size: 1.2em;
-  padding: 0.25em;
-  background-color: #F4F4F4; }
-  .no-touchevents ul.fb_feed a.link:hover span.link {
-    text-decoration: underline; }
-  ul.fb_feed a.link .caption {
-    padding: 0.75em, 0;
-    font-size: 0.6em;
-    text-decoration: none; }
-
-ul.fb_feed footer {
-  padding: 0.5em 0 0; }
-  ul.fb_feed footer a {
-    font-size: 0.8em; }
-
-ul.mb_data span.loader {
-  display: block;
-  float: left;
-  clear: both;
-  width: 100%;
-  text-align: center;
-  padding: 1.618em 0; }
-
-ul.classes,
-ul.classes li,
-ul.classes hgroup,
-ul.classes li div.workout-desc,
-ul.classes li div.classNFO,
-ul.classes li div.trainerNFO,
-ul.mb_data li,
-ul.mb_data a.sign-in-button,
-ul.mb_data div.trainerNamem
-ul.mb_trainers,
-ul.mb_trainers li {
-  display: block;
-  float: left;
-  clear: both;
-  width: 100%; }
-
-ul.classes {
-  padding-bottom: 1em; }
-  ul.classes li {
-    background: #F4F4F4;
-    margin-bottom: 0.5em;
-    padding: 0.25em 0.4em; }
-
-.no-touchevents ul.classes > li > hgroup.available {
-  -webkit-transition: color 0.25s ease-in-out;
-  transition: color 0.25s ease-in-out; }
-
-.no-touchevents ul.classes > li.showInfo > hgroup.available,
-.no-touchevents ul.classes > li > hgroup.available:hover {
-  color: #b2170e;
-  cursor: pointer; }
-
-ul.classes hgroup.unavailable {
-  color: #b3b3b3; }
-
-ul.classes hgroup.canceled h2 {
-  text-decoration: line-through; }
-
-ul.classes li div.workout-desc {
-  padding: 0.30338em 0 0.60675em;
-  margin-bottom: 0.60675em; }
-
-ul.classes li div.desc,
-ul.mb_trainers div.bio div.desc {
-  max-width: 37.5em; }
-
-ul.classes li div.bio {
-  border-bottom: 1px #4d4d4d solid; }
-
-ul.classes li div.workout-desc img,
-ul.mb_trainers div.bio img {
-  float: right;
-  margin-left: 0.5em;
-  margin-bottom: 0.25em;
-  max-width: 45%; }
-
-ul.classes li div.classNFO,
-ul.classes li div.trainerNFO {
-  height: 0;
-  overflow: hidden; }
-
-ul.classes li.showInfo div.classNFO {
-  height: auto; }
-
-ul.classes li.showTrainer div.trainerNFO {
-  height: auto; }
-
-ul.mb_data a.sign-in-button {
-  background: #ef4137;
-  text-align: center;
-  color: #FFF;
-  -webkit-transition: background 0.25s ease-in-out;
-  transition: background 0.25s ease-in-out; }
-  .no-touchevents ul.mb_data a.sign-in-button:hover {
-    background: #e11d12; }
-
-ul.mb_data div.trainerName {
-  background: transparent; }
-  .no-touchevents ul.mb_data div.trainerName:hover {
-    cursor: pointer;
-    text-decoration: underline; }
-
-ul.mb_trainers,
-ul.mb_trainers li,
-ul.mb_trainers li h1,
-ul.mb_trainers div.trainer {
-  display: block;
-  float: left;
-  clear: both;
-  width: 100%; }
-
-ul.mb_trainers li {
-  margin-bottom: 0.5em; }
-
-ul.mb_trainers div.bio {
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 57.35098%; }
-  ul.mb_trainers div.bio:last-child {
-    margin-right: 0; }
-
-ul.mb_trainers aside.workouts {
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 40.29137%; }
-  ul.mb_trainers aside.workouts:last-child {
-    margin-right: 0; }
-
 @media (min-width: 45em) {
   ul.mb_schedule hgroup {
     padding-top: 6px; }
@@ -3415,7 +3423,14 @@ ul.mb_trainers aside.workouts {
   ul.mb_schedule h3 {
     display: block;
     float: right;
-    clear: none; } }
+    clear: none; }
+  a.sign_up_now .classes {
+    text-align: center; }
+  div.MB-login {
+    height: 80px;
+    padding: 1.2135em 1.2135em 0 0.60675em; }
+  div.loginForm > div.non-mobile-shader {
+    padding-top: 4.6875em; } }
 
 /* Text meant only for screen readers. */
 .screen-reader-text {
