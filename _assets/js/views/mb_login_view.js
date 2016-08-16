@@ -78,7 +78,7 @@ module.exports = Backbone.View.extend({
       });
 
       // now that we're logged in, get info about the client:
-      
+      console.log('get info about the logged in client.');
 
     } else if(data['ValidateLoginResult']){
       // we caught an error message.
