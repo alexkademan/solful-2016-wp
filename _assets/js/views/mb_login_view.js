@@ -24,15 +24,16 @@ module.exports = Backbone.View.extend({
     if( mbURL ){
       // set the needed var for the whole application,
       this.model.set({mbFeedURL: mbURL});
+
       // new view for login form:
       app.mbLogInForm = new LoginForm({model: this.model});
-
       this.model.on({'change:loggedIn': this.renderStatus}, this);
       this.renderStatus();
     };
   },
 
   logOutUser: function() {
+    // this call erases the session, and removes session data from model.
     if(this.model.get('loggedIn') === true){
       app.mindbodyView.makeAJAXcall('login-status.php?leave=true', 'login');
     };
@@ -45,28 +46,33 @@ module.exports = Backbone.View.extend({
   logInOut: function(data){
 
     if(data === 'stranger'){
-      // user not logged in and hasn't tried.
-      app.mindbodyModel.set({
+      // user not logged in.
+      this.model.set({
         GUID: false,
         client: false,
-        loggedIn: false
+        loggedIn: false,
+        loginTime: ''
       });
     } else if(data['GUID']) {
       // the user JUST got her login credentials.
-      app.mindbodyModel.set({
+      this.model.set({
         GUID: data['GUID'],
         client: data['client'],
         loggedIn: true,
         loginFormWaiting: false,
-        loginFormVisible: false
+        loginFormVisible: false,
+        loginTime: data['loginTime']
       });
 
       // now that we're logged in, get info about the client:
-      console.log(this.model);
+      // console.log(data);
+      var userID = data['client']['ID'];
+      // app.mindbodyView.makeAJAXcall('client-schedule-01.php?userID=' + userID, 'status');
+      this.getClientInfo(data);
 
     } else if(data['ValidateLoginResult']){
       // we caught an error message.
-      app.mindbodyModel.set({
+      this.model.set({
         loginFormWaiting: false,
         loginERRmessage: data.ValidateLoginResult.Message
       });
@@ -97,6 +103,25 @@ module.exports = Backbone.View.extend({
     // clean out the old:
     this.$el.empty();
     this.$el.append(templateUser(this.model.toJSON()));
+  },
+
+  getClientInfo: function() {
+    // console.log('call for class information');
+
+    if(this.model.get('client') !== false){
+      var theClient = this.model.get('client');
+
+      var argString = '';
+      argString += '?userID=' + theClient['ID'];
+      argString += '&timeStart=' + this.model.get('loginTime');
+      argString += '&duration=' + this.model.get('scheduleSpan');
+      // console.log(this.model.get('loginTime'));
+
+      app.mindbodyView.makeAJAXcall('client-schedule-01.php' + argString, 'clientSchedule');
+
+    };
+
+    // app.mindbodyView.makeAJAXcall('client-schedule-01.php?userID=true', 'login');
   }
 
 });

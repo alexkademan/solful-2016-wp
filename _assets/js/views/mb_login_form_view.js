@@ -28,7 +28,7 @@ module.exports = Backbone.View.extend({
   },
 
   loginToggle: function(){
-    console.log('loginToggle');
+    // show/hide the login form.
     if(this.model.get('loginFormVisible') === true){
       this.showForm();
     } else if (this.model.get('loginFormVisible') === false ){
@@ -70,7 +70,7 @@ module.exports = Backbone.View.extend({
       this.model.set({'loginERRmessage': 'You must enter your password'});
     } else {
       // call the API for the user information:
-      var argString = '?un=' + username + '&pw=' + password;
+      var argString = '?un=' + username + '&pw=' + password + '&loginTime=' + this.model.get('currentTime');
       app.mindbodyView.makeAJAXcall('login-03.php' + argString, 'login');
       this.model.set({'loginFormWaiting': true});
     }
@@ -94,10 +94,7 @@ module.exports = Backbone.View.extend({
 
   renderErrorMessage: function() {
     var errorSpan = this.$('span.error');
-    console.log(errorSpan);
-
     errorSpan.empty();
-    console.log(this.model);
 
     var errorTemplate = _.template($('#mb-login-form-error').html());
     errorSpan.html(errorTemplate(this.model.toJSON()));

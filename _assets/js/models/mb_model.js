@@ -16,6 +16,13 @@ module.exports = Backbone.Model.extend({
     mbFeedURL: false, // I'm pulling the URL from the page, WP's get_bloginfo is handy in this instance.
     signupURLbase: 'https://clients.mindbodyonline.com/ws.asp',
 
+    pageLoadTime: '',
+    loginMaxTime: 3000, // need to automatically log the client out after 50 minutes. (3000 seconds)
+    loginTime: '', // the time that the client logged in.
+    currentTime: '', // time of day (in seconds)
+
+    scheduleSpan: 518400, // 518400 is the number of seconds in 6 days. Show today plus the rest of a week.
+
     loggedIn: false,
     GUID: false, // USER ID with MINDBODY issued at login.
     client: false, // array of info that comes back from the API about the user.

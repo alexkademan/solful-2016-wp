@@ -5,6 +5,8 @@ var Backbone = require ('backbone');
 var _ = require ('underscore');
 var $ = require ('jquery');
 
+// var MBCookieHandler = require('./mb_cookie_view');
+
 var DaysCollection = require('./../models/mb_days_collection');
 var DayInfo = require('./mb_days_info');
 var DayView = require('./mb_day_view');
@@ -22,9 +24,23 @@ module.exports = Backbone.View.extend({
 
   initialize: function() {
 
+    // login for the masthead:
     app.mbLogInView = new LoginView({model: app.mindbodyModel});
-    // app.mbLogInView.setBaseURL();
-    // console.log(this.model);
+
+    // set time frame:
+    // adding my start and stop time to the program.
+    // from this I can synch the client's scheduled classes
+    // with the classes on the calendar, and time out people's log in time.
+    var rightNow = Math.round(new Date().getTime()/1000);
+    this.model.set({'pageLoadTime': rightNow}); // save the time this page was executed.
+    this.keepTime();
+
+    // monitor the time. Used to log people out when they've been here too long.
+    this.model.on({'change:currentTime': this.checkStatus}, this);
+
+    // check to see if the user is already logged in:
+    this.makeAJAXcall('login-status.php', 'login');
+
 
     if(this.$el.length == 1){
       // helper methods for use later:
@@ -51,12 +67,37 @@ module.exports = Backbone.View.extend({
           app.mbTrainers = new TrainersCollection();
 
           // look with start date defined as right now.
-          this.makeAJAXcall('sched-02.php?startTime=' + Math.round(new Date().getTime()/1000), 'schedule');
+          var schedArguments = '';
+          schedArguments += '?startTime=' + this.model.get('pageLoadTime');
+          schedArguments += '&duration=' + this.model.get('scheduleSpan');
+          this.makeAJAXcall('sched-02.php' + schedArguments, 'schedule');
           this.makeAJAXcall('trainers-01.php', 'trainers');
-          this.makeAJAXcall('login-status.php', 'login');
 
         }
       };
+    };
+  },
+
+  keepTime: function(){
+    var rightNow = Math.round(new Date().getTime()/1000);
+    this.model.set({'currentTime': rightNow});
+
+    // run this function once per second to keep time.
+    setTimeout( function() { app.mindbodyView.keepTime(); }, 1000);
+  },
+
+  checkStatus: function() {
+    // runs every second to check if the logged in user needs to be logged out. (they get 50 minutes)
+    if( this.model.get('loggedIn') === true ){
+      var currentTime = Number(this.model.get('currentTime'));
+      var loginTime = Number(this.model.get('loginTime'));
+      var loginMaxTime = Number(this.model.get('loginMaxTime'));
+
+      if(currentTime >= (loginTime + loginMaxTime)){
+        app.mbLogInView.logOutUser();
+      } else {
+        // console.log('you will be logged out in ' + ((loginTime +loginMaxTime) - currentTime)+ ' seconds');
+      }
     };
   },
 
@@ -69,7 +110,6 @@ module.exports = Backbone.View.extend({
       dataType: 'json'
 
     }).done(function( data ) {
-      // console.log(section);
 
       if(section === 'schedule'){
         // we have the info for the schedule, so build out the models
@@ -78,6 +118,9 @@ module.exports = Backbone.View.extend({
         app.mindbodyView.weHaveTrainers(data);
       } else if (section === 'login') {
         app.mbLogInView.logInOut(data);
+
+      } else if (section === 'clientSchedule') {
+        console.log(data);
       }
 
       // add an increment, this will call 'this.adjustState'
