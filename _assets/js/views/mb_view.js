@@ -43,7 +43,7 @@ module.exports = Backbone.View.extend({
         this.model.set({ wpSlug: wpSlug[0].innerHTML });
 
         // listen for the ajax call to come back to begin the render process:
-        this.model.on('change:requestStatus', this.adjustState);
+        this.model.on({'change:requestStatus': this.adjustState}, this);
 
         if(this.model.get('wpSlug') === 'schedule' || this.model.get('wpSlug') === 'trainers') {
 
@@ -170,14 +170,15 @@ module.exports = Backbone.View.extend({
   },
 
   adjustState: function() {
-
-    if( app.mindbodyModel.get('schedLoaded') === true && app.mindbodyModel.get('trainersLoaded') === true ){
-      // we have the trainers info AND the full week schedule.
-      if(app.mindbodyModel.get('mainColRendered') === false) {
-        app.mindbodyView.blendModels();
-        app.mindbodyView.renderMainColumn();
-        app.mindbodyModel.set({ mainColRendered: true });
-      }
+    // checks that we have everything we need, then renders the page:
+    if(
+      this.model.get('schedLoaded') === true
+      && this.model.get('trainersLoaded') === true
+      && this.model.get('mainColRendered') === false
+    ){
+      this.blendModels();
+      this.renderMainColumn();
+      this.model.set({ mainColRendered: true });
     };
   },
 

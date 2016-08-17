@@ -26,25 +26,9 @@ module.exports = Backbone.View.extend({
       this.model.set({mbFeedURL: mbURL});
       // new view for login form:
       app.mbLogInForm = new LoginForm({model: this.model});
-      app.mindbodyModel.on('change:loginFormVisible', function(){
-        // show or hide the login form:
-        app.mbLogInForm.loginToggle();
-      });
-      app.mindbodyModel.on('change:loggedIn', function(){
-        // manage the username or 'sign in' button in the masthead
-        app.mbLogInView.renderStatus();
-      });
-      app.mindbodyModel.on('change:loginERRmessage', function(){
-        // display (or remove) the login error message
-        app.mbLogInForm.renderErrorMessage();
-      });
-      app.mindbodyModel.on('change:loginFormWaiting', function(){
-        // show/hide loader while login form waits for response from API
-        app.mbLogInForm.loginWaiting();
-      });
 
+      this.model.on({'change:loggedIn': this.renderStatus}, this);
       this.renderStatus();
-
     };
   },
 
@@ -78,7 +62,7 @@ module.exports = Backbone.View.extend({
       });
 
       // now that we're logged in, get info about the client:
-      console.log('get info about the logged in client.');
+      console.log(this.model);
 
     } else if(data['ValidateLoginResult']){
       // we caught an error message.
@@ -100,8 +84,7 @@ module.exports = Backbone.View.extend({
 
   },
 
-  renderStranger: function() {
-    // console.log(this.model);
+  renderStranger: function() {;
     var templateStranger = _.template($('#mb-login-stranger').html());
     // clean out the old:
     this.$el.empty();

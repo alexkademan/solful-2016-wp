@@ -1,0 +1,8 @@
+
+
+ul.mb_trainers div.bio {
+  @include span-columns(7 of 12);
+}
+ul.mb_trainers aside.workouts {
+  @include span-columns(5 of 12);
+}

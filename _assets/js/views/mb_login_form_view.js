@@ -21,13 +21,18 @@ module.exports = Backbone.View.extend({
 
     this.$el = $(node); // cache for ... THE FUTURE!!!
     this.template = _.template($('#mb-login-form').html());
+
+    this.model.on({'change:loginFormVisible': this.loginToggle}, this);
+    this.model.on({'change:loginFormWaiting': this.loginWaiting}, this);
+    this.model.on({'change:loginERRmessage': this.renderErrorMessage}, this);
   },
 
   loginToggle: function(){
-    if(app.mindbodyModel.get('loginFormVisible') === true){
-      app.mbLogInForm.showForm();
-    } else if (app.mindbodyModel.get('loginFormVisible') === false ){
-      app.mbLogInForm.$el.empty();
+    console.log('loginToggle');
+    if(this.model.get('loginFormVisible') === true){
+      this.showForm();
+    } else if (this.model.get('loginFormVisible') === false ){
+      this.$el.empty();
     }
   },
   keyAction: function(e) {

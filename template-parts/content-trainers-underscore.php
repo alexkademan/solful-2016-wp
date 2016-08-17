@@ -9,9 +9,12 @@
   <h1><%= Name %></h1>
   <div class="trainer">
 
-    <div class="bio">
-      <%= ImageURL ? '<img src="' + ImageURL + '" />' : '' %>
-      <%= Bio ? '<div class="desc">' + Bio + '</div>' : '' %>
+    <div class="bio showLess">
+      <span class="">
+        <%= ImageURL ? '<img src="' + ImageURL + '" />' : '' %>
+        <%= Bio ? '<div class="desc">' + Bio + '</div><a class="readMore"></a>' : '' %>
+
+      </span>
     </div>
 
     <aside class="workouts">

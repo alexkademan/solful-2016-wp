@@ -1,28 +1,58 @@
 ul.mb_trainers,
 ul.mb_trainers li,
 ul.mb_trainers li h1,
-ul.mb_trainers div.trainer {
+ul.mb_trainers div.trainer,
+ul.mb_trainers span.showLess {
   display: block;
   float: left;
   clear: both;
   width: 100%;
 }
 ul.mb_trainers li {
-  // background: #F4F4F4;
   margin-bottom: 0.5em;
-}
-ul.mb_trainers li h1 {
-  color: $color-solful-red;
 }
 ul.mb_trainers > li > h1 {
   // Traners names
-  color: $base-font-color;
-  border-bottom: pem(1) #CCC   solid;
+  // color: $base-font-color;
+  border-bottom: pem(1) #CCC solid;
 }
 
 ul.mb_trainers div.bio {
-  @include span-columns(7 of 12);
+  @include span-columns(12 of 12);
 }
 ul.mb_trainers aside.workouts {
-  @include span-columns(5 of 12);
+  @include span-columns(12 of 12);
+}
+ul.mb_trainers .showLess {
+
+  // background: #FCF;
+  max-height: pem( 250 );
+  overflow: hidden;
+  position: relative;
+  // border: 1px #000 solid;
+
+}
+ul.mb_trainers a.readMore {
+  cursor: pointer;
+}
+ul.mb_trainers .showLess a.readMore {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  // padding-top: 3em;
+  line-height: 2em;
+  // background: #FFF;
+  background:#FFF;
+}
+ul.mb_trainers .showLess a.readMore::before {
+  content: '';
+  position: absolute;
+  left:0;
+  top:0;
+  width: 100%;
+  height: 3em;
+  margin-top: -3em;
+  background: transparent;
+  background-image: linear-gradient( rgba(255,255,255, 0) 0px, #FFF );
 }
