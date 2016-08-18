@@ -8,10 +8,6 @@ module.exports = Backbone.Model.extend({
     Bio: false,
     showFullBio: false, // status of showMore and showLess link.
     ImageURL: ''
-  },
-
-  // initialize: function() {
-  //   this.set('workouts', new WorkoutsCollection);
-  // }
+  }
 
 });

@@ -70,6 +70,8 @@ module.exports = Backbone.View.extend({
           var schedArguments = '';
           schedArguments += '?startTime=' + this.model.get('pageLoadTime');
           schedArguments += '&duration=' + this.model.get('scheduleSpan');
+          schedArguments += '&sessionLife=' + this.model.get('loginMaxTime');
+
           this.makeAJAXcall('sched-02.php' + schedArguments, 'schedule');
           this.makeAJAXcall('trainers-01.php', 'trainers');
 
@@ -96,6 +98,8 @@ module.exports = Backbone.View.extend({
       if(currentTime >= (loginTime + loginMaxTime)){
         app.mbLogInView.logOutUser();
       } else {
+        var secondsToLogout = (loginTime +loginMaxTime) - currentTime;
+        app.mbLogInView.showCountDown(secondsToLogout);
         // console.log('you will be logged out in ' + ((loginTime +loginMaxTime) - currentTime)+ ' seconds');
       }
     };
@@ -104,7 +108,7 @@ module.exports = Backbone.View.extend({
   makeAJAXcall: function( file, section ) {
     if( file == undefined ){ file = 'sched-01.php'; }
     var thisURL = app.mindbodyModel.get('mbFeedURL') + file;
-    // console.log(thisURL);
+    console.log(thisURL);
     $.ajax({
       url: thisURL,
       dataType: 'json'

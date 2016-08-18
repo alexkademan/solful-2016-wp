@@ -122,6 +122,27 @@ module.exports = Backbone.View.extend({
     };
 
     // app.mindbodyView.makeAJAXcall('client-schedule-01.php?userID=true', 'login');
+  },
+
+  showCountDown: function(secondsToLogout) {
+    var timeRemaining,
+        minutesRemaining,
+        secondsRemaining;
+
+    if( secondsToLogout >= 60 ){
+      minutesRemaining = Math.floor(secondsToLogout / 60);
+      secondsRemaining = secondsToLogout - (minutesRemaining * 60);
+    } else {
+      minutesRemaining = 0;
+      secondsRemaining = secondsToLogout;
+
+    }
+
+    if( secondsRemaining < 10 ) {
+      secondsRemaining = "0" + secondsRemaining;
+    }
+
+    this.$('span.countdown').html(minutesRemaining + ':' + secondsRemaining);
   }
 
 });

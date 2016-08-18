@@ -6,13 +6,14 @@ require_once __DIR__ . '/classes/mb-get-classes.php';
 
 
 
-if(isset($_GET['startTime']) && isset($_GET['duration'])){
+if( isset($_GET['startTime']) && isset($_GET['duration']) && isset($_GET['sessionLife']) ){
 
 	if(
 		isset($_SESSION['MINDBODY']['schedule'])
-		&& (time() - $_SESSION['MINDBODY']['schedule']['time']) < $_GET['duration']
+		&& (time() - $_SESSION['MINDBODY']['schedule']['time']) < $_GET['sessionLife']
 	) {
-		// rely on the session thats already been set, and its printing out below.
+
+		// Rely on the session thats already been set. It will printing out below.
 
 	} else {
 		unset($_SESSION['MINDBODY']['schedule']);
@@ -31,7 +32,6 @@ if(isset($_GET['startTime']) && isset($_GET['duration'])){
 		} elseif(gettype($data) == 'array') {
 			// this is probably running correctly then:
 			$data = json_encode($data);
-			// print_r( $data );
 
 			unset($_SESSION['MINDBODY']['schedule']);
 			$_SESSION['MINDBODY']['schedule']['time'] = $_GET['startTime'];

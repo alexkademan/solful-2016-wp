@@ -6,12 +6,18 @@ var $ = require ('jquery');
 
 
 module.exports = Backbone.View.extend({
-  
+
   tagName: 'li',
 
   events: {
     "click hgroup.toggle": 'showInfo',
     "click div.trainerName": 'showTrainer'
+  },
+
+  initialize: function() {
+    // console.log(this.model);
+    this.model.on({'change:toggleInfo': this.toggleInfo}, this);
+    this.model.on({'change:toggleInstructor': this.toggleInstructor}, this);
   },
 
   render: function(pageName){
