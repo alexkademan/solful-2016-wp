@@ -46,10 +46,12 @@ module.exports = Backbone.View.extend({
   logInOut: function(data){
 
     if(data === 'stranger'){
+      console.log('stranger');
       // user not logged in.
       this.model.set({
         GUID: false,
         client: false,
+        clientSchedule: false,
         loggedIn: false,
         loginTime: ''
       });
@@ -143,6 +145,28 @@ module.exports = Backbone.View.extend({
     }
 
     this.$('span.countdown').html(minutesRemaining + ':' + secondsRemaining);
+  },
+
+  addRegisteredClasses: function(data) {
+    // data is the result of a call to the API.
+
+    var visits = data['GetClientVisitsResult']['Visits']['Visit'];
+
+    if(visits){
+      // console.log(this.model.get('client')['FirstName']);
+      this.model.set({'clientSchedule': visits});
+
+      // console.log('Workouts on ' + this.model.get('client')['FirstName'] + "'s schedule: ");
+      // for (i = 0; i < visits.length; i++) {
+      //   console.log( visits[i]['ClassID'] );
+      // }
+
+      // console.log(this.model);
+
+    }
+
+
+    // console.log( this.model.get('clientSchedule') );
   }
 
 });

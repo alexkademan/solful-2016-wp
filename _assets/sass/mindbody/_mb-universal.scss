@@ -89,6 +89,10 @@ ul.classes li.showTrainer div.trainerNFO {
   height: auto;
 }
 
+ul.classes li.enrolled {
+  background: #FCF;
+}
+
 // buttons
 ul.mb_data a.sign-in-button {
   background: $color-solful-red;
@@ -112,5 +116,4 @@ ul.mb_data div.trainerName {
     cursor: pointer;
     text-decoration: underline;
   }
-
 }

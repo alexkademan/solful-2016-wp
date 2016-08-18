@@ -108,23 +108,31 @@ module.exports = Backbone.View.extend({
   makeAJAXcall: function( file, section ) {
     if( file == undefined ){ file = 'sched-01.php'; }
     var thisURL = app.mindbodyModel.get('mbFeedURL') + file;
-    console.log(thisURL);
+
+    // console.log(thisURL);
+
     $.ajax({
       url: thisURL,
       dataType: 'json'
 
     }).done(function( data ) {
+      switch(section) {
+        case 'schedule':
+          app.mindbodyView.weHaveSchedule(data);
+          break;
 
-      if(section === 'schedule'){
-        // we have the info for the schedule, so build out the models
-        app.mindbodyView.weHaveSchedule(data);
-      } else if (section === 'trainers') {
-        app.mindbodyView.weHaveTrainers(data);
-      } else if (section === 'login') {
-        app.mbLogInView.logInOut(data);
+        case 'trainers':
+          app.mindbodyView.weHaveTrainers(data);
+          break;
 
-      } else if (section === 'clientSchedule') {
-        console.log(data);
+        case 'login':
+          app.mbLogInView.logInOut(data);
+          break;
+
+        case 'clientSchedule':
+          app.mbLogInView.addRegisteredClasses(data);
+          break;
+
       }
 
       // add an increment, this will call 'this.adjustState'

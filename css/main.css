@@ -3193,6 +3193,9 @@ ul.classes li.showInfo div.classNFO {
 ul.classes li.showTrainer div.trainerNFO {
   height: auto; }
 
+ul.classes li.enrolled {
+  background: #FCF; }
+
 ul.mb_data a.sign-in-button {
   background: #ef4137;
   text-align: center;

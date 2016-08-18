@@ -18,6 +18,12 @@ module.exports = Backbone.View.extend({
     // console.log(this.model);
     this.model.on({'change:toggleInfo': this.toggleInfo}, this);
     this.model.on({'change:toggleInstructor': this.toggleInstructor}, this);
+    this.model.on({'change:IsEnrolled': this.adjustStatus}, this);
+
+    // monitor to see if used is signed in for this class.
+    app.mindbodyModel.on({'change:clientSchedule': this.checkSignIn}, this);
+
+    this.checkSignIn();
   },
 
   render: function(pageName){
@@ -84,6 +90,38 @@ module.exports = Backbone.View.extend({
     } else {
       this.$el.addClass('showTrainer');
     }
+  },
+
+  checkSignIn: function() {
+    // console.log('checkSignIn');
+    var scheduled = app.mindbodyModel.get('clientSchedule');
+    if(scheduled === false){
+      // NOT Logged In,
+      this.model.set({'IsEnrolled': false});
+    } else {
+      // Logged In:
+      for(i=0; i < scheduled.length; i++) {
+        if(scheduled[i]['ClassID'] === this.model.get('ID')) {
+          // the person that is logged into the website is scheduled to attend this class:
+          this.model.set({'IsEnrolled': true});
+        }
+      }
+    }
+  },
+
+  adjustStatus: function() {
+    // console.log('adjustStatus');
+    // manage the state of the button as it appears on screen.
+    console.log( app.mindbodyModel.get('client')['FirstName'] +  ' is signed up for: ' + this.model.get('ClassDescription')['Name'] + ' (' + this.model.get('ID') + ')');
+
+    if(this.model.get('IsEnrolled') === true){
+      this.$el.addClass('enrolled');
+    }else if(this.model.get('IsEnrolled') === false) {
+      this.$el.removeClass('enrolled');
+
+    }
+
+
   }
 
 });

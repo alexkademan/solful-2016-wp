@@ -28,7 +28,7 @@ if( isset($_GET['un']) && isset($_GET['pw']) && isset($_GET['loginTime']) ){
 		echo json_encode($_SESSION['MINDBODY']['login']);
 
 	} else {
-		// echo json_encode($validateLogin);
+		echo json_encode($validateLogin);
 	}
 
 
