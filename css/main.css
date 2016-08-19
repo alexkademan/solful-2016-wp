@@ -3126,6 +3126,7 @@ ul.mb_data span.loader {
 ul.classes,
 ul.classes li,
 ul.classes hgroup,
+ul.classes div.signUp,
 ul.classes li div.workout-desc,
 ul.classes li div.classNFO,
 ul.classes li div.trainerNFO,
@@ -3145,6 +3146,16 @@ ul.classes {
     background: #F4F4F4;
     margin-bottom: 0.5em;
     padding: 0.25em 0.4em; }
+
+ul.classes hgroup {
+  width: 65%;
+  padding-right: 1em; }
+
+ul.classes div.signUp {
+  width: 35%;
+  background: #ef4137;
+  text-align: center;
+  clear: none; }
 
 .no-touchevents ul.classes > li > hgroup.available {
   -webkit-transition: color 0.25s ease-in-out;
@@ -3198,6 +3209,7 @@ ul.classes li.enrolled {
 
 ul.mb_data a.sign-in-button {
   background: #ef4137;
+  padding: 0.15em 0;
   text-align: center;
   color: #FFF;
   -webkit-transition: background 0.25s ease-in-out;
@@ -3441,16 +3453,13 @@ div.loginForm div.login img {
   max-width: 12.5em; }
 
 @media (min-width: 45em) {
-  ul.mb_schedule hgroup {
-    padding-top: 6px; }
-  ul.mb_schedule h2 {
-    display: block;
-    float: left;
-    clear: none;
-    margin-top: -6px; }
-  ul.mb_schedule h3 {
-    display: block;
-    float: right;
+  ul.classes hgroup {
+    width: 75%;
+    padding-right: 1em; }
+  ul.classes div.signUp {
+    width: 25%;
+    background: #ef4137;
+    text-align: center;
     clear: none; }
   ul.mb_trainers div.bio {
     float: left;

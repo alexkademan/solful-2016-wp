@@ -5,6 +5,9 @@ var Backbone = require ('backbone');
 module.exports = Backbone.Model.extend({
 
   defaults: {
+
+    loginWorking: true,
+
     studioID: 44288,
     wpSlug: '', // match the slug from WordPress
     requestStatus: 0, // add one everytime an AJAX request is returned.

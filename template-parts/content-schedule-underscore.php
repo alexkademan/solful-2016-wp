@@ -14,14 +14,25 @@
       <%- classStart["hourCivilian"] + ':' + classStart["minutes"] + ' - ' %>
       <%- classEnd["hourCivilian"] + ':' + classEnd["minutes"] + ' ' + classEnd["am_pm"] %>
       <%- IsCanceled ? Staff['Name'] : '' %>
+      <span class="countdown"></span>
     </h3>
   </hgroup>
+  <div class="signUp">
+    <%= IsAvailable ? '<a href="' + signupURL + '" class="sign-in-button">Sign In!</a>' : '' %>
+  </div>
+</script>
+
+<script type="text/template" id="mb-appointment-signIn">
+  <%= IsAvailable ? '<a href="' + signupURL + '" class="sign-in-button">Sign In!</a>' : '' %>
+</script>
+
+<script type="text/template" id="mb-appointment-cancel">
+  <%= IsAvailable ? '<a href="' + signupURL + '" class="cancel-button">Cancel</a>' : '' %>
 </script>
 
 <script type="text/template" id="mb-appointment-nfo">
   <div class="classNFO">
     <span>
-      <%= IsAvailable ? '<a href="' + signupURL + '" class="sign-in-button">Sign in now!</a>' : '' %>
       <%= IsCanceled ? '' : "" + durationReadable + "" %>
       <%= IsCanceled ? Staff['Name'] : '<div class="trainerName">With: '+Staff['Name'] + '</div>' %><br />
 

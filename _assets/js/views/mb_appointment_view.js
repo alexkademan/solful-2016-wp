@@ -15,22 +15,35 @@ module.exports = Backbone.View.extend({
   },
 
   initialize: function() {
+
+
+    // convert start time to unix time for clock:
+    this.model.set({'unixStartTime': Date.parse(this.model.get('StartDateTime'))/1000});
+
     // console.log(this.model);
     this.model.on({'change:toggleInfo': this.toggleInfo}, this);
     this.model.on({'change:toggleInstructor': this.toggleInstructor}, this);
     this.model.on({'change:IsEnrolled': this.adjustStatus}, this);
+    this.model.on({'change:IsAvailable': this.adjustStatus}, this);
 
     // monitor to see if used is signed in for this class.
     app.mindbodyModel.on({'change:clientSchedule': this.checkSignIn}, this);
+    app.mindbodyModel.on({'change:currentTime': this.checkAvailable}, this);
+    // console.log(app.mindbodyModel);
 
     this.checkSignIn();
   },
 
   render: function(pageName){
+
+    // console.log(this.model);
+
     // a default:
     var appointmentTemplate = _.template($('#mb-appointment-template').html());
     this.$el.html(appointmentTemplate(this.model.toJSON()));
     this.renderClassInfo(pageName);
+
+    // console.log(this.$(''))
 
     return this; // enable chained calls
   },
@@ -47,6 +60,7 @@ module.exports = Backbone.View.extend({
 
     this.$el.append(infoTemplate(this.model.toJSON()));
     this.toggleInfo();
+    // console.log(this.model.get('StartDateTime'));
 
     return this;
   },
@@ -112,15 +126,27 @@ module.exports = Backbone.View.extend({
   adjustStatus: function() {
     // console.log('adjustStatus');
     // manage the state of the button as it appears on screen.
-    console.log( app.mindbodyModel.get('client')['FirstName'] +  ' is signed up for: ' + this.model.get('ClassDescription')['Name'] + ' (' + this.model.get('ID') + ')');
 
     if(this.model.get('IsEnrolled') === true){
+      // console.log( app.mindbodyModel.get('client')['FirstName'] +  ' is signed up for: ' + this.model.get('ClassDescription')['Name'] + ' (' + this.model.get('ID') + ')');
       this.$el.addClass('enrolled');
     }else if(this.model.get('IsEnrolled') === false) {
       this.$el.removeClass('enrolled');
 
     }
 
+
+  },
+
+  checkAvailable: function(){
+
+    // see if there is more than 60 minutes before the class. Otherwise close availability.
+    // console.log(this.model.get('unixStartTime'));
+    var secondsRemaining = this.model.get('unixStartTime') - app.mindbodyModel.get('currentTime');
+    if(secondsRemaining > 0){
+      var countdownClock = app.findDayInfo.findClockValue(secondsRemaining);
+      this.$('span.countdown').html(countdownClock);
+    };
 
   }
 

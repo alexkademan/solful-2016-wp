@@ -88,5 +88,34 @@ module.exports = Backbone.View.extend({
     time['unixTime'] = theDate.getTime();
 
     return time;
+  },
+
+  findClockValue: function(unixTimeVal) {
+
+    // convert number of seconds to a count down clock:
+
+    // 72000 seconds in a day
+    // 3600 seconds in an hour
+
+    var timeRemaining,
+        minutesRemaining,
+        secondsRemaining;
+
+    if( unixTimeVal >= 60 ){
+      minutesRemaining = Math.floor(unixTimeVal / 60);
+      secondsRemaining = unixTimeVal - (minutesRemaining * 60);
+    } else {
+      minutesRemaining = 0;
+      secondsRemaining = unixTimeVal;
+
+    }
+
+    if( secondsRemaining < 10 ) {
+      secondsRemaining = "0" + secondsRemaining;
+    }
+
+    timeRemaining = minutesRemaining + ':' + secondsRemaining;
+
+    return timeRemaining;
   }
 });

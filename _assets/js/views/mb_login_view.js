@@ -28,7 +28,10 @@ module.exports = Backbone.View.extend({
       // new view for login form:
       app.mbLogInForm = new LoginForm({model: this.model});
       this.model.on({'change:loggedIn': this.renderStatus}, this);
-      this.renderStatus();
+      // 'loginWorking' is the emergency shutoff to disable login feature.
+      if(this.model.get('loginWorking') === true){
+        this.renderStatus();
+      }
     };
   },
 
@@ -117,56 +120,24 @@ module.exports = Backbone.View.extend({
       argString += '?userID=' + theClient['ID'];
       argString += '&timeStart=' + this.model.get('loginTime');
       argString += '&duration=' + this.model.get('scheduleSpan');
-      // console.log(this.model.get('loginTime'));
 
       app.mindbodyView.makeAJAXcall('client-schedule-01.php' + argString, 'clientSchedule');
 
     };
-
     // app.mindbodyView.makeAJAXcall('client-schedule-01.php?userID=true', 'login');
   },
 
   showCountDown: function(secondsToLogout) {
-    var timeRemaining,
-        minutesRemaining,
-        secondsRemaining;
-
-    if( secondsToLogout >= 60 ){
-      minutesRemaining = Math.floor(secondsToLogout / 60);
-      secondsRemaining = secondsToLogout - (minutesRemaining * 60);
-    } else {
-      minutesRemaining = 0;
-      secondsRemaining = secondsToLogout;
-
-    }
-
-    if( secondsRemaining < 10 ) {
-      secondsRemaining = "0" + secondsRemaining;
-    }
-
-    this.$('span.countdown').html(minutesRemaining + ':' + secondsRemaining);
+    var timeRemaining = app.findDayInfo.findClockValue(secondsToLogout);
+    this.$('span.countdown').html(timeRemaining);
   },
 
   addRegisteredClasses: function(data) {
     // data is the result of a call to the API.
-
     var visits = data['GetClientVisitsResult']['Visits']['Visit'];
-
     if(visits){
-      // console.log(this.model.get('client')['FirstName']);
       this.model.set({'clientSchedule': visits});
-
-      // console.log('Workouts on ' + this.model.get('client')['FirstName'] + "'s schedule: ");
-      // for (i = 0; i < visits.length; i++) {
-      //   console.log( visits[i]['ClassID'] );
-      // }
-
-      // console.log(this.model);
-
     }
-
-
-    // console.log( this.model.get('clientSchedule') );
   }
 
 });

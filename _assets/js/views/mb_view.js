@@ -100,7 +100,6 @@ module.exports = Backbone.View.extend({
       } else {
         var secondsToLogout = (loginTime +loginMaxTime) - currentTime;
         app.mbLogInView.showCountDown(secondsToLogout);
-        // console.log('you will be logged out in ' + ((loginTime +loginMaxTime) - currentTime)+ ' seconds');
       }
     };
   },

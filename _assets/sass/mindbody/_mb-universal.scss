@@ -13,6 +13,7 @@ ul.mb_data span.loader {
 ul.classes,
 ul.classes li,
 ul.classes hgroup,
+ul.classes div.signUp,
 ul.classes li div.workout-desc,
 ul.classes li div.classNFO,
 ul.classes li div.trainerNFO,
@@ -35,6 +36,18 @@ ul.classes {
     margin-bottom: 0.5em;
     padding: 0.25em 0.4em
   }
+}
+
+
+ul.classes hgroup {
+  width: 65%;
+  padding-right: 1em;
+}
+ul.classes div.signUp {
+  width: 35%;
+  background: $color-solful-red;
+  text-align: center;
+  clear: none;
 }
 
 .no-touchevents ul.classes > li > hgroup.available {
@@ -96,6 +109,7 @@ ul.classes li.enrolled {
 // buttons
 ul.mb_data a.sign-in-button {
   background: $color-solful-red;
+  padding: 0.15em 0;
   text-align: center;
   color: #FFF;
   transition: background 0.25s ease-in-out;

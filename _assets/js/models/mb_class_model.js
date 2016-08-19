@@ -4,7 +4,8 @@ module.exports = Backbone.Model.extend({
 
   defaults: {
     toggleInfo: false,
-    toggleInstructor: false
+    toggleInstructor: false,
+    unixStartTime: ''
   }
 
 });
