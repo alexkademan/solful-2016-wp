@@ -143,10 +143,24 @@ module.exports = Backbone.View.extend({
     // see if there is more than 60 minutes before the class. Otherwise close availability.
     // console.log(this.model.get('unixStartTime'));
     var secondsRemaining = this.model.get('unixStartTime') - app.mindbodyModel.get('currentTime');
+
     if(secondsRemaining > 0){
-      var countdownClock = app.findDayInfo.findClockValue(secondsRemaining);
-      this.$('span.countdown').html(countdownClock);
-    };
+      // class still hasn't started:
+
+      // if(secondsRemaining <= this.model.get('lateCancelTime')){
+      if(secondsRemaining <= 41452){
+        // console.log(this.model.get('ClassDescription')['Name']);
+        // we're within the late cancel timeframe:
+        this.model.set({
+          lateCancel: true,
+          IsAvailable: false
+        });
+      }else if(this.model.get('IsAvailable') === true){
+        // class should be open:
+        var countdownClock = app.findDayInfo.findClockValue(secondsRemaining);
+        this.$('span.countdown').html(countdownClock);
+      };
+    }
 
   }
 

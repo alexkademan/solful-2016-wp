@@ -97,9 +97,28 @@ module.exports = Backbone.View.extend({
     // 72000 seconds in a day
     // 3600 seconds in an hour
 
-    var timeRemaining,
+    var timeRemaining = '',
+        daysRemaining,
+        hoursRemaining,
         minutesRemaining,
         secondsRemaining;
+
+
+    if(unixTimeVal >= 72000){
+      daysRemaining = Math.floor(unixTimeVal / 72000);
+      unixTimeVal = unixTimeVal - (daysRemaining * 72000);
+      if(daysRemaining > 1 ){
+        timeRemaining += daysRemaining + ' days ';
+      } else {
+        timeRemaining += daysRemaining + ' day ';
+      }
+    }
+
+    if(unixTimeVal >= 3600){
+      hoursRemaining = Math.floor(unixTimeVal / 3600);
+      unixTimeVal = unixTimeVal - (hoursRemaining * 3600);
+      timeRemaining += hoursRemaining + ':';
+    }
 
     if( unixTimeVal >= 60 ){
       minutesRemaining = Math.floor(unixTimeVal / 60);
@@ -114,8 +133,14 @@ module.exports = Backbone.View.extend({
       secondsRemaining = "0" + secondsRemaining;
     }
 
-    timeRemaining = minutesRemaining + ':' + secondsRemaining;
+    // console.log(daysRemaining);
+    timeRemaining += minutesRemaining + ':' + secondsRemaining;
 
     return timeRemaining;
   }
+
+
+
+
+
 });

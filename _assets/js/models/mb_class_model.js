@@ -5,7 +5,9 @@ module.exports = Backbone.Model.extend({
   defaults: {
     toggleInfo: false,
     toggleInstructor: false,
-    unixStartTime: ''
+    unixStartTime: '',
+    lateCancel: false, // if less than an hour before the class, late cancel is an option.
+    lateCancelTime: 3600 // can't sign up for class within 3600 seconds (1 hour) of start of class
   }
 
 });
