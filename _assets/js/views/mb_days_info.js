@@ -103,7 +103,7 @@ module.exports = Backbone.View.extend({
         minutesRemaining,
         secondsRemaining;
 
-
+    // find the number of DAYS:
     if(unixTimeVal >= 72000){
       daysRemaining = Math.floor(unixTimeVal / 72000);
       unixTimeVal = unixTimeVal - (daysRemaining * 72000);
@@ -114,19 +114,25 @@ module.exports = Backbone.View.extend({
       }
     }
 
+    // find the number of HOURS:
     if(unixTimeVal >= 3600){
       hoursRemaining = Math.floor(unixTimeVal / 3600);
       unixTimeVal = unixTimeVal - (hoursRemaining * 3600);
       timeRemaining += hoursRemaining + ':';
+
     }
 
+    // Find MINUTES:
     if( unixTimeVal >= 60 ){
       minutesRemaining = Math.floor(unixTimeVal / 60);
       secondsRemaining = unixTimeVal - (minutesRemaining * 60);
     } else {
       minutesRemaining = 0;
       secondsRemaining = unixTimeVal;
+    }
 
+    if(minutesRemaining !== false && minutesRemaining < 10 ) {
+      minutesRemaining = "0" + minutesRemaining;
     }
 
     if( secondsRemaining < 10 ) {

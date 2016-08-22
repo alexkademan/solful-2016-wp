@@ -25,6 +25,7 @@ module.exports = Backbone.View.extend({
     this.model.on({'change:toggleInstructor': this.toggleInstructor}, this);
     this.model.on({'change:IsEnrolled': this.adjustStatus}, this);
     this.model.on({'change:IsAvailable': this.adjustStatus}, this);
+    this.model.on({'change:IsCanceled': this.adjustStatus}, this);
 
     // monitor to see if used is signed in for this class.
     app.mindbodyModel.on({'change:clientSchedule': this.checkSignIn}, this);
@@ -59,8 +60,10 @@ module.exports = Backbone.View.extend({
     }
 
     this.$el.append(infoTemplate(this.model.toJSON()));
-    this.toggleInfo();
+    this.toggleInfo(); // info can default to showing.
     // console.log(this.model.get('StartDateTime'));
+
+    this.adjustStatus();
 
     return this;
   },
@@ -123,10 +126,12 @@ module.exports = Backbone.View.extend({
     }
   },
 
-  adjustStatus: function() {
-    // console.log('adjustStatus');
-    // manage the state of the button as it appears on screen.
 
+  // manage the sign in button,
+  // could be cancel class, could be nothing,
+  // based on the state of the view.
+  adjustStatus: function() {
+    // manage the state of the button as it appears on screen.
     if(this.model.get('IsEnrolled') === true){
       // console.log( app.mindbodyModel.get('client')['FirstName'] +  ' is signed up for: ' + this.model.get('ClassDescription')['Name'] + ' (' + this.model.get('ID') + ')');
       this.$el.addClass('enrolled');
@@ -134,6 +139,43 @@ module.exports = Backbone.View.extend({
       this.$el.removeClass('enrolled');
 
     }
+
+
+
+
+    // console.log( this.model.get('ClassDescription')['Name'] );
+
+    var isAvailable = this.model.get('IsAvailable');
+    var isCanceled = this.model.get('IsCanceled');
+    var isEnrolled = this.model.get('IsEnrolled');
+    var lateCancel = this.model.get('lateCancel');
+
+    // console.log('IsAvailable: ' + isAvailable);
+    // console.log('IsCanceled: ' + isCanceled);
+    // console.log('IsEnrolled: ' + isEnrolled);
+    // console.log('lateCancel: ' + lateCancel);
+    // // console.log(this.model);
+    // console.log(' ');
+    var theButton = '';
+
+    if(isAvailable === true && isEnrolled === true){
+      // show CANCEL button
+      console.log( this.model.get('ClassDescription')['Name'] );
+
+      var signUpButton = _.template($('#mb-appointment-cancel').html());
+      theButton = signUpButton(this.model.toJSON());
+
+    } else if(isAvailable === true && isEnrolled === false) {
+      // show SIGN UP button
+      var signUpButton = _.template($('#mb-appointment-signIn').html());
+      theButton = signUpButton(this.model.toJSON());
+
+    } else if(isAvailable === false) {
+      // class is cancelled, or has already happened
+    }
+
+
+    this.$('div.signUp').html(theButton);
 
 
   },
@@ -147,8 +189,8 @@ module.exports = Backbone.View.extend({
     if(secondsRemaining > 0){
       // class still hasn't started:
 
-      // if(secondsRemaining <= this.model.get('lateCancelTime')){
-      if(secondsRemaining <= 41452){
+      if(secondsRemaining <= this.model.get('lateCancelTime')){
+      // if(secondsRemaining <= 41452){
         // console.log(this.model.get('ClassDescription')['Name']);
         // we're within the late cancel timeframe:
         this.model.set({

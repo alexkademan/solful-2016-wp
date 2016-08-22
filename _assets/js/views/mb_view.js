@@ -82,6 +82,10 @@ module.exports = Backbone.View.extend({
 
   keepTime: function(){
     var rightNow = Math.round(new Date().getTime()/1000);
+
+    // subtract 5 hours. ... UTC is only timezone available in JS
+    rightNow = rightNow - 18000;
+
     this.model.set({'currentTime': rightNow});
 
     // run this function once per second to keep time.

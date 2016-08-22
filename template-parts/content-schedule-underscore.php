@@ -18,7 +18,6 @@
     </h3>
   </hgroup>
   <div class="signUp">
-    <%= IsAvailable ? '<a href="' + signupURL + '" class="sign-in-button">Sign In!</a>' : '' %>
   </div>
 </script>
 

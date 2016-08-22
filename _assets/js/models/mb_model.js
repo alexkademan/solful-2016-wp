@@ -21,7 +21,7 @@ module.exports = Backbone.Model.extend({
 
     pageLoadTime: '',
     loginMaxTime: 3000, // need to automatically log the client out after 50 minutes. (3000 seconds)
-    // loginMaxTime: 3000, // need to automatically log the client out after 50 minutes. (3000 seconds)
+    // loginMaxTime: 120, // 2 minute timer just for testing.
     loginTime: '', // the time that the client logged in.
     currentTime: '', // time of day (in seconds)
 
