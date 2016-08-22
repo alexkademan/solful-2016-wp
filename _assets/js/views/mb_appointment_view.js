@@ -16,10 +16,6 @@ module.exports = Backbone.View.extend({
 
   initialize: function() {
 
-
-    // convert start time to unix time for clock:
-    this.model.set({'unixStartTime': Date.parse(this.model.get('StartDateTime'))/1000});
-
     // console.log(this.model);
     this.model.on({'change:toggleInfo': this.toggleInfo}, this);
     this.model.on({'change:toggleInstructor': this.toggleInstructor}, this);
@@ -30,7 +26,6 @@ module.exports = Backbone.View.extend({
     // monitor to see if used is signed in for this class.
     app.mindbodyModel.on({'change:clientSchedule': this.checkSignIn}, this);
     app.mindbodyModel.on({'change:currentTime': this.checkAvailable}, this);
-    // console.log(app.mindbodyModel);
 
     this.checkSignIn();
   },
@@ -140,9 +135,6 @@ module.exports = Backbone.View.extend({
 
     }
 
-
-
-
     // console.log( this.model.get('ClassDescription')['Name'] );
 
     var isAvailable = this.model.get('IsAvailable');
@@ -156,12 +148,12 @@ module.exports = Backbone.View.extend({
     // console.log('lateCancel: ' + lateCancel);
     // // console.log(this.model);
     // console.log(' ');
+
     var theButton = '';
 
     if(isAvailable === true && isEnrolled === true){
       // show CANCEL button
-      console.log( this.model.get('ClassDescription')['Name'] );
-
+      // console.log( this.model.get('ClassDescription')['Name'] );
       var signUpButton = _.template($('#mb-appointment-cancel').html());
       theButton = signUpButton(this.model.toJSON());
 
@@ -186,12 +178,13 @@ module.exports = Backbone.View.extend({
     // console.log(this.model.get('unixStartTime'));
     var secondsRemaining = this.model.get('unixStartTime') - app.mindbodyModel.get('currentTime');
 
+
     if(secondsRemaining > 0){
+
       // class still hasn't started:
 
       if(secondsRemaining <= this.model.get('lateCancelTime')){
       // if(secondsRemaining <= 41452){
-        // console.log(this.model.get('ClassDescription')['Name']);
         // we're within the late cancel timeframe:
         this.model.set({
           lateCancel: true,
@@ -201,6 +194,7 @@ module.exports = Backbone.View.extend({
         // class should be open:
         var countdownClock = app.findDayInfo.findClockValue(secondsRemaining);
         this.$('span.countdown').html(countdownClock);
+        // this.$('span.countdown').html(this.model.get('StartDateTime'));
       };
     }
 

@@ -78,6 +78,10 @@ div.loginForm input.mb-password {
   -moz-text-security: disc;
   text-security: disc;
 }
+div.loginForm input[type="password"] {
+  -webkit-text-security: disc !important;
+}
+
 div.loginForm input.mb-login-button {
   // display: block;
   // margin: 0 auto;

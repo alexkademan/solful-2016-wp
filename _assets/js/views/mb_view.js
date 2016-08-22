@@ -83,8 +83,14 @@ module.exports = Backbone.View.extend({
   keepTime: function(){
     var rightNow = Math.round(new Date().getTime()/1000);
 
-    // subtract 5 hours. ... UTC is only timezone available in JS
-    rightNow = rightNow - 18000;
+    // subtract 7 hours(?). ... UTC is only timezone available in JS
+
+    // rightNow = rightNow - 14400; // (3600 * 4)
+    // rightNow = rightNow - 18000; // (3600 * 5)
+    // rightNow = rightNow - 21600; // (3600 * 6)
+    rightNow = rightNow - 25200; // (3600 * 7)
+
+    // console.log(rightNow);
 
     this.model.set({'currentTime': rightNow});
 
@@ -102,6 +108,12 @@ module.exports = Backbone.View.extend({
       if(currentTime >= (loginTime + loginMaxTime)){
         app.mbLogInView.logOutUser();
       } else {
+
+        // console.log('currentTime: ' + currentTime);
+        // console.log('loginTime: ' + loginTime);
+        // console.log('loginMaxTime: ' + loginMaxTime);
+        // console.log(' ');
+
         var secondsToLogout = (loginTime +loginMaxTime) - currentTime;
         app.mbLogInView.showCountDown(secondsToLogout);
       }
@@ -256,6 +268,8 @@ module.exports = Backbone.View.extend({
 
     } else if (this.model.get('wpSlug') === 'trainers'){
       // render the trainers page:
+      console.log('this is how we display the trainers page...');
+
       app.mbTrainers.each(function(trainer){
         var trainer = new TrainerView({model: trainer});
         app.mindbodyView.$el.append(trainer.renderTrainer().el);

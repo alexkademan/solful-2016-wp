@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require_once __DIR__ . '/mb-config.php';
 require_once __DIR__ . '/mindbody-php-api/src/MB_API.php';
 require_once __DIR__ . '/classes/mb-get-classes.php';
@@ -28,11 +29,18 @@ if( isset($_GET['startTime']) && isset($_GET['duration']) && isset($_GET['sessio
 
 		if(gettype($data) == 'string') {
 			// it returned an error of some sort:
-			echo 'this thing was a string all along....';
 		} elseif(gettype($data) == 'array') {
 			// this is probably running correctly then:
-			$data = json_encode($data);
+			foreach($data as $day => $list){
+				// every day...
+				foreach($data[$day] as $key => $workout) {
+					// every workout...
+					$unixStartTime = strtotime($workout['StartDateTime']);
+					$data[$day][$key]['unixStartTime'] = $unixStartTime;
+				}
+			}
 
+			$data = json_encode($data);
 			unset($_SESSION['MINDBODY']['schedule']);
 			$_SESSION['MINDBODY']['schedule']['time'] = $_GET['startTime'];
 			$_SESSION['MINDBODY']['schedule']['info'] = $data;

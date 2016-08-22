@@ -49,7 +49,6 @@ module.exports = Backbone.View.extend({
   logInOut: function(data){
 
     if(data === 'stranger'){
-      console.log('stranger');
       // user not logged in.
       this.model.set({
         GUID: false,
@@ -128,8 +127,11 @@ module.exports = Backbone.View.extend({
   },
 
   showCountDown: function(secondsToLogout) {
+    console.log('secondsToLogout: ' + secondsToLogout);
+
     var timeRemaining = app.findDayInfo.findClockValue(secondsToLogout);
     this.$('span.countdown').html(timeRemaining);
+    console.log(timeRemaining);
   },
 
   addRegisteredClasses: function(data) {

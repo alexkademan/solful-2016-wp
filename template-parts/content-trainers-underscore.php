@@ -13,7 +13,6 @@
       <span class="">
         <%= ImageURL ? '<img src="' + ImageURL + '" />' : '' %>
         <%= Bio ? '<div class="desc">' + Bio + '</div><a class="readMore"></a>' : '' %>
-
       </span>
     </div>
 

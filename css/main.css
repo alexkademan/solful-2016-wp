@@ -3426,6 +3426,9 @@ div.loginForm input.mb-password {
   -moz-text-security: disc;
   text-security: disc; }
 
+div.loginForm input[type="password"] {
+  -webkit-text-security: disc !important; }
+
 div.loginForm div.login span.loading {
   position: absolute;
   top: 0;

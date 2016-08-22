@@ -104,9 +104,10 @@ module.exports = Backbone.View.extend({
         secondsRemaining;
 
     // find the number of DAYS:
-    if(unixTimeVal >= 72000){
-      daysRemaining = Math.floor(unixTimeVal / 72000);
-      unixTimeVal = unixTimeVal - (daysRemaining * 72000);
+    if(unixTimeVal >= 86400){
+      daysRemaining = Math.floor(unixTimeVal / 86400);
+      unixTimeVal = unixTimeVal - (daysRemaining * 86400);
+
       if(daysRemaining > 1 ){
         timeRemaining += daysRemaining + ' days ';
       } else {

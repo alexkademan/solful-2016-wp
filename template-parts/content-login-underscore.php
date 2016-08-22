@@ -21,7 +21,7 @@
         <input type="text" name="username" id="mb-username" />
 
         <label for="mb-password">Password:</label>
-        <input type="text" name="password" id="mb-password" class="mb-password" autocomplete="off" />
+        <input type="password" name="password" id="mb-password" class="mb-password" autocomplete="off" />
 
         <input type="submit" value="Sign in" class="mb-login-button" />
       </form>
