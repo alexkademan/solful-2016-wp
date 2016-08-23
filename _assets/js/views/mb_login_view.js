@@ -21,9 +21,8 @@ module.exports = Backbone.View.extend({
     // WP than I can out of JS. This is just to keep things portable.
     // (but its not the nicest solution...)
     var mbURL = this.$('#mb-login-mbFeedURL')[0].href;
-    var wpTrainers = this.$('span.wpTrainers');
-    console.log(wpTrainers);
-
+    // console.log(this.$el);
+    // console.log(mbURL);
 
     if( mbURL ){
       // set the needed var for the whole application,

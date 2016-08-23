@@ -25,6 +25,8 @@ module.exports = Backbone.Model.extend({
     loginTime: '', // the time that the client logged in.
     currentTime: '', // time of day (in seconds)
 
+    availableTrainers: '', // array of names of trainers from WordPress to cross reference for availability.
+
     scheduleSpan: 518400, // 518400 is the number of seconds in 6 days. Show today plus the rest of a week.
 
     loggedIn: false,

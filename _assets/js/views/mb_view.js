@@ -58,6 +58,24 @@ module.exports = Backbone.View.extend({
         // we have found the current page slug:
         this.model.set({ wpSlug: wpSlug[0].innerHTML });
 
+
+        // gather stuff about trainers page from WP:
+        if(this.model.get('wpSlug') === 'trainers'){
+          // we're on the trainers page, so I left some JSON data there that I need...
+          wpTrainers = JSON.parse(this.$('span.wpTrainers')[0].innerHTML);
+
+          // turn wpTrainers into an array of names:
+          var i = 1;
+          var availableTrainers = [];
+          for (var key in wpTrainers) {
+            availableTrainers[i] = key;
+            ++i;
+          }
+          // Thow this to the model so that we have the order of available trainers
+          // to be displayed on the trainers page.
+          this.model.set({'availableTrainers': availableTrainers});
+        }
+
         // listen for the ajax call to come back to begin the render process:
         this.model.on({'change:requestStatus': this.adjustState}, this);
 
@@ -268,31 +286,52 @@ module.exports = Backbone.View.extend({
 
     } else if (this.model.get('wpSlug') === 'trainers'){
       // render the trainers page:
-      console.log('this is how we display the trainers page...');
-
-      app.mbTrainers.each(function(trainer){
-        var trainer = new TrainerView({model: trainer});
-        app.mindbodyView.$el.append(trainer.renderTrainer().el);
-
-        if( trainer.model.get('workoutCount') > 0 ){
-          // this trainer has classes this week:
-          var trainerName =  trainer.model.get('Name');
-
-          app.mbDays.each(function(day){
-            var classCount =  day.get('scheduledTrainers')[trainerName];
-            if(classCount > 0) {
-              // today this trainer has at least one class:
-              var today = day.get('date');
-              // show this day. Because there are workouts with the trainer in question.
-              var todayView = new DayView({model: app.mbDays.get( today )});
-              trainer.$('ul.workouts').append( todayView.renderDay(trainerName, 'trainers').el );
-
+      if(this.model.get('availableTrainers') !== ''){
+        // Render the trainers that are in MINDBODY, but
+        // also have a place made for thim via WordPress.
+        var availableTrainers = this.model.get('availableTrainers');
+        // loop thru available trainers, and match them with the
+        // MINDBODY trainer, and if there is a match, render to the page:
+        for(i=1; i<availableTrainers.length; ++i) {
+          app.mbTrainers.each(function(trainer){
+            if(availableTrainers[i] === trainer.get('Name')){
+              app.mindbodyView.renderAnotherTrainer(trainer);
+              return;
             }
           });
-        };
+        }
 
-      });
+      } else {
+        // render ALL trainers from MINDBODY,
+        // because we don't have the list from WordPress
+        app.mbTrainers.each(function(trainer){
+          app.mindbodyView.renderAnotherTrainer(trainer);
+        });
+      }
     }
+
+  },
+
+  renderAnotherTrainer: function(trainer) {
+    var trainer = new TrainerView({model: trainer});
+    this.$el.append(trainer.renderTrainer().el);
+
+    if( trainer.model.get('workoutCount') > 0 ){
+      // this trainer has classes this week:
+      var trainerName =  trainer.model.get('Name');
+
+      app.mbDays.each(function(day){
+        var classCount =  day.get('scheduledTrainers')[trainerName];
+        if(classCount > 0) {
+          // today this trainer has at least one class:
+          var today = day.get('date');
+          // show this day. Because there are workouts with the trainer in question.
+          var todayView = new DayView({model: app.mbDays.get( today )});
+          trainer.$('ul.workouts').append( todayView.renderDay(trainerName, 'trainers').el );
+
+        }
+      });
+    };
 
   }
 

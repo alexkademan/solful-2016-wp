@@ -54,7 +54,6 @@
 <script type="text/template" id="mb-trainer-appointment-template">
   <div class="classNFO">
     <span>
-      <%= IsAvailable ? '<a href="' + signupURL + '" class="sign-in-button">Sign in now!</a>' : '' %>
       <%= IsCanceled ? Staff['Name'] : durationReadable + ' with '+Staff['Name'] %>
 
       <div class="workout-desc">
