@@ -21,6 +21,10 @@ module.exports = Backbone.View.extend({
     // WP than I can out of JS. This is just to keep things portable.
     // (but its not the nicest solution...)
     var mbURL = this.$('#mb-login-mbFeedURL')[0].href;
+    var wpTrainers = this.$('span.wpTrainers');
+    console.log(wpTrainers);
+
+
     if( mbURL ){
       // set the needed var for the whole application,
       this.model.set({mbFeedURL: mbURL});
@@ -127,11 +131,11 @@ module.exports = Backbone.View.extend({
   },
 
   showCountDown: function(secondsToLogout) {
-    console.log('secondsToLogout: ' + secondsToLogout);
+    // console.log('secondsToLogout: ' + secondsToLogout);
 
     var timeRemaining = app.findDayInfo.findClockValue(secondsToLogout);
     this.$('span.countdown').html(timeRemaining);
-    console.log(timeRemaining);
+    // console.log(timeRemaining);
   },
 
   addRegisteredClasses: function(data) {
