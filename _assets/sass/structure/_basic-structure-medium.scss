@@ -6,3 +6,16 @@
   @include span-columns(4 of 12);
   @include omega();
 }
+.site-footer {
+  padding-top: $gutter;
+  padding-bottom: pem(100);
+
+}
+.site-footer > div,
+.site-footer > a {
+  @include span-columns(4 of 12);
+}
+
+.site-footer > a {
+  float: right;
+}

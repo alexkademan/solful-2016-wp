@@ -20,16 +20,15 @@ if($post->post_title == 'Contact Us'){
 ?>
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="site-info">
-
 			<?php
 				// echo 'hello???';
 				if( function_exists( 'mc4wp_show_form' ) ) {
 				  mc4wp_show_form();
 				}
 			?>
-
 			&copy; <?php echo date('Y') . ' ' . get_bloginfo('title'); ?>
-		</div><!-- .site-info -->
+		</div>
+		<a href="http://clients.mindbodyonline.com/ws.asp?studioid=44288&amp;stype=-7" id="MINDBODY-footer-link"><img src="<?php echo get_bloginfo('template_url') ?>/images/powered_by_mindbody-white.png" /></a>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 

@@ -22,11 +22,11 @@
 </script>
 
 <script type="text/template" id="mb-appointment-signIn">
-  <%= IsAvailable ? '<a href="' + signupURL + '" class="sign-in-button">Sign In!</a>' : '' %>
+  <%= IsAvailable ? '<a href="' + signupURL + '" class="schedButton sign-in-button">Sign In</a>' : '' %>
 </script>
 
 <script type="text/template" id="mb-appointment-cancel">
-  <%= IsAvailable ? '<a href="' + signupURL + '" class="cancel-button">Cancel</a>' : '' %>
+  <%= IsAvailable ? '<a href="' + signupURL + '" class="schedButton cancel-button">Registered</a>' : '' %>
 </script>
 
 <script type="text/template" id="mb-appointment-nfo">

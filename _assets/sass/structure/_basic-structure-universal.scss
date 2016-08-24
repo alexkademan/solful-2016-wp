@@ -55,6 +55,15 @@ div.content {
   color: rgba(255, 255, 255, 0.7);
 }
 
+.site-footer > div,
+.site-footer > a {
+  padding-bottom: 1em;
+  @include span-columns(12 of 12);
+}
+
+.site-footer > a {
+  max-width: pem(190);
+}
 
 
 div.entry-content {

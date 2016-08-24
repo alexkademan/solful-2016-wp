@@ -45,14 +45,11 @@ ul.mb_data h3 {
   font-size: 1em;
   margin-bottom: 0;
 }
-ul.mb_trainers > li > h1 {
-  font-family: 'bebas-regular';
-  letter-spacing: 0.045em;
-  font-size: 1.6em;
-}
-ul.mb_data a.sign-in-button,
+ul.mb_trainers > li > h1,
+ul.mb_data a.schedButton,
 ul.mb_data div.trainerName {
   font-family: 'bebas-regular';
+  letter-spacing: 0.045em;
   font-size: 1.6em;
 }
 nav.site-nav a {

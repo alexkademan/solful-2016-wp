@@ -5,11 +5,14 @@ var Backbone = require ('backbone');
 var _ = require ('underscore');
 var $ = require ('jquery');
 
-// var MBCookieHandler = require('./mb_cookie_view');
+var MindBodyButton = require('./mindbody_button');
+var MindBodyButtonFooter = require('./mindbody_button_footer');
 
 var DaysCollection = require('./../models/mb_days_collection');
 var DayInfo = require('./mb_days_info');
 var DayView = require('./mb_day_view');
+
+var MBMethods = require('./mb_state_methods');
 
 var TrainersCollection = require('./../models/mb_trainers_collection');
 var TrainerView = require('./mb_trainer_view');
@@ -25,26 +28,34 @@ module.exports = Backbone.View.extend({
   initialize: function() {
 
     // login for the masthead:
-    app.mbLogInView = new LoginView({model: app.mindbodyModel});
+    app.mbLogInView = new LoginView({model: this.model});
 
-    // set time frame:
-    // adding my start and stop time to the program.
-    // from this I can synch the client's scheduled classes
-    // with the classes on the calendar, and time out people's log in time.
-    var rightNow = Math.round(new Date().getTime()/1000);
-    this.model.set({'pageLoadTime': rightNow}); // save the time this page was executed.
-    this.keepTime();
+    // helper methods for use later:
+    app.findDayInfo = new DayInfo();
+    app.mbMethods = new MBMethods();
+
+    app.mindBodyButton = new MindBodyButton({model: this.model}); // header banner button for front page
+    app.mindBodyButtonFooter = new MindBodyButtonFooter({model: this.model}); // link to MB from footer
+
+    // save the time this page was executed.
+    this.model.set({'pageLoadTime': Math.round(new Date().getTime()/1000)});
 
     // monitor the time. Used to log people out when they've been here too long.
     this.model.on({'change:currentTime': this.checkStatus}, this);
+    this.model.on({'change:loggedIn': this.setBaseURL}, this);
+
+    // listen for the ajax call to come back to begin the render process:
+    this.model.on({'change:requestStatus': this.adjustState}, this);
+
+    // start some basic features:
+    this.setBaseURL();
+    this.keepTime();
 
     // check to see if the user is already logged in:
     this.makeAJAXcall('login-status.php', 'login');
 
 
     if(this.$el.length == 1){
-      // helper methods for use later:
-      app.findDayInfo = new DayInfo();
 
       // the slug has been printed to the DOM. like its 2013 or something !@#!@
       var wpSlug = this.$('span.slug');
@@ -76,8 +87,8 @@ module.exports = Backbone.View.extend({
           this.model.set({'availableTrainers': availableTrainers});
         }
 
-        // listen for the ajax call to come back to begin the render process:
-        this.model.on({'change:requestStatus': this.adjustState}, this);
+        // // listen for the ajax call to come back to begin the render process:
+        // this.model.on({'change:requestStatus': this.adjustState}, this);
 
         if(this.model.get('wpSlug') === 'schedule' || this.model.get('wpSlug') === 'trainers') {
 
@@ -102,7 +113,7 @@ module.exports = Backbone.View.extend({
     if( file == undefined ){ return }
     var thisURL = app.mindbodyModel.get('mbFeedURL') + file;
 
-    console.log(thisURL);
+    // console.log(thisURL);
 
     $.ajax({
       url: thisURL,
@@ -155,12 +166,6 @@ module.exports = Backbone.View.extend({
       if(currentTime >= (loginTime + loginMaxTime)){
         app.mbLogInView.logOutUser();
       } else {
-
-        // console.log('currentTime: ' + currentTime);
-        // console.log('loginTime: ' + loginTime);
-        // console.log('loginMaxTime: ' + loginMaxTime);
-        // console.log(' ');
-
         var secondsToLogout = (loginTime +loginMaxTime) - currentTime;
         app.mbLogInView.showCountDown(secondsToLogout);
       }
@@ -182,7 +187,6 @@ module.exports = Backbone.View.extend({
 
   weHaveSchedule: function(data) {
     for(var key in data) {
-      // var dayInfo = app.mindbodyView.findDayInfo(key);
       var dayInfo = app.findDayInfo.findDayInfo(key);
 
       // build out the day:
@@ -324,6 +328,21 @@ module.exports = Backbone.View.extend({
       });
     };
 
+  },
+
+  setBaseURL: function(){
+    // sets a base URL for linking to MINDBODY's service at any time.
+
+    var baseMBlink = this.model.get('signupURLbase');
+    var studioID = this.model.get('studioID');
+
+    var args = '?studioid=' + studioID;
+
+    if(this.model.get('loggedIn') === true && this.model.get('GUID') !== false){
+      args += '&guid=' + this.model.get('GUID');
+    }
+
+    this.model.set({'urlMINDBODY': baseMBlink + args});
   }
 
 });

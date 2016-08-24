@@ -146,8 +146,4 @@ module.exports = Backbone.View.extend({
     return timeRemaining;
   }
 
-
-
-
-
 });

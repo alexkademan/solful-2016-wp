@@ -408,14 +408,11 @@ ul.mb_data h3 {
   font-size: 1em;
   margin-bottom: 0; }
 
-ul.mb_trainers > li > h1 {
-  font-family: 'bebas-regular';
-  letter-spacing: 0.045em;
-  font-size: 1.6em; }
-
-ul.mb_data a.sign-in-button,
+ul.mb_trainers > li > h1,
+ul.mb_data a.schedButton,
 ul.mb_data div.trainerName {
   font-family: 'bebas-regular';
+  letter-spacing: 0.045em;
   font-size: 1.6em; }
 
 nav.site-nav a {
@@ -2981,6 +2978,20 @@ div.content,
   padding-bottom: 4.375em;
   color: rgba(255, 255, 255, 0.7); }
 
+.site-footer > div,
+.site-footer > a {
+  padding-bottom: 1em;
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%; }
+  .site-footer > div:last-child,
+  .site-footer > a:last-child {
+    margin-right: 0; }
+
+.site-footer > a {
+  max-width: 11.875em; }
+
 div.entry-content {
   width: 100% !important; }
 
@@ -3024,7 +3035,21 @@ div.entry-content {
     width: 31.76157%;
     margin-right: 0; }
     .widget-area:last-child {
-      margin-right: 0; } }
+      margin-right: 0; }
+  .site-footer {
+    padding-top: 1.618em;
+    padding-bottom: 6.25em; }
+  .site-footer > div,
+  .site-footer > a {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 31.76157%; }
+    .site-footer > div:last-child,
+    .site-footer > a:last-child {
+      margin-right: 0; }
+  .site-footer > a {
+    float: right; } }
 
 ul.fb_feed {
   position: relative; }
@@ -3131,7 +3156,7 @@ ul.classes li div.workout-desc,
 ul.classes li div.classNFO,
 ul.classes li div.trainerNFO,
 ul.mb_data li,
-ul.mb_data a.sign-in-button,
+ul.mb_data a.schedButton,
 ul.mb_data div.trainerNamem
 ul.mb_trainers,
 ul.mb_trainers li {
@@ -3203,15 +3228,22 @@ ul.classes li.showInfo div.classNFO {
 ul.classes li.showTrainer div.trainerNFO {
   height: auto; }
 
-ul.mb_data a.sign-in-button {
+ul.mb_data a.schedButton {
   background: #ef4137;
   padding: 0.15em 0;
   text-align: center;
   color: #FFF;
   -webkit-transition: background 0.25s ease-in-out;
   transition: background 0.25s ease-in-out; }
-  .no-touchevents ul.mb_data a.sign-in-button:hover {
+  .no-touchevents ul.mb_data a.schedButton:hover {
     background: #e11d12; }
+
+ul.mb_data a.cancel-button {
+  background: #e7e7e7;
+  background: transparent;
+  color: #4d4d4d; }
+  .no-touchevents ul.mb_data a.cancel-button:hover {
+    background: #cecece; }
 
 ul.mb_data div.trainerName {
   background: transparent; }

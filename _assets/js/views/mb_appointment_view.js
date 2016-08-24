@@ -56,7 +56,6 @@ module.exports = Backbone.View.extend({
 
     this.$el.append(infoTemplate(this.model.toJSON()));
     this.toggleInfo(); // info can default to showing.
-    // console.log(this.model.get('StartDateTime'));
 
     this.adjustStatus();
 
