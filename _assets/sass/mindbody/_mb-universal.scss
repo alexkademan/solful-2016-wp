@@ -45,7 +45,6 @@ ul.classes hgroup {
 }
 ul.classes div.signUp {
   width: 35%;
-  background: $color-solful-red;
   text-align: center;
   clear: none;
 }
@@ -103,12 +102,12 @@ ul.classes li.showTrainer div.trainerNFO {
 }
 
 ul.classes li.enrolled {
-  background: #FCF;
+  // background: #FCF;
 }
 
 // buttons
 ul.mb_data a.sign-in-button {
-  background: $color-solful-red;
+  background: lighten($color-solful-red, 0%);
   padding: 0.15em 0;
   text-align: center;
   color: #FFF;

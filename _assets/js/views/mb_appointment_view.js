@@ -126,21 +126,22 @@ module.exports = Backbone.View.extend({
   // could be cancel class, could be nothing,
   // based on the state of the view.
   adjustStatus: function() {
-    // manage the state of the button as it appears on screen.
-    if(this.model.get('IsEnrolled') === true){
-      // console.log( app.mindbodyModel.get('client')['FirstName'] +  ' is signed up for: ' + this.model.get('ClassDescription')['Name'] + ' (' + this.model.get('ID') + ')');
-      this.$el.addClass('enrolled');
-    }else if(this.model.get('IsEnrolled') === false) {
-      this.$el.removeClass('enrolled');
-
-    }
-
-    // console.log( this.model.get('ClassDescription')['Name'] );
 
     var isAvailable = this.model.get('IsAvailable');
     var isCanceled = this.model.get('IsCanceled');
     var isEnrolled = this.model.get('IsEnrolled');
     var lateCancel = this.model.get('lateCancel');
+
+    // manage the state of the button as it appears on screen.
+    if(isEnrolled === true){
+      // console.log( app.mindbodyModel.get('client')['FirstName'] +  ' is signed up for: ' + this.model.get('ClassDescription')['Name'] + ' (' + this.model.get('ID') + ')');
+      this.$el.addClass('enrolled');
+    }else if(isEnrolled === false) {
+      this.$el.removeClass('enrolled');
+
+    }
+
+    // console.log( this.model.get('ClassDescription')['Name'] );
 
     // console.log('IsAvailable: ' + isAvailable);
     // console.log('IsCanceled: ' + isCanceled);
@@ -195,6 +196,8 @@ module.exports = Backbone.View.extend({
         var countdownClock = app.findDayInfo.findClockValue(secondsRemaining);
         this.$('span.countdown').html(countdownClock);
         // this.$('span.countdown').html(this.model.get('StartDateTime'));
+        // this.$('span.countdown').html(app.mindbodyModel.get('currentTime'));
+        // this.$('span.countdown').html('UnixTime: ' + this.model.get('unixStartTime'));
       };
     }
 

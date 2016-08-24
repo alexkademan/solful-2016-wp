@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+// session_destroy();
 require_once __DIR__ . '/mb-config.php';
 require_once __DIR__ . '/mindbody-php-api/src/MB_API.php';
 require_once __DIR__ . '/classes/mb-get-classes.php';
@@ -8,17 +8,14 @@ require_once __DIR__ . '/classes/mb-get-classes.php';
 
 
 if( isset($_GET['startTime']) && isset($_GET['duration']) && isset($_GET['sessionLife']) ){
-
+  // we have the required parts:
 	if(
 		isset($_SESSION['MINDBODY']['schedule'])
 		&& (time() - $_SESSION['MINDBODY']['schedule']['time']) < $_GET['sessionLife']
 	) {
-
-		// Rely on the session thats already been set. It will printing out below.
+		// API call is cached in session. (So don't actually do anything)
 
 	} else {
-		unset($_SESSION['MINDBODY']['schedule']);
-
 		$start_stop_dates = [
 			'StartDateTime'=> date('c', $_GET['startTime']),
 			'EndDateTime'=> date('c', $_GET['startTime'] + $_GET['duration'])
@@ -31,15 +28,6 @@ if( isset($_GET['startTime']) && isset($_GET['duration']) && isset($_GET['sessio
 			// it returned an error of some sort:
 		} elseif(gettype($data) == 'array') {
 			// this is probably running correctly then:
-			foreach($data as $day => $list){
-				// every day...
-				foreach($data[$day] as $key => $workout) {
-					// every workout...
-					$unixStartTime = strtotime($workout['StartDateTime']);
-					$data[$day][$key]['unixStartTime'] = $unixStartTime;
-				}
-			}
-
 			$data = json_encode($data);
 			unset($_SESSION['MINDBODY']['schedule']);
 			$_SESSION['MINDBODY']['schedule']['time'] = $_GET['startTime'];

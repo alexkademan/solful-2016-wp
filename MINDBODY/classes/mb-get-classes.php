@@ -21,9 +21,9 @@ class get_MINDBODY_classes extends \DevinCrossman\Mindbody\MB_API {
 
     if(!empty($class_data['GetClassesResult']['Classes']['Class'])){
       $classes = parent::makeNumericArray( $class_data['GetClassesResult']['Classes']['Class'] );
-      $classes = $this->sortClassesByDate($classes);
-      $this->classes = $classes;
-      return $classes;
+
+      // sort the data and add things while looping thru it all:
+      return $this->sortClassesByDate($classes);
 
     } else {
       if(!empty($class_data['GetClassesResult']['Message'])) {
@@ -44,14 +44,20 @@ class get_MINDBODY_classes extends \DevinCrossman\Mindbody\MB_API {
   */
   private function sortClassesByDate( $classes = [] ) {
     $classesByDate = array();
-    foreach($classes as $class) {
-      $classDate = date("Y-m-d", strtotime($class['StartDateTime']));
+    foreach($classes as $key => $class) {
+
+      // add start time to the data via PHP, because JS doesn't do this as well.
+      // JS has timezone issues. Was too much headache.
+      $class['unixStartTime'] = strtotime($class['StartDateTime']);
+      $classDate = date("Y-m-d", $class['unixStartTime']);
+
       if(!empty($classesByDate[$classDate])) {
         $classesByDate[$classDate] = array_merge($classesByDate[$classDate], array($class));
       } else {
         $classesByDate[$classDate] = array($class);
       }
     }
+
     ksort($classesByDate);
     foreach($classesByDate as $classDate => &$classes) {
       usort($classes, function($a, $b) {

@@ -91,58 +91,18 @@ module.exports = Backbone.View.extend({
           schedArguments += '&sessionLife=' + this.model.get('loginMaxTime');
 
           this.makeAJAXcall('sched-02.php' + schedArguments, 'schedule');
-          this.makeAJAXcall('trainers-01.php', 'trainers');
+          this.makeAJAXcall('trainers-01.php' + schedArguments, 'trainers');
 
         }
       };
     };
   },
 
-  keepTime: function(){
-    var rightNow = Math.round(new Date().getTime()/1000);
-
-    // subtract 7 hours(?). ... UTC is only timezone available in JS
-
-    // rightNow = rightNow - 14400; // (3600 * 4)
-    // rightNow = rightNow - 18000; // (3600 * 5)
-    // rightNow = rightNow - 21600; // (3600 * 6)
-    rightNow = rightNow - 25200; // (3600 * 7)
-
-    // console.log(rightNow);
-
-    this.model.set({'currentTime': rightNow});
-
-    // run this function once per second to keep time.
-    setTimeout( function() { app.mindbodyView.keepTime(); }, 1000);
-  },
-
-  checkStatus: function() {
-    // runs every second to check if the logged in user needs to be logged out. (they get 50 minutes)
-    if( this.model.get('loggedIn') === true ){
-      var currentTime = Number(this.model.get('currentTime'));
-      var loginTime = Number(this.model.get('loginTime'));
-      var loginMaxTime = Number(this.model.get('loginMaxTime'));
-
-      if(currentTime >= (loginTime + loginMaxTime)){
-        app.mbLogInView.logOutUser();
-      } else {
-
-        // console.log('currentTime: ' + currentTime);
-        // console.log('loginTime: ' + loginTime);
-        // console.log('loginMaxTime: ' + loginMaxTime);
-        // console.log(' ');
-
-        var secondsToLogout = (loginTime +loginMaxTime) - currentTime;
-        app.mbLogInView.showCountDown(secondsToLogout);
-      }
-    };
-  },
-
   makeAJAXcall: function( file, section ) {
-    if( file == undefined ){ file = 'sched-01.php'; }
+    if( file == undefined ){ return }
     var thisURL = app.mindbodyModel.get('mbFeedURL') + file;
 
-    // console.log(thisURL);
+    console.log(thisURL);
 
     $.ajax({
       url: thisURL,
@@ -176,6 +136,37 @@ module.exports = Backbone.View.extend({
     });
   },
 
+  keepTime: function(){
+    // this updates the site's clock EVERY SECOND !!!!
+    var rightNow = Math.round(new Date().getTime()/1000);
+    this.model.set({'currentTime': rightNow});
+
+    // run this function once per second to keep time.
+    setTimeout( function() { app.mindbodyView.keepTime(); }, 1000);
+  },
+
+  checkStatus: function() {
+    // runs every second to check if the logged in user needs to be logged out. (they get 50 minutes)
+    if( this.model.get('loggedIn') === true ){
+      var currentTime = Number(this.model.get('currentTime'));
+      var loginTime = Number(this.model.get('loginTime'));
+      var loginMaxTime = Number(this.model.get('loginMaxTime'));
+
+      if(currentTime >= (loginTime + loginMaxTime)){
+        app.mbLogInView.logOutUser();
+      } else {
+
+        // console.log('currentTime: ' + currentTime);
+        // console.log('loginTime: ' + loginTime);
+        // console.log('loginMaxTime: ' + loginMaxTime);
+        // console.log(' ');
+
+        var secondsToLogout = (loginTime +loginMaxTime) - currentTime;
+        app.mbLogInView.showCountDown(secondsToLogout);
+      }
+    };
+  },
+
   weHaveTrainers: function(data) {
     for(var key in data) {
 
@@ -185,7 +176,7 @@ module.exports = Backbone.View.extend({
       }
     }
     // add increment to the main model so we know theres a big state change coming:
-    app.mindbodyView.model.set({ trainersLoaded: true });
+    this.model.set({ trainersLoaded: true });
 
   },
 
@@ -212,7 +203,7 @@ module.exports = Backbone.View.extend({
       }
     }
 
-    app.mindbodyView.model.set({ schedLoaded: true });
+    this.model.set({ schedLoaded: true });
   },
 
   blendModels: function() {
