@@ -134,7 +134,7 @@ module.exports = Backbone.View.extend({
   },
 
   renderPost: function(view) {
-    console.log(view);
+    // console.log(view);
     if(parseInt(view.model.get('order')) === 0) {
       // this is the first post to render,
       // so hide the loader:

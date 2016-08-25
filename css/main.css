@@ -3173,11 +3173,11 @@ ul.classes {
     padding: 0.25em 0.4em; }
 
 ul.classes hgroup {
-  width: 65%;
+  width: 60%;
   padding-right: 1em; }
 
 ul.classes div.signUp {
-  width: 35%;
+  width: 40%;
   text-align: center;
   clear: none; }
 
@@ -3485,10 +3485,10 @@ div.loginForm div.login img {
 
 @media (min-width: 45em) {
   ul.classes hgroup {
-    width: 75%;
+    width: 60%;
     padding-right: 1em; }
   ul.classes div.signUp {
-    width: 25%;
+    width: 40%;
     text-align: center;
     clear: none; }
   ul.mb_trainers div.bio {

@@ -40,11 +40,11 @@ ul.classes {
 
 
 ul.classes hgroup {
-  width: 65%;
+  width: 60%;
   padding-right: 1em;
 }
 ul.classes div.signUp {
-  width: 35%;
+  width: 40%;
   text-align: center;
   clear: none;
 }
@@ -128,12 +128,7 @@ ul.mb_data a.cancel-button {
 
 ul.mb_data div.trainerName {
   background: transparent;
-  // color: #FFF;
-  // transition: background 0.25s ease-in-out;
-  // text-decoration: underline;
-
   .no-touchevents &:hover {
-    // background: lighten(#000, 70%);
     cursor: pointer;
     text-decoration: underline;
   }

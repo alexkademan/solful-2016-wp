@@ -18,11 +18,8 @@
 
     <aside class="workouts">
       <% if (workoutCount > 0) { %>
-        <%- workoutCount %> Upcoming Workouts With <%- FirstName %>:
+        <%- workoutCount %> upcoming workout<% if (workoutCount > 1){ %>s<% } %> with <%- FirstName %>:
         <ul class="workouts"></ul>
-
-      <% } else { %>
-
       <% } %>
     </aside>
   </div>

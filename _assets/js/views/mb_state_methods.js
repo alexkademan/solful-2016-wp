@@ -29,6 +29,27 @@ module.exports = Backbone.View.extend({
 
      //focus window
      setTimeout('msgWindow.focus()',1);
+  },
+
+  mbGetCookieArray: function(cookies){
+    // this method accepts ALL cookie data and splits everything
+    // into an array.
+    var allCookies = cookies.split(';');
+    var theCookieArray = [];
+
+    for(var i=0; i<allCookies.length; i++) {
+
+      var thisOne = allCookies[i].split('=');
+      // remove whitespace from key:
+      var keyName = thisOne[0].replace(/^[ ]+|[ ]+$/g,'');
+      // remove key from array
+      thisOne.splice(0, 1);
+
+      theCookieArray[keyName] = thisOne.join();
+
+    }
+
+    return theCookieArray;
   }
 
 });

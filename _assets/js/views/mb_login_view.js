@@ -70,9 +70,6 @@ module.exports = Backbone.View.extend({
       });
 
       // now that we're logged in, get info about the client:
-      // console.log(data);
-      var userID = data['client']['ID'];
-      // app.mindbodyView.makeAJAXcall('client-schedule-01.php?userID=' + userID, 'status');
       this.getClientInfo(data);
 
     } else if(data['ValidateLoginResult']){
@@ -103,17 +100,38 @@ module.exports = Backbone.View.extend({
 
   },
   renderUser: function(){
-    // console.log(this.model);
     var templateUser = _.template($('#mb-login-user').html());
     // clean out the old:
     this.$el.empty();
     this.$el.append(templateUser(this.model.toJSON()));
   },
 
-  getClientInfo: function() {
-    // console.log('call for class information');
+  showCountDown: function(secondsToLogout) {
+    var timeRemaining = app.findDayInfo.findClockValue(secondsToLogout);
+    this.$('span.countdown').html(timeRemaining);
+  },
 
+  getClientInfo: function() {
+    // we either:
+    // A. Just logged into MINDBODY, or
+    // B. just loaded the web page, but are still logged into MINDBODY
     if(this.model.get('client') !== false){
+      // get the cookies,
+      var cookieArray = app.mbMethods.mbGetCookieArray( document.cookie );
+
+      if(cookieArray['mb-client-schedule']){
+
+        // the schedule is cached to a JSON string in the cookie
+        // Delete the schedule cookie. We'll cache it when the AJAX request comes back
+        document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+
+        // send cached schedule info from the cookie to the model thru addRegisteredClasses method:
+        this.addRegisteredClasses( JSON.parse(cookieArray['mb-client-schedule']) );
+
+      };
+
+      // check the client's schedule again.
+      // This may override the cookie that we just loaded into the model.
       var theClient = this.model.get('client');
 
       var argString = '';
@@ -124,23 +142,19 @@ module.exports = Backbone.View.extend({
       app.mindbodyView.makeAJAXcall('client-schedule-01.php' + argString, 'clientSchedule');
 
     };
-    // app.mindbodyView.makeAJAXcall('client-schedule-01.php?userID=true', 'login');
-  },
-
-  showCountDown: function(secondsToLogout) {
-    // console.log('secondsToLogout: ' + secondsToLogout);
-
-    var timeRemaining = app.findDayInfo.findClockValue(secondsToLogout);
-    this.$('span.countdown').html(timeRemaining);
-    // console.log(timeRemaining);
   },
 
   addRegisteredClasses: function(data) {
+
     // data is the result of a call to the API.
-    var visits = data['GetClientVisitsResult']['Visits']['Visit'];
-    if(visits){
-      this.model.set({'clientSchedule': visits});
-    }
+    // OR the cached info from a cookie.
+
+    // add to the live model:
+    this.model.set({'clientSchedule': data});
+    // console.log('this is the last thing we heard the program say !@#!');
+
+    // store in cookie for quicker response when page loads:
+    document.cookie = "mb-client-schedule=" + JSON.stringify(data);
   }
 
 });

@@ -26,14 +26,9 @@ module.exports = Backbone.View.extend({
     // monitor to see if used is signed in for this class.
     app.mindbodyModel.on({'change:clientSchedule': this.checkSignIn}, this);
     app.mindbodyModel.on({'change:currentTime': this.checkAvailable}, this);
-
-    this.checkSignIn();
   },
 
   render: function(pageName){
-
-    // console.log(this.model);
-
     // a default:
     var appointmentTemplate = _.template($('#mb-appointment-template').html());
     this.$el.html(appointmentTemplate(this.model.toJSON()));
@@ -63,7 +58,7 @@ module.exports = Backbone.View.extend({
   },
 
   renderTrainerInfo: function() {
-    var trainerInfoTemplate = _.template($('#mb-trainer-nfo').html());
+    // var trainerInfoTemplate = _.template($('#mb-trainer-nfo').html());
   },
 
   // when the hgroup is clicked on,
@@ -106,16 +101,18 @@ module.exports = Backbone.View.extend({
   checkSignIn: function() {
     // console.log('checkSignIn');
     var scheduled = app.mindbodyModel.get('clientSchedule');
+
+    // console.log(scheduled);
+
     if(scheduled === false){
       // NOT Logged In,
       this.model.set({'IsEnrolled': false});
     } else {
       // Logged In:
       for(i=0; i < scheduled.length; i++) {
-        if(scheduled[i]['ClassID'] === this.model.get('ID')) {
-          // the person that is logged into the website is scheduled to attend this class:
+        if(scheduled[i]['ClassID'] === this.model.get('ID')){
           this.model.set({'IsEnrolled': true});
-        }
+        };
       }
     }
   },
@@ -150,7 +147,7 @@ module.exports = Backbone.View.extend({
     // console.log(' ');
 
     var theButton = '';
-
+    console.log( isAvailable );
     if(isAvailable === true && isEnrolled === true){
       // show CANCEL button
       // console.log( this.model.get('ClassDescription')['Name'] );
@@ -192,8 +189,9 @@ module.exports = Backbone.View.extend({
         });
       }else if(this.model.get('IsAvailable') === true){
         // class should be open:
-        var countdownClock = app.findDayInfo.findClockValue(secondsRemaining);
-        this.$('span.countdown').html(countdownClock);
+        // var countdownClock = app.findDayInfo.findClockValue(secondsRemaining);
+        // this.$('span.countdown').html(countdownClock);
+        this.$('span.countdown').html(secondsRemaining);
         // this.$('span.countdown').html(this.model.get('StartDateTime'));
         // this.$('span.countdown').html(app.mindbodyModel.get('currentTime'));
         // this.$('span.countdown').html('UnixTime: ' + this.model.get('unixStartTime'));

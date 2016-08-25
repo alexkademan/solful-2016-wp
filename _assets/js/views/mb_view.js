@@ -134,7 +134,9 @@ module.exports = Backbone.View.extend({
           break;
 
         case 'clientSchedule':
-          app.mbLogInView.addRegisteredClasses(data);
+          if(data['GetClientVisitsResult']['Visits']['Visit']){
+            app.mbLogInView.addRegisteredClasses(data['GetClientVisitsResult']['Visits']['Visit']);
+          }
           break;
 
       }
