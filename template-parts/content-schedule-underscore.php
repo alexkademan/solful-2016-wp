@@ -8,7 +8,7 @@
 </script>
 
 <script type="text/template" id="mb-appointment-template">
-  <hgroup class="toggle<%- IsAvailable ? ' available' : ' unavailable' %><%- IsCanceled ? ' canceled' : '' %>">
+  <hgroup class="toggle<%- IsCanceled ? ' canceled' : '' %>">
     <h2><%- ClassDescription["Name"] %></h2>
     <h3>
       <%- classStart["hourCivilian"] + ':' + classStart["minutes"] + ' - ' %>
@@ -22,11 +22,11 @@
 </script>
 
 <script type="text/template" id="mb-appointment-signIn">
-  <%= IsAvailable ? '<a href="' + signupURL + '" class="schedButton sign-in-button">Sign In</a>' : '' %>
+  <a href="' + signupURL + '" class="schedButton sign-in-button">Sign In</a>
 </script>
 
 <script type="text/template" id="mb-appointment-cancel">
-  <%= IsAvailable ? '<a href="' + signupURL + '" class="schedButton cancel-button">Registered</a>' : '' %>
+  <a href="' + signupURL + '" class="schedButton cancel-button">Registered</a>
 </script>
 
 <script type="text/template" id="mb-appointment-nfo">

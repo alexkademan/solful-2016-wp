@@ -52,6 +52,8 @@ module.exports = Backbone.View.extend({
     this.keepTime();
 
     // check to see if the user is already logged in:
+    // this is just looking at the SESSION stored on the server.
+    // switch this to cookie????
     this.makeAJAXcall('login-status.php', 'login');
 
 
@@ -86,9 +88,6 @@ module.exports = Backbone.View.extend({
           // to be displayed on the trainers page.
           this.model.set({'availableTrainers': availableTrainers});
         }
-
-        // // listen for the ajax call to come back to begin the render process:
-        // this.model.on({'change:requestStatus': this.adjustState}, this);
 
         if(this.model.get('wpSlug') === 'schedule' || this.model.get('wpSlug') === 'trainers') {
 
@@ -212,9 +211,9 @@ module.exports = Backbone.View.extend({
   },
 
   blendModels: function() {
-    // // co-mingle the 2 collections, (app.mbDays and app.mbTrainers)
+    // co-mingle the 2 collections, (app.mbDays and app.mbTrainers)
     // and tally all the workouts by trainer, and by day.
-    // // every day:
+    // every day:
     app.mbDays.each(function(day){
       var trainerInfo = [];
 

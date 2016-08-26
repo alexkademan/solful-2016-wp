@@ -3191,6 +3191,7 @@ ul.classes div.signUp {
   cursor: pointer; }
 
 ul.classes hgroup.unavailable {
+  width: 100%;
   color: #b3b3b3; }
 
 ul.classes hgroup.canceled h2 {

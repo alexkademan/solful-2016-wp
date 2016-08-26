@@ -15,7 +15,7 @@ if(
 		'ClientID' => $_GET['userID'],
 		'StartDate' => date('c', $_GET['timeStart']),
 		'EndDate' => date('c', $_GET['timeStart'] + $_GET['duration']),
-		'UnpaidsOnly' => false // documentation says this is the default, but its required nonetheless
+		'UnpaidsOnly' => true // documentation says this is the default, but its required nonetheless
 	]);
 
 	echo json_encode($schedule);

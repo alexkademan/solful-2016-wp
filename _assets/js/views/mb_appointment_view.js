@@ -16,6 +16,7 @@ module.exports = Backbone.View.extend({
 
   initialize: function() {
 
+    this.checkAvailable();
     this.model.on({'change:toggleInfo': this.toggleInfo}, this);
     this.model.on({'change:toggleInstructor': this.toggleInstructor}, this);
     this.model.on({'change:IsEnrolled': this.adjustStatus}, this);
@@ -28,7 +29,6 @@ module.exports = Backbone.View.extend({
   },
 
   render: function(pageName){
-    // a default:
     var appointmentTemplate = _.template($('#mb-appointment-template').html());
     this.$el.html(appointmentTemplate(this.model.toJSON()));
     this.renderClassInfo(pageName);
@@ -47,11 +47,19 @@ module.exports = Backbone.View.extend({
     }
 
     this.$el.append(infoTemplate(this.model.toJSON()));
-    this.toggleInfo(); // info can default to showing.
+
+    // set some stuff for the next couple-a-steps:
+    this.templateCancel = _.template($('#mb-appointment-cancel').html());
+    this.templateSignIn = _.template($('#mb-appointment-signIn').html());
+
+    this.signUpNode = this.$('div.signUp');
+
 
     // initiate more about the state of this model:
+    this.toggleInfo(); // info can default to showing.
     this.checkSignIn();
     this.adjustStatus();
+    this.checkAvailable();
 
     return this;
   },
@@ -137,45 +145,43 @@ module.exports = Backbone.View.extend({
     var isEnrolled = this.model.get('IsEnrolled');
     var lateCancel = this.model.get('lateCancel');
 
-    // manage the state of the button as it appears on screen.
-    if(isEnrolled === true){
-      // console.log( app.mindbodyModel.get('client')['FirstName'] +  ' is signed up for: ' + this.model.get('ClassDescription')['Name'] + ' (' + this.model.get('ID') + ')');
-      this.$el.addClass('enrolled');
-    }else if(isEnrolled === false) {
-      this.$el.removeClass('enrolled');
+    var theButton = ''; // this is whats gonna appear as the button
+
+
+    if(isCanceled === true) {
+      this.$el.removeClass().addClass('canceled');
+
+    } else if(isAvailable === true && isEnrolled === false ) {
+      this.$el.removeClass().addClass('available');
+      console.log(this.templateSignIn(this.model.toJSON()));
+      theButton = this.templateSignIn(this.model.toJSON());
+
+    } else if(isAvailable === false && isEnrolled === false) {
+      // has happened, and wasn't there.
+      this.$el.removeClass().addClass('unavailable');
+
+    } else if(isAvailable === true && isEnrolled === true && lateCancel === false) {
+      // on schedule, not too late to CANCEL:
+      this.$el.removeClass().addClass('enrolled');
+      theButton = this.templateCancel(this.model.toJSON());
+
+
+    } else if(isAvailable === false && isEnrolled === true && lateCancel === true) {
+      // on schedule, but can still LATE CANCEL:
+      this.$el.removeClass().addClass('lateCancel');
+      theButton = this.templateCancel(this.model.toJSON());
+
+
+
+    } else if(isAvailable === false && isEnrolled === true && lateCancel === false) {
+      // has happened, but client WAS THERE.
+      this.$el.removeClass().addClass('wasThere');
+      theButton = 'was there';
 
     }
 
-    // console.log( this.model.get('ClassDescription')['Name'] );
-
-    // console.log('IsAvailable: ' + isAvailable);
-    // console.log('IsCanceled: ' + isCanceled);
-    // console.log('IsEnrolled: ' + isEnrolled);
-    // console.log('lateCancel: ' + lateCancel);
-    // // console.log(this.model);
-    // console.log(' ');
-
-    var theButton = '';
-
-    if(isAvailable === true && isEnrolled === true){
-      // show CANCEL button
-      // console.log( this.model.get('ClassDescription')['Name'] );
-      var signUpButton = _.template($('#mb-appointment-cancel').html());
-      theButton = signUpButton(this.model.toJSON());
-
-    } else if(isAvailable === true && isEnrolled === false) {
-
-      // show SIGN UP button
-      var signUpButton = _.template($('#mb-appointment-signIn').html());
-      theButton = signUpButton(this.model.toJSON());
-
-    } else if(isAvailable === false) {
-      // class is cancelled, or has already happened
-      // console.log('UNAVAILABLE: ' + this.model.get('ClassDescription')['Name']);
-    }
-
-
-    this.$('div.signUp').html(theButton);
+    // render the button we chose just above this.
+    this.signUpNode.html(theButton);
 
 
   },
@@ -185,25 +191,34 @@ module.exports = Backbone.View.extend({
     // if the client is signed up for the class, go to "late cancel" until the class starts.
     var secondsRemaining = this.model.get('unixStartTime') - app.mindbodyModel.get('currentTime');
 
-    if(secondsRemaining > 0){
+    if(secondsRemaining >= 0){
+      // the class hasn't happened yet:
+      // var countdownClock = app.findDayInfo.findClockValue(secondsRemaining);
+      // this.$('span.countdown').html(countdownClock);
+      this.$('span.countdown').html(secondsRemaining);
 
       // class still hasn't started:
-      if(secondsRemaining <= this.model.get('lateCancelTime')){
-      // if(secondsRemaining <= 41452){
+      // if(secondsRemaining <= this.model.get('lateCancelTime')){
+      if(secondsRemaining <= 60300){
         // we're within the late cancel timeframe:
         this.model.set({
           lateCancel: true,
           IsAvailable: false
         });
-      } else if (this.model.get('IsAvailable') === true){
-        // class should be open:
-        // var countdownClock = app.findDayInfo.findClockValue(secondsRemaining);
-        // this.$('span.countdown').html(countdownClock);
-        this.$('span.countdown').html(secondsRemaining);
-        // this.$('span.countdown').html(this.model.get('StartDateTime'));
-        // this.$('span.countdown').html(app.mindbodyModel.get('currentTime'));
-        // this.$('span.countdown').html('UnixTime: ' + this.model.get('unixStartTime'));
-      };
+
+        // console.log('lateCancel');
+
+      } else {
+        // still time before "late cancel"
+        // this.model.set({
+        //   lateCancel: false
+        // });
+      }
+    } else {
+      // its past the time that the class has begun:
+      this.model.set({
+        IsAvailable: false
+      });
     }
 
   }

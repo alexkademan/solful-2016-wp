@@ -115,6 +115,9 @@ module.exports = Backbone.View.extend({
   },
 
   getClientInfo: function() {
+
+    // console.log(this.model);
+
     // we either:
     // A. Just logged into MINDBODY, or
     // B. just loaded the web page, but are still logged into MINDBODY
@@ -139,7 +142,7 @@ module.exports = Backbone.View.extend({
 
       var argString = '';
       argString += '?userID=' + theClient['ID'];
-      argString += '&timeStart=' + this.model.get('loginTime');
+      argString += '&timeStart=' + this.model.get('pageLoadTime');
       argString += '&duration=' + this.model.get('scheduleSpan');
 
       app.mindbodyView.makeAJAXcall('client-schedule-01.php' + argString, 'clientSchedule');
