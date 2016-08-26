@@ -138,7 +138,6 @@ module.exports = Backbone.View.extend({
             app.mbLogInView.addRegisteredClasses(data['GetClientVisitsResult']['Visits']['Visit']);
           }
           break;
-
       }
 
       // add an increment, this will call 'this.adjustState'

@@ -69,6 +69,9 @@ module.exports = Backbone.View.extend({
         loginTime: data['loginTime']
       });
 
+      // keep the login username in the cookie for next time she loads the page:
+      document.cookie = "mb-client-username=" + data['client']['Email'];
+
       // now that we're logged in, get info about the client:
       this.getClientInfo(data);
 
@@ -151,7 +154,6 @@ module.exports = Backbone.View.extend({
 
     // add to the live model:
     this.model.set({'clientSchedule': data});
-    // console.log('this is the last thing we heard the program say !@#!');
 
     // store in cookie for quicker response when page loads:
     document.cookie = "mb-client-schedule=" + JSON.stringify(data);

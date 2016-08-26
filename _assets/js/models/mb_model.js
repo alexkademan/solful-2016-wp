@@ -31,6 +31,7 @@ module.exports = Backbone.Model.extend({
     scheduleSpan: 518400, // 518400 is the number of seconds in 6 days. Show today plus the rest of a week.
 
     loggedIn: false,
+    cachedUserName: '', // this gets added to the cookie at successful login, to auto-fill the login form field.
     GUID: false, // USER ID with MINDBODY issued at login.
     client: false, // array of info that comes back from the API about the user.
     clientSchedule: false, // gonna be an array of the classes that the client is signed up for.

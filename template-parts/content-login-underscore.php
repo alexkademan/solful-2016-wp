@@ -18,7 +18,7 @@
       <span class="error"></span>
       <form>
         <label for="mb-username">Username:</label>
-        <input type="text" name="username" id="mb-username" />
+        <input type="text" name="username" id="mb-username"<%= cachedUserName ? ' value="' + cachedUserName + '"' : '' %> />
 
         <label for="mb-password">Password:</label>
         <input type="password" name="password" id="mb-password" class="mb-password" autocomplete="off" />

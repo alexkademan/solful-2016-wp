@@ -77,8 +77,26 @@ module.exports = Backbone.View.extend({
   },
 
   showForm: function() {
+
+    // if the user has a cached USER NAME, then add it to the form so they
+    // won't have to type it out again.
+    var cookieArray = app.mbMethods.mbGetCookieArray( document.cookie );
+    if(cookieArray['mb-client-username']){
+      // add cached username to the model:
+      this.model.set({'cachedUserName': cookieArray['mb-client-username']});
+    }
+
+    // show the form:
     this.$el.html(this.template(this.model.toJSON()));
-    this.$('#mb-username').focus();
+
+    // focus on the sign-in form for convenience:
+    if(cookieArray['mb-client-username']){
+      // if the username is cached then focus on the password field.
+      this.$('#mb-password').focus();
+    } else {
+      // otherwise focus on the username field. She still needs to fill that out.
+      this.$('#mb-username').focus();
+    }
   },
 
   loginWaiting: function() {

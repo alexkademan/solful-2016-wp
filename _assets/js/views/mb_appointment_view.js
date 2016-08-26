@@ -16,7 +16,6 @@ module.exports = Backbone.View.extend({
 
   initialize: function() {
 
-    // console.log(this.model);
     this.model.on({'change:toggleInfo': this.toggleInfo}, this);
     this.model.on({'change:toggleInstructor': this.toggleInstructor}, this);
     this.model.on({'change:IsEnrolled': this.adjustStatus}, this);
@@ -34,8 +33,6 @@ module.exports = Backbone.View.extend({
     this.$el.html(appointmentTemplate(this.model.toJSON()));
     this.renderClassInfo(pageName);
 
-    // console.log(this.$(''))
-
     return this; // enable chained calls
   },
 
@@ -52,13 +49,11 @@ module.exports = Backbone.View.extend({
     this.$el.append(infoTemplate(this.model.toJSON()));
     this.toggleInfo(); // info can default to showing.
 
+    // initiate more about the state of this model:
+    this.checkSignIn();
     this.adjustStatus();
 
     return this;
-  },
-
-  renderTrainerInfo: function() {
-    // var trainerInfoTemplate = _.template($('#mb-trainer-nfo').html());
   },
 
   // when the hgroup is clicked on,
@@ -99,29 +94,43 @@ module.exports = Backbone.View.extend({
   },
 
   checkSignIn: function() {
-    // console.log('checkSignIn');
+    // This function checks to see if the client is logged in,
+    // and if they are, it finds out if this class is on their
+    // schedule of classes that they are signed up for
     var scheduled = app.mindbodyModel.get('clientSchedule');
-
-    // console.log(scheduled);
 
     if(scheduled === false){
       // NOT Logged In,
       this.model.set({'IsEnrolled': false});
+
     } else {
       // Logged In:
-      for(i=0; i < scheduled.length; i++) {
-        if(scheduled[i]['ClassID'] === this.model.get('ID')){
-          this.model.set({'IsEnrolled': true});
-        };
+      // var enrolled is false until proven otherwise:
+      var enrolled = false;
+
+      for(x in scheduled) {
+        // looping thru the list of scheduled classes:
+        if( scheduled[x]['ClassID'] === this.model.get('ID') ){
+          // this class is on the list of scheduled classes:
+          enrolled = true;
+        }
+      }
+
+      // now that we've checked all the enrolled classes,
+      // we know if this model is one of 'em:
+      if( enrolled === true ) {
+        this.model.set({'IsEnrolled': true});
+      } else {
+        this.model.set({'IsEnrolled': false});
       }
     }
   },
 
 
-  // manage the sign in button,
-  // could be cancel class, could be nothing,
-  // based on the state of the view.
   adjustStatus: function() {
+    // manage the sign in button,
+    // could be cancel class, could be nothing,
+    // based on the state of the view.
 
     var isAvailable = this.model.get('IsAvailable');
     var isCanceled = this.model.get('IsCanceled');
@@ -147,7 +156,7 @@ module.exports = Backbone.View.extend({
     // console.log(' ');
 
     var theButton = '';
-    console.log( isAvailable );
+
     if(isAvailable === true && isEnrolled === true){
       // show CANCEL button
       // console.log( this.model.get('ClassDescription')['Name'] );
@@ -155,12 +164,14 @@ module.exports = Backbone.View.extend({
       theButton = signUpButton(this.model.toJSON());
 
     } else if(isAvailable === true && isEnrolled === false) {
+
       // show SIGN UP button
       var signUpButton = _.template($('#mb-appointment-signIn').html());
       theButton = signUpButton(this.model.toJSON());
 
     } else if(isAvailable === false) {
       // class is cancelled, or has already happened
+      // console.log('UNAVAILABLE: ' + this.model.get('ClassDescription')['Name']);
     }
 
 
@@ -170,16 +181,13 @@ module.exports = Backbone.View.extend({
   },
 
   checkAvailable: function(){
-
     // see if there is more than 60 minutes before the class. Otherwise close availability.
-    // console.log(this.model.get('unixStartTime'));
+    // if the client is signed up for the class, go to "late cancel" until the class starts.
     var secondsRemaining = this.model.get('unixStartTime') - app.mindbodyModel.get('currentTime');
-
 
     if(secondsRemaining > 0){
 
       // class still hasn't started:
-
       if(secondsRemaining <= this.model.get('lateCancelTime')){
       // if(secondsRemaining <= 41452){
         // we're within the late cancel timeframe:
@@ -187,7 +195,7 @@ module.exports = Backbone.View.extend({
           lateCancel: true,
           IsAvailable: false
         });
-      }else if(this.model.get('IsAvailable') === true){
+      } else if (this.model.get('IsAvailable') === true){
         // class should be open:
         // var countdownClock = app.findDayInfo.findClockValue(secondsRemaining);
         // this.$('span.countdown').html(countdownClock);
