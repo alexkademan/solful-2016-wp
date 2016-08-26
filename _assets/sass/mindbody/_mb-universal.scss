@@ -58,11 +58,13 @@ ul.classes div.signUp {
   cursor: pointer;
 }
 
-ul.classes hgroup.unavailable {
+ul.classes li.missed hgroup,
+ul.classes li.completed hgroup {
+ul.classes li.canceled hgroup {
   width: 100%;
   color: lighten($base-font-color, 40%);
 }
-ul.classes hgroup.canceled h2 {
+ul.classes li.canceled hgroup h2 {
   text-decoration: line-through;
 }
 

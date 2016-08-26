@@ -3190,11 +3190,12 @@ ul.classes div.signUp {
   color: #b2170e;
   cursor: pointer; }
 
-ul.classes hgroup.unavailable {
+ul.classes li.missed hgroup,
+ul.classes li.completed hgroup {
   width: 100%;
   color: #b3b3b3; }
 
-ul.classes hgroup.canceled h2 {
+ul.classes li.canceled hgroup h2 {
   text-decoration: line-through; }
 
 ul.classes li div.workout-desc {

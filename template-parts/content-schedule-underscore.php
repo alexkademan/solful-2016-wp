@@ -8,7 +8,7 @@
 </script>
 
 <script type="text/template" id="mb-appointment-template">
-  <hgroup class="toggle<%- IsCanceled ? ' canceled' : '' %>">
+  <hgroup class="toggle">
     <h2><%- ClassDescription["Name"] %></h2>
     <h3>
       <%- classStart["hourCivilian"] + ':' + classStart["minutes"] + ' - ' %>

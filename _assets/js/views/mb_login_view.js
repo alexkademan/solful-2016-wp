@@ -116,8 +116,6 @@ module.exports = Backbone.View.extend({
 
   getClientInfo: function() {
 
-    // console.log(this.model);
-
     // we either:
     // A. Just logged into MINDBODY, or
     // B. just loaded the web page, but are still logged into MINDBODY

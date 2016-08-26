@@ -19,9 +19,7 @@ module.exports = Backbone.View.extend({
     this.checkAvailable();
     this.model.on({'change:toggleInfo': this.toggleInfo}, this);
     this.model.on({'change:toggleInstructor': this.toggleInstructor}, this);
-    this.model.on({'change:IsEnrolled': this.adjustStatus}, this);
-    this.model.on({'change:IsAvailable': this.adjustStatus}, this);
-    this.model.on({'change:IsCanceled': this.adjustStatus}, this);
+    this.model.on({'change:classStatus': this.adjustStatus}, this);
 
     // monitor to see if used is signed in for this class.
     app.mindbodyModel.on({'change:clientSchedule': this.checkSignIn}, this);
@@ -136,89 +134,98 @@ module.exports = Backbone.View.extend({
 
 
   adjustStatus: function() {
-    // manage the sign in button,
-    // could be cancel class, could be nothing,
-    // based on the state of the view.
+    console.log('adjustStatus');
+    var theButton = '';
 
-    var isAvailable = this.model.get('IsAvailable');
-    var isCanceled = this.model.get('IsCanceled');
-    var isEnrolled = this.model.get('IsEnrolled');
-    var lateCancel = this.model.get('lateCancel');
+    switch (this.model.get('classStatus')) {
+      case 'canceled':
+        this.$el.removeClass().addClass('canceled');
+        break;
 
-    var theButton = ''; // this is whats gonna appear as the button
+      case 'available':
+        this.$el.removeClass().addClass('available');
+        theButton = this.templateSignIn(this.model.toJSON());
+        break;
 
+      case 'enrolled':
+        this.$el.removeClass().addClass('enrolled');
+        theButton = this.templateCancel(this.model.toJSON());
+        break;
 
-    if(isCanceled === true) {
-      this.$el.removeClass().addClass('canceled');
+      case 'lateCancel':
+        this.$el.removeClass().addClass('lateCancel');
+        theButton = this.templateCancel(this.model.toJSON());
+        break;
 
-    } else if(isAvailable === true && isEnrolled === false ) {
-      this.$el.removeClass().addClass('available');
-      console.log(this.templateSignIn(this.model.toJSON()));
-      theButton = this.templateSignIn(this.model.toJSON());
+      case 'missed':
+        this.$el.removeClass().addClass('missed');
+        break;
 
-    } else if(isAvailable === false && isEnrolled === false) {
-      // has happened, and wasn't there.
-      this.$el.removeClass().addClass('unavailable');
-
-    } else if(isAvailable === true && isEnrolled === true && lateCancel === false) {
-      // on schedule, not too late to CANCEL:
-      this.$el.removeClass().addClass('enrolled');
-      theButton = this.templateCancel(this.model.toJSON());
-
-
-    } else if(isAvailable === false && isEnrolled === true && lateCancel === true) {
-      // on schedule, but can still LATE CANCEL:
-      this.$el.removeClass().addClass('lateCancel');
-      theButton = this.templateCancel(this.model.toJSON());
-
-
-
-    } else if(isAvailable === false && isEnrolled === true && lateCancel === false) {
-      // has happened, but client WAS THERE.
-      this.$el.removeClass().addClass('wasThere');
-      theButton = 'was there';
+      case 'completed':
+        this.$el.removeClass().addClass('completed');
+        theButton = this.templateCancel(this.model.toJSON());
+        break;
 
     }
-
-    // render the button we chose just above this.
     this.signUpNode.html(theButton);
-
-
   },
 
   checkAvailable: function(){
-    // see if there is more than 60 minutes before the class. Otherwise close availability.
-    // if the client is signed up for the class, go to "late cancel" until the class starts.
+
+    // ------ (greater than zero)
+    // available
+    // enrolled
+    // lateCancel
+    // ------ (less than zero)
+    // missed <--not on sched, and is in less than an hour, or hasn't happened.
+    // completed <--client was there, but its over.
+    // ------ (both)
+    // canceled
+
     var secondsRemaining = this.model.get('unixStartTime') - app.mindbodyModel.get('currentTime');
+    // this.$('span.countdown').html(secondsRemaining);
 
-    if(secondsRemaining >= 0){
-      // the class hasn't happened yet:
-      // var countdownClock = app.findDayInfo.findClockValue(secondsRemaining);
-      // this.$('span.countdown').html(countdownClock);
-      this.$('span.countdown').html(secondsRemaining);
-
-      // class still hasn't started:
-      // if(secondsRemaining <= this.model.get('lateCancelTime')){
-      if(secondsRemaining <= 60300){
-        // we're within the late cancel timeframe:
-        this.model.set({
-          lateCancel: true,
-          IsAvailable: false
-        });
-
-        // console.log('lateCancel');
-
-      } else {
-        // still time before "late cancel"
-        // this.model.set({
-        //   lateCancel: false
-        // });
+    if(this.model.get('IsCanceled') === true ){
+      if(this.model.get('classStatus') !== 'canceled'){
+        this.model.set({'classStatus': 'canceled'});
       }
-    } else {
-      // its past the time that the class has begun:
-      this.model.set({
-        IsAvailable: false
-      });
+
+    } else if(secondsRemaining >= this.model.get('lateCancelTime')) {
+      // more than an hour before class starts
+      if(this.model.get('IsEnrolled') === false){
+        if(this.model.get('classStatus') !== 'available'){
+          this.model.set({'classStatus': 'available'});
+        }
+
+      } else if(this.model.get('IsEnrolled') === true){
+        if(this.model.get('classStatus') !== 'enrolled'){
+          this.model.set({'classStatus': 'enrolled'});
+        }
+
+      }
+
+    } else if(secondsRemaining < this.model.get('lateCancelTime')) {
+      // we're within the late cancel time:
+      if(this.model.get('IsEnrolled') === false){
+        if(this.model.get('classStatus') !== 'missed'){
+          this.model.set({'classStatus': 'missed'});
+        }
+
+      } else if(this.model.get('IsEnrolled') === true){
+        if(this.model.get('classStatus') !== 'lateCancel'){
+          this.model.set({'classStatus': 'lateCancel'});
+        }
+
+      }
+
+    } else if(secondsRemaining <= 0){
+      // class has already begun:
+      if(this.model.get('IsEnrolled') === true){
+        if(this.model.get('classStatus') !== 'completed'){
+          this.model.set({'classStatus': 'completed'});
+        }
+
+      }
     }
 
   }
