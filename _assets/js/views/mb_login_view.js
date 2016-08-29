@@ -58,6 +58,11 @@ module.exports = Backbone.View.extend({
         loggedIn: false,
         loginTime: ''
       });
+
+      // kill off the schedule cookie
+      document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+
+
     } else if(data['GUID']) {
       // the user JUST got her login credentials.
       this.model.set({
@@ -120,6 +125,7 @@ module.exports = Backbone.View.extend({
     // A. Just logged into MINDBODY, or
     // B. just loaded the web page, but are still logged into MINDBODY
     if(this.model.get('client') !== false){
+
       // get the cookies,
       var cookieArray = app.mbMethods.mbGetCookieArray( document.cookie );
 

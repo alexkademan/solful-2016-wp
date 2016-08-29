@@ -20,6 +20,10 @@ module.exports = Backbone.View.extend({
     this.model.on({'change:toggleInfo': this.toggleInfo}, this);
     this.model.on({'change:toggleInstructor': this.toggleInstructor}, this);
     this.model.on({'change:classStatus': this.adjustStatus}, this);
+    // this.model.on({'change:IsEnrolled': this.checkAvailable}, this);
+    this.model.on({'change:IsEnrolled': function(){
+      this.checkAvailable();
+    }}, this);
 
     // monitor to see if used is signed in for this class.
     app.mindbodyModel.on({'change:clientSchedule': this.checkSignIn}, this);
@@ -100,12 +104,15 @@ module.exports = Backbone.View.extend({
   },
 
   checkSignIn: function() {
+    // console.log('checkSignIn');
+
     // This function checks to see if the client is logged in,
     // and if they are, it finds out if this class is on their
     // schedule of classes that they are signed up for
     var scheduled = app.mindbodyModel.get('clientSchedule');
 
     if(scheduled === false){
+      // console.log('turn them off');
       // NOT Logged In,
       this.model.set({'IsEnrolled': false});
 
@@ -134,8 +141,8 @@ module.exports = Backbone.View.extend({
 
 
   adjustStatus: function() {
-    console.log('adjustStatus');
-    var theButton = '';
+    // console.log('adjustStatus');
+    var theButton = ''; // empty unless we decide otherwise in the next step...
 
     switch (this.model.get('classStatus')) {
       case 'canceled':
@@ -183,49 +190,46 @@ module.exports = Backbone.View.extend({
     // canceled
 
     var secondsRemaining = this.model.get('unixStartTime') - app.mindbodyModel.get('currentTime');
-    // this.$('span.countdown').html(secondsRemaining);
+    this.$('span.countdown').html(secondsRemaining);
 
     if(this.model.get('IsCanceled') === true ){
-      if(this.model.get('classStatus') !== 'canceled'){
-        this.model.set({'classStatus': 'canceled'});
-      }
+      this.model.set({'classStatus': 'canceled'});
 
     } else if(secondsRemaining >= this.model.get('lateCancelTime')) {
+
       // more than an hour before class starts
       if(this.model.get('IsEnrolled') === false){
-        if(this.model.get('classStatus') !== 'available'){
-          this.model.set({'classStatus': 'available'});
-        }
+
+        // console.log(this.model.get('ClassDescription')['Name'] + ' is available');
+        this.model.set({'classStatus': 'available'});
 
       } else if(this.model.get('IsEnrolled') === true){
-        if(this.model.get('classStatus') !== 'enrolled'){
-          this.model.set({'classStatus': 'enrolled'});
-        }
+        // console.log(this.model.get('ClassDescription')['Name'] + ' is scheduled');
+        this.model.set({'classStatus': 'enrolled'});
 
       }
 
     } else if(secondsRemaining < this.model.get('lateCancelTime')) {
-      // we're within the late cancel time:
-      if(this.model.get('IsEnrolled') === false){
-        if(this.model.get('classStatus') !== 'missed'){
+
+      if(secondsRemaining > 0){
+
+        // we're within the late cancel time:
+        if(this.model.get('IsEnrolled') === false){
           this.model.set({'classStatus': 'missed'});
-        }
 
-      } else if(this.model.get('IsEnrolled') === true){
-        if(this.model.get('classStatus') !== 'lateCancel'){
+        } else if(this.model.get('IsEnrolled') === true){
           this.model.set({'classStatus': 'lateCancel'});
+
         }
-
-      }
-
-    } else if(secondsRemaining <= 0){
-      // class has already begun:
-      if(this.model.get('IsEnrolled') === true){
-        if(this.model.get('classStatus') !== 'completed'){
+      } else if(secondsRemaining <= 0){
+        // class has already begun:
+        if(this.model.get('IsEnrolled') === true){
+          // console.log(this.model.get('ClassDescription')['Name'] + ' is completed');
           this.model.set({'classStatus': 'completed'});
-        }
 
+        }
       }
+
     }
 
   }

@@ -17,8 +17,8 @@ if(
 		'EndDate' => date('c', $_GET['timeStart'] + $_GET['duration'])
 	]);
 
-	// print_r($schedule);
-	echo json_encode($schedule);
+	print_r($schedule);
+	// echo json_encode($schedule);
 
 } else {
 	echo json_encode('"error: "' . __DIR__);

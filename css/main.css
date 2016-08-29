@@ -3175,6 +3175,8 @@ ul.classes {
 ul.classes hgroup {
   width: 60%;
   padding-right: 1em; }
+  ul.classes hgroup:hover {
+    cursor: pointer; }
 
 ul.classes div.signUp {
   width: 40%;
@@ -3191,8 +3193,12 @@ ul.classes div.signUp {
   cursor: pointer; }
 
 ul.classes li.missed hgroup,
-ul.classes li.completed hgroup {
-  width: 100%;
+ul.classes li.canceled hgroup {
+  width: 100%; }
+
+ul.classes li.missed hgroup,
+ul.classes li.completed hgroup,
+ul.classes li.canceled hgroup {
   color: #b3b3b3; }
 
 ul.classes li.canceled hgroup h2 {
