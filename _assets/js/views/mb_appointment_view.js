@@ -112,6 +112,7 @@ module.exports = Backbone.View.extend({
     var scheduled = app.mindbodyModel.get('clientSchedule');
 
     if(scheduled === false){
+      console.log('NO CLASSES AT ALL !!!');
       // console.log('turn them off');
       // NOT Logged In,
       this.model.set({'IsEnrolled': false});
@@ -121,21 +122,12 @@ module.exports = Backbone.View.extend({
       // var enrolled is false until proven otherwise:
       var enrolled = false;
 
-      // if the client only has one class, then ther is only one object.
-      // So the 'for' loop after this won't do anything in that case.
-      // instead scheduled is a single object, so check it's 'ClassID'
-      if(scheduled.ClassID === this.model.get('ID')){
-        enrolled = true
-      } else {
-        
-        // we're here if the client is enrolled in more than one class:
-        for(x in scheduled) {
-          // looping thru the list of scheduled classes:
-          if( scheduled[x]['ClassID'] === this.model.get('ID') ){
-            // this class is on the list of scheduled classes:
-            enrolled = true;
-          }
-        }
+      // scheduled is an array of class IDs that the client is
+      // signed up for. Check to see if this appointment is one of 'em
+      for(var i=0; i<scheduled.length; i++) {
+        if(scheduled[i] === this.model.get('ID')){
+          enrolled = true;
+        };
       }
 
       // now that we've checked all the enrolled classes,
@@ -248,8 +240,7 @@ module.exports = Backbone.View.extend({
       }
     }
     // overwrite the scheduled time with the current status: (for testing)
-    this.$('h3').html( this.model.get('classStatus') );
-
+    // this.$('h3').html( this.model.get('classStatus') );
 
   },
 

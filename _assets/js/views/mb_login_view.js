@@ -147,8 +147,9 @@ module.exports = Backbone.View.extend({
         // Delete the schedule cookie. We'll cache it when the AJAX request comes back
         document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
-        // send cached schedule info from the cookie to the model thru addRegisteredClasses method:
-        this.addRegisteredClasses( JSON.parse(cookieArray['mb-client-schedule']) );
+        // add to the live model:
+        console.log(JSON.parse(cookieArray['mb-client-schedule']));
+        this.model.set({'clientSchedule': JSON.parse(cookieArray['mb-client-schedule'])});
 
       };
 
@@ -167,8 +168,8 @@ module.exports = Backbone.View.extend({
   },
 
   addRegisteredClasses: function(data) {
+
     // data is the result of a call to the API.
-    // OR the cached info from a cookie.
     if(data === undefined) {
       // there aren't any classes
       this.model.set({'clientSchedule': false});
@@ -176,10 +177,26 @@ module.exports = Backbone.View.extend({
       document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
     } else {
+
+      // We have found that the client is logged into more than zero classes.
+      // If they're only logged into a single class, than data is only one object.
+      // we need it to be a collection of objects instead.
+      var clientSched = [];
+      if(data.ClassID !== undefined){
+        // if there is a ClassID, than there is only one class
+        clientSched[0] = data.ClassID;
+      } else {
+        for(x in data) {
+          // add every enrolled class to the array.
+          clientSched[clientSched.length] = data[x]['ClassID'];
+        }
+      };
+
       // add to the live model:
-      this.model.set({'clientSchedule': data});
+      console.log(clientSched);
+      this.model.set({'clientSchedule': clientSched});
       // store in cookie for quicker response when page loads:
-      document.cookie = "mb-client-schedule=" + JSON.stringify(data);
+      document.cookie = "mb-client-schedule=" + JSON.stringify(clientSched);
     }
   },
 
@@ -191,8 +208,8 @@ module.exports = Backbone.View.extend({
       console.log(results.Message);
     };
 
-    console.log('this is brought back from the AJAX call to sign in for a class.');
-    console.log(data);
+    // console.log('this is brought back from the AJAX call to sign in for a class.');
+    // console.log(data);
     console.log('client Schedule:');
     console.log(this.model.get('clientSchedule'));
   }
