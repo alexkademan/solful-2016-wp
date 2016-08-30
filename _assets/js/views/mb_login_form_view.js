@@ -21,6 +21,8 @@ module.exports = Backbone.View.extend({
 
     this.$el = $(node); // cache for ... THE FUTURE!!!
     this.template = _.template($('#mb-login-form').html());
+    this.loginTemplate = _.template($('#mb-log-in-fields').html());
+    this.signinTemplate = _.template($('#mb-sign-in-fields').html());
 
     this.model.on({'change:loginFormVisible': this.loginToggle}, this);
     this.model.on({'change:loginFormWaiting': this.loginWaiting}, this);
@@ -28,10 +30,8 @@ module.exports = Backbone.View.extend({
   },
 
   loginToggle: function(){
-    // show/hide the login form.
-    if(this.model.get('loginFormVisible') === true){
-      this.showForm();
-    } else if (this.model.get('loginFormVisible') === false ){
+    // hide the login form, if the model says it shouldn't be here:
+    if (this.model.get('loginFormVisible') === false ){
       this.$el.empty();
     }
   },
@@ -43,12 +43,20 @@ module.exports = Backbone.View.extend({
   },
 
   clickScreen: function(e) {
-
     // remove the login form form the page:
-    if(e.target.className === 'non-mobile-shader'){
-      app.mindbodyModel.set({'lgoinFormVisible': false});
+    if(
+      e.target.className === 'non-mobile-shader'
+      || e.target.className === 'schedButton cancel-button'
+    ){
+      e.preventDefault();
+      // this will turn the pop-over off.
       this.model.set({'loginFormVisible': false});
     };
+
+    if( e.target.className === 'schedButton signin-button' ){
+      e.preventDefault();
+      this.requestSignIn();
+    }
 
     // submit the form via AJAX:
     if(e.target.className === 'mb-login-button'){
@@ -57,6 +65,11 @@ module.exports = Backbone.View.extend({
       this.model.set({'loginERRmessage': ''});
       this.checkForm();
     }
+  },
+
+  requestSignIn: function() {
+    console.log('requestSignin');
+    this.model.set({'loginFormWaiting': true});
   },
 
   checkForm: function(){
@@ -76,8 +89,58 @@ module.exports = Backbone.View.extend({
     }
   },
 
-  showForm: function() {
+  showForm: function(workoutModel) {
+    // login form has been requested, put it's status into the model
+    // this can't be false if you want the form to be displayed:
+    if(this.model.get('loginFormVisible') !== true){
+      this.model.set({
+        loginFormVisible: true,
+        loginFormWaiting: false // reset just incase
+      });
+    }
 
+
+    // show the shader that will contain the form:
+    this.$el.html(this.template());
+    this.shader = this.$('div.non-mobile-shader');
+
+
+    if(this.model.get('loggedIn') === false){
+      // either the user clicked "log in" in the masthead,
+      // or they are clicking "sign in" for a class while logged out.
+      // they need to either:
+      // A. log in and then sign into the class, or
+      // B. log in and be back to the website.
+      this.showLogInForm(workoutModel);
+
+    } else if(this.model.get('loggedIn') === true) {
+      // skip the login form, the user is already signed in.
+      this.showSignInForm(workoutModel);
+    }
+
+
+
+
+  },
+
+  showLogInForm: function(workoutModel){
+    // clear the form if its been used already:
+    this.shader.html('');
+
+    // will be needed if the user logs in, or wants to go directly to MINDBODY
+    // and ignore all my wonderful software.
+    if(workoutModel === undefined) {
+      // this is the generic "Log in" button in the masthead,
+      // no link sent to the view. Use the one thats already within the model:
+      this.model.set({'urlMBloginForm': this.model.get('urlMINDBODY')});
+      this.model.set({'formMessage': 'Or join us with MINDBODY!'});
+
+    } else if(workoutModel.get('classStatus') === 'available'){
+      // this is coming from a "sign up for class" button.
+      this.model.set({'urlMBloginForm': workoutModel.get('signupURL')});
+      this.model.set({'formMessage': 'Or sign up for ' + workoutModel.get('ClassDescription')['Name'] + ' through MINDBODY!'});
+      this.model.set({'workoutRequested': workoutModel}); // temp storage for the workout they requested.
+    }
     // if the user has a cached USER NAME, then add it to the form so they
     // won't have to type it out again.
     var cookieArray = app.mbMethods.mbGetCookieArray( document.cookie );
@@ -87,7 +150,7 @@ module.exports = Backbone.View.extend({
     }
 
     // show the form:
-    this.$el.html(this.template(this.model.toJSON()));
+    this.shader.html(this.loginTemplate(this.model.toJSON()));
 
     // focus on the sign-in form for convenience:
     if(cookieArray['mb-client-username']){
@@ -97,12 +160,14 @@ module.exports = Backbone.View.extend({
       // otherwise focus on the username field. She still needs to fill that out.
       this.$('#mb-username').focus();
     }
+
+
+
   },
 
   loginWaiting: function() {
     var loadingSpan = this.$('div.login span.loading');
     if(this.model.get('loginFormWaiting') === true){
-      // console.log('loginWaiting');
       loadingSpan.removeClass('hid');
 
     } else {
@@ -125,6 +190,14 @@ module.exports = Backbone.View.extend({
       }, 50);
     }
 
-  }
+  },
+
+
+
+  showSignInForm: function(workoutModel){
+    this.shader.html('');
+    this.shader.html(this.signinTemplate(workoutModel.toJSON()));
+
+  },
 
 });

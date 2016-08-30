@@ -19,7 +19,7 @@ ul.classes li div.classNFO,
 ul.classes li div.trainerNFO,
 
 ul.mb_data li,
-ul.mb_data a.schedButton,
+ul.classes a.schedButton,
 ul.mb_data div.trainerNamem
 
 ul.mb_trainers,
@@ -116,7 +116,7 @@ ul.classes li.enrolled {
 }
 
 // buttons
-ul.mb_data a.schedButton {
+a.schedButton {
   background: lighten($color-solful-red, 0%);
   padding: 0.15em 0;
   text-align: center;
@@ -124,16 +124,29 @@ ul.mb_data a.schedButton {
   transition: background 0.25s ease-in-out;
 
   .no-touchevents &:hover {
+    color: #FFF;
     background: darken($color-solful-red, 10%);
   }
 }
-ul.mb_data a.cancel-button {
+div.login a.schedButton {
+  display: block;
+  width: 100%;
+}
+div.login a.signin-button {
+  margin-bottom: 0.5em;
+}
+a.cancel-button {
   background: darken(#F4F4F4, 5%);
   background: transparent;
   color: $base-font-color;
   .no-touchevents &:hover {
+    color: $base-font-color;
     background: darken(#F4F4F4, 15%);
   }
+}
+
+div.login a.cancel-button {
+  background: darken(#F4F4F4, 15%);
 }
 
 ul.mb_data div.trainerName {

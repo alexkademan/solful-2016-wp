@@ -5,7 +5,7 @@ var Backbone = require ('backbone');
 var _ = require ('underscore');
 var $ = require ('jquery');
 
-var LoginForm = require('./mb_login_form_view')
+// var LoginForm = require('./mb_login_form_view');
 
 module.exports = Backbone.View.extend({
   el: '#MB-login',
@@ -25,10 +25,8 @@ module.exports = Backbone.View.extend({
     if( mbURL ){
       // set the needed var for the whole application,
       this.model.set({mbFeedURL: mbURL});
-
-      // new view for login form:
-      app.mbLogInForm = new LoginForm({model: this.model});
       this.model.on({'change:loggedIn': this.renderStatus}, this);
+
       // 'loginWorking' is the emergency shutoff to disable login feature.
       if(this.model.get('loginWorking') === true){
         this.renderStatus();
@@ -44,7 +42,8 @@ module.exports = Backbone.View.extend({
   },
 
   logInUser: function() {
-    this.model.set({loginFormVisible: true});
+    app.mbLogInForm.showForm();
+    // this.model.set({loginFormVisible: true});
   },
 
   logInOut: function(data){
@@ -70,15 +69,28 @@ module.exports = Backbone.View.extend({
         client: data['client'],
         loggedIn: true,
         loginFormWaiting: false,
-        loginFormVisible: false,
+        // loginFormVisible: false,
         loginTime: data['loginTime']
       });
+
+      // now that we're logged in, get info about the client:
+      this.getClientInfo(data);
 
       // keep the login username in the cookie for next time she loads the page:
       document.cookie = "mb-client-username=" + data['client']['Email'];
 
-      // now that we're logged in, get info about the client:
-      this.getClientInfo(data);
+      // if they logged in as they were trying to sign up for a class, let them sign up now.
+      if(this.model.get('workoutRequested') !== false) {
+        var requestedClass = this.model.get('workoutRequested');
+        // then remove the class from the model, so it's not in our way next time we come through here:
+        this.model.set({workoutRequested: false});
+        app.mbLogInForm.showSignInForm(requestedClass);
+
+      } else {
+        // done, so destroy the form:
+        this.model.set({loginFormVisible: false});
+
+      }
 
     } else if(data['ValidateLoginResult']){
       // we caught an error message.
@@ -155,7 +167,6 @@ module.exports = Backbone.View.extend({
   },
 
   addRegisteredClasses: function(data) {
-
     // data is the result of a call to the API.
     // OR the cached info from a cookie.
 

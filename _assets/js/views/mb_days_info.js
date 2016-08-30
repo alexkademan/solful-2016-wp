@@ -86,6 +86,8 @@ module.exports = Backbone.View.extend({
     if(time['hour'] > 12 ) { time['hourCivilian'] = time['hour'] - 12 } else {time['hourCivilian'] = parseInt(time['hour'], 10) }
 
     time['unixTime'] = theDate.getTime();
+    
+    time['fullDate'] = dayInfo['dayOfWeek'] + ', ' + dayInfo['fullMonth'] + ' ' + dayInfo['day'];
 
     return time;
   },

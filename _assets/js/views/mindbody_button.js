@@ -31,7 +31,7 @@ module.exports = Backbone.View.extend({
     this.$el.attr('style', 'height: ' + callOutHeight + 'px');
     // console.log(this.$el);
   },
-  
+
   openOrClose: function(e) {
     e.preventDefault();
 
@@ -39,7 +39,9 @@ module.exports = Backbone.View.extend({
       this.$el.attr('style', 'height: 0px');
 
     } else {
-      app.mbMethods.launchMINDBODY(this.model.get('urlMINDBODY'));
+      // app.mbMethods.launchMINDBODY(this.model.get('urlMINDBODY'));
+      // console.log(this.$el[0].href);
+      window.location.replace(this.$el[0].href);
 
     }
   }

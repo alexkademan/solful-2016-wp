@@ -22,11 +22,11 @@
 </script>
 
 <script type="text/template" id="mb-appointment-signIn">
-  <a href="' + signupURL + '" class="schedButton sign-in-button">Sign In</a>
+  <a href="<%- signupURL %>" class="schedButton sign-in-button">Sign In</a>
 </script>
 
 <script type="text/template" id="mb-appointment-cancel">
-  <a href="' + signupURL + '" class="schedButton cancel-button">Registered</a>
+  <a href="<%- signupURL %>" class="schedButton cancel-button">Registered</a>
 </script>
 
 <script type="text/template" id="mb-appointment-nfo">

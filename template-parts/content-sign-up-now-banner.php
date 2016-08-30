@@ -5,7 +5,8 @@
  */
 
 ?>
-<a href="http://clients.mindbodyonline.com/ws.asp?studioid=44288&amp;stype=-7" id="sign_up_now" class="sign_up_now" target="_blank">
+<!-- <a href="http://clients.mindbodyonline.com/ws.asp?studioid=44288&amp;stype=-7" id="sign_up_now" class="sign_up_now" target="_blank"> -->
+<a href="<?php echo get_bloginfo('wpurl') ?>/schedule" id="sign_up_now" class="sign_up_now" target="_blank">
 	<div class="outer classes">
 		<h1>Sign Up Now!</h1>
 	</div>

@@ -19,6 +19,9 @@ module.exports = Backbone.Model.extend({
     mbFeedURL: false, // I'm pulling the URL from the page, WP's get_bloginfo is handy in this instance.
     signupURLbase: 'https://clients.mindbodyonline.com/ws.asp',
     urlMINDBODY: '',
+    urlMBloginForm: '', // the link below the login form that allows the client to switch to MINDBODY and do what thyre looking to do there instead of here.
+
+    workoutRequested: false, // if the user is trying to sign in for a workout, but hasn't logged in, store the workout model here temporarily.
 
     pageLoadTime: '',
     loginMaxTime: 3000, // need to automatically log the client out after 50 minutes. (3000 seconds)

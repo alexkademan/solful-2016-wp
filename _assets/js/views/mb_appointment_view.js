@@ -11,19 +11,20 @@ module.exports = Backbone.View.extend({
 
   events: {
     "click hgroup.toggle": 'showInfo',
-    "click div.trainerName": 'showTrainer'
+    "click div.trainerName": 'showTrainer',
+    "click div.signUp": 'signUpButton'
   },
 
   initialize: function() {
 
     this.checkAvailable();
+    // buttons:
     this.model.on({'change:toggleInfo': this.toggleInfo}, this);
     this.model.on({'change:toggleInstructor': this.toggleInstructor}, this);
+
+    // appointment status
     this.model.on({'change:classStatus': this.adjustStatus}, this);
-    // this.model.on({'change:IsEnrolled': this.checkAvailable}, this);
-    this.model.on({'change:IsEnrolled': function(){
-      this.checkAvailable();
-    }}, this);
+    this.model.on({'change:IsEnrolled': this.checkAvailable}, this);
 
     // monitor to see if used is signed in for this class.
     app.mindbodyModel.on({'change:clientSchedule': this.checkSignIn}, this);
@@ -104,7 +105,6 @@ module.exports = Backbone.View.extend({
   },
 
   checkSignIn: function() {
-    // console.log('checkSignIn');
 
     // This function checks to see if the client is logged in,
     // and if they are, it finds out if this class is on their
@@ -137,6 +137,7 @@ module.exports = Backbone.View.extend({
         this.model.set({'IsEnrolled': false});
       }
     }
+
   },
 
 
@@ -190,7 +191,7 @@ module.exports = Backbone.View.extend({
     // canceled
 
     var secondsRemaining = this.model.get('unixStartTime') - app.mindbodyModel.get('currentTime');
-    this.$('span.countdown').html(secondsRemaining);
+    // this.$('span.countdown').html(secondsRemaining);
 
     if(this.model.get('IsCanceled') === true ){
       this.model.set({'classStatus': 'canceled'});
@@ -200,8 +201,15 @@ module.exports = Backbone.View.extend({
       // more than an hour before class starts
       if(this.model.get('IsEnrolled') === false){
 
-        // console.log(this.model.get('ClassDescription')['Name'] + ' is available');
-        this.model.set({'classStatus': 'available'});
+        if(this.model.get('IsWaitlistAvailable') === true) {
+          console.log(this.model.get('ClassDescription')['Name'] + ' is wait list only. Fully booked');
+          this.$('h3').html( '*********** WAITING LIST ONLY. ***********' );
+
+        } else {
+
+          // console.log(this.model.get('ClassDescription')['Name'] + ' is available');
+          this.model.set({'classStatus': 'available'});
+        }
 
       } else if(this.model.get('IsEnrolled') === true){
         // console.log(this.model.get('ClassDescription')['Name'] + ' is scheduled');
@@ -210,27 +218,80 @@ module.exports = Backbone.View.extend({
       }
 
     } else if(secondsRemaining < this.model.get('lateCancelTime')) {
+      // not in before late cancel means you've missed it
+      if(this.model.get('IsEnrolled') === false){
+        this.model.set({'classStatus': 'missed'});
+      }
 
       if(secondsRemaining > 0){
-
         // we're within the late cancel time:
-        if(this.model.get('IsEnrolled') === false){
-          this.model.set({'classStatus': 'missed'});
-
-        } else if(this.model.get('IsEnrolled') === true){
+        if(this.model.get('IsEnrolled') === true){
           this.model.set({'classStatus': 'lateCancel'});
 
         }
       } else if(secondsRemaining <= 0){
         // class has already begun:
         if(this.model.get('IsEnrolled') === true){
-          // console.log(this.model.get('ClassDescription')['Name'] + ' is completed');
           this.model.set({'classStatus': 'completed'});
 
         }
-      }
 
+      }
     }
+    // overwrite the scheduled time with the current status: (for testing)
+    // this.$('h3').html( this.model.get('classStatus') );
+
+
+  },
+
+  signUpButton: function(e) {
+    // console.log(e);
+    // sign up button was clicked on:
+    e.preventDefault();
+
+    if(
+      this.model.get('classStatus') !== 'completed'
+      && this.model.get('classStatus') !== 'missed'
+    ) {
+      // the class is stil available.
+      app.mbLogInForm.showForm(this.model);
+    }
+
+
+    // switch (this.model.get('classStatus')) {
+    //   case 'available':
+    //     app.mbLogInForm.showForm(this.model);
+    //     break;
+    //
+    //   case 'enrolled':
+    //     // do nothing
+    //     break;
+    //
+    //   case 'lateCancel':
+    //     // do nothing
+    //     break;
+    //
+    //   case 'missed':
+    //     // do nothing
+    //     break;
+    //
+    //   case 'completed':
+    //     // do nothing
+    //     break;
+    //
+    // }
+
+    // if(app.mindbodyModel.get('loggedIn') === false){
+    //   // user hasn't logged in at this website:
+    //
+    //   if(this.model.get('classStatus') === 'available'){
+    //     app.mbLogInForm.showForm(this.model);
+    //   }
+    //
+    // } else if(app.mindbodyModel.get('loggedIn') === true) {
+    //   // user is logged in
+    //   app.mbLogInForm.showForm(this.model);
+    // }
 
   }
 

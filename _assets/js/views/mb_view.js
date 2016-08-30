@@ -16,10 +16,10 @@ var MBMethods = require('./mb_state_methods');
 
 var TrainersCollection = require('./../models/mb_trainers_collection');
 var TrainerView = require('./mb_trainer_view');
-// var MergeTrainersSchedule = require('./mb_merge_trainers');
 
-// var LoginModel = require('../models/mb_login_model');
 var LoginView = require('./mb_login_view');
+var LoginForm = require('./mb_login_form_view');
+var SignUpForm = require('./mb_sign_up_view');
 
 module.exports = Backbone.View.extend({
 
@@ -29,6 +29,8 @@ module.exports = Backbone.View.extend({
 
     // login for the masthead:
     app.mbLogInView = new LoginView({model: this.model});
+    app.mbLogInForm = new LoginForm({model: this.model});
+    app.mbSignUpForm = new SignUpForm({model: this.model});
 
     // helper methods for use later:
     app.findDayInfo = new DayInfo();
@@ -112,7 +114,7 @@ module.exports = Backbone.View.extend({
     if( file == undefined ){ return }
     var thisURL = app.mindbodyModel.get('mbFeedURL') + file;
 
-    console.log(thisURL);
+    // console.log(thisURL);
 
     $.ajax({
       url: thisURL,
