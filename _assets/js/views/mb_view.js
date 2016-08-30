@@ -114,7 +114,7 @@ module.exports = Backbone.View.extend({
     if( file == undefined ){ return }
     var thisURL = app.mindbodyModel.get('mbFeedURL') + file;
 
-    // console.log(thisURL);
+    console.log(thisURL);
 
     $.ajax({
       url: thisURL,
@@ -135,9 +135,12 @@ module.exports = Backbone.View.extend({
           break;
 
         case 'clientSchedule':
-          if(data['GetClientScheduleResult']['Visits']['Visit']){
-            app.mbLogInView.addRegisteredClasses(data['GetClientScheduleResult']['Visits']['Visit']);
-          }
+          app.mbLogInView.addRegisteredClasses(data['GetClientScheduleResult']['Visits']['Visit']);
+          break;
+
+        case 'signup':
+          // signed up for a class(?)
+          app.mbLogInView.addNewSignIn(data);
           break;
       }
 

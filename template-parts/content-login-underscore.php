@@ -44,14 +44,14 @@
 
 <script type="text/template" id="mb-sign-in-fields">
   <div class="login">
-    <h3>Join <%- ClassDescription.Name %>?</h3>
+    <h3>Join <%- ClassDescription.Name %></h3>
     <p>
       <%- classStart.fullDate %><br />
       <%- classStart.hourCivilian %>:<%- classStart.minutes %> -
       <%- classEnd.hourCivilian %>:<%- classEnd.minutes %> <%- classEnd.am_pm %>,
       <%- durationReadable %>
     </p>
-    <a href="" class="schedButton signin-button">Sign In</a>
+    <a href="" class="schedButton signin-button">Confirm</a>
     <a href="" class="schedButton cancel-button">Cancel</a>
     <span class="loading hid"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></span>
   </div>

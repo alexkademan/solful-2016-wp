@@ -169,12 +169,32 @@ module.exports = Backbone.View.extend({
   addRegisteredClasses: function(data) {
     // data is the result of a call to the API.
     // OR the cached info from a cookie.
+    if(data === undefined) {
+      // there aren't any classes
+      this.model.set({'clientSchedule': false});
+      // remove cookie if it's there (the schedule is empty):
+      document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
-    // add to the live model:
-    this.model.set({'clientSchedule': data});
+    } else {
+      // add to the live model:
+      this.model.set({'clientSchedule': data});
+      // store in cookie for quicker response when page loads:
+      document.cookie = "mb-client-schedule=" + JSON.stringify(data);
+    }
+  },
 
-    // store in cookie for quicker response when page loads:
-    document.cookie = "mb-client-schedule=" + JSON.stringify(data);
+  addNewSignIn: function(data) {
+
+    var results = data.AddClientsToClassesResult;
+    if(results.Message) {
+      // the Message field PROBABLY means that there was an error:
+      console.log(results.Message);
+    };
+
+    console.log('this is brought back from the AJAX call to sign in for a class.');
+    console.log(data);
+    console.log('client Schedule:');
+    console.log(this.model.get('clientSchedule'));
   }
 
 });

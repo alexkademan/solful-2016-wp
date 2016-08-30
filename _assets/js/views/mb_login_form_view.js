@@ -68,7 +68,16 @@ module.exports = Backbone.View.extend({
   },
 
   requestSignIn: function() {
+
+    // someone pushed the "confirm" button to sign up for a class
     console.log('requestSignin');
+
+    var clientID = this.model.get('client')['ID'];
+    var classID = this.model.get('workoutRequestedID');
+
+    var args = '?clientID=' + clientID + '&classID=' + classID;
+    app.mindbodyView.makeAJAXcall('class-sign-up-01.php' + args, 'signup');
+
     this.model.set({'loginFormWaiting': true});
   },
 
@@ -90,6 +99,12 @@ module.exports = Backbone.View.extend({
   },
 
   showForm: function(workoutModel) {
+
+    // store the class ID if there is one for use on the login screen:
+    if(workoutModel !== undefined){
+      this.model.set({'workoutRequestedID': workoutModel.get('ID')});
+    };
+
     // login form has been requested, put it's status into the model
     // this can't be false if you want the form to be displayed:
     if(this.model.get('loginFormVisible') !== true){

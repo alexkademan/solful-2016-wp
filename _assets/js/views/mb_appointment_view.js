@@ -121,11 +121,20 @@ module.exports = Backbone.View.extend({
       // var enrolled is false until proven otherwise:
       var enrolled = false;
 
-      for(x in scheduled) {
-        // looping thru the list of scheduled classes:
-        if( scheduled[x]['ClassID'] === this.model.get('ID') ){
-          // this class is on the list of scheduled classes:
-          enrolled = true;
+      // if the client only has one class, then ther is only one object.
+      // So the 'for' loop after this won't do anything in that case.
+      // instead scheduled is a single object, so check it's 'ClassID'
+      if(scheduled.ClassID === this.model.get('ID')){
+        enrolled = true
+      } else {
+        
+        // we're here if the client is enrolled in more than one class:
+        for(x in scheduled) {
+          // looping thru the list of scheduled classes:
+          if( scheduled[x]['ClassID'] === this.model.get('ID') ){
+            // this class is on the list of scheduled classes:
+            enrolled = true;
+          }
         }
       }
 
@@ -239,7 +248,7 @@ module.exports = Backbone.View.extend({
       }
     }
     // overwrite the scheduled time with the current status: (for testing)
-    // this.$('h3').html( this.model.get('classStatus') );
+    this.$('h3').html( this.model.get('classStatus') );
 
 
   },
@@ -256,42 +265,6 @@ module.exports = Backbone.View.extend({
       // the class is stil available.
       app.mbLogInForm.showForm(this.model);
     }
-
-
-    // switch (this.model.get('classStatus')) {
-    //   case 'available':
-    //     app.mbLogInForm.showForm(this.model);
-    //     break;
-    //
-    //   case 'enrolled':
-    //     // do nothing
-    //     break;
-    //
-    //   case 'lateCancel':
-    //     // do nothing
-    //     break;
-    //
-    //   case 'missed':
-    //     // do nothing
-    //     break;
-    //
-    //   case 'completed':
-    //     // do nothing
-    //     break;
-    //
-    // }
-
-    // if(app.mindbodyModel.get('loggedIn') === false){
-    //   // user hasn't logged in at this website:
-    //
-    //   if(this.model.get('classStatus') === 'available'){
-    //     app.mbLogInForm.showForm(this.model);
-    //   }
-    //
-    // } else if(app.mindbodyModel.get('loggedIn') === true) {
-    //   // user is logged in
-    //   app.mbLogInForm.showForm(this.model);
-    // }
 
   }
 
