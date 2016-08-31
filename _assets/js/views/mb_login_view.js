@@ -43,7 +43,6 @@ module.exports = Backbone.View.extend({
 
   logInUser: function() {
     app.mbLogInForm.showForm();
-    // this.model.set({loginFormVisible: true});
   },
 
   logInOut: function(data){
@@ -53,13 +52,15 @@ module.exports = Backbone.View.extend({
       this.model.set({
         GUID: false,
         client: false,
-        clientSchedule: false,
+        // clientSchedule: false,
+        // clientSchedCount: 0,
         loggedIn: false,
         loginTime: ''
       });
 
       // kill off the schedule cookie
-      document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+      this.adjustClientSchedule(false);
+      // document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
 
     } else if(data['GUID']) {
@@ -142,23 +143,18 @@ module.exports = Backbone.View.extend({
       var cookieArray = app.mbMethods.mbGetCookieArray( document.cookie );
 
       if(cookieArray['mb-client-schedule']){
-
         // the schedule is cached to a JSON string in the cookie
-        // Delete the schedule cookie. We'll cache it when the AJAX request comes back
-        document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
         // add to the live model:
-        console.log(JSON.parse(cookieArray['mb-client-schedule']));
-        this.model.set({'clientSchedule': JSON.parse(cookieArray['mb-client-schedule'])});
+        this.adjustClientSchedule(JSON.parse(cookieArray['mb-client-schedule']));
 
       };
 
       // check the client's schedule again.
       // This may override the cookie that we just loaded into the model.
-      var theClient = this.model.get('client');
 
       var argString = '';
-      argString += '?userID=' + theClient['ID'];
+      argString += '?userID=' + this.model.get('client')['ID'];
       argString += '&timeStart=' + this.model.get('pageLoadTime');
       argString += '&duration=' + this.model.get('scheduleSpan');
 
@@ -172,11 +168,11 @@ module.exports = Backbone.View.extend({
     // data is the result of a call to the API.
     if(data === undefined) {
       // there aren't any classes
-      this.model.set({'clientSchedule': false});
-      // remove cookie if it's there (the schedule is empty):
-      document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+      this.adjustClientSchedule(false);
 
     } else {
+      // we just need part:
+      // data = data['GetClientScheduleResult']['Visits']['Visit'];
 
       // We have found that the client is logged into more than zero classes.
       // If they're only logged into a single class, than data is only one object.
@@ -193,10 +189,7 @@ module.exports = Backbone.View.extend({
       };
 
       // add to the live model:
-      console.log(clientSched);
-      this.model.set({'clientSchedule': clientSched});
-      // store in cookie for quicker response when page loads:
-      document.cookie = "mb-client-schedule=" + JSON.stringify(clientSched);
+      this.adjustClientSchedule(clientSched);
     }
   },
 
@@ -205,13 +198,75 @@ module.exports = Backbone.View.extend({
     var results = data.AddClientsToClassesResult;
     if(results.Message) {
       // the Message field PROBABLY means that there was an error:
-      console.log(results.Message);
-    };
 
-    // console.log('this is brought back from the AJAX call to sign in for a class.');
-    // console.log(data);
-    console.log('client Schedule:');
-    console.log(this.model.get('clientSchedule'));
+      // drill down to where there IS a message:
+      var errorCode = data['AddClientsToClassesResult']['Classes']['Class']['Clients']['Client']['ErrorCode'];
+      var errorMessage = data['AddClientsToClassesResult']['Classes']['Class']['Clients']['Client']['Messages']['string'];
+      console.log('error code: ' + errorCode);
+
+      switch (errorCode) {
+        case '602':
+          app.mbLogInForm.errClassNotAvailable('This class is no longer available for sign up.');
+          break;
+
+        case '603':
+          app.mbLogInForm.errClassNotAvailable('You have already logged into this class!');
+          break;
+
+      }
+
+
+    } else {
+
+      if(data['AddClientsToClassesResult']['Classes']['Class']['ID']) {
+        // the client just signed into a single class.
+        var newClassID = data['AddClientsToClassesResult']['Classes']['Class']['ID'];
+        var wholeSchedule = this.model.get('clientSchedule');
+
+        if(wholeSchedule === false){
+          // client hasn't signed up for anything other than this workout:
+          wholeSchedule = [newClassID];
+        } else {
+          wholeSchedule.push(newClassID);
+        }
+        // send what we've gathered to the model.
+        this.adjustClientSchedule(wholeSchedule);
+
+
+        // done, so destroy the form:
+        this.model.set({loginFormVisible: false});
+      }
+    }
+  },
+
+  adjustClientSchedule: function(schedArray) {
+    // this function was all over the document. so I consolidated it here.
+    // either erase the sched (like on a log-out)
+    // or update the client's schedule to reflect the array that was passed as the only argument.
+    if(schedArray === false) {
+      // reset the client schedule
+      this.model.set({
+        'clientSchedule': false,
+        'clientSchedCount': 0
+      });
+      // remove cookie if it's there (the schedule is empty):
+      document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+
+
+
+    } else {
+      // the argument was an array so add it to the model:
+      this.model.set({
+        'clientSchedule': schedArray,
+        'clientSchedCount': schedArray.length
+      });
+      // store in cookie for quicker response when page loads:
+      // document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+      document.cookie = "mb-client-schedule=" + JSON.stringify(schedArray);
+
+
+    }
+
   }
 
 });

@@ -51,8 +51,9 @@
       <%- classEnd.hourCivilian %>:<%- classEnd.minutes %> <%- classEnd.am_pm %>,
       <%- durationReadable %>
     </p>
-    <a href="" class="schedButton signin-button">Confirm</a>
-    <a href="" class="schedButton cancel-button">Cancel</a>
+    <span class="error"></span>
+    <a class="schedButton signin-button">Confirm</a>
+    <a class="schedButton cancel-button">Cancel</a>
     <span class="loading hid"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></span>
   </div>
 </script>

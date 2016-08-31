@@ -70,7 +70,7 @@ module.exports = Backbone.View.extend({
   requestSignIn: function() {
 
     // someone pushed the "confirm" button to sign up for a class
-    console.log('requestSignin');
+    // console.log('requestSignin');
 
     var clientID = this.model.get('client')['ID'];
     var classID = this.model.get('workoutRequestedID');
@@ -207,12 +207,21 @@ module.exports = Backbone.View.extend({
 
   },
 
-
-
   showSignInForm: function(workoutModel){
     this.shader.html('');
+    console.log(workoutModel.get('classStatus'));
     this.shader.html(this.signinTemplate(workoutModel.toJSON()));
-
   },
+
+  errClassNotAvailable: function(errMessage){
+    // remove sign in button:
+    this.$('a.signin-button').addClass('hid');
+    // adjust state:
+    this.model.set({
+      loginERRmessage: errMessage,
+      loginFormWaiting: false
+    });
+  }
+
 
 });

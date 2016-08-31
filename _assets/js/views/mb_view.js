@@ -114,7 +114,7 @@ module.exports = Backbone.View.extend({
     if( file == undefined ){ return }
     var thisURL = app.mindbodyModel.get('mbFeedURL') + file;
 
-    console.log(thisURL);
+    // console.log(thisURL);
 
     $.ajax({
       url: thisURL,

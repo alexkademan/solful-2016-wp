@@ -27,7 +27,8 @@ module.exports = Backbone.View.extend({
     this.model.on({'change:IsEnrolled': this.checkAvailable}, this);
 
     // monitor to see if used is signed in for this class.
-    app.mindbodyModel.on({'change:clientSchedule': this.checkSignIn}, this);
+    // app.mindbodyModel.on({'change:clientSchedule': this.checkSignIn}, this);
+    app.mindbodyModel.on({'change:clientSchedCount': this.checkSignIn}, this);
     app.mindbodyModel.on({'change:currentTime': this.checkAvailable}, this);
   },
 
@@ -106,13 +107,14 @@ module.exports = Backbone.View.extend({
 
   checkSignIn: function() {
 
+    // console.log('checkSignIn');
+
     // This function checks to see if the client is logged in,
     // and if they are, it finds out if this class is on their
     // schedule of classes that they are signed up for
     var scheduled = app.mindbodyModel.get('clientSchedule');
 
     if(scheduled === false){
-      console.log('NO CLASSES AT ALL !!!');
       // console.log('turn them off');
       // NOT Logged In,
       this.model.set({'IsEnrolled': false});
@@ -132,11 +134,7 @@ module.exports = Backbone.View.extend({
 
       // now that we've checked all the enrolled classes,
       // we know if this model is one of 'em:
-      if( enrolled === true ) {
-        this.model.set({'IsEnrolled': true});
-      } else {
-        this.model.set({'IsEnrolled': false});
-      }
+      this.model.set({'IsEnrolled': enrolled});
     }
 
   },
@@ -192,7 +190,6 @@ module.exports = Backbone.View.extend({
     // canceled
 
     var secondsRemaining = this.model.get('unixStartTime') - app.mindbodyModel.get('currentTime');
-    // this.$('span.countdown').html(secondsRemaining);
 
     if(this.model.get('IsCanceled') === true ){
       this.model.set({'classStatus': 'canceled'});
@@ -207,7 +204,6 @@ module.exports = Backbone.View.extend({
           this.$('h3').html( '*********** WAITING LIST ONLY. ***********' );
 
         } else {
-
           // console.log(this.model.get('ClassDescription')['Name'] + ' is available');
           this.model.set({'classStatus': 'available'});
         }
@@ -241,6 +237,7 @@ module.exports = Backbone.View.extend({
     }
     // overwrite the scheduled time with the current status: (for testing)
     // this.$('h3').html( this.model.get('classStatus') );
+    // this.$('h3').html( this.model.get('ID') );
 
   },
 
