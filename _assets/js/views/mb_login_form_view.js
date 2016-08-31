@@ -251,9 +251,21 @@ module.exports = Backbone.View.extend({
     // this.shader.html(this.signinTemplate(workoutModel.toJSON()));
   },
 
-  errClassNotAvailable: function(errMessage){
-    // remove sign in button:
-    this.$('a.signin-button').addClass('hid');
+  errClassNotAvailable: function(errMessage, option){
+
+    if(option === 'removeSignUp'){
+      // remove sign in button:
+      this.$('a.signin-button').addClass('hid');
+      this.$('a.cancel-button').html('Okay');
+    }
+
+    if(option === 'removeCancel') {
+      // remove cancel class appointment button:
+      this.$('a.cancel-class-button').addClass('hid');
+      this.$('a.cancel-button').html('Okay');
+
+    }
+
     // adjust state:
     this.model.set({
       loginERRmessage: errMessage,

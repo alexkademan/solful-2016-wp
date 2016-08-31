@@ -33,7 +33,9 @@ if(
 	$enroll = $mb->RemoveClientsFromClasses([
 		'ClientIDs' => [$_GET['clientID']],
 		'ClassIDs' => [$_GET['classID']],
-		'Test' => false
+		'Test' => false,
+		'SendEmail' => true,
+		'LateCancel' => true
 	]);
 
 	// print_r($enroll);

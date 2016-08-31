@@ -191,51 +191,44 @@ module.exports = Backbone.View.extend({
 
     var secondsRemaining = this.model.get('unixStartTime') - app.mindbodyModel.get('currentTime');
 
+    // the site was cancelled by administrator:
     if(this.model.get('IsCanceled') === true ){
       this.model.set({'classStatus': 'canceled'});
 
-    } else if(secondsRemaining >= this.model.get('lateCancelTime')) {
+    } else if(this.model.get('IsEnrolled') === true) {
+      if(secondsRemaining > this.model.get('lateCancelTime')) {
+        this.model.set({'classStatus': 'enrolled'});
 
-      // more than an hour before class starts
-      if(this.model.get('IsEnrolled') === false){
+
+      } else if(secondsRemaining <= this.model.get('lateCancelTime') &&this.model.get('IsEnrolled') === true){
+        if(secondsRemaining > 0){
+          // late cancel window:
+          this.model.set({'classStatus': 'lateCancel'});
+        } else {
+          // class has already begun:
+          this.model.set({'classStatus': 'completed'});
+        }
+      }
+
+
+
+    } else if(this.model.get('IsEnrolled') === false ){
+      if(secondsRemaining > this.model.get('signInDeadline')) {
 
         if(this.model.get('IsWaitlistAvailable') === true) {
           console.log(this.model.get('ClassDescription')['Name'] + ' is wait list only. Fully booked');
           this.$('h3').html( '*********** WAITING LIST ONLY. ***********' );
-
         } else {
-          // console.log(this.model.get('ClassDescription')['Name'] + ' is available');
           this.model.set({'classStatus': 'available'});
         }
 
-      } else if(this.model.get('IsEnrolled') === true){
-        // console.log(this.model.get('ClassDescription')['Name'] + ' is scheduled');
-        this.model.set({'classStatus': 'enrolled'});
-
-      }
-
-    } else if(secondsRemaining < this.model.get('lateCancelTime')) {
-      // not in before late cancel means you've missed it
-      if(this.model.get('IsEnrolled') === false){
+      } else {
         this.model.set({'classStatus': 'missed'});
       }
-
-      if(secondsRemaining > 0){
-        // we're within the late cancel time:
-        if(this.model.get('IsEnrolled') === true){
-          this.model.set({'classStatus': 'lateCancel'});
-
-        }
-      } else if(secondsRemaining <= 0){
-        // class has already begun:
-        if(this.model.get('IsEnrolled') === true){
-          this.model.set({'classStatus': 'completed'});
-
-        }
-
-      }
     }
+
     // overwrite the scheduled time with the current status: (for testing)
+    // this.$('h3').html( secondsRemaining );
     // this.$('h3').html( this.model.get('classStatus') );
     // this.$('h3').html( this.model.get('ID') );
 

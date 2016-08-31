@@ -27,21 +27,21 @@ module.exports = Backbone.View.extend({
           clientMessage += 'A problem occured with your account. ';
           clientMessage += 'Please check your <a href="'+ this.model.get('urlMINDBODY') +'" class="MINDBODY-LINK">MINDBODY account</a> ';
           clientMessage += 'for billing information.';
-          app.mbLogInForm.errClassNotAvailable(clientMessage);
+          app.mbLogInForm.errClassNotAvailable(clientMessage, 'removeSignUp');
           break;
 
         case '602':
           clientMessage = 'This class is no longer available for sign up.';
-          app.mbLogInForm.errClassNotAvailable(clientMessage);
+          app.mbLogInForm.errClassNotAvailable(clientMessage, 'removeSignUp');
           break;
 
         case '603':
           clientMessage = 'You have already logged into this class!';
-          app.mbLogInForm.errClassNotAvailable(clientMessage);
+          app.mbLogInForm.errClassNotAvailable(clientMessage, 'removeSignUp');
           break;
 
         default:
-          app.mbLogInForm.errClassNotAvailable(errorMessage);
+          app.mbLogInForm.errClassNotAvailable(errorMessage, 'removeSignUp');
 
       }
 
@@ -72,18 +72,36 @@ module.exports = Backbone.View.extend({
   cancelAppointment: function(data) {
     // came here from an AJAX call after
     // the client cancelled an appointment for a workout.
-    // console.log(data);
+    var results = data.RemoveClientsFromClassesResult;
 
-    // so, I can't seem to make this AJAX call error out on me...
+    if(results.Message){
 
-    if( data['RemoveClientsFromClassesResult']['Classes']['Class']['ID'] ) {
+      var errorCode = results.ErrorCode;
+      var errorMessage = results.Classes.Class.Clients.Client.Messages.string;
+      var clientMessage = '';
+
+      console.log('Error Code: ' + errorCode);
+      console.log(errorMessage);
+
+      switch (errorCode) {
+        case 200:
+          clientMessage = 'This is a late cancel (now allowed at this time)';
+          app.mbLogInForm.errClassNotAvailable(clientMessage, 'removeCancel');
+          break;
+        default:
+          app.mbLogInForm.errClassNotAvailable(errorMessage, 'removeCancel');
+      }
+
+
+
+
+    } else if( data.RemoveClientsFromClassesResult.Classes.Class['ID'] ) {
       // we succsessfully removed a class from the schedule. Its id is:
       var removedID = data['RemoveClientsFromClassesResult']['Classes']['Class']['ID'];
 
       var wholeSchedule = this.model.get('clientSchedule');
-      console.log(typeof wholeSchedule);
       // we know that wholeSchedule is an array with at least one variable, but check anyhow:
-      if( typeof wholeSchedule !== false ){
+      if( wholeSchedule !== false ){
         if(wholeSchedule.length === 1) {
           // there is only one class on the schedule, so re-set the schedule to false:
           app.mbLogInView.adjustClientSchedule(false);
