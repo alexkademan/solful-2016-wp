@@ -62,10 +62,20 @@ div.loginForm div.login form {
 }
 div.loginForm div.login > span.error  p {
   padding: pem(5);
-  color: darken($action-color, 10%);
   background: lighten($action-color, 60%);
   border: 2px $action-color solid;
   transition: background 0.75s ease-out;
+
+}
+div.loginForm div.login > span.error  p,
+div.loginForm div.login > span.error  p a,
+div.loginForm div.login > span.error  p a:link,
+div.loginForm div.login > span.error  p a:visited,
+div.loginForm div.login > span.error  p a:active {
+  color: darken($action-color, 10%);
+}
+div.loginForm div.login > span.error  p a {
+  text-decoration: underline;
 }
 div.loginForm div.login > span.flash p {
   background: lighten($action-color, 0%);

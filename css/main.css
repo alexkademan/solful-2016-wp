@@ -3251,7 +3251,8 @@ div.login a.schedButton {
   display: block;
   width: 100%; }
 
-div.login a.signin-button {
+div.login a.signin-button,
+div.login a.cancel-class-button {
   margin-bottom: 0.5em; }
 
 a.cancel-button {
@@ -3458,11 +3459,20 @@ div.loginForm div.login form {
 
 div.loginForm div.login > span.error p {
   padding: 0.3125em;
-  color: #83110a;
   background: #fef4f4;
   border: 2px #b2170e solid;
   -webkit-transition: background 0.75s ease-out;
   transition: background 0.75s ease-out; }
+
+div.loginForm div.login > span.error p,
+div.loginForm div.login > span.error p a,
+div.loginForm div.login > span.error p a:link,
+div.loginForm div.login > span.error p a:visited,
+div.loginForm div.login > span.error p a:active {
+  color: #83110a; }
+
+div.loginForm div.login > span.error p a {
+  text-decoration: underline; }
 
 div.loginForm div.login > span.flash p {
   background: #b2170e;

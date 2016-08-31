@@ -29,19 +29,6 @@ module.exports = Backbone.View.extend({
     this.model.on({'change:loginERRmessage': this.renderErrorMessage}, this);
   },
 
-  loginToggle: function(){
-    // hide the login form, if the model says it shouldn't be here:
-    if (this.model.get('loginFormVisible') === false ){
-      this.$el.empty();
-    }
-  },
-  keyAction: function(e) {
-    if(e.keyCode === 27 && this.model.get('loginFormVisible') === true){
-      // escape key:
-      this.model.set({'loginFormVisible': false});
-    };
-  },
-
   clickScreen: function(e) {
     // remove the login form form the page:
     if(
@@ -55,7 +42,13 @@ module.exports = Backbone.View.extend({
 
     if( e.target.className === 'schedButton signin-button' ){
       e.preventDefault();
-      this.requestSignIn();
+      this.requestSignIn('join');
+    }
+
+    if( e.target.className === 'schedButton cancel-class-button' ){
+      // cancel appointment button.
+      e.preventDefault();
+      this.requestSignIn('cancel');
     }
 
     // submit the form via AJAX:
@@ -67,16 +60,37 @@ module.exports = Backbone.View.extend({
     }
   },
 
-  requestSignIn: function() {
+  keyAction: function(e) {
+    if(e.keyCode === 27 && this.model.get('loginFormVisible') === true){
+      // escape key:
+      this.model.set({'loginFormVisible': false});
+    };
+  },
 
+  loginToggle: function(){
+    // hide the login form, if the model says it shouldn't be here:
+    if (this.model.get('loginFormVisible') === false ){
+      this.$el.empty();
+    }
+  },
+
+  requestSignIn: function(joinOrCancel) {
     // someone pushed the "confirm" button to sign up for a class
-    // console.log('requestSignin');
-
     var clientID = this.model.get('client')['ID'];
     var classID = this.model.get('workoutRequestedID');
 
     var args = '?clientID=' + clientID + '&classID=' + classID;
-    app.mindbodyView.makeAJAXcall('class-sign-up-01.php' + args, 'signup');
+
+    if(joinOrCancel === 'join'){
+      // sign the client into the class
+      app.mindbodyView.makeAJAXcall('class-sign-up-01.php' + args, 'signup');
+
+    } else if (joinOrCancel === 'cancel') {
+      // sign the client out of the class
+      args += '&cancel=true';
+      app.mindbodyView.makeAJAXcall('class-sign-up-01.php' + args, 'cancelClass');
+
+    }
 
     this.model.set({'loginFormWaiting': true});
   },
@@ -208,9 +222,33 @@ module.exports = Backbone.View.extend({
   },
 
   showSignInForm: function(workoutModel){
+    // clean slate:
     this.shader.html('');
-    console.log(workoutModel.get('classStatus'));
-    this.shader.html(this.signinTemplate(workoutModel.toJSON()));
+
+    switch(workoutModel.get('classStatus')) {
+      case 'available':
+        workoutModel.set({
+          dialogMessage: 'Join ' + workoutModel.get('ClassDescription')['Name'],
+          buttonClass: 'signin-button',
+          buttonConfirm: 'Confirm',
+          buttonEscape: 'Cancel',
+        })
+        this.shader.html( this.signinTemplate(workoutModel.toJSON()) );
+        break;
+
+      case 'enrolled':
+        workoutModel.set({
+          dialogMessage: 'Do you wish to cancel your appointment for ' + workoutModel.get('ClassDescription')['Name'] + '?',
+          buttonClass: 'cancel-class-button',
+          buttonConfirm: 'Yes, cancel ' + workoutModel.get('ClassDescription')['Name'],
+          buttonEscape: 'No',
+        })
+        this.shader.html( this.signinTemplate(workoutModel.toJSON()) );
+        break;
+
+    }
+
+    // this.shader.html(this.signinTemplate(workoutModel.toJSON()));
   },
 
   errClassNotAvailable: function(errMessage){

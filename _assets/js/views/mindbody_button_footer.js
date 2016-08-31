@@ -4,7 +4,8 @@ var Backbone = require ('backbone');
 var $ = require ('jquery');
 
 module.exports = Backbone.View.extend({
-  el: '#MINDBODY-footer-link',
+  // el: '#MINDBODY-footer-link',
+  el: '.MINDBODY-LINK',
 
   events: {
     'click': 'useButton'

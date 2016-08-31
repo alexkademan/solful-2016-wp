@@ -28,7 +28,7 @@ if($post->post_title == 'Contact Us'){
 			?>
 			&copy; <?php echo date('Y') . ' ' . get_bloginfo('title'); ?>
 		</div>
-		<a href="http://clients.mindbodyonline.com/ws.asp?studioid=44288&amp;stype=-7" id="MINDBODY-footer-link"><img src="<?php echo get_bloginfo('template_url') ?>/images/powered_by_mindbody-white.png" /></a>
+		<a href="http://clients.mindbodyonline.com/ws.asp?studioid=44288&amp;stype=-7" class="MINDBODY-LINK"><img src="<?php echo get_bloginfo('template_url') ?>/images/powered_by_mindbody-white.png" /></a>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 

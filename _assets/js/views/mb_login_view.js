@@ -13,6 +13,7 @@ module.exports = Backbone.View.extend({
   events:{
     'click a.logIn': 'logInUser',
     'click a.logOut': 'logOutUser'
+    // 'click a.MINDBODY-LINK': 'openMB'
   },
 
   initialize: function() {
@@ -190,52 +191,6 @@ module.exports = Backbone.View.extend({
 
       // add to the live model:
       this.adjustClientSchedule(clientSched);
-    }
-  },
-
-  addNewSignIn: function(data) {
-
-    var results = data.AddClientsToClassesResult;
-    if(results.Message) {
-      // the Message field PROBABLY means that there was an error:
-
-      // drill down to where there IS a message:
-      var errorCode = data['AddClientsToClassesResult']['Classes']['Class']['Clients']['Client']['ErrorCode'];
-      var errorMessage = data['AddClientsToClassesResult']['Classes']['Class']['Clients']['Client']['Messages']['string'];
-      console.log('error code: ' + errorCode);
-
-      switch (errorCode) {
-        case '602':
-          app.mbLogInForm.errClassNotAvailable('This class is no longer available for sign up.');
-          break;
-
-        case '603':
-          app.mbLogInForm.errClassNotAvailable('You have already logged into this class!');
-          break;
-
-      }
-
-
-    } else {
-
-      if(data['AddClientsToClassesResult']['Classes']['Class']['ID']) {
-        // the client just signed into a single class.
-        var newClassID = data['AddClientsToClassesResult']['Classes']['Class']['ID'];
-        var wholeSchedule = this.model.get('clientSchedule');
-
-        if(wholeSchedule === false){
-          // client hasn't signed up for anything other than this workout:
-          wholeSchedule = [newClassID];
-        } else {
-          wholeSchedule.push(newClassID);
-        }
-        // send what we've gathered to the model.
-        this.adjustClientSchedule(wholeSchedule);
-
-
-        // done, so destroy the form:
-        this.model.set({loginFormVisible: false});
-      }
     }
   },
 

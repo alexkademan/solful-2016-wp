@@ -11,11 +11,7 @@
   <br /><span class="countdown"></span>
 </script>
 
-<script type="text/template" id="mb-login-form">
-  <div class="non-mobile-shader">
-
-  </div>
-</script>
+<script type="text/template" id="mb-login-form"><div class="non-mobile-shader"></div></script>
 
 <script type="text/template" id="mb-log-in-fields">
   <div class="login">
@@ -40,11 +36,9 @@
   </div>
 </script>
 
-
-
 <script type="text/template" id="mb-sign-in-fields">
   <div class="login">
-    <h3>Join <%- ClassDescription.Name %></h3>
+    <h3><%- dialogMessage %></h3>
     <p>
       <%- classStart.fullDate %><br />
       <%- classStart.hourCivilian %>:<%- classStart.minutes %> -
@@ -52,8 +46,8 @@
       <%- durationReadable %>
     </p>
     <span class="error"></span>
-    <a class="schedButton signin-button">Confirm</a>
-    <a class="schedButton cancel-button">Cancel</a>
+    <a class="schedButton <%- buttonClass %>"><%- buttonConfirm %></a>
+    <a class="schedButton cancel-button"><%- buttonEscape %></a>
     <span class="loading hid"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></span>
   </div>
 </script>
