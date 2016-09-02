@@ -11,6 +11,7 @@ module.exports = Backbone.View.extend({
 
   events: {
     'click div.non-mobile-shader': 'clickScreen',
+    'touchend div.non-mobile-shader': 'clickScreen',
     'keydown': 'keyAction'
   },
 
@@ -29,7 +30,13 @@ module.exports = Backbone.View.extend({
     this.model.on({'change:loginERRmessage': this.renderErrorMessage}, this);
   },
 
+  killPopOver: function(e) {
+    this.model.set({'loginFormVisible': false});
+  },
+
   clickScreen: function(e) {
+    // console.log(e.target.className);
+
     // remove the login form form the page:
     if(
       e.target.className === 'non-mobile-shader'
@@ -37,19 +44,19 @@ module.exports = Backbone.View.extend({
     ){
       e.preventDefault();
       // this will turn the pop-over off.
-      this.model.set({'loginFormVisible': false});
+      this.killPopOver();
     };
 
     if( e.target.className === 'schedButton signin-button' ){
       e.preventDefault();
       this.requestSignIn('join');
-    }
+    };
 
     if( e.target.className === 'schedButton cancel-class-button' ){
       // cancel appointment button.
       e.preventDefault();
       this.requestSignIn('cancel');
-    }
+    };
 
     // submit the form via AJAX:
     if(e.target.className === 'mb-login-button'){
@@ -57,6 +64,11 @@ module.exports = Backbone.View.extend({
       e.preventDefault();
       this.model.set({'loginERRmessage': ''});
       this.checkForm();
+    };
+
+    // close button on the form. (x in a circle)
+    if(e.target.className === 'fa fa-times fa-lg closeForm'){
+      this.killPopOver();
     }
   },
 
@@ -131,7 +143,7 @@ module.exports = Backbone.View.extend({
 
     // show the shader that will contain the form:
     this.$el.html(this.template());
-    this.shader = this.$('div.non-mobile-shader');
+    this.formFields = this.$('span.fields');
 
 
     if(this.model.get('loggedIn') === false){
@@ -154,7 +166,7 @@ module.exports = Backbone.View.extend({
 
   showLogInForm: function(workoutModel){
     // clear the form if its been used already:
-    this.shader.html('');
+    this.formFields.html('');
 
     // will be needed if the user logs in, or wants to go directly to MINDBODY
     // and ignore all my wonderful software.
@@ -179,7 +191,7 @@ module.exports = Backbone.View.extend({
     }
 
     // show the form:
-    this.shader.html(this.loginTemplate(this.model.toJSON()));
+    this.formFields.html(this.loginTemplate(this.model.toJSON()));
 
     // focus on the sign-in form for convenience:
     if(cookieArray['mb-client-username']){
@@ -223,17 +235,17 @@ module.exports = Backbone.View.extend({
 
   showSignInForm: function(workoutModel){
     // clean slate:
-    this.shader.html('');
+    this.formFields.html('');
 
     switch(workoutModel.get('classStatus')) {
       case 'available':
         workoutModel.set({
           dialogMessage: 'Join ' + workoutModel.get('ClassDescription')['Name'],
           buttonClass: 'signin-button',
-          buttonConfirm: 'Confirm',
+          buttonConfirm: 'Join!',
           buttonEscape: 'Cancel',
         })
-        this.shader.html( this.signinTemplate(workoutModel.toJSON()) );
+        this.formFields.html( this.signinTemplate(workoutModel.toJSON()) );
         break;
 
       case 'enrolled':
@@ -243,12 +255,11 @@ module.exports = Backbone.View.extend({
           buttonConfirm: 'Yes, cancel ' + workoutModel.get('ClassDescription')['Name'],
           buttonEscape: 'No',
         })
-        this.shader.html( this.signinTemplate(workoutModel.toJSON()) );
+        this.formFields.html( this.signinTemplate(workoutModel.toJSON()) );
         break;
 
     }
 
-    // this.shader.html(this.signinTemplate(workoutModel.toJSON()));
   },
 
   errClassNotAvailable: function(errMessage, option){

@@ -3,6 +3,7 @@ body {
   // this color fills out the footer
   // background: darken($color-solful-red, 10%);
   background: darken( #333, 0%);
+  background: #000;
 }
 
 body > div.site,
@@ -62,7 +63,7 @@ div.content {
 }
 
 .site-footer > a {
-  max-width: pem(190);
+  max-width: pem(120);
 }
 
 

@@ -68,8 +68,16 @@ ul.classes li.canceled hgroup {
 }
 ul.classes li.missed hgroup,
 ul.classes li.completed hgroup,
-ul.classes li.canceled hgroup {
+ul.classes li.canceled hgroup,
+li.completed a.cancel-button,
+.no-touchevents li.completed a.cancel-button:hover {
   color: lighten($base-font-color, 40%);
+  background: transparent;
+  text-decoration: none;
+}
+
+li.completed a.cancel-button {
+  cursor: text;
 }
 ul.classes li.canceled hgroup h2 {
   text-decoration: line-through;
@@ -111,10 +119,6 @@ ul.classes li.showTrainer div.trainerNFO {
   height: auto;
 }
 
-ul.classes li.enrolled {
-  // background: #FCF;
-}
-
 // buttons
 a.schedButton {
   background: lighten($color-solful-red, 0%);
@@ -137,7 +141,6 @@ div.login a.cancel-class-button {
   margin-bottom: 0.5em;
 }
 a.cancel-button {
-  background: darken(#F4F4F4, 5%);
   background: transparent;
   color: $base-font-color;
   .no-touchevents &:hover {
@@ -146,6 +149,11 @@ a.cancel-button {
   }
 }
 
+li.completed a.cancel-button {
+
+  .no-touchevents &:hover {
+  }
+}
 div.login a.cancel-button {
   background: darken(#F4F4F4, 15%);
 }

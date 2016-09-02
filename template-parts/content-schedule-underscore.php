@@ -1,6 +1,12 @@
 <?php
 
 // underscore templates: --------------------------------------------------------------------------------
+
+
+// sign in button template:
+echo '<script type="text/template" id="mb-appointment-signIn">';
+echo  '<a href="<%- signupURL %>" class="schedButton <%- buttonClass %>"><%- buttonName %></a>';
+echo '</script>';
 ?>
 <script type="text/template" id="mb-day-template">
   <h1><%- info["dayOfWeek"] %> <%- info["fullMonth"] %> <%- info["day"] %></h1>
@@ -21,24 +27,16 @@
   </div>
 </script>
 
-<script type="text/template" id="mb-appointment-signIn">
-  <a href="<%- signupURL %>" class="schedButton sign-in-button">Sign In</a>
-</script>
-
-<script type="text/template" id="mb-appointment-cancel">
-  <a href="<%- signupURL %>" class="schedButton cancel-button">Registered</a>
-</script>
-
 <script type="text/template" id="mb-appointment-nfo">
   <div class="classNFO">
     <span>
-      <%= IsCanceled ? '' : "" + durationReadable + "" %>
+      <%= IsCanceled ? "" : durationReadable %>
       <%= IsCanceled ? Staff['Name'] : '<div class="trainerName">With: '+Staff['Name'] + '</div>' %><br />
 
       <div class="trainerNFO">
         <div class="workout-desc bio">
-          <%= Staff['ImageURL'] ? '<img src="' + Staff['ImageURL'] + '" />' : '' %>
-          <%= '<div class="desc">' + Staff['Bio'] + '</div>' %>
+          <%= Staff["ImageURL"] ? "<img src=\"" + Staff['ImageURL'] + '" />' : '' %>
+          <div class="desc"><%= Staff["Bio"] %></div>
         </div>
       </div>
 

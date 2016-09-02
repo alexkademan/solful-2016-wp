@@ -16,7 +16,7 @@ module.exports = Backbone.View.extend({
   },
 
   initialize: function() {
-
+    
     this.checkAvailable();
     // buttons:
     this.model.on({'change:toggleInfo': this.toggleInfo}, this);
@@ -27,7 +27,6 @@ module.exports = Backbone.View.extend({
     this.model.on({'change:IsEnrolled': this.checkAvailable}, this);
 
     // monitor to see if used is signed in for this class.
-    // app.mindbodyModel.on({'change:clientSchedule': this.checkSignIn}, this);
     app.mindbodyModel.on({'change:clientSchedCount': this.checkSignIn}, this);
     app.mindbodyModel.on({'change:currentTime': this.checkAvailable}, this);
   },
@@ -53,7 +52,7 @@ module.exports = Backbone.View.extend({
     this.$el.append(infoTemplate(this.model.toJSON()));
 
     // set some stuff for the next couple-a-steps:
-    this.templateCancel = _.template($('#mb-appointment-cancel').html());
+    // this.templateCancel = _.template($('#mb-appointment-cancel').html());
     this.templateSignIn = _.template($('#mb-appointment-signIn').html());
 
     this.signUpNode = this.$('div.signUp');
@@ -151,17 +150,29 @@ module.exports = Backbone.View.extend({
 
       case 'available':
         this.$el.removeClass().addClass('available');
+        this.model.set({
+          buttonClass: 'sign-in-button',
+          buttonName: 'Sign In'
+        });
         theButton = this.templateSignIn(this.model.toJSON());
         break;
 
       case 'enrolled':
         this.$el.removeClass().addClass('enrolled');
-        theButton = this.templateCancel(this.model.toJSON());
+        this.model.set({
+          buttonClass: 'cancel-button',
+          buttonName: 'Registered'
+        });
+        theButton = this.templateSignIn(this.model.toJSON());
         break;
 
       case 'lateCancel':
         this.$el.removeClass().addClass('lateCancel');
-        theButton = this.templateCancel(this.model.toJSON());
+        this.model.set({
+          buttonClass: 'cancel-button',
+          buttonName: 'Registered'
+        });
+        theButton = this.templateSignIn(this.model.toJSON());
         break;
 
       case 'missed':
@@ -170,7 +181,11 @@ module.exports = Backbone.View.extend({
 
       case 'completed':
         this.$el.removeClass().addClass('completed');
-        theButton = this.templateCancel(this.model.toJSON());
+        this.model.set({
+          buttonClass: 'cancel-button',
+          buttonName: 'Completed'
+        });
+        theButton = this.templateSignIn(this.model.toJSON());
         break;
 
     }
@@ -217,7 +232,7 @@ module.exports = Backbone.View.extend({
 
         if(this.model.get('IsWaitlistAvailable') === true) {
           console.log(this.model.get('ClassDescription')['Name'] + ' is wait list only. Fully booked');
-          this.$('h3').html( '*********** WAITING LIST ONLY. ***********' );
+          // this.$('h3').html( '*********** WAITING LIST ONLY. ***********' );
         } else {
           this.model.set({'classStatus': 'available'});
         }
