@@ -60,6 +60,9 @@ nav.site-nav {
   border-bottom: none;
   overflow: visible;
 }
+nav.site-nav a {
+  color: #F4F4F4;
+}
 nav.site-nav > span {
   position: absolute;
   height: auto;
@@ -97,6 +100,17 @@ ul.mainNav li a {
     background: transparent;
   }
 }
+
+// masthead login button below this line *************************
+div.mastheadLogin {
+  height: $nav-height-medium;
+}
+
+div.mastheadLogin a.logIn {
+  padding: 36px ($main_gutter * 0.5) 22px;
+  line-height: 22px;
+}
+
 /* **********************
   masthead HIDDEN:
 ********************** */

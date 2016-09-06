@@ -21,9 +21,16 @@ echo '</script>';
   <a class="logIn">Sign in</a>
 </script>
 <script type="text/template" id="mb-login-user">
-  <a class="account"><%- client["FirstName"] %></div>
-  <a class="logOut">log out</div>
-  <br /><span class="countdown"></span>
+  <a class="mbAccount">
+    <span>
+      <i class="fa fa-user" aria-hidden="true"></i>
+    </span>
+    <!-- <%- client["FirstName"] %> -->
+  </a>
+  <br />
+  <a class="logOut">Sign out</a>
+  <br />
+  <span class="countdown"></span>
 </script>
 
 

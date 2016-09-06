@@ -1,3 +1,4 @@
+
 div.loginForm div.login,
 div.loginForm div.login span.error p,
 div.loginForm div.login span.loading {
@@ -7,23 +8,6 @@ div.loginForm div.login span.loading {
   @include border-bottom-radius($this-things-border);
   @include border-left-radius($this-things-border);
 }
-
-div.MB-login {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #FFF;
-  z-index: 1;
-  height: $nav-height-mobile;
-  padding: ($gutter * 1.3) ($main-gutter * 0.5) 0;
-
-}
-div.MB-login:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-
 // the login form pop-over:
 div.loginForm{
   position: fixed;

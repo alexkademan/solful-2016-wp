@@ -418,6 +418,11 @@ ul.mb_data div.trainerName {
 nav.site-nav a {
   color: #000; }
 
+div.mastheadLogin a.logIn,
+div.mastheadLogin a.mbAccount {
+  font-family: 'bebas-light';
+  letter-spacing: 0.07em; }
+
 a.sign_up_now h1 {
   font-family: 'bebas-book';
   padding-bottom: 0;
@@ -444,8 +449,8 @@ hr {
   margin: 1.5em 0; }
 
 @media (min-width: 45em) {
-  ul.mainNav li a {
-    color: #F4F4F4;
+  ul.mainNav li a,
+  div.mastheadLogin a.logIn {
     font-size: 22px;
     font-family: 'bebas-light';
     letter-spacing: 0.07em; } }
@@ -2622,6 +2627,9 @@ div.site {
 /* ***********************
   basics
 *********************** */
+header.site_header {
+  position: relative; }
+
 header.site_header span.stripe {
   height: 60px;
   position: fixed;
@@ -2733,10 +2741,58 @@ ul.subNav li a {
 ul.subNav li a {
   background: #CCC; }
 
-.no-touchevents nav.site-nav a:hover {
-  text-decoration: none;
-  color: #000;
-  background: #F4F4F4; }
+nav.site-nav a {
+  color: #4d4d4d; }
+  .no-touchevents nav.site-nav a:hover {
+    text-decoration: none;
+    color: #000;
+    background: #F4F4F4; }
+
+div.mastheadLogin {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #FFF;
+  z-index: 1;
+  height: 60px;
+  color: #ef4137; }
+  div.mastheadLogin:hover {
+    cursor: pointer; }
+
+div.mastheadLogin a.logIn {
+  display: block;
+  background-color: transparent;
+  padding: 0 0.40046em;
+  text-align: center;
+  font-size: 22px;
+  line-height: 60px;
+  -webkit-transition: color 0.25s;
+  transition: color 0.25s;
+  color: #e11d12; }
+  .no-touchevents div.mastheadLogin a.logIn:hover {
+    color: #ef4137;
+    background: transparent;
+    text-decoration: none; }
+
+div.mastheadLogin a.mbAccount {
+  padding: 0.5em;
+  display: block;
+  font-size: 22px;
+  height: 60px; }
+  div.mastheadLogin a.mbAccount > span {
+    display: block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border: 3px #c91a10 solid;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-left-radius: 50%; }
 
 /* **********************
   mobile menu ON:
@@ -2871,6 +2927,8 @@ body.main_nav_on span.toggle_menu {
     min-height: 80px;
     border-bottom: none;
     overflow: visible; }
+  nav.site-nav a {
+    color: #F4F4F4; }
   nav.site-nav > span {
     position: absolute;
     height: auto;
@@ -2908,6 +2966,11 @@ body.main_nav_on span.toggle_menu {
     .no-touchevents ul.mainNav li a:hover {
       color: #cccccc;
       background: transparent; }
+  div.mastheadLogin {
+    height: 80px; }
+  div.mastheadLogin a.logIn {
+    padding: 36px 0.60675em 22px;
+    line-height: 22px; }
   /* **********************
   masthead HIDDEN:
 ********************** */
@@ -3419,19 +3482,6 @@ div.loginForm div.login span.loading {
   border-bottom-right-radius: 0.3125em;
   border-bottom-left-radius: 0.3125em;
   border-top-left-radius: 0.3125em; }
-
-div.MB-login {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #FFF;
-  z-index: 1;
-  height: 60px;
-  padding: 2.1034em 0.60675em 0; }
-
-div.MB-login:hover {
-  text-decoration: underline;
-  cursor: pointer; }
 
 div.loginForm {
   position: fixed;

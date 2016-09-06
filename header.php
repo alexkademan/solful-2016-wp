@@ -42,7 +42,7 @@ require get_template_directory() . '/custom-objects/custom-objects.php';
 	      <a class="site-title" href="<?php echo get_bloginfo('wpurl') ?>">
 					<h1><?php echo get_bloginfo('title') ?></h1>
 				</a>
-				<div id="MB-login" class="MB-login">
+				<div id="mastheadLogin" class="mastheadLogin">
 					<a href="<?php echo get_bloginfo('template_url') . '/MINDBODY/' ?>" id="mb-login-mbFeedURL" class="hid"></a>
 				</div>
 	    </span>

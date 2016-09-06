@@ -44,3 +44,12 @@
 	@if $bottomleft > 0 { border-bottom-left-radius: $bottomleft; }
 
 }
+
+
+@mixin all-corners( $radius: 50% ) {
+
+  @include border-top-radius( $radius );
+  @include border-right-radius( $radius );
+  @include border-bottom-radius( $radius );
+  @include border-left-radius( $radius );
+}

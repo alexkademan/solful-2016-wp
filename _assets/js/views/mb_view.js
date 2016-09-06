@@ -21,6 +21,7 @@ var LoginView = require('./mb_login_view');
 var LoginForm = require('./mb_login_form_view');
 var SignUpForm = require('./mb_sign_up_view');
 
+
 var ClassSignInOut = require('./mb_class_sign_in_out');
 
 module.exports = Backbone.View.extend({

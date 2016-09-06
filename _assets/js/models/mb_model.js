@@ -26,7 +26,6 @@ module.exports = Backbone.Model.extend({
 
     pageLoadTime: '',
     loginMaxTime: 3000, // need to automatically log the client out after 50 minutes. (3000 seconds)
-    // loginMaxTime: 120, // 2 minute timer just for testing.
     loginTime: '', // the time that the client logged in.
     currentTime: '', // time of day (in seconds)
 
@@ -38,6 +37,8 @@ module.exports = Backbone.Model.extend({
     cachedUserName: '', // this gets added to the cookie at successful login, to auto-fill the login form field.
     GUID: false, // USER ID with MINDBODY issued at login.
     client: false, // array of info that comes back from the API about the user.
+
+    clientInfoVisible: false, // show or hide the info about the logged in visitor
 
     clientSchedule: false, // gonna be an array of the classes that the client is signed up for.
     clientSchedCount: 0, // number of classes that the client is enrolled in. This will be watched for state changes.

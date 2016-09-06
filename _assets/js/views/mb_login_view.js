@@ -5,15 +5,16 @@ var Backbone = require ('backbone');
 var _ = require ('underscore');
 var $ = require ('jquery');
 
+var ClientInfo = require('./mb_client_account_view');
 // var LoginForm = require('./mb_login_form_view');
 
 module.exports = Backbone.View.extend({
-  el: '#MB-login',
+  el: '#mastheadLogin',
 
   events:{
     'click a.logIn': 'logInUser',
-    'click a.logOut': 'logOutUser'
-    // 'click a.MINDBODY-LINK': 'openMB'
+    'click a.logOut': 'logOutUser',
+    'click a.mbAccount': 'toggleAccountInfo'
   },
 
   initialize: function() {
@@ -35,6 +36,15 @@ module.exports = Backbone.View.extend({
     };
   },
 
+  toggleAccountInfo: function() {
+    // if the account info isn't showing and the client IS logged in:
+    if( this.model.get('clientInfoVisible') === false && this.model.get('loggedIn') === true ){
+      this.model.set({clientInfoVisible: true});
+    } else {
+      this.model.set({clientInfoVisible: false});
+    };
+  },
+
   logOutUser: function() {
     // this call erases the session, and removes session data from model.
     if(this.model.get('loggedIn') === true){
@@ -43,6 +53,7 @@ module.exports = Backbone.View.extend({
   },
 
   logInUser: function() {
+    console.log('loginUser');
     app.mbLogInForm.showForm();
   },
 
@@ -122,10 +133,14 @@ module.exports = Backbone.View.extend({
 
   },
   renderUser: function(){
+    console.log('logged in, rendring status...');
     var templateUser = _.template($('#mb-login-user').html());
     // clean out the old:
     this.$el.empty();
     this.$el.append(templateUser(this.model.toJSON()));
+
+    // the stuff that display's info about the logged in client:
+    app.clientInfoView = new ClientInfo({model: this.model});
   },
 
   showCountDown: function(secondsToLogout) {

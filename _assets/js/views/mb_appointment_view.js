@@ -16,7 +16,6 @@ module.exports = Backbone.View.extend({
   },
 
   initialize: function() {
-    
     this.checkAvailable();
     // buttons:
     this.model.on({'change:toggleInfo': this.toggleInfo}, this);
