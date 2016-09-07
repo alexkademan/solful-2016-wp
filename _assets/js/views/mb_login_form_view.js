@@ -27,7 +27,7 @@ module.exports = Backbone.View.extend({
     this.loginTemplate = _.template($('#mb-log-in-fields').html());
     this.signinTemplate = _.template($('#mb-sign-in-fields').html());
 
-    this.model.on({'change:loginFormVisible': this.loginToggle}, this);
+    this.model.on({'change:loginFormVisible': this.removePopOver}, this);
     this.model.on({'change:loginFormWaiting': this.loginWaiting}, this);
     this.model.on({'change:loginERRmessage': this.renderErrorMessage}, this);
     this.model.on({'change:clientInfoVisible': this.toggleAccountInfo}, this);
@@ -83,13 +83,6 @@ module.exports = Backbone.View.extend({
     };
   },
 
-  loginToggle: function(){
-    // hide the login form, if the model says it shouldn't be here:
-    if (this.model.get('loginFormVisible') === false ){
-      this.$el.empty();
-    }
-  },
-
   requestSignIn: function(joinOrCancel) {
     // someone pushed the "confirm" button to sign up for a class
     var clientID = this.model.get('client')['ID'];
@@ -142,6 +135,37 @@ module.exports = Backbone.View.extend({
     console.log('renderbackgroundshader');
     this.$el.html( this.template() );
     this.formFields = this.$('span.fields');
+  },
+
+  removePopOver: function(){
+    // hide the login form, if the model says it shouldn't be here:
+    if (this.model.get('loginFormVisible') === false ){
+      console.log('close the pop-over');
+
+      // remove the content of the pop-over...
+      this.formFields.empty();
+
+      // remove the close button:
+      this.$('.closeForm').addClass('hid');
+
+      // fade out background:
+      this.$('div.non-mobile-shader').addClass('non-mobile-shader-fadeOut');
+
+
+      // this.$el.empty();
+      console.log(this.$el);
+
+      setTimeout(function(){
+        // give the shader a half-second to fade away,
+        // the eliminate it.
+        app.mbLogInForm.removeShader();
+      }, 125);
+
+    }
+  },
+
+  removeShader: function() {
+    this.$el.empty();
   },
 
   showPopOver: function(formType) {
