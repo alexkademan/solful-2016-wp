@@ -4,7 +4,6 @@ var $ = require ('jquery');
 
 module.exports = Backbone.View.extend({
   initialize: function(){
-    console.log('mbClientInfoView');
     this.model.on({'change:clientInfoVisible': this.showHideAccountInfo}, this);
   },
 
