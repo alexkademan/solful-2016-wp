@@ -65,6 +65,6 @@ echo    '<%- client["Email"] %><br />';
 echo    '<%- client["AddressLine1"] %><br />';
 echo    '<%- client["City"] + " " + client["State"] + ", " + client["PostalCode"] %>';
 echo  '</p>';
-echo  '<p><a href="<%- urlMINDBODY %>" target="_blank">Manage your account with MINDBODY</a></p>';
+echo  '<p><a href="<%- urlMINDBODY %>" target="_blank">Manage my account with MINDBODY</a></p>';
 // echo  '<p>Automatic log out: <span class="countdown"><%- clientCountDownR %></span></p>';
 echo'</script>';

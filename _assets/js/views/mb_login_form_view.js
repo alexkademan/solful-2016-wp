@@ -132,7 +132,6 @@ module.exports = Backbone.View.extend({
   },
 
   renderBackgroundShader: function() {
-    console.log('renderbackgroundshader');
     this.$el.html( this.template() );
     this.formFields = this.$('span.fields');
   },
@@ -140,20 +139,13 @@ module.exports = Backbone.View.extend({
   removePopOver: function(){
     // hide the login form, if the model says it shouldn't be here:
     if (this.model.get('loginFormVisible') === false ){
-      console.log('close the pop-over');
-
       // remove the content of the pop-over...
       this.formFields.empty();
-
-      // remove the close button:
+      // hide the close button:
       this.$('.closeForm').addClass('hid');
 
       // fade out background:
       this.$('div.non-mobile-shader').addClass('non-mobile-shader-fadeOut');
-
-
-      // this.$el.empty();
-      console.log(this.$el);
 
       setTimeout(function(){
         // give the shader a half-second to fade away,
