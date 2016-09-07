@@ -5,7 +5,7 @@ var Backbone = require ('backbone');
 var _ = require ('underscore');
 var $ = require ('jquery');
 
-var ClientInfo = require('./mb_client_account_view');
+// var ClientInfo = require('./mb_client_account_view');
 // var LoginForm = require('./mb_login_form_view');
 
 module.exports = Backbone.View.extend({
@@ -69,24 +69,32 @@ module.exports = Backbone.View.extend({
         // clientSchedule: false,
         // clientSchedCount: 0,
         loggedIn: false,
-        loginTime: ''
+        loginTime: '',
+        clientCountDown: false, // the countdown to auto-logout
+        clientCountDownR: false // Readable client count down (like a clock)
       });
 
       // kill off the schedule cookie
       this.adjustClientSchedule(false);
       // document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
+      // make the login form disappear, if it's still around:
+      app.mbLogInForm.killPopOver();
+
 
     } else if(data['GUID']) {
       // the user JUST got her login credentials.
+      // or reloaded the page while logged in.
       this.model.set({
         GUID: data['GUID'],
         client: data['client'],
         loggedIn: true,
         loginFormWaiting: false,
-        // loginFormVisible: false,
         loginTime: data['loginTime']
       });
+
+      // start the countdown for automatic logout.
+      app.mindbodyView.checkStatus();
 
       // now that we're logged in, get info about the client:
       this.getClientInfo(data);
@@ -135,19 +143,13 @@ module.exports = Backbone.View.extend({
 
   },
   renderUser: function(){
-    console.log('logged in, rendring status...');
     var templateUser = _.template($('#mb-login-user').html());
     // clean out the old:
     this.$el.empty();
     this.$el.append(templateUser(this.model.toJSON()));
 
     // the stuff that display's info about the logged in client:
-    app.clientInfoView = new ClientInfo({model: this.model});
-  },
-
-  showCountDown: function(secondsToLogout) {
-    var timeRemaining = app.findDayInfo.findClockValue(secondsToLogout);
-    this.$('span.countdown').html(timeRemaining);
+    // app.clientInfoView = new ClientInfo({model: this.model});
   },
 
   getClientInfo: function() {

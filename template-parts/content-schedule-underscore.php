@@ -1,37 +1,38 @@
 <?php
 
-// underscore templates: --------------------------------------------------------------------------------
-
-
 // sign in button template:
 echo '<script type="text/template" id="mb-appointment-signIn">';
 echo  '<a href="<%- signupURL %>" class="schedButton <%- buttonClass %>"><%- buttonName %></a>';
 echo '</script>';
-?>
-<script type="text/template" id="mb-day-template">
-  <h1><%- info["dayOfWeek"] %> <%- info["fullMonth"] %> <%- info["day"] %></h1>
-  <ul class="classes"></ul>
-</script>
 
-<script type="text/template" id="mb-appointment-template">
-  <hgroup class="toggle">
-    <h2><%- ClassDescription["Name"] %></h2>
-    <h3>
-      <%- classStart["hourCivilian"] + ':' + classStart["minutes"] + ' - ' %>
-      <%- classEnd["hourCivilian"] + ':' + classEnd["minutes"] + ' ' + classEnd["am_pm"] %>
-      <%- IsCanceled ? Staff['Name'] : '' %>
-      <span class="countdown"></span>
-    </h3>
-  </hgroup>
-  <div class="signUp">
-  </div>
-</script>
+// Day worth of workouts
+echo '<script type="text/template" id="mb-day-template">';
+echo   '<h1><%- info["dayOfWeek"] %> <%- info["fullMonth"] %> <%- info["day"] %></h1>';
+echo   '<ul class="classes"></ul>';
+echo '</script>';
+
+// individual workout:
+echo '<script type="text/template" id="mb-appointment-template">';
+echo   '<hgroup class="toggle">';
+echo     '<h2><%- ClassDescription["Name"] %></h2>';
+echo     '<h3>';
+echo       '<%- classStart["hourCivilian"] + ":" + classStart["minutes"] + " - " %>';
+echo       '<%- classEnd["hourCivilian"] + ":" + classEnd["minutes"] + " " + classEnd["am_pm"] %>';
+echo       '<%- IsCanceled ? Staff["Name"] : "" %>';
+echo       '<span class="countdown"></span>';
+echo     '</h3>';
+echo   '</hgroup>';
+echo   '<div class="signUp">';
+echo   '</div>';
+echo '</script>';
+
+?>
 
 <script type="text/template" id="mb-appointment-nfo">
   <div class="classNFO">
     <span>
       <%= IsCanceled ? "" : durationReadable %>
-      <%= IsCanceled ? Staff['Name'] : '<div class="trainerName">With: '+Staff['Name'] + '</div>' %><br />
+      <%= IsCanceled ? Staff["Name"] : "<div class=\"trainerName\">With: " + Staff["Name"] + "</div>" %><br />
 
       <div class="trainerNFO">
         <div class="workout-desc bio">

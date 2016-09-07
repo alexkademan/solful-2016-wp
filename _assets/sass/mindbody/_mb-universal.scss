@@ -132,6 +132,11 @@ a.schedButton {
     background: darken($color-solful-red, 10%);
   }
 }
+a.schedButton i {
+  // display: block;
+  padding-right: 0.3em;
+}
+
 div.login a.schedButton {
   display: block;
   width: 100%;

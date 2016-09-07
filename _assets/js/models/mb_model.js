@@ -38,6 +38,9 @@ module.exports = Backbone.Model.extend({
     GUID: false, // USER ID with MINDBODY issued at login.
     client: false, // array of info that comes back from the API about the user.
 
+    clientCountDown: false, // number of seconds until auto-logout
+    clientCountDownR: false, // Readable, (looks like a clock)
+
     clientInfoVisible: false, // show or hide the info about the logged in visitor
 
     clientSchedule: false, // gonna be an array of the classes that the client is signed up for.

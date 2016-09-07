@@ -5,6 +5,8 @@ var Backbone = require ('backbone');
 var _ = require ('underscore');
 var $ = require ('jquery');
 
+var ClientInfo = require('./mb_client_account_view');
+
 module.exports = Backbone.View.extend({
 
   el: document.body,
@@ -28,6 +30,7 @@ module.exports = Backbone.View.extend({
     this.model.on({'change:loginFormVisible': this.loginToggle}, this);
     this.model.on({'change:loginFormWaiting': this.loginWaiting}, this);
     this.model.on({'change:loginERRmessage': this.renderErrorMessage}, this);
+    this.model.on({'change:clientInfoVisible': this.toggleAccountInfo}, this);
   },
 
   killPopOver: function(e) {
@@ -125,15 +128,34 @@ module.exports = Backbone.View.extend({
     }
   },
 
-  showShader: function(formType) {
+  toggleAccountInfo: function() {
+    // the button was pushed to show/hide the users account info (if they're logged in)
+    if(this.model.get('clientInfoVisible') === true){
+      this.showPopOver('accountInfo');
 
-    console.log(formType);
+    } else {
+      // remove the account info
+    }
+  },
+
+  renderBackgroundShader: function() {
+    console.log('renderbackgroundshader');
+    this.$el.html( this.template() );
+    this.formFields = this.$('span.fields');
+  },
+
+  showPopOver: function(formType) {
     // show the shader that will contain the form:
-    this.$el.html(this.template());
+    this.renderBackgroundShader();
+
+    if(formType === 'accountInfo') {
+      var clientInfo = new ClientInfo({model: this.model});
+      this.formFields.append(clientInfo.renderInfo().el);
+    }
+
   },
 
   showForm: function(workoutModel) {
-    console.log(workoutModel);
     // store the class ID if there is one for use on the login screen:
     if(workoutModel !== undefined){
       this.model.set({'workoutRequestedID': workoutModel.get('ID')});
@@ -148,11 +170,8 @@ module.exports = Backbone.View.extend({
       });
     }
 
-
     // show the shader that will contain the form:
-    this.$el.html(this.template());
-    this.formFields = this.$('span.fields');
-
+    this.renderBackgroundShader();
 
     if(this.model.get('loggedIn') === false){
       // either the user clicked "log in" in the masthead,

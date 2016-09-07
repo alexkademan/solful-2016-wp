@@ -47,7 +47,6 @@ module.exports = Backbone.View.extend({
       theButton.html('Show More');
       theBio.addClass('showLess');
     }
-    // console.log('adjustBio');
   }
 
 });

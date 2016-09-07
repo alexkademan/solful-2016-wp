@@ -173,15 +173,24 @@ module.exports = Backbone.View.extend({
   checkStatus: function() {
     // runs every second to check if the logged in user needs to be logged out. (they get 50 minutes)
     if( this.model.get('loggedIn') === true ){
+      // variables
       var currentTime = Number(this.model.get('currentTime'));
       var loginTime = Number(this.model.get('loginTime'));
       var loginMaxTime = Number(this.model.get('loginMaxTime'));
 
       if(currentTime >= (loginTime + loginMaxTime)){
+        // user login is expired:
         app.mbLogInView.logOutUser();
       } else {
+        // login isn't expired:
         var secondsToLogout = (loginTime +loginMaxTime) - currentTime;
-        app.mbLogInView.showCountDown(secondsToLogout);
+
+        // record the countdown to the model
+        this.model.set({
+          clientCountDown: secondsToLogout,
+          clientCountDownR: app.findDayInfo.findClockValue(secondsToLogout)
+        });
+
       }
     };
   },

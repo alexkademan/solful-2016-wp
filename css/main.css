@@ -3318,6 +3318,9 @@ a.schedButton {
     color: #FFF;
     background: #e11d12; }
 
+a.schedButton i {
+  padding-right: 0.3em; }
+
 div.login a.schedButton {
   display: block;
   width: 100%; }
