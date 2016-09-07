@@ -31,12 +31,13 @@ module.exports = Backbone.View.extend({
   },
 
   killPopOver: function(e) {
-    this.model.set({'loginFormVisible': false});
+    this.model.set({
+      loginFormVisible: false,
+      clientInfoVisible: false
+    });
   },
 
   clickScreen: function(e) {
-    // console.log(e.target.className);
-
     // remove the login form form the page:
     if(
       e.target.className === 'non-mobile-shader'
@@ -124,8 +125,15 @@ module.exports = Backbone.View.extend({
     }
   },
 
-  showForm: function(workoutModel) {
+  showShader: function(formType) {
 
+    console.log(formType);
+    // show the shader that will contain the form:
+    this.$el.html(this.template());
+  },
+
+  showForm: function(workoutModel) {
+    console.log(workoutModel);
     // store the class ID if there is one for use on the login screen:
     if(workoutModel !== undefined){
       this.model.set({'workoutRequestedID': workoutModel.get('ID')});
@@ -158,9 +166,6 @@ module.exports = Backbone.View.extend({
       // skip the login form, the user is already signed in.
       this.showSignInForm(workoutModel);
     }
-
-
-
 
   },
 

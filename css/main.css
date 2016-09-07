@@ -3498,14 +3498,13 @@ div.loginForm > div.non-mobile-shader {
   clear: both;
   width: 100%;
   height: 312.5em;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(255, 255, 255, 0.95);
   padding: 1.25em 1.2135em 0; }
 
 div.loginForm div.login {
   display: block;
   position: relative;
   margin: 0 auto;
-  background: #FFF;
   max-width: 31.25em;
   padding: 1.2135em; }
 
@@ -3565,7 +3564,6 @@ div.loginForm div.login i.closeForm {
   background: #FFF;
   padding: 0.25em;
   color: #999;
-  border: 3px #999 solid;
   border-top-left-radius: 100%;
   border-top-right-radius: 100%;
   border-bottom-right-radius: 100%;
@@ -3574,6 +3572,8 @@ div.loginForm div.login i.closeForm {
   border-bottom-right-radius: 100%;
   border-bottom-left-radius: 100%;
   border-top-left-radius: 100%; }
+  .no-touchevents div.loginForm div.login i.closeForm:hover {
+    cursor: pointer; }
 
 div.loginForm div.login div.new-user {
   padding-top: 1em;

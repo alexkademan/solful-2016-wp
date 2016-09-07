@@ -14,7 +14,7 @@ module.exports = Backbone.View.extend({
   events:{
     'click a.logIn': 'logInUser',
     'click a.logOut': 'logOutUser',
-    'click a.mbAccount': 'toggleAccountInfo'
+    'click a.mbAccount span': 'toggleAccountInfo'
   },
 
   initialize: function() {
@@ -39,7 +39,10 @@ module.exports = Backbone.View.extend({
   toggleAccountInfo: function() {
     // if the account info isn't showing and the client IS logged in:
     if( this.model.get('clientInfoVisible') === false && this.model.get('loggedIn') === true ){
-      this.model.set({clientInfoVisible: true});
+      this.model.set({
+        clientInfoVisible: true,
+        loginFormVisible: true
+      });
     } else {
       this.model.set({clientInfoVisible: false});
     };
@@ -53,7 +56,6 @@ module.exports = Backbone.View.extend({
   },
 
   logInUser: function() {
-    console.log('loginUser');
     app.mbLogInForm.showForm();
   },
 

@@ -2,11 +2,7 @@
 div.loginForm div.login,
 div.loginForm div.login span.error p,
 div.loginForm div.login span.loading {
-  $this-things-border: pem(5);
-  @include border-top-radius($this-things-border);
-  @include border-right-radius($this-things-border);
-  @include border-bottom-radius($this-things-border);
-  @include border-left-radius($this-things-border);
+  @include all-corners(pem(5));
 }
 // the login form pop-over:
 div.loginForm{
@@ -25,7 +21,8 @@ div.loginForm > div.non-mobile-shader {
   clear: both;
   width: 100%;
   height: pem(5000);
-  background-color: rgba(0,0,0,0.7);
+  // background-color: rgba(0,0,0,0.7);
+  background-color: rgba(255,255,255,0.95);
   padding: pem(20) $main_gutter 0;
 }
 div.loginForm div.login {
@@ -33,7 +30,7 @@ div.loginForm div.login {
   position: relative;
 
   margin: 0 auto;
-  background: #FFF;
+  // background: #FFF;
   max-width: pem(500);
   padding: $main-gutter;
 }
@@ -101,13 +98,11 @@ div.loginForm div.login i.closeForm {
   background: #FFF;
   padding: 0.25em;
   color: #999;
-  border: 3px #999 solid;
-
-  $this-things-border: 100%;
-  @include border-top-radius($this-things-border);
-  @include border-right-radius($this-things-border);
-  @include border-bottom-radius($this-things-border);
-  @include border-left-radius($this-things-border);
+  // border: 3px #999 solid;
+  @include all-corners(100%);
+  .no-touchevents &:hover {
+    cursor: pointer;
+  }
 }
 div.loginForm div.login div.new-user {
   padding-top: 1em;
