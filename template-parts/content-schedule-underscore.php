@@ -26,39 +26,36 @@ echo   '<div class="signUp">';
 echo   '</div>';
 echo '</script>';
 
-?>
-
-<script type="text/template" id="mb-appointment-nfo">
-  <div class="classNFO">
-    <span>
-      <%= IsCanceled ? "" : durationReadable %>
-      <%= IsCanceled ? Staff["Name"] : "<div class=\"trainerName\">With: " + Staff["Name"] + "</div>" %><br />
-
-      <div class="trainerNFO">
-        <div class="workout-desc bio">
-          <%= Staff["ImageURL"] ? "<img src=\"" + Staff['ImageURL'] + '" />' : '' %>
-          <div class="desc"><%= Staff["Bio"] %></div>
-        </div>
-      </div>
-
-      <div class="workout-desc">
-        <%= ClassDescription['ImageURL'] ? '<img src="' + ClassDescription['ImageURL'] + '" />' : '' %>
-        <%= '<div class="desc">' + ClassDescription['Description'] + '</div>' %>
-      </div>
-    </span>
-  <div>
-</script>
+// info about an individual class.
+echo '<script type="text/template" id="mb-appointment-nfo">';
+echo   '<div class="classNFO">';
+echo     '<span>';
+echo       '<%= IsCanceled ? "" : durationReadable %>';
+echo       '<%= IsCanceled ? Staff["Name"] : "<div class=\"trainerName\">With: " + Staff["Name"] + "</div>" %><br />';
+echo       '<div class="trainerNFO">';
+echo         '<div class="workout-desc bio">';
+echo           '<%= Staff["ImageURL"] ? "<img src=\"" + Staff["ImageURL"] + "\" />" : "" %>';
+echo           '<div class="desc"><%= Staff["Bio"] %></div>';
+echo         '</div>';
+echo       '</div>';
+echo       '<div class="workout-desc">';
+echo         '<%= ClassDescription["ImageURL"] ? "<img src=\"" + ClassDescription["ImageURL"] + "\" />" : "" %>';
+echo         '<%= "<div class=\"desc\">" + ClassDescription["Description"] + "</div>" %>';
+echo       '</div>';
+echo     '</span>';
+echo   '<div>';
+echo '</script>';
 
 
-<script type="text/template" id="mb-trainer-appointment-template">
-  <div class="classNFO">
-    <span>
-      <%= IsCanceled ? Staff['Name'] : durationReadable + ' with '+Staff['Name'] %>
+echo '<script type="text/template" id="mb-trainer-appointment-template">';
+echo   '<div class="classNFO">';
+echo     '<span>';
+echo       '<%= IsCanceled ? Staff["Name"] : durationReadable + " with "+ Staff["Name"] %>';
 
-      <div class="workout-desc">
-        <%= ClassDescription['ImageURL'] ? '<img src="' + ClassDescription['ImageURL'] + '" />' : '' %>
-        <%= '<div class="desc">' + ClassDescription['Description'] + '</div>' %>
-      </div>
-    </span>
-  <div>
-</script>
+echo       '<div class="workout-desc">';
+echo         '<%= ClassDescription["ImageURL"] ? "<img src=\"" + ClassDescription["ImageURL"] + "\" />" : "" %>';
+echo         '<%= "<div class=\"desc\">" + ClassDescription["Description"] + "</div>" %>';
+echo       '</div>';
+echo     '</span>';
+echo   '<div>';
+echo '</script>';

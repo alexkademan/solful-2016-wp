@@ -133,6 +133,14 @@ module.exports = Backbone.View.extend({
 
   renderBackgroundShader: function() {
     this.$el.html( this.template() );
+
+    // fade IN background:
+    this.shaderFade('add');
+
+    setTimeout(function(){
+      app.mbLogInForm.removeShader('intro');
+    }, 5);
+
     this.formFields = this.$('span.fields');
   },
 
@@ -145,19 +153,36 @@ module.exports = Backbone.View.extend({
       this.$('.closeForm').addClass('hid');
 
       // fade out background:
-      this.$('div.non-mobile-shader').addClass('non-mobile-shader-fadeOut');
+      this.shaderFade('add');
 
       setTimeout(function(){
         // give the shader a half-second to fade away,
         // the eliminate it.
-        app.mbLogInForm.removeShader();
+        app.mbLogInForm.removeShader('outro');
       }, 125);
 
     }
   },
 
-  removeShader: function() {
-    this.$el.empty();
+  removeShader: function(inOrOut) {
+    if (inOrOut === 'intro'){
+      // this.$('div.non-mobile-shader').removeClass('non-mobile-shader-fadeOut');
+      this.shaderFade('remove');
+    } else if (inOrOut === 'outro'){
+      this.$el.empty();
+    }
+  },
+
+  shaderFade: function(addRemove) {
+    // this method just consolidates some calls to add/remove this particular classname:
+    var className = 'non-mobile-shader-fadeOut';
+
+    if(addRemove === 'add') {
+      this.$('div.non-mobile-shader').addClass(className);
+    } else if(addRemove === 'remove'){
+      this.$('div.non-mobile-shader').removeClass(className);
+    }
+
   },
 
   showPopOver: function(formType) {

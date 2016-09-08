@@ -19,7 +19,7 @@ module.exports = Backbone.View.extend({
   },
 
   initialize: function(){
-    this.model.on('change:mobileMenu', this.openClose);
+    this.model.on({'change:mobileMenu': this.openClose}, this);
 
     app.windowStatus.on({
       'change:palmSize': function(){
@@ -35,7 +35,6 @@ module.exports = Backbone.View.extend({
     this.breakpointChange(); // run this once to set the stage.
 
   },
-
   toggleMenu: function(e) {
     // just toggle the menu true/false:
     if(this.model.get('mobileMenu') === false){
@@ -45,10 +44,9 @@ module.exports = Backbone.View.extend({
     };
 
   },
-
   openClose: function(){
     // runs whenever menu is toggled:
-    if( app.mainNav.model.get('mobileMenu') === true ){
+    if( this.model.get('mobileMenu') === true ){
       // set class for CSS hook:
       $(document.body).addClass('main_nav_on');
       app.mainNavShader.openShader();
@@ -68,14 +66,12 @@ module.exports = Backbone.View.extend({
 
     };
   },
-
   closeMenus: function() {
     if( app.mainNav.model.get('mobileMenu') === true ){
       // trigger the standard shutdown:
       app.mainNav.model.set({'mobileMenu' : false });
     }
   },
-
   breakpointChange: function() {
 
     if( this.model.get('mobileMenu') === true){
@@ -102,7 +98,6 @@ module.exports = Backbone.View.extend({
 
     };
   },
-
   positionMasthead: function(scrollY) {
     if(scrollY === 0) {
       // this.$el.removeAttr('style');

@@ -16,9 +16,9 @@ div.loginForm{
 
 }
 div.loginForm > div.non-mobile-shader {
-  display: block;
-  float: left;
-  clear: both;
+  position: fixed;
+  left: 0;
+  top: 0;
   width: 100%;
   height: pem(5000);
   // background-color: rgba(0,0,0,0.7);

@@ -5,7 +5,9 @@ var _ = require ('underscore');
 var $ = require ('jquery');
 
 module.exports = Backbone.View.extend({
-
+  events: {
+    'click': function(e) { app.mainNav.closeMenus(); }
+  },
   initialize: function() {
 
     var node = document.createElement('span');
@@ -17,28 +19,11 @@ module.exports = Backbone.View.extend({
     node.onclick = function() {
       app.mainNavModel.set({ 'mobileMenu': false });
     }
-
-    app.windowStatus.on({
-      'change:windowHeight': function(){
-        app.mainNavShader.openShader();
-      }
-    });
-
-  },
-
-  events: {
-    'click': function(e) {
-      app.mainNav.closeMenus();
-    }
-  },
-
-  clickScreen: function(e) {
-    console.log(e.target.className);
+    app.windowStatus.on({'change:windowHeight': this.openShader}, this);
   },
 
   openShader: function() {
     if( app.mainNavModel.get('mobileMenu') === true ){
-      // this.$el.attr('style', 'height: ' + app.windowStatus.get('documentHeight') + 'px');
       this.$el.setAttribute("style", 'height: ' + app.windowStatus.get('documentHeight') + 'px');
     };
   },
@@ -55,7 +40,6 @@ module.exports = Backbone.View.extend({
   },
 
   removeStyle: function() {
-    // this.$el.removeAttr('style');
     this.$el.setAttribute("style", 'height: 0');
   }
 

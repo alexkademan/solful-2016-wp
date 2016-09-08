@@ -57,14 +57,14 @@ echo   '<a class="schedButton cancel-button"><%- buttonEscape %></a>';
 echo '</script>';
 
 // client info pop-over. Displays info about MINDBODY account
-echo'<script type="text/template" id="mb-client-account-info">';
-echo  '<h1><%- client["FirstName"] %> <%- client["LastName"] %></h1>';
-echo  '<p><a class="schedButton logOut"><i class="fa fa-user-times" aria-hidden="true"></i>Sign Out</a></p>';
-echo  '<p>';
-echo    '<%- client["Email"] %><br />';
-echo    '<%- client["AddressLine1"] %><br />';
+echo '<script type="text/template" id="mb-client-account-info">';
+echo   '<h1><%- client["FirstName"] %> <%- client["LastName"] %></h1>';
+echo   '<p><a class="schedButton logOut"><i class="fa fa-user-times" aria-hidden="true"></i>Sign Out</a></p>';
+echo   '<p>';
+echo     '<%- client["Email"] %><br />';
+echo     '<%- client["AddressLine1"] %><br />';
 echo    '<%- client["City"] + " " + client["State"] + ", " + client["PostalCode"] %>';
-echo  '</p>';
-echo  '<p><a href="<%- urlMINDBODY %>" target="_blank">Manage my account with MINDBODY</a></p>';
-// echo  '<p>Automatic log out: <span class="countdown"><%- clientCountDownR %></span></p>';
-echo'</script>';
+echo   '</p>';
+echo   '<p><a href="<%- urlMINDBODY %>" target="_blank">Manage my account with MINDBODY</a></p>';
+// echo   '<p>Automatic log out: <span class="countdown"><%- clientCountDownR %></span></p>';
+echo '</script>';
