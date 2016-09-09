@@ -10,6 +10,16 @@ echo    '<span class="loading hid"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"
 echo  '</div>'; // login
 echo '</div></script>';
 
+
+// basic template for the shader to be populated with the form for login, class sign up and class cancel:
+echo '<script type="text/template" id="mb-pop-over">';
+echo  '<div class="content">';
+echo    '<span class="main"></span>';
+echo    '<i class="fa fa-times fa-lg closeForm" aria-hidden="true"></i>';
+echo    '<span class="loading hid"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></span>';
+echo  '</div>'; // content
+echo '</script>';
+
 // error messages for pop-over forms:
 echo '<script type="text/template" id="mb-login-form-error">';
 echo  '<%= loginERRmessage ? "<p>" + loginERRmessage + "</p>" : "" %>';

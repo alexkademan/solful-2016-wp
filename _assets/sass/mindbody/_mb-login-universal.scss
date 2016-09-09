@@ -1,39 +1,43 @@
 
-div.loginForm div.login,
-div.loginForm div.login span.error p,
-div.loginForm div.login span.loading {
+div.popOverMB div.content,
+div.popOverMB div.content span.error p,
+div.popOverMB div.content span.loading {
   @include all-corners(pem(5));
 }
-// the login form pop-over:
-div.loginForm{
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 0;
-  overflow: visible;
-  z-index:1501; // yeah, these numbers are getting outta hand. !@!
+// // the login form pop-over:
+// div.loginForm{
+//   position: fixed;
+//   left: 0;
+//   top: 0;
+//   width: 100%;
+//   height: 0;
+//   overflow: visible;
+//   z-index:1501; // yeah, these numbers are getting outta hand. !@!
+//
+// }
 
-}
-div.loginForm > div.non-mobile-shader {
+div.popOverMB {
   position: fixed;
   left: 0;
   top: 0;
+  height: 0;
+  overflow: hidden;
   width: 100%;
-  height: pem(5000);
   // background-color: rgba(0,0,0,0.7);
   background-color: rgba(255,255,255,0.95);
-  padding: pem(20) $main_gutter 0;
+  // padding: pem(20) $main_gutter 0;
+  z-index:1501;
 
-  opacity: 1;
+  opacity: 0;
   transition: opacity 0.125s ease-in;
 }
-div.loginForm > div.non-mobile-shader-fadeOut {
-  opacity: 0;
+// div.loginForm > div.non-mobile-shader-fadeOut {
+div.fullOpacity {
+  opacity: 1;
   // background-color: rgba()
 }
 
-div.loginForm div.login {
+div.popOverMB div.content {
   display: block;
   position: relative;
 
@@ -43,51 +47,51 @@ div.loginForm div.login {
   padding: $main-gutter;
 }
 
-div.loginForm div.login span.error p,
-div.loginForm div.login form {
+div.popOverMB div.content span.error p,
+div.popOverMB div.content form {
   display:block;
 }
-div.loginForm div.login span.error  p {
+div.popOverMB div.content span.error  p {
   padding: pem(5);
   background: lighten($action-color, 60%);
   border: 2px $action-color solid;
   transition: background 0.75s ease-out;
 
 }
-div.loginForm div.login span.error  p,
-div.loginForm div.login span.error  p a,
-div.loginForm div.login span.error  p a:link,
-div.loginForm div.login span.error  p a:visited,
-div.loginForm div.login span.error  p a:active {
+div.popOverMB div.content span.error  p,
+div.popOverMB div.content span.error  p a,
+div.popOverMB div.content span.error  p a:link,
+div.popOverMB div.content span.error  p a:visited,
+div.popOverMB div.content span.error  p a:active {
   color: darken($action-color, 10%);
 }
-div.loginForm div.login span.error  p a {
+div.popOverMB div.content span.error  p a {
   text-decoration: underline;
 }
-div.loginForm div.login span.flash p {
+div.popOverMB div.content span.flash p {
   background: lighten($action-color, 0%);
   transition: background 0s ease-out;
 }
 
-div.loginForm input.mb-password {
+div.popOverMB input.mb-password {
   // make the letters look like bullets
   -webkit-text-security: disc;
   -moz-text-security: disc;
   text-security: disc;
 }
-div.loginForm input[type="password"] {
+div.popOverMB input[type="password"] {
   -webkit-text-security: disc !important;
 }
 
-div.loginForm input.mb-login-button {
+div.popOverMB input.mb-login-button {
   // display: block;
   // margin: 0 auto;
 }
-div.loginForm div.login span.fields > h3 {
+div.popOverMB div.content span.main > h3 {
   // keep text from hitting the close button:
   padding-right: 1.5em;
 }
-div.loginForm div.login span.loading {
+div.popOverMB div.content span.loading {
   position: absolute;
   z-index: 100;
   top: 0;
@@ -98,7 +102,7 @@ div.loginForm div.login span.loading {
   text-align: center;
   padding-top: 25%;
 }
-div.loginForm div.login i.closeForm {
+div.popOverMB div.content i.closeForm {
   position: absolute;
   z-index: 99;
   top: 0.25em;
@@ -112,7 +116,7 @@ div.loginForm div.login i.closeForm {
     cursor: pointer;
   }
 }
-div.loginForm div.login div.new-user {
+div.popOverMB div.content div.new-user {
   padding-top: 1em;
   border-top: 1px #CCC solid;
   margin-top: 1.5em;
@@ -126,7 +130,7 @@ div.loginForm div.login div.new-user {
     text-decoration: none;
   }
 }
-div.loginForm div.login img {
+div.popOverMB div.content img {
   display: block;
   margin: 0 auto;
   max-width: pem(200);

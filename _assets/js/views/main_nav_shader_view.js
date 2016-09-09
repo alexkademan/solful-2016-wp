@@ -5,11 +5,10 @@ var _ = require ('underscore');
 var $ = require ('jquery');
 
 module.exports = Backbone.View.extend({
-  events: {
-    'click': function(e) { app.mainNav.closeMenus(); }
-  },
+  // events: {
+  //   'click': function(e) { app.mainNav.closeMenus(); }
+  // },
   initialize: function() {
-
     var node = document.createElement('span');
     node.className = 'mobile_shader';
     document.body.appendChild(node);

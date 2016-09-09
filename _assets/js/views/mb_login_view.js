@@ -5,9 +5,6 @@ var Backbone = require ('backbone');
 var _ = require ('underscore');
 var $ = require ('jquery');
 
-// var ClientInfo = require('./mb_client_account_view');
-// var LoginForm = require('./mb_login_form_view');
-
 module.exports = Backbone.View.extend({
   el: '#mastheadLogin',
 
@@ -36,10 +33,15 @@ module.exports = Backbone.View.extend({
     };
   },
 
+  logInUser: function() {
+    app.mbBackGroundShader.openPopUp('login');
+  },
+
   toggleAccountInfo: function() {
     // if the account info isn't showing and the client IS logged in:
     if( this.model.get('clientInfoVisible') === false && this.model.get('loggedIn') === true ){
       this.model.set({
+        popupVisible: true,
         clientInfoVisible: true,
         loginFormVisible: true
       });
@@ -55,10 +57,6 @@ module.exports = Backbone.View.extend({
     };
   },
 
-  logInUser: function() {
-    app.mbLogInForm.showForm();
-  },
-
   logInOut: function(data){
 
     if(data === 'stranger'){
@@ -66,8 +64,6 @@ module.exports = Backbone.View.extend({
       this.model.set({
         GUID: false,
         client: false,
-        // clientSchedule: false,
-        // clientSchedCount: 0,
         loggedIn: false,
         loginTime: '',
         clientCountDown: false, // the countdown to auto-logout
@@ -79,7 +75,7 @@ module.exports = Backbone.View.extend({
       // document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
       // make the login form disappear, if it's still around:
-      app.mbLogInForm.killPopOver();
+      app.mbBackGroundShader.killPopOver();
 
 
     } else if(data['GUID']) {
@@ -89,7 +85,7 @@ module.exports = Backbone.View.extend({
         GUID: data['GUID'],
         client: data['client'],
         loggedIn: true,
-        loginFormWaiting: false,
+        popoverVisible: false,
         loginTime: data['loginTime']
       });
 

@@ -137,12 +137,12 @@ a.schedButton i {
   padding-right: 0.3em;
 }
 
-div.login a.schedButton {
+div.content a.schedButton {
   display: block;
   width: 100%;
 }
-div.login a.signin-button,
-div.login a.cancel-class-button {
+div.content a.signin-button,
+div.content a.cancel-class-button {
   margin-bottom: 0.5em;
 }
 a.cancel-button {
@@ -159,7 +159,7 @@ li.completed a.cancel-button {
   .no-touchevents &:hover {
   }
 }
-div.login a.cancel-button {
+div.content a.cancel-button {
   background: darken(#F4F4F4, 15%);
 }
 

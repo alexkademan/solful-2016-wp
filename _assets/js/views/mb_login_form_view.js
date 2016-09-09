@@ -8,79 +8,45 @@ var $ = require ('jquery');
 var ClientInfo = require('./mb_client_account_view');
 
 module.exports = Backbone.View.extend({
-
   el: document.body,
-
   events: {
-    'click div.non-mobile-shader': 'clickScreen',
-    'touchend div.non-mobile-shader': 'clickScreen',
-    'keydown': 'keyAction'
+    // 'click div.non-mobile-shader': 'clickScreen',
+    // 'touchend div.non-mobile-shader': 'clickScreen'
   },
-
   initialize: function(){
-    var node = document.createElement('div');
-    node.className = 'loginForm';
-    document.body.appendChild(node);
+    // var node = document.createElement('div');
+    // node.className = 'loginForm';
+    // document.body.appendChild(node);
+    // this.$el = $(node); // cache for ... THE FUTURE!!!
 
-    this.$el = $(node); // cache for ... THE FUTURE!!!
     this.template = _.template($('#mb-login-form').html());
     this.loginTemplate = _.template($('#mb-log-in-fields').html());
     this.signinTemplate = _.template($('#mb-sign-in-fields').html());
 
-    this.model.on({'change:loginFormVisible': this.removePopOver}, this);
-    this.model.on({'change:loginFormWaiting': this.loginWaiting}, this);
-    this.model.on({'change:loginERRmessage': this.renderErrorMessage}, this);
-    this.model.on({'change:clientInfoVisible': this.toggleAccountInfo}, this);
-  },
-
-  killPopOver: function(e) {
-    this.model.set({
-      loginFormVisible: false,
-      clientInfoVisible: false
-    });
+    // this.model.on({'change:loginFormVisible': this.removePopOver}, this);
+    // this.model.on({'change:loginFormWaiting': this.loginWaiting}, this);
+    // this.model.on({'change:clientInfoVisible': this.toggleAccountInfo}, this);
   },
 
   clickScreen: function(e) {
-    // remove the login form form the page:
-    if(
-      e.target.className === 'non-mobile-shader'
-      || e.target.className === 'schedButton cancel-button'
-    ){
-      e.preventDefault();
-      // this will turn the pop-over off.
-      this.killPopOver();
-    };
-
-    if( e.target.className === 'schedButton signin-button' ){
-      e.preventDefault();
-      this.requestSignIn('join');
-    };
-
-    if( e.target.className === 'schedButton cancel-class-button' ){
-      // cancel appointment button.
-      e.preventDefault();
-      this.requestSignIn('cancel');
-    };
-
-    // submit the form via AJAX:
-    if(e.target.className === 'mb-login-button'){
-      // the submit input on the form was used:
-      e.preventDefault();
-      this.model.set({'loginERRmessage': ''});
-      this.checkForm();
-    };
-
-    // close button on the form. (x in a circle)
-    if(e.target.className === 'fa fa-times fa-lg closeForm'){
-      this.killPopOver();
-    }
-  },
-
-  keyAction: function(e) {
-    if(e.keyCode === 27 && this.model.get('loginFormVisible') === true){
-      // escape key:
-      this.model.set({'loginFormVisible': false});
-    };
+    // if( e.target.className === 'schedButton signin-button' ){
+    //   e.preventDefault();
+    //   this.requestSignIn('join');
+    // };
+    //
+    // if( e.target.className === 'schedButton cancel-class-button' ){
+    //   // cancel appointment button.
+    //   e.preventDefault();
+    //   this.requestSignIn('cancel');
+    // };
+    //
+    // // submit the form via AJAX:
+    // if(e.target.className === 'mb-login-button'){
+    //   // the submit input on the form was used:
+    //   e.preventDefault();
+    //   this.model.set({'loginERRmessage': ''});
+    //   this.checkForm();
+    // };
   },
 
   requestSignIn: function(joinOrCancel) {
@@ -132,171 +98,55 @@ module.exports = Backbone.View.extend({
   },
 
   renderBackgroundShader: function() {
-    this.$el.html( this.template() );
+    // NEW +++++++++++++
+    // app.mbBackGroundShader.fadeInOut('intro');
 
-    // fade IN background:
-    this.shaderFade('add');
-
-    setTimeout(function(){
-      app.mbLogInForm.removeShader('intro');
-    }, 5);
-
-    this.formFields = this.$('span.fields');
+    // OLD ++++++++++++++
+    // this.$el.html( this.template() );
+    //
+    // // fade IN background:
+    // this.shaderFade('add');
+    //
+    // setTimeout(function(){
+    //   app.mbLogInForm.removeShader('intro');
+    // }, 5);
+    //
+    // this.formFields = this.$('span.fields');
   },
 
-  removePopOver: function(){
-    // hide the login form, if the model says it shouldn't be here:
-    if (this.model.get('loginFormVisible') === false ){
-      // remove the content of the pop-over...
-      this.formFields.empty();
-      // hide the close button:
-      this.$('.closeForm').addClass('hid');
-
-      // fade out background:
-      this.shaderFade('add');
-
-      setTimeout(function(){
-        // give the shader a half-second to fade away,
-        // the eliminate it.
-        app.mbLogInForm.removeShader('outro');
-      }, 125);
-
-    }
-  },
-
-  removeShader: function(inOrOut) {
-    if (inOrOut === 'intro'){
-      // this.$('div.non-mobile-shader').removeClass('non-mobile-shader-fadeOut');
-      this.shaderFade('remove');
-    } else if (inOrOut === 'outro'){
-      this.$el.empty();
-    }
-  },
-
-  shaderFade: function(addRemove) {
-    // this method just consolidates some calls to add/remove this particular classname:
-    var className = 'non-mobile-shader-fadeOut';
-
-    if(addRemove === 'add') {
-      this.$('div.non-mobile-shader').addClass(className);
-    } else if(addRemove === 'remove'){
-      this.$('div.non-mobile-shader').removeClass(className);
-    }
-
-  },
-
-  showPopOver: function(formType) {
-    // show the shader that will contain the form:
-    this.renderBackgroundShader();
-
-    if(formType === 'accountInfo') {
-      var clientInfo = new ClientInfo({model: this.model});
-      this.formFields.append(clientInfo.renderInfo().el);
-    }
-
-  },
-
-  showForm: function(workoutModel) {
-    // store the class ID if there is one for use on the login screen:
-    if(workoutModel !== undefined){
-      this.model.set({'workoutRequestedID': workoutModel.get('ID')});
-    };
-
-    // login form has been requested, put it's status into the model
-    // this can't be false if you want the form to be displayed:
-    if(this.model.get('loginFormVisible') !== true){
-      this.model.set({
-        loginFormVisible: true,
-        loginFormWaiting: false // reset just incase
-      });
-    }
-
-    // show the shader that will contain the form:
-    this.renderBackgroundShader();
-
-    if(this.model.get('loggedIn') === false){
-      // either the user clicked "log in" in the masthead,
-      // or they are clicking "sign in" for a class while logged out.
-      // they need to either:
-      // A. log in and then sign into the class, or
-      // B. log in and be back to the website.
-      this.showLogInForm(workoutModel);
-
-    } else if(this.model.get('loggedIn') === true) {
-      // skip the login form, the user is already signed in.
-      this.showSignInForm(workoutModel);
-    }
-
-  },
-
-  showLogInForm: function(workoutModel){
-    // clear the form if its been used already:
-    this.formFields.html('');
-
-    // will be needed if the user logs in, or wants to go directly to MINDBODY
-    // and ignore all my wonderful software.
-    if(workoutModel === undefined) {
-      // this is the generic "Log in" button in the masthead,
-      // no link sent to the view. Use the one thats already within the model:
-      this.model.set({'urlMBloginForm': this.model.get('urlMINDBODY')});
-      this.model.set({'formMessage': 'Or join us with MINDBODY!'});
-
-    } else if(workoutModel.get('classStatus') === 'available'){
-      // this is coming from a "sign up for class" button.
-      this.model.set({'urlMBloginForm': workoutModel.get('signupURL')});
-      this.model.set({'formMessage': 'Or sign up for ' + workoutModel.get('ClassDescription')['Name'] + ' through MINDBODY!'});
-      this.model.set({'workoutRequested': workoutModel}); // temp storage for the workout they requested.
-    }
-    // if the user has a cached USER NAME, then add it to the form so they
-    // won't have to type it out again.
-    var cookieArray = app.mbMethods.mbGetCookieArray( document.cookie );
-    if(cookieArray['mb-client-username']){
-      // add cached username to the model:
-      this.model.set({'cachedUserName': cookieArray['mb-client-username']});
-    }
-
-    // show the form:
-    this.formFields.html(this.loginTemplate(this.model.toJSON()));
-
-    // focus on the sign-in form for convenience:
-    if(cookieArray['mb-client-username']){
-      // if the username is cached then focus on the password field.
-      this.$('#mb-password').focus();
-    } else {
-      // otherwise focus on the username field. She still needs to fill that out.
-      this.$('#mb-username').focus();
-    }
-
-
-
-  },
-
-  loginWaiting: function() {
-    var loadingSpan = this.$('div.login span.loading');
-    if(this.model.get('loginFormWaiting') === true){
-      loadingSpan.removeClass('hid');
-
-    } else {
-      loadingSpan.addClass('hid');
-    }
-  },
-
-  renderErrorMessage: function() {
-    var errorSpan = this.$('span.error');
-    errorSpan.empty();
-
-    var errorTemplate = _.template($('#mb-login-form-error').html());
-    errorSpan.html(errorTemplate(this.model.toJSON()));
-
-    if(this.model.get('loginERRmessage') !== ''){
-      // flash red then fade to transparent
-      errorSpan.addClass('flash');
-      setTimeout(function(){
-        errorSpan.removeClass('flash');
-      }, 50);
-    }
-
-  },
+  // showForm: function(workoutModel) {
+  //   // store the class ID if there is one for use on the login screen:
+  //   if(workoutModel !== undefined){
+  //     this.model.set({'workoutRequestedID': workoutModel.get('ID')});
+  //   };
+  //
+  //   // login form has been requested, put it's status into the model
+  //   // this can't be false if you want the form to be displayed:
+  //   if(this.model.get('popoverVisible') !== true){
+  //     this.model.set({
+  //       popoverVisible: true,
+  //       loginFormVisible: true,
+  //       loginFormWaiting: false // reset just incase
+  //     });
+  //   }
+  //
+  //   // show the shader that will contain the form:
+  //   // this.renderBackgroundShader();
+  //
+  //   if(this.model.get('loggedIn') === false){
+  //     // either the user clicked "log in" in the masthead,
+  //     // or they are clicking "sign in" for a class while logged out.
+  //     // they need to either:
+  //     // A. log in and then sign into the class, or
+  //     // B. log in and be back to the website.
+  //     this.showLogInForm(workoutModel);
+  //
+  //   } else if(this.model.get('loggedIn') === true) {
+  //     // skip the login form, the user is already signed in.
+  //     this.showSignInForm(workoutModel);
+  //   }
+  //
+  // },
 
   showSignInForm: function(workoutModel){
     // clean slate:
