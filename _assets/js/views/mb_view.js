@@ -34,7 +34,7 @@ module.exports = Backbone.View.extend({
 
     // login for the masthead:
     app.mbLogInView = new LoginView({model: this.model});
-    app.mbLogInForm = new LoginForm({model: this.model});
+    // app.mbLogInForm = new LoginForm({model: this.model});
     app.mbSignUpForm = new SignUpForm({model: this.model});
     app.mbClassSignInOut = new ClassSignInOut({model: this.model}); // catch AJAX calls to join or cancel workouts
     app.mbBackGroundShader = new BackgroundShader({model: this.model});
@@ -121,7 +121,7 @@ module.exports = Backbone.View.extend({
     if( file == undefined ){ return }
     var thisURL = app.mindbodyModel.get('mbFeedURL') + file;
 
-    console.log(thisURL);
+    // console.log(thisURL);
 
     $.ajax({
       url: thisURL,

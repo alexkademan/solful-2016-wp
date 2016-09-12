@@ -6,6 +6,8 @@ var _ = require ('underscore');
 var $ = require ('jquery');
 
 var LogInForm = require('./mb_login_form_2');
+var ClientInfo = require('./mb_client_account_view');
+var AppointmentPopOver = require('./mb_appointment_pop_over');
 
 module.exports = Backbone.View.extend({
   el: document.body,
@@ -20,7 +22,13 @@ module.exports = Backbone.View.extend({
     'touchend .popOverMB': 'clickScreen',
 
     // from within the forms. I have to call them from here to avoid calls to ghost views.
-    'click input.mb-login-button': 'logIntoSite'
+    'click .popOverMB input.mb-login-button': 'logIntoSite',
+    'click .popOverMB a.logOut': 'logOutUser',
+    'touchend .popOverMB a.logOut': 'logOutUser',
+
+    'click a.signin-button': 'signUpButton',
+    'click a.cancel-class-button': 'cancelButton',
+    'click a.exitPopOver': 'killPopOver'
 
   },
 
@@ -36,15 +44,17 @@ module.exports = Backbone.View.extend({
     this.popOverLocation = this.$('span.main');
 
     app.mbLogInForm2 = new LogInForm({model: this.model});
+    app.mbAccountInfo = new ClientInfo({model: this.model});
+    app.mbAppointmentPopOver = new AppointmentPopOver({model: this.model});
 
     app.windowStatus.on({'change:windowHeight': this.setShadeHeight}, this);
     this.model.on({'change:popoverVisible': this.openCloseShader}, this);
     this.model.on({'change:loginFormWaiting': this.progressIcon}, this);
     this.model.on({'change:loginERRmessage': this.renderErrorMessage}, this);
+    this.model.on({'change:exitMessage': this.removeSignUpButton}, this);
   },
 
   clickScreen: function(e){
-    // console.log(e.target.className);
     if( e.target.className === 'popOverMB fullOpacity' ){
       this.killPopOver();
     }
@@ -68,16 +78,10 @@ module.exports = Backbone.View.extend({
   },
 
   openCloseShader: function() {
-    // console.log('openCloseShader');
     // called by event listener (when loginFormVisible is changed)
     if( this.model.get('popoverVisible') === true ) {
       // reset some state variables:
-      this.model.set({
-        loginFormWaiting: false
-        // loginFormVisible: false,
-        // clientInfoVisible: false
-      });
-
+      this.model.set({ loginFormWaiting: false });
       this.fadeInOut('intro');
 
     } else if( this.model.get('popoverVisible') === false ) {
@@ -85,10 +89,7 @@ module.exports = Backbone.View.extend({
       this.fadeInOut('outro');
 
       // timeout waits for transition, then clears out the height:
-      setTimeout(function(){
-        app.mbBackGroundShader.zeroHeightHide();
-
-      }, 125);
+      setTimeout(function(){ app.mbBackGroundShader.zeroHeightHide(); }, 125);
     }
   },
 
@@ -122,37 +123,77 @@ module.exports = Backbone.View.extend({
   },
 
   renderErrorMessage: function(){
-    var errorSpan = this.$('span.error');
+    if(this.model.get('loginERRmessage') !== false){
 
-    if(errorSpan){
-      errorSpan.empty();
-      errorSpan.html(this.errorTemplate(this.model.toJSON()));
+      // this.model.set({loginFormWaiting: false});
+      var errorSpan = this.$('span.error');
 
-      if(this.model.get('loginERRmessage') !== ''){
-        // flash red then fade to transparent
-        errorSpan.addClass('flash');
-        setTimeout(function(){ errorSpan.removeClass('flash') }, 50);
+      if(errorSpan){
+        errorSpan.empty();
+        errorSpan.html(this.errorTemplate(this.model.toJSON()));
+
+        if(this.model.get('loginERRmessage') !== ''){
+          // flash red then fade to transparent
+          errorSpan.addClass('flash');
+          setTimeout(function(){ errorSpan.removeClass('flash') }, 50);
+        }
       }
+
+
+      this.model.set({
+        loginERRmessage: false,// reset in case the next error message is identical to this one
+        loginFormWaiting: false // remove progress icon.
+      });
     }
+  },
+
+  removeSignUpButton: function(exitMessage){
+
+    // the API returned an error on their class sign up,
+    // so remove the sign up button and change the
+    // message in the 'exitPopOver' button:
+    this.$('a.actionButton').addClass('hid');
+    this.$('a.exitPopOver').html(exitMessage);
+
   },
 
   openPopUp: function(popUpType, workoutModel) {
     // this will turn on the background:
     this.model.set({popoverVisible: true});
-    // reset to template to hold the popover content:
-    // this.$el.html('').html( this.mainTemplate() );
-    // var popOverLocation = this.$('span.main');
+    this.popOverLocation.empty(); // clear out content. Just incase that got skipped somehow.
 
+    if(
+      this.model.get('loggedIn') === false
+      && popUpType === 'workout'
+    ) {
+      // if they clicked on a class, and they're not logged in,
+      // prompt them to log in, and then ask about the class
+      popUpType = 'login';
+      this.model.set({workoutRequested: workoutModel});
+    }
 
     switch (popUpType) {
       case 'login':
         this.popOverLocation.html(app.mbLogInForm2.render(workoutModel));
         app.mbLogInForm2.adjustFocus();
         break;
+
+      case 'accountInfo':
+        this.popOverLocation.html(app.mbAccountInfo.render());
+        break;
+
+      case 'workout':
+        this.popOverLocation.html(app.mbAppointmentPopOver.render(workoutModel));
+        break;
+
       default:
+        // just do nothing...
+        this.killPopOver();
 
     }
   },
-  logIntoSite:function(e) { app.mbLogInForm2.signInButtom(e); }
-
+  logIntoSite:function(e) { app.mbLogInForm2.signInButtom(e); },
+  logOutUser: function(e) { app.mbLogInView.logOutUser() },
+  signUpButton: function(e) { app.mbAppointmentPopOver.requestSignIn('join') },
+  cancelButton: function(e) { app.mbAppointmentPopOver.requestSignIn('cancel') },
 });

@@ -6,6 +6,7 @@ var _ = require ('underscore');
 var $ = require ('jquery');
 
 module.exports = Backbone.View.extend({
+  el: $('div.popOverMB'),
 
   addNewSignIn: function(data) {
 
@@ -27,26 +28,32 @@ module.exports = Backbone.View.extend({
           clientMessage += 'A problem occured with your account. ';
           clientMessage += 'Please check your <a href="'+ this.model.get('urlMINDBODY') +'" class="MINDBODY-LINK">MINDBODY account</a> ';
           clientMessage += 'for billing information.';
-          app.mbLogInForm.errClassNotAvailable(clientMessage, 'removeSignUp');
+          this.model.set({loginERRmessage: clientMessage});
+          app.mbBackGroundShader.removeSignUpButton('Okay');
           break;
 
         case '602':
           clientMessage = 'This class is no longer available for sign up.';
-          app.mbLogInForm.errClassNotAvailable(clientMessage, 'removeSignUp');
+          this.model.set({loginERRmessage: clientMessage});
+          app.mbBackGroundShader.removeSignUpButton('Okay');
           break;
 
         case '603':
           clientMessage = 'You have already logged into this class!';
-          app.mbLogInForm.errClassNotAvailable(clientMessage, 'removeSignUp');
+          this.model.set({loginERRmessage: clientMessage});
+          app.mbBackGroundShader.removeSignUpButton('Okay');
           break;
 
         default:
-          app.mbLogInForm.errClassNotAvailable(errorMessage, 'removeSignUp');
+          this.model.set({loginERRmessage: errorMessage});
+          app.mbBackGroundShader.removeSignUpButton('Okay');
 
       }
 
 
     } else {
+
+      console.log('successful request');
 
       if(data['AddClientsToClassesResult']['Classes']['Class']['ID']) {
         // the client just signed into a single class.
@@ -62,9 +69,8 @@ module.exports = Backbone.View.extend({
         // send what we've gathered to the model.
         app.mbLogInView.adjustClientSchedule(wholeSchedule);
 
-
         // done, so destroy the form:
-        this.model.set({loginFormVisible: false});
+        this.model.set({popoverVisible: false});
       }
     }
   },
@@ -85,11 +91,13 @@ module.exports = Backbone.View.extend({
 
       switch (errorCode) {
         case 200:
-          clientMessage = 'This is a late cancel (now allowed at this time)';
-          app.mbLogInForm.errClassNotAvailable(clientMessage, 'removeCancel');
+          clientMessage = 'This is a late cancel (not allowed at this time)';
+          this.model.set({loginERRmessage: clientMessage});
+          app.mbBackGroundShader.removeSignUpButton('Okay');
           break;
         default:
-          app.mbLogInForm.errClassNotAvailable(errorMessage, 'removeCancel');
+          this.model.set({loginERRmessage: errorMessage});
+          app.mbBackGroundShader.removeSignUpButton('Okay');
       }
 
 
@@ -123,7 +131,7 @@ module.exports = Backbone.View.extend({
 
         }
         // done, so destroy the form:
-        this.model.set({loginFormVisible: false});
+        this.model.set({popoverVisible: false});
       }
 
     }

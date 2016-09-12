@@ -3329,14 +3329,17 @@ div.content a.signin-button,
 div.content a.cancel-class-button {
   margin-bottom: 0.5em; }
 
-a.cancel-button {
+a.cancel-button,
+a.exitPopOver {
   background: transparent;
   color: #4d4d4d; }
-  .no-touchevents a.cancel-button:hover {
+  .no-touchevents a.cancel-button:hover, .no-touchevents
+  a.exitPopOver:hover {
     color: #4d4d4d;
     background: #cecece; }
 
-div.content a.cancel-button {
+div.content a.cancel-button,
+div.content a.exitPopOver {
   background: #cecece; }
 
 ul.mb_data div.trainerName {

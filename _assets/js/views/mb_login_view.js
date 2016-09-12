@@ -38,22 +38,14 @@ module.exports = Backbone.View.extend({
   },
 
   toggleAccountInfo: function() {
-    // if the account info isn't showing and the client IS logged in:
-    if( this.model.get('clientInfoVisible') === false && this.model.get('loggedIn') === true ){
-      this.model.set({
-        popupVisible: true,
-        clientInfoVisible: true,
-        loginFormVisible: true
-      });
-    } else {
-      this.model.set({clientInfoVisible: false});
-    };
+    app.mbBackGroundShader.openPopUp('accountInfo');
   },
 
   logOutUser: function() {
     // this call erases the session, and removes session data from model.
     if(this.model.get('loggedIn') === true){
       app.mindbodyView.makeAJAXcall('login-status.php?leave=true', 'login');
+      this.model.set({loginFormWaiting: true});
     };
   },
 
@@ -85,9 +77,20 @@ module.exports = Backbone.View.extend({
         GUID: data['GUID'],
         client: data['client'],
         loggedIn: true,
-        popoverVisible: false,
+        loginFormWaiting: false,
+        // popoverVisible: false,
         loginTime: data['loginTime']
       });
+
+      if( this.model.get('workoutRequested') === false){
+        this.model.set({popoverVisible: false});
+
+      } else {
+        app.mbBackGroundShader.openPopUp('workout', this.model.get('workoutRequested'));
+        // then remove the class from the model, so it's not in our way next time we come through here:
+        this.model.set({workoutRequested: false});
+
+      };
 
       // start the countdown for automatic logout.
       app.mindbodyView.checkStatus();
@@ -97,19 +100,6 @@ module.exports = Backbone.View.extend({
 
       // keep the login username in the cookie for next time she loads the page:
       document.cookie = "mb-client-username=" + data['client']['Email'];
-
-      // if they logged in as they were trying to sign up for a class, let them sign up now.
-      if(this.model.get('workoutRequested') !== false) {
-        var requestedClass = this.model.get('workoutRequested');
-        // then remove the class from the model, so it's not in our way next time we come through here:
-        this.model.set({workoutRequested: false});
-        app.mbLogInForm.showSignInForm(requestedClass);
-
-      } else {
-        // done, so destroy the form:
-        this.model.set({loginFormVisible: false});
-
-      }
 
     } else if(data['ValidateLoginResult']){
       // we caught an error message.
@@ -160,7 +150,6 @@ module.exports = Backbone.View.extend({
 
       if(cookieArray['mb-client-schedule']){
         // the schedule is cached to a JSON string in the cookie
-
         // add to the live model:
         this.adjustClientSchedule(JSON.parse(cookieArray['mb-client-schedule']));
 
@@ -168,7 +157,6 @@ module.exports = Backbone.View.extend({
 
       // check the client's schedule again.
       // This may override the cookie that we just loaded into the model.
-
       var argString = '';
       argString += '?userID=' + this.model.get('client')['ID'];
       argString += '&timeStart=' + this.model.get('pageLoadTime');
@@ -221,8 +209,6 @@ module.exports = Backbone.View.extend({
       });
       // remove cookie if it's there (the schedule is empty):
       document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-
-
 
     } else {
       // the argument was an array so add it to the model:

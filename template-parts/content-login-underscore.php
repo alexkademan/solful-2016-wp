@@ -62,8 +62,8 @@ echo     '<%- classEnd.hourCivilian %>:<%- classEnd.minutes %> <%- classEnd.am_p
 echo     '<%- durationReadable %>';
 echo   '</p>';
 echo   '<span class="error"></span>';
-echo   '<a class="schedButton <%- buttonClass %>"><%- buttonConfirm %></a>';
-echo   '<a class="schedButton cancel-button"><%- buttonEscape %></a>';
+echo   '<a class="schedButton actionButton <%- buttonClass %>"><%- buttonConfirm %></a>';
+echo   '<a class="schedButton exitPopOver"><%- buttonEscape %></a>';
 echo '</script>';
 
 // client info pop-over. Displays info about MINDBODY account

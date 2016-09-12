@@ -145,7 +145,8 @@ div.content a.signin-button,
 div.content a.cancel-class-button {
   margin-bottom: 0.5em;
 }
-a.cancel-button {
+a.cancel-button,
+a.exitPopOver {
   background: transparent;
   color: $base-font-color;
   .no-touchevents &:hover {
@@ -159,7 +160,8 @@ li.completed a.cancel-button {
   .no-touchevents &:hover {
   }
 }
-div.content a.cancel-button {
+div.content a.cancel-button,
+div.content a.exitPopOver {
   background: darken(#F4F4F4, 15%);
 }
 

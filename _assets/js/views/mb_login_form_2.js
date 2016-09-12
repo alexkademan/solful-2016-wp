@@ -7,13 +7,10 @@ var $ = require ('jquery');
 
 module.exports = Backbone.View.extend({
   el: 'div',
-  // events: {
-  //   'click input.mb-login-button': 'signInButtom'
-  // },
 
   initialize: function(){
     this.loginTemplate = _.template($('#mb-log-in-fields').html());
-    this.signinTemplate = _.template($('#mb-sign-in-fields').html());
+    // this.signinTemplate = _.template($('#mb-sign-in-fields').html());
   },
 
   render: function(workoutModel) {
@@ -26,7 +23,7 @@ module.exports = Backbone.View.extend({
         workoutRequested: false
       });
     } else if(workoutModel.get('classStatus') === 'available'){
-      // // this is coming from a "sign up for class" button.
+      // this is coming from a "sign up for class" button.
       this.model.set({
         urlMBloginForm: workoutModel.get('signupURL'),
         formMessage: 'Or sign up for ' + workoutModel.get('ClassDescription')['Name'] + ' through MINDBODY!',
@@ -77,12 +74,7 @@ module.exports = Backbone.View.extend({
       this.model.set({loginFormWaiting: true});
     }
 
-  },
-
-  renderErrorMessage: function() {
-    console.log(this.model.get('loginERRmessage'));
   }
-
 
 
 });

@@ -258,7 +258,8 @@ module.exports = Backbone.View.extend({
       && this.model.get('classStatus') !== 'missed'
     ) {
       // the class is stil available.
-      app.mbLogInForm.showForm(this.model);
+      // app.mbLogInForm.showForm(this.model);
+      app.mbBackGroundShader.openPopUp('workout', this.model);
     }
 
   }
