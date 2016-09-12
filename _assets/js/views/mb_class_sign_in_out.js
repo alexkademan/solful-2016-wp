@@ -53,7 +53,7 @@ module.exports = Backbone.View.extend({
 
     } else {
 
-      console.log('successful request');
+      // successful request
 
       if(data['AddClientsToClassesResult']['Classes']['Class']['ID']) {
         // the client just signed into a single class.

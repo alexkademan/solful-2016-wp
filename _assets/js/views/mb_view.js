@@ -158,7 +158,7 @@ module.exports = Backbone.View.extend({
 
       // add an increment, this will call 'this.adjustState'
       app.mindbodyView.model.set({
-        requestStatus: app.mindbodyView.model.get('requestStatus') + 1
+        // requestStatus: app.mindbodyView.model.get('requestStatus') + 1
       });
 
     });
