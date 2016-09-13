@@ -6,7 +6,7 @@ var _ = require ('underscore');
 var $ = require ('jquery');
 
 var MainNavShader = require('./main_nav_shader_view');
-var MainMenuHeight = require('./main_nav_heigt_view');
+var MainMenuHeight = require('./main_nav_height_view');
 var NavBackground = require('./main_nav_background');
 var MastheadShowHide = require('./main_nav_masthead');
 

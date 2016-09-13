@@ -11,7 +11,9 @@ var AppointmentPopOver = require('./mb_appointment_pop_over');
 
 module.exports = Backbone.View.extend({
   el: document.body,
+  // el: $('#popOverMB'),
   // template: _.template($('#mb-pop-over').html()),
+
   events: {
     'click .closeForm': 'killPopOver',
     'touchend .closeForm': 'killPopOver',
@@ -28,7 +30,12 @@ module.exports = Backbone.View.extend({
 
     'click a.signin-button': 'signUpButton',
     'click a.cancel-class-button': 'cancelButton',
-    'click a.exitPopOver': 'killPopOver'
+    'click a.exitPopOver': 'killPopOver',
+
+    // and over again... *long sigh*
+    'touchend a.signin-button': 'signUpButton',
+    'touchend a.cancel-class-button': 'cancelButton',
+    'touchend a.exitPopOver': 'killPopOver'
 
   },
 
@@ -80,11 +87,31 @@ module.exports = Backbone.View.extend({
   openCloseShader: function() {
     // called by event listener (when loginFormVisible is changed)
     if( this.model.get('popoverVisible') === true ) {
+
       // reset some state variables:
       this.model.set({ loginFormWaiting: false });
+
+      // OPEN the pop-over
+      var bgScroll = app.windowStatusView.model.get('vScrollPosition');
+      app.mbBgAdjust.popOverBgOpen( bgScroll );
+      this.model.set({bgScroll: bgScroll});
+
+
       this.fadeInOut('intro');
 
     } else if( this.model.get('popoverVisible') === false ) {
+
+      // CLOSE the pop-over
+      if(this.model.get('bgScroll') !== false) {
+        // remove the inline style,
+        app.mbBgAdjust.popOverBgClose();
+        // the immediately move page back to where it was when this pop-over was called for:
+        window.scrollTo( 0, this.model.get('bgScroll') );
+        // amd reset the model for any other attempts to call a pop-over.
+        this.model.set({bgScroll: false});
+      }
+
+
       // transition effect begins:
       this.fadeInOut('outro');
 
@@ -125,7 +152,6 @@ module.exports = Backbone.View.extend({
   renderErrorMessage: function(){
     if(this.model.get('loginERRmessage') !== false){
 
-      // this.model.set({loginFormWaiting: false});
       var errorSpan = this.$('span.error');
 
       if(errorSpan){

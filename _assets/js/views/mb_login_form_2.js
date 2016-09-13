@@ -56,7 +56,6 @@ module.exports = Backbone.View.extend({
 
   signInButtom: function(e) {
     e.preventDefault();
-    console.log(e);
     this.model.set({loginERRmessage: ''});
 
     // checking form...

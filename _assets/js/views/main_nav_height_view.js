@@ -22,7 +22,6 @@ module.exports = Backbone.View.extend({
 
     var navStyle = '';
         navStyle += 'height: ' + this.model.get('menuHeight') + 'px;';
-        // navStyle += 'top: ' + 0 + 'px;';
         navStyle += 'top: ' + app.mainNavMasthead.checkOnHeight() + 'px;';
 
     this.$el.attr('style', navStyle);

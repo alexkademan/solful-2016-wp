@@ -53,7 +53,9 @@ module.exports = Backbone.Model.extend({
     loginFormVisible: false, // toggle login form visibility.
     loginFormWaiting: false, // when you click "Sign In" the form needs to wait for response from API
     loginERRmessage: '', // probably wrong username or password.
-    exitMessage: false // probably wrong username or password.
+    exitMessage: false, // probably wrong username or password.
+
+    bgScroll: false // value to scroll the page to when the pop-over is visible
   }
 
 });

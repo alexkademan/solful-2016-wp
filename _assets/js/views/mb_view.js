@@ -22,6 +22,7 @@ var LoginForm = require('./mb_login_form_view');
 var SignUpForm = require('./mb_sign_up_view');
 
 var BackgroundShader = require('./mb_shader_view');
+var PageBackground = require('./mb_page_bg_adjust');
 
 
 var ClassSignInOut = require('./mb_class_sign_in_out');
@@ -38,6 +39,7 @@ module.exports = Backbone.View.extend({
     app.mbSignUpForm = new SignUpForm({model: this.model});
     app.mbClassSignInOut = new ClassSignInOut({model: this.model}); // catch AJAX calls to join or cancel workouts
     app.mbBackGroundShader = new BackgroundShader({model: this.model});
+    app.mbBgAdjust = new PageBackground({model: this.model});
 
     // helper methods for use later:
     app.findDayInfo = new DayInfo();
@@ -158,7 +160,7 @@ module.exports = Backbone.View.extend({
 
       // add an increment, this will call 'this.adjustState'
       app.mindbodyView.model.set({
-        // requestStatus: app.mindbodyView.model.get('requestStatus') + 1
+        requestStatus: app.mindbodyView.model.get('requestStatus') + 1
       });
 
     });
