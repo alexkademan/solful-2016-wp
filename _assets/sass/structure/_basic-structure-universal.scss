@@ -4,6 +4,7 @@ body {
   // background: darken($color-solful-red, 10%);
   background: darken( #333, 0%);
   background: #000;
+  width: 100%;
 }
 
 body > div.site,
@@ -26,7 +27,6 @@ body > div.site > .main-bg {
   @include hidden;
 }
 
-div.content,
 .site-footer {
   padding-left: $main-gutter;
   padding-right: $main-gutter;
@@ -34,8 +34,6 @@ div.content,
   clear: both;
   @include outer-container;
 
-}
-div.content {
 }
 
 // .full-width,

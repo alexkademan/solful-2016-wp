@@ -4,22 +4,13 @@ div.popOverMB div.content span.error p,
 div.popOverMB div.content span.loading {
   @include all-corners(pem(5));
 }
-// // the login form pop-over:
-// div.loginForm{
-//   position: fixed;
-//   left: 0;
-//   top: 0;
-//   width: 100%;
-//   height: 0;
-//   overflow: visible;
-//   z-index:1501; // yeah, these numbers are getting outta hand. !@!
-//
-// }
 
 div.popOverMB {
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
+
+
   height: 0;
   overflow: hidden;
   width: 100%;
@@ -44,6 +35,11 @@ div.popOverMB div.content {
   margin: 0 auto;
   // background: #FFF;
   max-width: pem(500);
+}
+
+
+div.popOverMB div.content > .main {
+  display: block;
   padding: $main-gutter;
 }
 

@@ -2980,7 +2980,8 @@ body.main_nav_on span.toggle_menu {
 html,
 body {
   background: #333333;
-  background: #000; }
+  background: #000;
+  width: 100%; }
 
 body > div.site,
 body > div.site > .main-bg {
@@ -3005,7 +3006,6 @@ body > div.site > .main-bg {
   display: none !important;
   visibility: hidden; }
 
-div.content,
 .site-footer {
   padding-left: 1.2135em;
   padding-right: 1.2135em;
@@ -3014,7 +3014,6 @@ div.content,
   max-width: 75em;
   margin-left: auto;
   margin-right: auto; }
-  div.content::after,
   .site-footer::after {
     clear: both;
     content: "";
@@ -3490,7 +3489,7 @@ div.popOverMB div.content span.loading {
   border-top-left-radius: 0.3125em; }
 
 div.popOverMB {
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   height: 0;
@@ -3509,7 +3508,10 @@ div.popOverMB div.content {
   display: block;
   position: relative;
   margin: 0 auto;
-  max-width: 31.25em;
+  max-width: 31.25em; }
+
+div.popOverMB div.content > .main {
+  display: block;
   padding: 1.2135em; }
 
 div.popOverMB div.content span.error p,

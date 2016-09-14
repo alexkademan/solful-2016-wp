@@ -6,22 +6,18 @@ var _ = require ('underscore');
 var $ = require ('jquery');
 
 module.exports = Backbone.View.extend({
-  el: document.body,
-
-  initialize: function() {
-    console.log('bgAdjust');
-  },
+  el: '#page',
 
   popOverBgOpen: function(backgroundScroll) {
     var bgStyle = '';
-    bgStyle += 'position: fixed;';
+    bgStyle += 'position:fixed; ';
     bgStyle += 'top: -' + backgroundScroll + 'px;';
 
     this.$el.attr('style', bgStyle);
   },
 
   popOverBgClose: function() {
-    this.$el.removeAttr('style');    
+    this.$el.removeAttr('style');
   }
 
 });

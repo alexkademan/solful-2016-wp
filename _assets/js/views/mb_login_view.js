@@ -99,7 +99,8 @@ module.exports = Backbone.View.extend({
       this.getClientInfo(data);
 
       // keep the login username in the cookie for next time she loads the page:
-      document.cookie = "mb-client-username=" + data['client']['Email'];
+      document.cookie = "mb-client-username=" + data['client']['Email'] + "; expires=Thu, 18 Dec 3016 12:00:00 UTC;";
+
 
     } else if(data['ValidateLoginResult']){
       // we caught an error message.
