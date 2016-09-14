@@ -44,7 +44,7 @@ get_header();
 			// MINDBODY underscore templates:
 			get_template_part( 'template-parts/content', 'schedule-underscore' );
 			get_template_part( 'template-parts/content', 'trainers-underscore' );
-			
+
 		} else {
 			// regular ol' page.
 			while ( have_posts() ) : the_post();

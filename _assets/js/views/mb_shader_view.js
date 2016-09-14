@@ -82,6 +82,12 @@ module.exports = Backbone.View.extend({
         app.mbBgAdjust.popOverBgClose();
         // the immediately move page back to where it was when this pop-over was called for:
         window.scrollTo( 0, this.model.get('bgScroll') );
+
+        var inLineStyle = '';
+        inLineStyle += 'top: ' + this.model.get('bgScroll') + 'px;';
+        inLineStyle += 'height:' + this.model.get('popOverRenderedHeight') + 'px;';
+        this.$el.attr('style', inLineStyle);
+
         // amd reset the model for any other attempts to call a pop-over.
         this.model.set({bgScroll: false});
       }
@@ -128,7 +134,6 @@ module.exports = Backbone.View.extend({
           setTimeout(function(){ errorSpan.removeClass('flash') }, 50);
         }
       }
-
 
       this.model.set({
         loginERRmessage: false,// reset in case the next error message is identical to this one
@@ -190,20 +195,15 @@ module.exports = Backbone.View.extend({
     if( this.model.get('popoverVisible') === true ){
 
       var windowHeight = app.windowStatus.get('windowHeight'); // browser page height
-      // var popOverHeight = this.$('div.content').height();
       var popOverHeight = this.$('div.content').height();
-      var scrollTop = this.model.get('bgScroll');
-
-      // console.log( 'window height: ' + windowHeight + 'px');
-      // console.log( 'pop-over height: ' + popOverHeight + 'px' );
-      // console.log( 'page-scrolled: ' + scrollTop + 'px' );
+      // var scrollTop = this.model.get('bgScroll');
 
       var calculatedHeight = windowHeight >= popOverHeight ? windowHeight : popOverHeight;
       app.mbOverallControl.setPopOverPageHeight(calculatedHeight);
 
-      var currStyle = this.$el.attr('style');
-      // this.$el.attr('style',  'top: ' + scrollTop + 'px; height: ' + calculatedHeight + 'px');
       this.$el.attr('style',  'height: ' + calculatedHeight + 'px');
+
+      this.model.set({popOverRenderedHeight: calculatedHeight});
 
 
     } else if (this.model.get('popoverVisible') === false ) {

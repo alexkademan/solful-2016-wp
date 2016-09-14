@@ -1,11 +1,20 @@
 div.site {
-  padding-top: 0;
+  padding-top: $nav-height-medium;
 }
 /* ***********************
   basics
 *********************** */
 header.site_header {
-  min-height: $nav-height-medium;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: $nav-height-medium;
+
+  // position: absolute;
+  // left: 0;
+  // top: 0;
+
   span.toggle_menu {
     @include hidden;
   }
@@ -16,6 +25,7 @@ header.site_header {
     clear: none;
   }
 }
+
 header.site_header span.stripe {
   z-index: auto;
   display: block;
@@ -109,6 +119,10 @@ div.mastheadLogin {
 div.mastheadLogin a.logIn {
   padding: 36px ($main_gutter * 0.5) 22px;
   line-height: 22px;
+}
+
+div.mastheadLogin a.mbAccount {
+  padding-top: 1em;
 }
 
 /* **********************

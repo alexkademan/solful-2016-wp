@@ -55,6 +55,7 @@ module.exports = Backbone.Model.extend({
     loginERRmessage: '', // probably wrong username or password.
     exitMessage: false, // probably wrong username or password.
 
+    popOverRenderedHeight: 0, // height of the pop over on the screen.
     bgScroll: false // value to scroll the page to when the pop-over is visible
   }
 

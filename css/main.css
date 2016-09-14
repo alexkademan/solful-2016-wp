@@ -2874,12 +2874,16 @@ body.main_nav_on span.toggle_menu {
 
 @media (min-width: 45em) {
   div.site {
-    padding-top: 0; }
+    padding-top: 80px; }
   /* ***********************
   basics
 *********************** */
   header.site_header {
-    min-height: 80px; }
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 80px; }
     header.site_header span.toggle_menu {
       display: none !important;
       visibility: hidden; }
@@ -2971,6 +2975,8 @@ body.main_nav_on span.toggle_menu {
   div.mastheadLogin a.logIn {
     padding: 36px 0.60675em 22px;
     line-height: 22px; }
+  div.mastheadLogin a.mbAccount {
+    padding-top: 1em; }
   /* **********************
   masthead HIDDEN:
 ********************** */
@@ -2980,8 +2986,7 @@ body.main_nav_on span.toggle_menu {
 html,
 body {
   background: #333333;
-  background: #000;
-  width: 100%; }
+  background: #000; }
 
 body > div.site,
 body > div.site > .main-bg {
@@ -3006,6 +3011,7 @@ body > div.site > .main-bg {
   display: none !important;
   visibility: hidden; }
 
+body > div.site > .main-bg > div.content,
 .site-footer {
   padding-left: 1.2135em;
   padding-right: 1.2135em;
@@ -3014,6 +3020,7 @@ body > div.site > .main-bg {
   max-width: 75em;
   margin-left: auto;
   margin-right: auto; }
+  body > div.site > .main-bg > div.content::after,
   .site-footer::after {
     clear: both;
     content: "";
