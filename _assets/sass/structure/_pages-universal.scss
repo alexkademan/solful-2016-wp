@@ -5,3 +5,92 @@ body > div.site > .main-bg > div.content {
 
 
 }
+
+div.feat-img-banner {
+  display: block;
+  // float: left;
+  clear: both;
+  width: 100%;
+  background-color: #F4F4F4;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+
+
+// from Bitters:
+.image-gradient-dynamic {
+  $image-gradient-color-top: red;
+  $transparency-top: 0.9;
+  $image-gradient-color-bottom: green;
+  $transparency-bottom: 0.6;
+  $vertical-angle: 0deg;
+  $image-gradient-color-left: teal;
+  $transparency-left: 0.8;
+  $image-gradient-color-right: yellow;
+  $transparency-right: 0.8;
+  $horizontal-angle: 90deg;
+
+  line-height: 0;
+  position: relative;
+  width: 100%;
+
+  img {
+    height: auto;
+    left: 0;
+    position: relative;
+    top: 0;
+    width: 100%;
+  }
+
+  .copy {
+    left: 0;
+    margin: auto;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translate( 0%, -50%);
+    z-index: 999;
+
+    // background-color: rgba(255,255,255, 0.5);
+    width: 100%;
+    padding: 0 1em;
+
+    h1 {
+      color: white;
+      font-size: 2em;
+      line-height: 0.79em;
+      position: relative;
+      margin-bottom: 0.25em;
+    }
+  }
+
+  .overlay {
+    @include position(absolute, 0);
+    background-color: transparentize(
+      $image-gradient-color-top,
+      $transparency-top
+    );
+    background-image: linear-gradient($vertical-angle,
+      transparentize($image-gradient-color-top, $transparency-top),
+      transparentize($image-gradient-color-bottom, $transparency-bottom)
+    );
+    display: block;
+
+    &::after {
+      @include position(absolute, 0);
+      background-color: transparentize(
+        $image-gradient-color-left,
+        $transparency-right
+      );
+      background-image: linear-gradient($horizontal-angle,
+        transparentize($image-gradient-color-left, $transparency-left),
+        transparentize($image-gradient-color-right, $transparency-right)
+      );
+      content: "";
+      display: block;
+    }
+  }
+}

@@ -55,6 +55,9 @@ if(
 	&& $post->post_name == "home"
 ){
 	get_template_part( 'template-parts/content', 'sign-up-now-banner' );
+	get_template_part( 'template-parts/content', 'featured-image-banner' );
+
+
 } else {
 	echo '<hr class="redstripe">';
 }

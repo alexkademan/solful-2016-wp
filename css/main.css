@@ -193,6 +193,10 @@ html {
 /* 768px */
 /* 640px */
 @font-face {
+  font-family: bebas-bold;
+  src: url("../fonts/bebasneue_bold-webfont.woff2") format("woff2"), url("../fonts/bebasneue_bold-webfont.woff") format("woff"), url("../fonts/bebasneue_bold-webfont.ttf") format("truetype"); }
+
+@font-face {
   font-family: bebas-book;
   src: url("../fonts/bebasneue_book-webfont.woff2") format("woff2"), url("../fonts/bebasneue_book-webfont.woff") format("woff"), url("../fonts/bebasneue_book-webfont.ttf") format("truetype"); }
 
@@ -427,6 +431,9 @@ a.sign_up_now h1 {
   font-family: 'bebas-book';
   padding-bottom: 0;
   margin-bottom: 0; }
+
+.image-gradient-dynamic h1 {
+  font-family: 'bebas-bold'; }
 
 p {
   margin: 0 0 0.75em; }
@@ -3065,6 +3072,64 @@ body > div.site > .main-bg > div.content,
 div.entry-content {
   width: 100% !important; }
 
+div.feat-img-banner {
+  display: block;
+  clear: both;
+  width: 100%;
+  background-color: #F4F4F4;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+.image-gradient-dynamic {
+  line-height: 0;
+  position: relative;
+  width: 100%; }
+  .image-gradient-dynamic img {
+    height: auto;
+    left: 0;
+    position: relative;
+    top: 0;
+    width: 100%; }
+  .image-gradient-dynamic .copy {
+    left: 0;
+    margin: auto;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    -webkit-transform: translate(0%, -50%);
+    transform: translate(0%, -50%);
+    z-index: 999;
+    width: 100%;
+    padding: 0 1em; }
+    .image-gradient-dynamic .copy h1 {
+      color: white;
+      font-size: 2em;
+      line-height: 0.79em;
+      position: relative;
+      margin-bottom: 0.25em; }
+  .image-gradient-dynamic .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255, 0, 0, 0.1);
+    background-image: -webkit-linear-gradient(bottom, rgba(255, 0, 0, 0.1), rgba(0, 128, 0, 0.4));
+    background-image: linear-gradient(0deg, rgba(255, 0, 0, 0.1), rgba(0, 128, 0, 0.4));
+    display: block; }
+    .image-gradient-dynamic .overlay::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0, 128, 128, 0.2);
+      background-image: -webkit-linear-gradient(left, rgba(0, 128, 128, 0.2), rgba(255, 255, 0, 0.2));
+      background-image: linear-gradient(90deg, rgba(0, 128, 128, 0.2), rgba(255, 255, 0, 0.2));
+      content: "";
+      display: block; }
+
 .map_canvas {
   height: 12.5em;
   width: 100%; }
@@ -3119,7 +3184,9 @@ div.entry-content {
     .site-footer > a:last-child {
       margin-right: 0; }
   .site-footer > a {
-    float: right; } }
+    float: right; }
+  .image-gradient-dynamic .copy h1 {
+    font-size: 4em; } }
 
 ul.fb_feed {
   position: relative; }

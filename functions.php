@@ -6,7 +6,7 @@
  *
  * @package _s
  */
-
+require_once 'functions2.php';
 if ( ! function_exists( '_s_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.

@@ -14,7 +14,7 @@ $medium-breakpoint: 'min-width: ' + $small_size;
 $large-breakpoint: 'min-width: ' + $large_size;
 
 // Typography
-// @include font-face( bebas-bold, '../fonts/bebasneue_bold-webfont' );
+@include font-face( bebas-bold, '../fonts/bebasneue_bold-webfont' );
 @include font-face( bebas-book, '../fonts/bebasneue_book-webfont' );
 @include font-face( bebas-light, '../fonts/bebasneue_light-webfont' );
 @include font-face( bebas-regular, '../fonts/bebasneue_regular-webfont' );
