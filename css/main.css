@@ -2663,7 +2663,7 @@ header.site_header li a {
   margin: 0;
   width: 100%; }
 
-a.site-title {
+a.site-title span.big-logo {
   display: inline-block;
   text-align: center;
   vertical-align: bottom;
@@ -2674,17 +2674,18 @@ a.site-title {
   background: url("../images/solful-fitness-logo.svg") no-repeat;
   background-position: 30% 0.125em;
   background-size: 69%; }
-  .no-svg a.site-title {
+  .no-svg a.site-title span.big-logo {
     background: url("../images/solful-fitness-logo.png") no-repeat; }
-  a.site-title h1 {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px; }
+
+a.site-title h1 {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px; }
 
 span.mobile_shader {
   position: fixed;
@@ -2760,7 +2761,7 @@ div.mastheadLogin {
   top: 0;
   right: 0;
   color: #FFF;
-  z-index: 1;
+  z-index: 10000;
   height: 60px;
   color: #ef4137; }
   div.mastheadLogin:hover {
@@ -2886,7 +2887,8 @@ body.main_nav_on span.toggle_menu {
   basics
 *********************** */
   header.site_header {
-    position: absolute;
+    position: fixed;
+    z-index: 1500;
     left: 0;
     top: 0;
     width: 100%;
@@ -2899,14 +2901,11 @@ body.main_nav_on span.toggle_menu {
       width: auto;
       clear: none; }
   header.site_header span.stripe {
-    z-index: auto;
     display: block;
     width: auto;
     height: 0;
     background-color: #CCC;
     position: relative;
-    -webkit-transition: margin 0;
-    transition: margin 0;
     max-width: 75em;
     margin-left: auto;
     margin-right: auto; }
@@ -2914,26 +2913,10 @@ body.main_nav_on span.toggle_menu {
       clear: both;
       content: "";
       display: block; }
-  a.site-title {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 10;
-    background: url("../images/solful-fitness-logo.svg") no-repeat;
-    background-position: 55% 0.3125em;
-    background-size: 75%;
-    width: 7.5em;
-    height: 6.125em; }
-    .no-svg a.site-title {
-      background: url("../images/solful-fitness-logo.png") no-repeat; }
   nav.site-nav {
-    display: block;
     position: relative;
-    float: left;
-    clear: none;
     top: 0;
     width: 100%;
-    background: #000;
     z-index: 0;
     min-height: 80px;
     border-bottom: none;
@@ -2956,6 +2939,7 @@ body.main_nav_on span.toggle_menu {
     nav.site-nav span.mn > span {
       display: block;
       padding-left: 7.5em;
+      position: relative;
       max-width: 75em;
       margin-left: auto;
       margin-right: auto; }
@@ -2965,9 +2949,10 @@ body.main_nav_on span.toggle_menu {
         display: block; }
   nav.site-nav span.mn {
     margin-top: 0;
-    background-color: #333;
+    background-color: #000;
     background-image: -webkit-linear-gradient(#424242 0px, #000);
-    background-image: linear-gradient(#424242 0px, #000); }
+    background-image: linear-gradient(#424242 0px, #000);
+    border-bottom: 3px #9a140c solid; }
   ul.mainNav li a {
     background-color: transparent;
     padding: 36px 0.40046em 22px;
@@ -2984,11 +2969,112 @@ body.main_nav_on span.toggle_menu {
     line-height: 22px; }
   div.mastheadLogin a.mbAccount {
     padding-top: 1em; }
+  nav.site-nav span.mn,
+  nav.site-nav {
+    -webkit-transition: height 0.25s ease-in-out;
+    transition: height 0.25s ease-in-out; }
+  body.notPageTop header.site_header,
+  body.notPageTop nav.site-nav span.mn,
+  body.notPageTop nav.site-nav {
+    height: 50px;
+    min-height: 50px; }
+  ul.mainNav li a,
+  div.mastheadLogin a.logIn {
+    -webkit-transition: padding 0.25s ease-in-out;
+    transition: padding 0.25s ease-in-out; }
+  body.notPageTop ul.mainNav li a,
+  body.notPageTop div.mastheadLogin a.logIn {
+    padding-top: 18px;
+    padding-bottom: 10px; }
   /* **********************
   masthead HIDDEN:
 ********************** */
+  header.site_header,
+  a.site-title span.big-logo {
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out; }
+  body.notPageTop a.site-title span.big-logo {
+    top: -6.125em; }
+  body.hiddenMasthead header.site_header,
   body.hiddenMasthead header.site_header span.stripe {
-    margin-top: 0; } }
+    margin-top: 0; }
+  body.hiddenLargeMasthead header.site_header,
+  body.hiddenLargeMasthead header.site_header span.stripe {
+    margin-top: -50px; }
+  /* **********************
+  sunflower thing-thing.
+********************** */
+  a.site-title span.big-logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    background: url("../images/solful-fitness-logo.svg") no-repeat;
+    background-position: 55% 0.3125em;
+    background-size: 75%;
+    width: 7.5em;
+    height: 6.125em; }
+    .no-svg a.site-title span.big-logo {
+      background: url("../images/solful-fitness-logo.png") no-repeat; }
+  span.sunflower {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 7.5em;
+    height: 80px;
+    overflow: hidden;
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out; }
+    span.sunflower span {
+      position: absolute;
+      left: 0;
+      width: 7.5em;
+      height: 7.5em;
+      top: 6.5625em;
+      -webkit-transition: top 0.25s ease-in-out;
+      transition: top 0.25s ease-in-out; }
+    span.sunflower span.spinner {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 7.5em;
+      height: 7.5em;
+      background: url("../images/sunflower.png") no-repeat;
+      background-size: contain;
+      -webkit-transition-property: -webkit-transform;
+      transition-property: -webkit-transform;
+      transition-property: transform;
+      transition-property: transform, -webkit-transform;
+      -webkit-transition-duration: 40s;
+      transition-duration: 40s;
+      -webkit-animation-name: rotate;
+      animation-name: rotate;
+      -webkit-animation-duration: 40s;
+      animation-duration: 40s;
+      -webkit-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+      animation-timing-function: linear; }
+  @-webkit-keyframes rotate {
+    from {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg); }
+    to {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg); } }
+  @keyframes rotate {
+    from {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg); }
+    to {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg); } }
+  body.notPageTop span.sunflower {
+    height: 50px; }
+    body.notPageTop span.sunflower span {
+      top: 0;
+      -webkit-transition: top 0.8s ease-out;
+      transition: top 0.8s ease-out; } }
 
 html,
 body {
@@ -3108,27 +3194,6 @@ div.feat-img-banner {
       line-height: 0.79em;
       position: relative;
       margin-bottom: 0.25em; }
-  .image-gradient-dynamic .overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(255, 0, 0, 0.1);
-    background-image: -webkit-linear-gradient(bottom, rgba(255, 0, 0, 0.1), rgba(0, 128, 0, 0.4));
-    background-image: linear-gradient(0deg, rgba(255, 0, 0, 0.1), rgba(0, 128, 0, 0.4));
-    display: block; }
-    .image-gradient-dynamic .overlay::after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-color: rgba(0, 128, 128, 0.2);
-      background-image: -webkit-linear-gradient(left, rgba(0, 128, 128, 0.2), rgba(255, 255, 0, 0.2));
-      background-image: linear-gradient(90deg, rgba(0, 128, 128, 0.2), rgba(255, 255, 0, 0.2));
-      content: "";
-      display: block; }
 
 .map_canvas {
   height: 12.5em;

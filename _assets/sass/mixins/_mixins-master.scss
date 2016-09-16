@@ -53,3 +53,13 @@
   @include border-bottom-radius( $radius );
   @include border-left-radius( $radius );
 }
+
+@mixin animate-linear-rotation($time: 2s) {
+  -webkit-animation: rotation $time linear infinite;
+  -moz-animation: rotation $time linear infinite;
+  animation: rotation $time linear infinite;
+
+  -webkit-animation-direction: reverse;
+  -moz-animation-direction: reverse;
+  animation-direction: reverse;
+}

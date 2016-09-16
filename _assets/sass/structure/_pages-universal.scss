@@ -24,7 +24,7 @@ div.feat-img-banner {
 .image-gradient-dynamic {
   $image-gradient-color-top: red;
   $transparency-top: 0.9;
-  $image-gradient-color-bottom: green;
+  $image-gradient-color-bottom: red;
   $transparency-bottom: 0.6;
   $vertical-angle: 0deg;
   $image-gradient-color-left: teal;
@@ -67,30 +67,30 @@ div.feat-img-banner {
     }
   }
 
-  .overlay {
-    @include position(absolute, 0);
-    background-color: transparentize(
-      $image-gradient-color-top,
-      $transparency-top
-    );
-    background-image: linear-gradient($vertical-angle,
-      transparentize($image-gradient-color-top, $transparency-top),
-      transparentize($image-gradient-color-bottom, $transparency-bottom)
-    );
-    display: block;
-
-    &::after {
-      @include position(absolute, 0);
-      background-color: transparentize(
-        $image-gradient-color-left,
-        $transparency-right
-      );
-      background-image: linear-gradient($horizontal-angle,
-        transparentize($image-gradient-color-left, $transparency-left),
-        transparentize($image-gradient-color-right, $transparency-right)
-      );
-      content: "";
-      display: block;
-    }
-  }
+  // .overlay {
+  //   @include position(absolute, 0);
+  //   background-color: transparentize(
+  //     $image-gradient-color-top,
+  //     $transparency-top
+  //   );
+  //   background-image: linear-gradient($vertical-angle,
+  //     transparentize($image-gradient-color-top, $transparency-top),
+  //     transparentize($image-gradient-color-bottom, $transparency-bottom)
+  //   );
+  //   display: block;
+  //
+  //   &::after {
+  //     @include position(absolute, 0);
+  //     background-color: transparentize(
+  //       $image-gradient-color-left,
+  //       $transparency-right
+  //     );
+  //     background-image: linear-gradient($horizontal-angle,
+  //       transparentize($image-gradient-color-left, $transparency-left),
+  //       transparentize($image-gradient-color-right, $transparency-right)
+  //     );
+  //     content: "";
+  //     display: block;
+  //   }
+  // }
 }

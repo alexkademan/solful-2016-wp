@@ -30,7 +30,7 @@ module.exports = Backbone.View.extend({
     app.mainNavShader = new MainNavShader({model: this.model});
     app.mainMenuHeight = new MainMenuHeight({model: this.model});
     app.mainNavBackground = new NavBackground();
-    app.mainNavMasthead = new MastheadShowHide();
+    app.mainNavMasthead = new MastheadShowHide({model: this.model});
 
     this.breakpointChange(); // run this once to set the stage.
 

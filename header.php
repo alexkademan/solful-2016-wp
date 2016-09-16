@@ -41,6 +41,8 @@ require get_template_directory() . '/custom-objects/custom-objects.php';
 	      </span>
 	      <a class="site-title" href="<?php echo get_bloginfo('wpurl') ?>">
 					<h1><?php echo get_bloginfo('title') ?></h1>
+					<span class="big-logo"></span>
+					<span class="sunflower"><span><span class="spinner"></span></span></span>
 				</a>
 				<div id="mastheadLogin" class="mastheadLogin">
 					<a href="<?php echo get_bloginfo('template_url') . '/MINDBODY/' ?>" id="mb-login-mbFeedURL" class="hid"></a>
@@ -55,11 +57,11 @@ if(
 	&& $post->post_name == "home"
 ){
 	get_template_part( 'template-parts/content', 'sign-up-now-banner' );
+}
+
+if( has_post_thumbnail() ) {
 	get_template_part( 'template-parts/content', 'featured-image-banner' );
-
-
-} else {
-	echo '<hr class="redstripe">';
+	// echo '<hr class="redstripe">';
 }
 ?>
 	<span class="main-bg">

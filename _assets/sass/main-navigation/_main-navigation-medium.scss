@@ -5,15 +5,12 @@ div.site {
   basics
 *********************** */
 header.site_header {
-  position: absolute;
+  position: fixed;
+  z-index: 1500; // always on top !!!
   left: 0;
   top: 0;
   width: 100%;
   height: $nav-height-medium;
-
-  // position: absolute;
-  // left: 0;
-  // top: 0;
 
   span.toggle_menu {
     @include hidden;
@@ -27,47 +24,28 @@ header.site_header {
 }
 
 header.site_header span.stripe {
-  z-index: auto;
+  // z-index: auto;
   display: block;
   width: auto;
   height: 0;
   background-color: #CCC;
   position: relative;
-  transition: margin 0;
 
   @include outer-container;
-}
-a.site-title {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 10;
-
-  background: url('../images/solful-fitness-logo.svg') no-repeat;
-  background-position: 55% pem(5);
-  background-size: 75%;
-
-  width: $main-logo-width;
-  height: $main-logo-height;
-
-  .no-svg & {
-    background: url('../images/solful-fitness-logo.png') no-repeat;
-  }
-
 }
 
 nav.site-nav {
   // overriding all of the palm sized styles:
-  display: block;
+  // display: block;
   position: relative;
-  float: left;
-  clear: none;
+  // float: left;
+  // clear: none;
   top: 0;
   width: 100%;
-  background: #000;
-  z-index: 0; // must fall behind a.site-title.
+  // background: #FCF;
+  z-index: 0; // must fall behind a.site-title span.big-logo.
   min-height: $nav-height-medium;
-  border-bottom: none;
+  border-bottom: none;;
   overflow: visible;
 }
 nav.site-nav a {
@@ -91,14 +69,16 @@ nav.site-nav span.mn {
   & > span {
     display: block;
     padding-left: $main_logo_width;
+    position: relative;
     @include outer-container;
   }
 }
 
 nav.site-nav span.mn {
   margin-top: 0; // another override
-  background-color: #333;
+  background-color: #000;
   background-image: linear-gradient( #424242 0px, #000 );
+  border-bottom: 3px darken($color-solful-red, 25%) solid;
 }
 ul.mainNav li a {
   background-color: transparent;
@@ -125,9 +105,131 @@ div.mastheadLogin a.mbAccount {
   padding-top: 1em;
 }
 
+// modified look:
+nav.site-nav span.mn,
+nav.site-nav {
+  transition: height 0.25s ease-in-out;
+}
+
+body.notPageTop header.site_header,
+body.notPageTop nav.site-nav span.mn,
+body.notPageTop nav.site-nav {
+  height: $nav-height-medium-alt;
+  min-height:$nav-height-medium-alt;
+}
+ul.mainNav li a,
+div.mastheadLogin a.logIn {
+  transition: padding 0.25s ease-in-out;
+}
+body.notPageTop ul.mainNav li a,
+body.notPageTop div.mastheadLogin a.logIn {
+  padding-top: 18px;
+  padding-bottom: 10px;
+}
+
 /* **********************
   masthead HIDDEN:
 ********************** */
+header.site_header,
+a.site-title span.big-logo {
+  transition: all 0.25s ease-in-out;
+}
+// header.site_header,
+// header.site_header span.stripe {
+//   // transition: margin 0;
+// }
+// body.hiddenMasthead a.site-title span.big-logo,
+body.notPageTop a.site-title span.big-logo {
+  top: -$main-logo-height;
+  // top: -20px;
+}
+body.hiddenMasthead header.site_header,
 body.hiddenMasthead header.site_header span.stripe {
   margin-top: 0;
+}
+body.hiddenLargeMasthead header.site_header,
+body.hiddenLargeMasthead header.site_header span.stripe {
+  margin-top: -$nav-height-medium-alt;
+}
+
+/* **********************
+  sunflower thing-thing.
+********************** */
+a.site-title span.big-logo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+
+  background: url('../images/solful-fitness-logo.svg') no-repeat;
+  background-position: 55% pem(5);
+  background-size: 75%;
+
+  width: $main-logo-width;
+  height: $main-logo-height;
+
+  .no-svg & {
+    background: url('../images/solful-fitness-logo.png') no-repeat;
+  }
+}
+
+span.sunflower {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: $main-logo-width;
+  height: $nav-height-medium;
+
+  overflow: hidden;
+  transition: all 0.25s ease-in-out;
+
+  & span {
+    position: absolute;
+    left: 0;
+    width: $main-logo-width;
+    height: $main-logo-width;
+    // background: #FCF;
+    // top: $nav-height-medium;
+    top: pem(105);
+    transition: top 0.25s ease-in-out;
+
+
+
+
+  }
+
+  span.spinner {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: $main-logo-width;
+    height: $main-logo-width;
+    // background: #FCF;
+
+    background: url('../images/sunflower.png') no-repeat;
+    background-size: contain;
+
+    transition-property: transform;
+    transition-duration: 40s;
+    animation-name: rotate;
+    animation-duration: 40s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+  }
+
+  @keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+  }
+}
+body.notPageTop span.sunflower {
+  height: $nav-height-medium-alt;
+
+  & span {
+    top: 0;
+    transition: top 0.8s ease-out;
+  }
+
 }
