@@ -1,5 +1,6 @@
 div.site {
   padding-top: $nav-height-medium;
+  background: #FFF;
 }
 /* ***********************
   basics
@@ -149,7 +150,7 @@ body.hiddenMasthead header.site_header span.stripe {
 }
 body.hiddenLargeMasthead header.site_header,
 body.hiddenLargeMasthead header.site_header span.stripe {
-  margin-top: -$nav-height-medium-alt;
+  // margin-top: -$nav-height-medium-alt;
 }
 
 /* **********************

@@ -10,9 +10,9 @@
  */
 
 ?>
-
 	</div><!-- #content -->
 </span><!-- .main-bg -->
+</div><!-- #page -->
 <?php
 if($post->post_title == 'Contact Us'){
 	echo '<div id="map_canvas" class="map_canvas"></div>';
@@ -30,7 +30,6 @@ if($post->post_title == 'Contact Us'){
 		</div>
 		<a href="http://clients.mindbodyonline.com/ws.asp?studioid=44288&amp;stype=-7" class="MINDBODY-LINK"><img src="<?php echo get_bloginfo('template_url') ?>/images/powered_by_mindbody-white.png" /></a>
 	</footer><!-- #colophon -->
-</div><!-- #page -->
 
 <?php wp_footer(); ?>
 <script type='text/javascript' src='<?php echo get_bloginfo('template_url') ?>/js/bundle.js'></script>

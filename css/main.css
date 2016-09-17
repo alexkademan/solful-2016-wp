@@ -459,7 +459,7 @@ hr {
   ul.mainNav li a,
   div.mastheadLogin a.logIn {
     font-size: 22px;
-    font-family: 'bebas-light';
+    font-family: 'bebas-bold';
     letter-spacing: 0.07em; } }
 
 /*!
@@ -2882,7 +2882,8 @@ body.main_nav_on span.toggle_menu {
 
 @media (min-width: 45em) {
   div.site {
-    padding-top: 80px; }
+    padding-top: 80px;
+    background: #FFF; }
   /* ***********************
   basics
 *********************** */
@@ -2998,9 +2999,6 @@ body.main_nav_on span.toggle_menu {
   body.hiddenMasthead header.site_header,
   body.hiddenMasthead header.site_header span.stripe {
     margin-top: 0; }
-  body.hiddenLargeMasthead header.site_header,
-  body.hiddenLargeMasthead header.site_header span.stripe {
-    margin-top: -50px; }
   /* **********************
   sunflower thing-thing.
 ********************** */
