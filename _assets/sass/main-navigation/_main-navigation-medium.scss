@@ -133,7 +133,8 @@ body.notPageTop div.mastheadLogin a.logIn {
 ********************** */
 header.site_header,
 a.site-title span.big-logo {
-  transition: all 0.25s ease-in-out;
+  transition: height 0.25s ease-in-out;
+  transition: top 0.25s ease-in-out;
 }
 // header.site_header,
 // header.site_header span.stripe {
@@ -150,6 +151,7 @@ body.hiddenMasthead header.site_header span.stripe {
 }
 body.hiddenLargeMasthead header.site_header,
 body.hiddenLargeMasthead header.site_header span.stripe {
+  // hide when scrolling down the page, but past the "runway":
   // margin-top: -$nav-height-medium-alt;
 }
 

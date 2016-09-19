@@ -5,8 +5,6 @@ var WindowStatsView = require('./views/window_stats_view');
 var MainNavModel = require('./models/main_nav_model');
 var MainNavView = require('./views/main_nav_view');
 
-var WPadminHider = require('./views/wp_admin_hider_view');
-
 var domReady = require('domready');
 
 var FBfeedModel = require('./models/fb_feed_model');

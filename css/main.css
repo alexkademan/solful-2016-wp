@@ -424,7 +424,7 @@ nav.site-nav a {
 
 div.mastheadLogin a.logIn,
 div.mastheadLogin a.mbAccount {
-  font-family: 'bebas-light';
+  font-family: 'bebas-bold';
   letter-spacing: 0.07em; }
 
 a.sign_up_now h1 {
@@ -2992,8 +2992,10 @@ body.main_nav_on span.toggle_menu {
 ********************** */
   header.site_header,
   a.site-title span.big-logo {
-    -webkit-transition: all 0.25s ease-in-out;
-    transition: all 0.25s ease-in-out; }
+    -webkit-transition: height 0.25s ease-in-out;
+    transition: height 0.25s ease-in-out;
+    -webkit-transition: top 0.25s ease-in-out;
+    transition: top 0.25s ease-in-out; }
   body.notPageTop a.site-title span.big-logo {
     top: -6.125em; }
   body.hiddenMasthead header.site_header,

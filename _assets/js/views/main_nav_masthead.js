@@ -84,23 +84,25 @@ module.exports = Backbone.View.extend({
   },
 
   showHideMasthead: function() {
-    // console.log('showHideMasthead');
-    if(this.model.get('mastheadOn') === false) {
-      // hide
-      $(document.body).addClass('hiddenMasthead');
+    if(app.mindbodyModel.get('popoverVisible') === false){
+      // don't bother if the pop over is showing.
+      if(this.model.get('mastheadOn') === false) {
+        // hide
+        $(document.body).addClass('hiddenMasthead');
 
-      // hide the large menu masthead:
-      if(this.model.get('pageTopRunway') === false) {
-        $(document.body).addClass('hiddenLargeMasthead');
-      }
+        // hide the large menu masthead:
+        if(this.model.get('pageTopRunway') === false) {
+          $(document.body).addClass('hiddenLargeMasthead');
+        }
 
-    } else if (this.model.get('mastheadOn') === true) {
-      // show
-      $(document.body).removeClass('hiddenMasthead');
+      } else if (this.model.get('mastheadOn') === true) {
+        // show
+        $(document.body).removeClass('hiddenMasthead');
 
-      // show the large menu masthead:
-      if(this.model.get('pageTopRunway') === false) {
-        $(document.body).removeClass('hiddenLargeMasthead');
+        // show the large menu masthead:
+        if(this.model.get('pageTopRunway') === false) {
+          $(document.body).removeClass('hiddenLargeMasthead');
+        }
       }
     }
   },
@@ -108,17 +110,19 @@ module.exports = Backbone.View.extend({
 
   pageTopOrNot: function() {
     // protected from altering on pageload:
-    if(this.model.get('mastheadShowing') !== false ){
+    if(app.mindbodyModel.get('popoverVisible') === false){
+      // don't bother if the pop over is showing.
+      if(this.model.get('mastheadShowing') !== false ){
 
-      if(this.model.get('pageTop') === false) {
-        // alter the menu with a class in the body tag
-        $(document.body).addClass('notPageTop');
-      } else if (this.model.get('pageTop') === true) {
-        // show
-        $(document.body).removeClass('notPageTop');
+        if(this.model.get('pageTop') === false) {
+          // alter the menu with a class in the body tag
+          $(document.body).addClass('notPageTop');
+        } else if (this.model.get('pageTop') === true) {
+          // show
+          $(document.body).removeClass('notPageTop');
+        }
       }
     }
-
   }
 
 });

@@ -48,7 +48,8 @@ module.exports = Backbone.Model.extend({
 
     loginFormRendered: false,
 
-    popupVisible: false,
+    popoverVisible: false,
+    // popupVisible: false,
 
     loginFormVisible: false, // toggle login form visibility.
     loginFormWaiting: false, // when you click "Sign In" the form needs to wait for response from API

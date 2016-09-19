@@ -10,6 +10,8 @@ var MainMenuHeight = require('./main_nav_height_view');
 var NavBackground = require('./main_nav_background');
 var MastheadShowHide = require('./main_nav_masthead');
 
+var WPAdminBar = require('./wp_admin_nav_view');
+
 module.exports = Backbone.View.extend({
 
   el: '#site_header',
@@ -21,16 +23,15 @@ module.exports = Backbone.View.extend({
   initialize: function(){
     this.model.on({'change:mobileMenu': this.openClose}, this);
 
-    app.windowStatus.on({
-      'change:palmSize': function(){
-        app.mainNav.breakpointChange();
-      }
-    });
-
     app.mainNavShader = new MainNavShader({model: this.model});
     app.mainMenuHeight = new MainMenuHeight({model: this.model});
     app.mainNavBackground = new NavBackground();
     app.mainNavMasthead = new MastheadShowHide({model: this.model});
+    app.wpAdminBar = new WPAdminBar();
+
+    app.windowStatus.on({'change:palmSize': this.breakpointChange}, this);
+    app.windowStatus.on({'change:windowWidth': this.positionMastheadWP}, this);
+    this.positionMastheadWP();
 
     this.breakpointChange(); // run this once to set the stage.
 
@@ -73,7 +74,6 @@ module.exports = Backbone.View.extend({
     }
   },
   breakpointChange: function() {
-
     if( this.model.get('mobileMenu') === true){
       // closing the menu
       this.closeMenus();
@@ -84,31 +84,40 @@ module.exports = Backbone.View.extend({
       app.mainMenuHeight.closeDown();
 
       // hide the WP admin menu from client
-      $('html').attr('style', 'margin-top: 0 !important');
-      $('#wpadminbar').attr('style', 'height: 0 !important; overflow: hidden');
+      app.wpAdminBar.hideAdminMenu();
 
     } else {
       // make the monitor sized layout
-      // console.log('make monitor size');
       app.mainMenuHeight.switchToLarger();
 
       // un-hide the WP admin menu from client
-      $('html').removeAttr('style');
-      $('#wpadminbar').removeAttr('style');
+      app.wpAdminBar.unHideAdminMenu();
 
     };
   },
-  positionMasthead: function(scrollY) {
-    if(scrollY === 0) {
-      // this.$el.removeAttr('style');
+
+  // positionMasthead: function(scrollY) {
+  //   if(scrollY === 0) {
+  //     // this.$el.removeAttr('style');
+  //   } else {
+  //     // if we're not at zero now, make it so.
+  //     // this keeps the nav from moving away from view:
+  //     // this.$el.attr('style', 'top: ' + 0 + 'px');
+  //   }
+  //
+  //   console.log( this.model.get('menuHeight') );
+  // },
+
+  positionMastheadWP: function() {
+
+    var wpNavHeight = app.wpAdminBar.getAdminHeight();
+    // adjust the nav's placement to work around WP's navigation menu that sits on top of it.
+    if(wpNavHeight > 0) {
+      this.$el.attr('style', 'margin-top: ' + wpNavHeight + 'px;');
     } else {
-      // if we're not at zero now, make it so.
-      // this keeps the nav from moving away from view:
-      // this.$el.attr('style', 'top: ' + 0 + 'px');
+      this.$el.removeAttr('style');
     }
 
-
-    console.log( this.model.get('menuHeight') );
   }
 
 });

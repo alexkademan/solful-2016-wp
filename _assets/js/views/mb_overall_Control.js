@@ -24,14 +24,11 @@ module.exports = Backbone.View.extend({
   },
 
   setPopOverPageHeight: function(pageHeight) {
-
-    console.log(pageHeight);
-
     this.$el.attr('style', 'height: ' + pageHeight + 'px;');
   },
 
   removePopOverPageHeight: function(){
-    // configure some inline styles for the pop over on its way out... 
+    // configure some inline styles for the pop over on its way out...
     this.$el.removeAttr('style');
   }
 
