@@ -14,25 +14,22 @@ div.popOverMB {
   height: 0;
   overflow: hidden;
   width: 100%;
-  // background-color: rgba(0,0,0,0.7);
   background-color: rgba(255,255,255,0.95);
-  // padding: pem(20) $main_gutter 0;
-  z-index:1501;
+  z-index: 100000; // WP's admin bar is 99999... this needs to cover that.
 
   opacity: 0;
   transition: opacity 0.125s ease-in;
 }
-// div.loginForm > div.non-mobile-shader-fadeOut {
+
 div.fullOpacity {
   opacity: 1;
-  // background-color: rgba()
 }
 
 div.popOverMB div.content {
   display: block;
   position: relative;
 
-  margin: 0 auto;
+  margin: pem(10) auto;
   // background: #FFF;
   max-width: pem(500);
 }

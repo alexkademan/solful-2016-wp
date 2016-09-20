@@ -14,7 +14,6 @@
 // so that you can see the data from any template file.
 require get_template_directory() . '/custom-objects/custom-objects.php';
 
-
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -61,7 +60,6 @@ if(
 
 if( has_post_thumbnail() ) {
 	get_template_part( 'template-parts/content', 'featured-image-banner' );
-	// echo '<hr class="redstripe">';
 }
 ?>
 	<span class="main-bg">

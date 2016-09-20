@@ -7,6 +7,7 @@ module.exports = Backbone.Model.extend({
     workoutCount: 0,
     Bio: false,
     showFullBio: false, // status of showMore and showLess link.
+    bioExcerptHeight: 250,
     ImageURL: ''
   }
 

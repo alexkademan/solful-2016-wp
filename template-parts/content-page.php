@@ -13,21 +13,21 @@
 // 	get_template_part( 'template-parts/content', 'underscore-trainers' );
 // } else {
 
-?>
-<main id="main" class="site-main" role="main">
-	<div class="entry-content">
-		<?php
-			the_content();
+
+echo '<main id="main" class="site-main" role="main">';
+get_template_part('template-parts/content', 'page-headline');
+echo	'<div class="entry-content">';
+the_content();
 
 			wp_link_pages( array(
 				'before' => '<div class="page-links">' . esc_html__( 'Pages:', '_s' ),
 				'after'  => '</div>',
 			) );
-		?>
-	</div><!-- .entry-content -->
 
-	<footer class="entry-footer">
-		<?php
+echo 	'</div>'; // entry-content
+
+echo 	'<footer class="entry-footer">';
+
 			// edit_post_link(
 			// 	sprintf(
 			// 		/* translators: %s: Name of current post */
@@ -37,6 +37,6 @@
 			// 	'<span class="edit-link">',
 			// 	'</span>'
 			// );
-		?>
-	</footer><!-- .entry-footer -->
-</main><!-- #main -->
+
+echo 	'</footer>'; // .entry-footer
+echo '</main>'; // #main

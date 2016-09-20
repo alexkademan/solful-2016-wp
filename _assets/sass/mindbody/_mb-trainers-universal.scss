@@ -13,39 +13,44 @@ ul.mb_trainers li {
 }
 ul.mb_trainers > li > h1 {
   // Traners names
-  // color: $base-font-color;
   border-bottom: pem(1) #CCC solid;
 }
 
-ul.mb_trainers div.bio {
+ul.mb_trainers div.leftTrainer {
   @include span-columns(12 of 12);
 }
 ul.mb_trainers aside.workouts {
   @include span-columns(12 of 12);
 }
-ul.mb_trainers .showLess {
 
-  // background: #FCF;
-  max-height: pem( 250 );
+ul.mb_trainers div.bio {
+  transition: height 0.5s ease-out;
   overflow: hidden;
+
+}
+ul.mb_trainers div.desc {
+  padding-bottom: 0.5em
+}
+ul.mb_trainers div.bio {
   position: relative;
-  // border: 1px #000 solid;
 
 }
 ul.mb_trainers a.readMore {
   cursor: pointer;
 }
-ul.mb_trainers .showLess a.readMore {
-  position: absolute;
-  left: 0;
-  bottom: 0;
+
+ul.mb_trainers a.readMore {
+  position: relative;
+  display: block;
+  float: left;
+  clear: left;
   width: 100%;
-  // padding-top: 3em;
+  padding: 0.5em 0;
   line-height: 2em;
-  // background: #FFF;
+  margin-bottom: 2em;
   background:#FFF;
 }
-ul.mb_trainers .showLess a.readMore::before {
+ul.mb_trainers a.readMore::before {
   content: '';
   position: absolute;
   left:0;

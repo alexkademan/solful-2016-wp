@@ -34,18 +34,31 @@ module.exports = Backbone.View.extend({
   },
 
   adjustBio: function() {
+
+    // console.log(this.model.get('bioExcerptHeight'));
+    var theBio = this.$('div.bio'); // height of full blurb at this moment.
+    var theButton = this.$('a.readMore');
+    var wholeBlurbHeight = this.$('div.desc').height(); // height of full blurb at this moment.
+
+
     if( this.model.get('showFullBio') === true ){
-      var theBio = this.$('div.bio');
-      var theButton = this.$('a.readMore');
+
 
       theButton.html('Show Less');
       theBio.removeClass('showLess');
+
+      this.$el.addClass('showBio');
+
+      console.log(wholeBlurbHeight + 'px');
+      theBio.attr('style', 'height: ' + wholeBlurbHeight + 'px')
+
     } else {
-      var theBio = this.$('div.bio');
-      var theButton = this.$('a.readMore');
 
       theButton.html('Show More');
+      theBio.attr('style', 'height: ' + this.model.get('bioExcerptHeight') + 'px')
       theBio.addClass('showLess');
+
+      this.$el.removeClass('showBio');
     }
   }
 

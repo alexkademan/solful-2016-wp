@@ -104,6 +104,10 @@ div.mastheadLogin a.logIn {
 
 div.mastheadLogin a.mbAccount {
   padding-top: 1em;
+  transition: all 0.25s ease-in-out;
+}
+body.notPageTop div.mastheadLogin a.mbAccount {
+  padding-top: 0.125em;
 }
 
 // modified look:

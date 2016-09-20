@@ -36,3 +36,12 @@ function remove_width_attribute( $html ) {
    $html = preg_replace( '/(width|height)=\"\d*\"\s/', "", $html );
    return $html;
 }
+
+
+/* ------------------------------------------------------
+get the featured image in multiple sizes for serving to
+small and not-small devices.
+------------------------------------------------------ */
+function process_featured_image($imgArray, $the_post_thumb_URL) {
+  return $imgArray;
+}

@@ -25,12 +25,11 @@
 get_header();
 
 ?>
-
 	<div id="primary" class="content-area">
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 <?php
 		// regular ol' page heading
-		get_template_part('template-parts/content', 'page-headline');
+		// get_template_part('template-parts/content', 'page-headline');
 
 		// MINDBODY pages:
 		if($post->post_name == 'schedule') {
@@ -57,6 +56,4 @@ get_header();
 
 <?php
 get_sidebar();
-
-
 get_footer();

@@ -201,10 +201,6 @@ html {
   src: url("../fonts/bebasneue_book-webfont.woff2") format("woff2"), url("../fonts/bebasneue_book-webfont.woff") format("woff"), url("../fonts/bebasneue_book-webfont.ttf") format("truetype"); }
 
 @font-face {
-  font-family: bebas-light;
-  src: url("../fonts/bebasneue_light-webfont.woff2") format("woff2"), url("../fonts/bebasneue_light-webfont.woff") format("woff"), url("../fonts/bebasneue_light-webfont.ttf") format("truetype"); }
-
-@font-face {
   font-family: bebas-regular;
   src: url("../fonts/bebasneue_regular-webfont.woff2") format("woff2"), url("../fonts/bebasneue_regular-webfont.woff") format("woff"), url("../fonts/bebasneue_regular-webfont.ttf") format("truetype"); }
 
@@ -385,6 +381,15 @@ h6 {
   font-size: 1.25em;
   line-height: 1.2;
   margin: 0 0 0.75em; }
+  h1 strong,
+  h2 strong,
+  h3 strong,
+  h4 strong,
+  h5 strong,
+  h6 strong {
+    font-family: 'bebas-bold';
+    color: #ef4137;
+    font-size: larger; }
 
 h1 {
   font-family: 'bebas-regular';
@@ -2969,7 +2974,11 @@ body.main_nav_on span.toggle_menu {
     padding: 36px 0.60675em 22px;
     line-height: 22px; }
   div.mastheadLogin a.mbAccount {
-    padding-top: 1em; }
+    padding-top: 1em;
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out; }
+  body.notPageTop div.mastheadLogin a.mbAccount {
+    padding-top: 0.125em; }
   nav.site-nav span.mn,
   nav.site-nav {
     -webkit-transition: height 0.25s ease-in-out;
@@ -3132,6 +3141,7 @@ body > div.site > .main-bg > div.content,
     margin-right: 0; }
 
 .site-main,
+.main-content,
 .widget-area {
   padding-top: 1.2135em;
   padding-bottom: 1.618em; }
@@ -3167,33 +3177,16 @@ div.feat-img-banner {
   background-repeat: no-repeat;
   background-size: cover; }
 
-.image-gradient-dynamic {
+div.feat-img {
   line-height: 0;
   position: relative;
   width: 100%; }
-  .image-gradient-dynamic img {
+  div.feat-img img {
     height: auto;
     left: 0;
     position: relative;
     top: 0;
     width: 100%; }
-  .image-gradient-dynamic .copy {
-    left: 0;
-    margin: auto;
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    -webkit-transform: translate(0%, -50%);
-    transform: translate(0%, -50%);
-    z-index: 999;
-    width: 100%;
-    padding: 0 1em; }
-    .image-gradient-dynamic .copy h1 {
-      color: white;
-      font-size: 2em;
-      line-height: 0.79em;
-      position: relative;
-      margin-bottom: 0.25em; }
 
 .map_canvas {
   height: 12.5em;
@@ -3421,9 +3414,6 @@ ul.classes li div.desc,
 ul.mb_trainers div.bio div.desc {
   max-width: 34.0625em; }
 
-ul.mb_trainers div.bio div.desc {
-  padding-bottom: 1.75em; }
-
 ul.classes li div.bio {
   border-bottom: 1px #4d4d4d solid; }
 
@@ -3502,12 +3492,12 @@ ul.mb_trainers li {
 ul.mb_trainers > li > h1 {
   border-bottom: 0.0625em #CCC solid; }
 
-ul.mb_trainers div.bio {
+ul.mb_trainers div.leftTrainer {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 100%; }
-  ul.mb_trainers div.bio:last-child {
+  ul.mb_trainers div.leftTrainer:last-child {
     margin-right: 0; }
 
 ul.mb_trainers aside.workouts {
@@ -3518,23 +3508,32 @@ ul.mb_trainers aside.workouts {
   ul.mb_trainers aside.workouts:last-child {
     margin-right: 0; }
 
-ul.mb_trainers .showLess {
-  max-height: 15.625em;
-  overflow: hidden;
+ul.mb_trainers div.bio {
+  -webkit-transition: height 0.5s ease-out;
+  transition: height 0.5s ease-out;
+  overflow: hidden; }
+
+ul.mb_trainers div.desc {
+  padding-bottom: 0.5em; }
+
+ul.mb_trainers div.bio {
   position: relative; }
 
 ul.mb_trainers a.readMore {
   cursor: pointer; }
 
-ul.mb_trainers .showLess a.readMore {
-  position: absolute;
-  left: 0;
-  bottom: 0;
+ul.mb_trainers a.readMore {
+  position: relative;
+  display: block;
+  float: left;
+  clear: left;
   width: 100%;
+  padding: 0.5em 0;
   line-height: 2em;
+  margin-bottom: 2em;
   background: #FFF; }
 
-ul.mb_trainers .showLess a.readMore::before {
+ul.mb_trainers a.readMore::before {
   content: '';
   position: absolute;
   left: 0;
@@ -3635,7 +3634,7 @@ div.popOverMB {
   overflow: hidden;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.95);
-  z-index: 1501;
+  z-index: 100000;
   opacity: 0;
   -webkit-transition: opacity 0.125s ease-in;
   transition: opacity 0.125s ease-in; }
@@ -3646,7 +3645,7 @@ div.fullOpacity {
 div.popOverMB div.content {
   display: block;
   position: relative;
-  margin: 0 auto;
+  margin: 0.625em auto;
   max-width: 31.25em; }
 
 div.popOverMB div.content > .main {
@@ -3744,12 +3743,12 @@ div.popOverMB div.content img {
     width: 40%;
     text-align: center;
     clear: none; }
-  ul.mb_trainers div.bio {
+  ul.mb_trainers div.leftTrainer {
     float: left;
     display: block;
     margin-right: 2.35765%;
     width: 57.35098%; }
-    ul.mb_trainers div.bio:last-child {
+    ul.mb_trainers div.leftTrainer:last-child {
       margin-right: 0; }
   ul.mb_trainers aside.workouts {
     float: left;
