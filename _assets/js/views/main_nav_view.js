@@ -31,9 +31,9 @@ module.exports = Backbone.View.extend({
 
     app.windowStatus.on({'change:palmSize': this.breakpointChange}, this);
     app.windowStatus.on({'change:windowWidth': this.positionMastheadWP}, this);
-    this.positionMastheadWP();
 
     this.breakpointChange(); // run this once to set the stage.
+    this.positionMastheadWP();
 
   },
   toggleMenu: function(e) {
@@ -74,6 +74,9 @@ module.exports = Backbone.View.extend({
     }
   },
   breakpointChange: function() {
+
+    console.log('breakpointChange');
+
     if( this.model.get('mobileMenu') === true){
       // closing the menu
       this.closeMenus();
@@ -96,24 +99,14 @@ module.exports = Backbone.View.extend({
     };
   },
 
-  // positionMasthead: function(scrollY) {
-  //   if(scrollY === 0) {
-  //     // this.$el.removeAttr('style');
-  //   } else {
-  //     // if we're not at zero now, make it so.
-  //     // this keeps the nav from moving away from view:
-  //     // this.$el.attr('style', 'top: ' + 0 + 'px');
-  //   }
-  //
-  //   console.log( this.model.get('menuHeight') );
-  // },
-
   positionMastheadWP: function() {
 
     var wpNavHeight = app.wpAdminBar.getAdminHeight();
+
     // adjust the nav's placement to work around WP's navigation menu that sits on top of it.
-    if(wpNavHeight > 0) {
+    if(wpNavHeight >= 0) {
       this.$el.attr('style', 'margin-top: ' + wpNavHeight + 'px;');
+
     } else {
       this.$el.removeAttr('style');
     }

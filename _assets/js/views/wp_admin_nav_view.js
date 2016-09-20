@@ -11,22 +11,11 @@ module.exports = Backbone.View.extend({
       // logged into WP as a blog administrator
       // seeing as WP is clunky old PHP, this only can change between page loads
       // So I'm opting not to bother adding this status to the model.
-
       this.wholeHTML = $('html');
-      // this.setMenuHeight();
-      // app.windowStatus.on({'change:windowWidth': this.setMenuHeight}, this);
-
-
     } else {
       // NOT logged into WP.
     }
   },
-
-
-  // setMenuHeight: function() {
-  //   // workaround to keep the WP menu from covering my site navigation:
-  //   app.mainNav.positionMastheadWP( this.$el.height() );
-  // },
 
   getAdminHeight: function() {
     return this.$el.height();
@@ -45,6 +34,5 @@ module.exports = Backbone.View.extend({
       this.$el.removeAttr('style');
     }
   }
-
 
 });
