@@ -75,8 +75,6 @@ module.exports = Backbone.View.extend({
   },
   breakpointChange: function() {
 
-    console.log('breakpointChange');
-
     if( this.model.get('mobileMenu') === true){
       // closing the menu
       this.closeMenus();
