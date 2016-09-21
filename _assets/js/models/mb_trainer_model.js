@@ -7,6 +7,7 @@ module.exports = Backbone.Model.extend({
     workoutCount: 0,
     Bio: false,
     showFullBio: false, // status of showMore and showLess link.
+    bioTransition: false, // while the bio is animated, you can't click it (prevent double click)
     bioExcerptHeight: 200,
     ImageURL: '',
 

@@ -39,9 +39,11 @@ module.exports = Backbone.View.extend({
     var theBio = this.$('div.bio'); // height of full blurb at this moment.
     var theButton = this.$('a.readMore');
     var wholeBlurbHeight = this.$('div.desc').height(); // height of full blurb at this moment.
+    var that = this; // push this to the timer functions:
 
-    if( this.model.get('showFullBio') === true ){
+    if( this.model.get('showFullBio') === true && this.model.get('bioTransition') === false ){
 
+      this.model.set({bioTransition: true});
       theButton.html(this.model.get('showLessButton'));
       this.$el.addClass('showBio');
 
@@ -49,11 +51,15 @@ module.exports = Backbone.View.extend({
       // the current full height, and then remove the inline style incase the end user
       // re-sizes their window.
       theBio.attr('style', 'height: ' + wholeBlurbHeight + 'px');
-      setTimeout( function(){ theBio.removeAttr('style'); }, 500); // remove the inline style so people can scale the page
+      setTimeout( function(){
+        theBio.removeAttr('style');
+        that.model.set({bioTransition : false});
+      }, 500); // remove the inline style so people can scale the page
 
 
-    } else {
+    } else if( this.model.get('showFullBio') === false  && this.model.get('bioTransition') === false) {
 
+      this.model.set({bioTransition: true});
       theButton.html(this.model.get('showMoreButton'));
       this.$el.removeClass('showBio');
 
@@ -62,6 +68,7 @@ module.exports = Backbone.View.extend({
       // out it back to appreviated height almost immediately for animation.
       setTimeout( function(){
         theBio.attr('style', 'height: ' + shrunkenHeight + 'px');
+        that.model.set({bioTransition : false});
       }, 10);
 
 
