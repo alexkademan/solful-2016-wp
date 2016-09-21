@@ -3,6 +3,7 @@
  * Google Maps part.
  *
  */
+require_once( trailingslashit( get_template_directory() ) . 'api_keys.php' );
 
 // echo '<div class="google-map">this is gonna be the map</div>';
 
@@ -20,9 +21,8 @@ http://software.stadtwerk.org/google_maps_colorizr/#
 http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
 https://developers.google.com/maps/documentation/javascript/tutorial
 */
-
 ?>
-<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $google_maps_api_key; ?>"></script>
 <script>
   var bittersMap = (function () {
     var myLatlng = new google.maps.LatLng(43.21756, -87.98904),
