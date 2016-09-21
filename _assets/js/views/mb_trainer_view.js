@@ -35,31 +35,45 @@ module.exports = Backbone.View.extend({
 
   adjustBio: function() {
 
-    // console.log(this.model.get('bioExcerptHeight'));
+    var shrunkenHeight = this.model.get('bioExcerptHeight');
     var theBio = this.$('div.bio'); // height of full blurb at this moment.
     var theButton = this.$('a.readMore');
     var wholeBlurbHeight = this.$('div.desc').height(); // height of full blurb at this moment.
 
-
     if( this.model.get('showFullBio') === true ){
 
-
-      theButton.html('Show Less');
-      theBio.removeClass('showLess');
-
+      theButton.html(this.model.get('showLessButton'));
       this.$el.addClass('showBio');
 
-      console.log(wholeBlurbHeight + 'px');
-      theBio.attr('style', 'height: ' + wholeBlurbHeight + 'px')
+      // we know that the blurb is set to a static height, but we want to animate it to
+      // the current full height, and then remove the inline style incase the end user
+      // re-sizes their window.
+      theBio.attr('style', 'height: ' + wholeBlurbHeight + 'px');
+      setTimeout( function(){ theBio.removeAttr('style'); }, 500); // remove the inline style so people can scale the page
+
 
     } else {
 
-      theButton.html('Show More');
-      theBio.attr('style', 'height: ' + this.model.get('bioExcerptHeight') + 'px')
-      theBio.addClass('showLess');
-
+      theButton.html(this.model.get('showMoreButton'));
       this.$el.removeClass('showBio');
+
+      // set the bio back to full height then:
+      theBio.attr('style', 'height: ' + wholeBlurbHeight + 'px');
+      // out it back to appreviated height almost immediately for animation.
+      setTimeout( function(){
+        theBio.attr('style', 'height: ' + shrunkenHeight + 'px');
+      }, 10);
+
+
     }
+  },
+
+  removeHeight: function(theElement) {
+    console.log('hi there....');
+    theElement.removeAttr('style');
+    setTimeout(function(theElement){
+      console.log(this);
+    }, 1000);
   }
 
 });

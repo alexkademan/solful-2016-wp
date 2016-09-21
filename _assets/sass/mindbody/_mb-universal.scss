@@ -84,15 +84,17 @@ ul.classes li.canceled hgroup h2 {
 }
 
 ul.classes li div.workout-desc {
-  padding: ($main_gutter * 0.25) 0 ($main_gutter * 0.5);
-  margin-bottom: ($main_gutter * 0.5);
+  padding: ($main_gutter * 0.25) 0 0;
+  margin-bottom: 0;
 }
 ul.classes li div.desc,
 ul.mb_trainers div.bio div.desc {
   max-width: pem(545);
 }
 ul.classes li div.bio {
-  border-bottom: 1px $base-font-color solid;
+  padding-bottom: 0.25em;
+  border-bottom: 0.25em #FFF dotted;
+  margin-bottom: 1em;
 }
 ul.classes li div.workout-desc img,
 ul.mb_trainers div.bio img {

@@ -31,7 +31,7 @@ echo '<script type="text/template" id="mb-appointment-nfo">';
 echo   '<div class="classNFO">';
 echo     '<span>';
 echo       '<%= IsCanceled ? "" : durationReadable %>';
-echo       '<%= IsCanceled ? Staff["Name"] : "<div class=\"trainerName\">With: " + Staff["Name"] + "</div>" %><br />';
+echo       '<%= IsCanceled ? Staff["Name"] : "<div class=\"trainerName\">With: " + Staff["Name"] + "</div>" %>';
 echo       '<div class="trainerNFO">';
 echo         '<div class="workout-desc bio">';
 echo           '<%= Staff["ImageURL"] ? "<img src=\"" + Staff["ImageURL"] + "\" />" : "" %>';

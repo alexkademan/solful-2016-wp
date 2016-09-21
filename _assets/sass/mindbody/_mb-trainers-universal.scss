@@ -20,7 +20,12 @@ ul.mb_trainers div.leftTrainer {
   @include span-columns(12 of 12);
 }
 ul.mb_trainers aside.workouts {
+  padding-bottom: 2em;
   @include span-columns(12 of 12);
+
+  ul.classes {
+    padding-bottom: 0;
+  }
 }
 
 ul.mb_trainers div.bio {
@@ -29,16 +34,12 @@ ul.mb_trainers div.bio {
 
 }
 ul.mb_trainers div.desc {
-  padding-bottom: 0.5em
+  padding-bottom: 0;
 }
 ul.mb_trainers div.bio {
   position: relative;
 
 }
-ul.mb_trainers a.readMore {
-  cursor: pointer;
-}
-
 ul.mb_trainers a.readMore {
   position: relative;
   display: block;
@@ -47,8 +48,9 @@ ul.mb_trainers a.readMore {
   width: 100%;
   padding: 0.5em 0;
   line-height: 2em;
-  margin-bottom: 2em;
+  margin-bottom: 0;
   background:#FFF;
+  cursor: pointer;
 }
 ul.mb_trainers a.readMore::before {
   content: '';
@@ -60,4 +62,9 @@ ul.mb_trainers a.readMore::before {
   margin-top: -3em;
   background: transparent;
   background-image: linear-gradient( rgba(255,255,255, 0) 0px, #FFF );
+}
+
+ul.mb_trainers li.showBio a.readMore::before {
+  // erase the white gradient.
+  height:0;
 }

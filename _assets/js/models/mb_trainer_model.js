@@ -7,8 +7,11 @@ module.exports = Backbone.Model.extend({
     workoutCount: 0,
     Bio: false,
     showFullBio: false, // status of showMore and showLess link.
-    bioExcerptHeight: 250,
-    ImageURL: ''
+    bioExcerptHeight: 200,
+    ImageURL: '',
+
+    showMoreButton: '<i class="fa fa-angle-double-down" aria-hidden="true"></i> Read More',
+    showLessButton: '<i class="fa fa-angle-double-up" aria-hidden="true"></i> Show Less',
   }
 
 });

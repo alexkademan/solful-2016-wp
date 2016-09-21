@@ -3407,15 +3407,17 @@ ul.classes li.canceled hgroup h2 {
   text-decoration: line-through; }
 
 ul.classes li div.workout-desc {
-  padding: 0.30338em 0 0.60675em;
-  margin-bottom: 0.60675em; }
+  padding: 0.30338em 0 0;
+  margin-bottom: 0; }
 
 ul.classes li div.desc,
 ul.mb_trainers div.bio div.desc {
   max-width: 34.0625em; }
 
 ul.classes li div.bio {
-  border-bottom: 1px #4d4d4d solid; }
+  padding-bottom: 0.25em;
+  border-bottom: 0.25em #FFF dotted;
+  margin-bottom: 1em; }
 
 ul.classes li div.workout-desc img,
 ul.mb_trainers div.bio img {
@@ -3501,12 +3503,15 @@ ul.mb_trainers div.leftTrainer {
     margin-right: 0; }
 
 ul.mb_trainers aside.workouts {
+  padding-bottom: 2em;
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 100%; }
   ul.mb_trainers aside.workouts:last-child {
     margin-right: 0; }
+  ul.mb_trainers aside.workouts ul.classes {
+    padding-bottom: 0; }
 
 ul.mb_trainers div.bio {
   -webkit-transition: height 0.5s ease-out;
@@ -3514,13 +3519,10 @@ ul.mb_trainers div.bio {
   overflow: hidden; }
 
 ul.mb_trainers div.desc {
-  padding-bottom: 0.5em; }
+  padding-bottom: 0; }
 
 ul.mb_trainers div.bio {
   position: relative; }
-
-ul.mb_trainers a.readMore {
-  cursor: pointer; }
 
 ul.mb_trainers a.readMore {
   position: relative;
@@ -3530,8 +3532,9 @@ ul.mb_trainers a.readMore {
   width: 100%;
   padding: 0.5em 0;
   line-height: 2em;
-  margin-bottom: 2em;
-  background: #FFF; }
+  margin-bottom: 0;
+  background: #FFF;
+  cursor: pointer; }
 
 ul.mb_trainers a.readMore::before {
   content: '';
@@ -3544,6 +3547,9 @@ ul.mb_trainers a.readMore::before {
   background: transparent;
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0) 0px, #FFF);
   background-image: linear-gradient(rgba(255, 255, 255, 0) 0px, #FFF); }
+
+ul.mb_trainers li.showBio a.readMore::before {
+  height: 0; }
 
 a.sign_up_now {
   display: block;
@@ -3751,12 +3757,17 @@ div.popOverMB div.content img {
     ul.mb_trainers div.leftTrainer:last-child {
       margin-right: 0; }
   ul.mb_trainers aside.workouts {
+    padding-bottom: 0;
     float: left;
     display: block;
     margin-right: 2.35765%;
     width: 40.29137%; }
     ul.mb_trainers aside.workouts:last-child {
       margin-right: 0; }
+    ul.mb_trainers aside.workouts ul.classes {
+      padding-bottom: 1em; }
+  ul.mb_trainers a.readMore {
+    margin-bottom: 2em; }
   a.sign_up_now .classes {
     text-align: center; }
   div.MB-login {

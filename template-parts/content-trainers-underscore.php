@@ -5,7 +5,7 @@ echo   '<h1><%= Name %></h1>';
 echo   '<div class="trainer">';
 
 echo    '<div class="leftTrainer">';
-echo     '<div class="bio showLess" style="height: <%- bioExcerptHeight %>px">';
+echo     '<div class="bio" style="height: <%- bioExcerptHeight %>px">';
 echo         '<%= ImageURL ? "<img src=\"" + ImageURL + "\" />" : "" %>';
 echo         '<%= Bio ? "<div class=\"desc\">" + Bio + "</div>" : "" %>';
 echo     '</div>';
