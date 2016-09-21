@@ -29,10 +29,17 @@ ul.mb_trainers aside.workouts {
 }
 
 ul.mb_trainers div.bio {
-  transition: height 0.5s ease-out;
+
   overflow: hidden;
 
 }
+
+ul.mb_trainers .transition {
+  transition: height 0.5s ease-out;
+}
+
+
+
 ul.mb_trainers div.desc {
   padding-bottom: 0;
 }

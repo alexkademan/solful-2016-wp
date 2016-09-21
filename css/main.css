@@ -3517,9 +3517,11 @@ ul.mb_trainers aside.workouts {
     padding-bottom: 0; }
 
 ul.mb_trainers div.bio {
-  -webkit-transition: height 0.5s ease-out;
-  transition: height 0.5s ease-out;
   overflow: hidden; }
+
+ul.mb_trainers .transition {
+  -webkit-transition: height 0.5s ease-out;
+  transition: height 0.5s ease-out; }
 
 ul.mb_trainers div.desc {
   padding-bottom: 0; }
@@ -3654,7 +3656,7 @@ div.fullOpacity {
 div.popOverMB div.content {
   display: block;
   position: relative;
-  margin: 0.625em auto;
+  margin: 0 auto;
   max-width: 31.25em; }
 
 div.popOverMB div.content > .main {

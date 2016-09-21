@@ -43,34 +43,46 @@ module.exports = Backbone.View.extend({
 
     if( this.model.get('showFullBio') === true && this.model.get('bioTransition') === false ){
 
-      this.model.set({bioTransition: true});
+      // OPEN THE BIO ********************************************************
+
+      this.model.set({bioTransition: true}); // to prevent double-click
       theButton.html(this.model.get('showLessButton'));
       this.$el.addClass('showBio');
 
       // we know that the blurb is set to a static height, but we want to animate it to
       // the current full height, and then remove the inline style incase the end user
       // re-sizes their window.
+      theBio.addClass('transition');
       theBio.attr('style', 'height: ' + wholeBlurbHeight + 'px');
       setTimeout( function(){
         theBio.removeAttr('style');
         that.model.set({bioTransition : false});
-      }, 500); // remove the inline style so people can scale the page
+        theBio.removeClass('transition');
+      }, 500);
 
 
     } else if( this.model.get('showFullBio') === false  && this.model.get('bioTransition') === false) {
 
-      this.model.set({bioTransition: true});
-      theButton.html(this.model.get('showMoreButton'));
+      // CLOSE THE BIO ********************************************************
+
+      this.model.set({bioTransition: true}); // to prevent double-click
+      theButton.html( this.model.get('showMoreButton'));
       this.$el.removeClass('showBio');
 
       // set the bio back to full height then:
       theBio.attr('style', 'height: ' + wholeBlurbHeight + 'px');
+      // theBio.addClass('transition');
+
       // out it back to appreviated height almost immediately for animation.
       setTimeout( function(){
         theBio.attr('style', 'height: ' + shrunkenHeight + 'px');
-        that.model.set({bioTransition : false});
+        theBio.addClass('transition');
       }, 10);
 
+      setTimeout( function(){
+        theBio.removeClass('transition');
+        that.model.set({bioTransition : false});
+      }, 500);
 
     }
   },
