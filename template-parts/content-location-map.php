@@ -5,8 +5,8 @@
  */
 
 // echo '<div class="google-map">this is gonna be the map</div>';
-?>
-<!--
+
+/*
 Add the code below to the bottom of your page, just before the closing </body> tag.
 Edit myLatlng and the other variables.
 
@@ -19,9 +19,9 @@ Or use a service such as:
 http://software.stadtwerk.org/google_maps_colorizr/#
 http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
 https://developers.google.com/maps/documentation/javascript/tutorial
--->
+*/
 
-
+?>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script>
   var bittersMap = (function () {

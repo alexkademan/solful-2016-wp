@@ -1,6 +1,9 @@
 .map_canvas {
   height: pem(200);
   width: 100%;
+  display: block;
+  float: left;
+  clear:both;
 }
 
 .map_canvas img {

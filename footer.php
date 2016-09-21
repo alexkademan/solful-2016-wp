@@ -9,11 +9,11 @@
  * @package _s
  */
 
-?>
-	</div><!-- #content -->
-</span><!-- .main-bg -->
-</div><!-- #page -->
-<?php
+
+echo 	'</div>'; // #content
+echo '</span>'; // .main-bg
+echo '</div>'; // #page
+
 if($post->post_title == 'Contact Us'){
 	echo '<div id="map_canvas" class="map_canvas"></div>';
 }

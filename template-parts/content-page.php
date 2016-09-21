@@ -26,7 +26,7 @@ the_content();
 
 echo 	'</div>'; // entry-content
 
-echo 	'<footer class="entry-footer">';
+// echo 	'<footer class="entry-footer">';
 
 			// edit_post_link(
 			// 	sprintf(
@@ -38,5 +38,5 @@ echo 	'<footer class="entry-footer">';
 			// 	'</span>'
 			// );
 
-echo 	'</footer>'; // .entry-footer
+// echo 	'</footer>'; // .entry-footer
 echo '</main>'; // #main
