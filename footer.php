@@ -13,7 +13,7 @@
 echo 	'</div>'; // #content
 echo '</span>'; // .main-bg
 echo '</div>'; // #page
-
+print_r($post->post_title);
 if($post->post_title == 'Contact Us'){
 	echo '<div id="map_canvas" class="map_canvas"></div>';
 }
@@ -32,11 +32,15 @@ if($post->post_title == 'Contact Us'){
 	</footer><!-- #colophon -->
 
 <?php wp_footer(); ?>
-<script type='text/javascript' src='<?php echo get_bloginfo('template_url') ?>/js/bundle.js'></script>
+<script type="text/javascript" src="<?php echo get_bloginfo('template_url') ?>/js/bundle.js"></script>
 <?php
 if($post->post_title == 'Contact Us'){ // bring in the js for the map part...
 	get_template_part( 'template-parts/content', 'location-map' );
 }
+// if($post->post_title == 'About') {
+// echo	'<script type="text/javascript" src="' . get_bloginfo('template_url') .'/js/instafeed.min.js"></script>';
+// }
+
 get_template_part( 'template-parts/content', 'login-underscore' ); // templates for login button within masthead.
 echo '<div id="popOverMB" class="popOverMB"></div>';
 ?>

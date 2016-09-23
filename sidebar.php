@@ -16,11 +16,14 @@ if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 	<?php
 
 	// Facebook plugin for front page:
-	if(
-		isset($post->post_title)
-		&& $post->post_title == "Solful Fitness"
-	){
+	if( $post->post_title == "Solful Fitness" ){
 		get_template_part( 'template-parts/content', 'facebook_list' );
 	}
+	if( $post->post_title == "About" ){
+		get_template_part( 'template-parts/content', 'instafeed01' );
+	}
 	?>
+
+
+
 </aside><!-- #secondary -->

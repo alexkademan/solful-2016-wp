@@ -14,4 +14,7 @@ if( isset($_GET['leave']) && isset($_SESSION['MINDBODY']['login'])){
 if(!isset($_SESSION['MINDBODY']['login'])){
 	$_SESSION['MINDBODY']['login'] = 'stranger';
 }
+
+// echo 'data(';
 print_r( json_encode($_SESSION['MINDBODY']['login']) );
+// echo ');';	

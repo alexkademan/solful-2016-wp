@@ -122,50 +122,56 @@ module.exports = Backbone.View.extend({
   },
 
   makeAJAXcall: function( file, section ) {
-    if( file == undefined ){ return }
-    var thisURL = app.mindbodyModel.get('mbFeedURL') + file;
+    if( file === undefined ){ return }
 
-    // console.log(thisURL);
+    var thisURL = this.model.get('mbFeedURL') + file;
+    var that = this;
 
-    $.ajax({
-      url: thisURL,
-      dataType: 'json'
+    console.log( this.model.get('mbFeedURL') );
 
-    }).done(function( data ) {
-      switch(section) {
-        case 'schedule':
-          app.mindbodyView.weHaveSchedule(data);
-          break;
 
-        case 'trainers':
-          app.mindbodyView.weHaveTrainers(data);
-          break;
-
-        case 'login':
-          app.mbLogInView.logInOut(data);
-          break;
-
-        case 'clientSchedule':
-          app.mbLogInView.addRegisteredClasses(data['GetClientScheduleResult']['Visits']['Visit']);
-          break;
-
-        case 'signup':
-          // signed up for a class(?)
-          app.mbClassSignInOut.addNewSignIn(data);
-          break;
-
-        case 'cancelClass':
-          // trying to cancel a class:
-          app.mbClassSignInOut.cancelAppointment(data);
-          break;
-      }
-
-      // add an increment, this will call 'this.adjustState'
-      app.mindbodyView.model.set({
-        requestStatus: app.mindbodyView.model.get('requestStatus') + 1
-      });
-
+    $.getJSON(thisURL,function(data){
+      that.ajaxDone(data, section);
     });
+
+  },
+
+  ajaxDone: function(data, section) {
+
+    switch(section) {
+      case 'schedule':
+        this.weHaveSchedule(data);
+        break;
+
+      case 'trainers':
+        this.weHaveTrainers(data);
+        break;
+
+      case 'login':
+        app.mbLogInView.logInOut(data);
+        break;
+
+      case 'clientSchedule':
+        app.mbLogInView.addRegisteredClasses(data['GetClientScheduleResult']['Visits']['Visit']);
+        break;
+
+      case 'signup':
+        // signed up for a class(?)
+        app.mbClassSignInOut.addNewSignIn(data);
+        break;
+
+      case 'cancelClass':
+        // trying to cancel a class:
+        app.mbClassSignInOut.cancelAppointment(data);
+        break;
+    }
+
+    // add an increment, this will call 'this.adjustState'
+    app.mindbodyView.model.set({
+      requestStatus: app.mindbodyView.model.get('requestStatus') + 1
+    });
+
+
   },
 
   keepTime: function(){

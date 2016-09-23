@@ -16,7 +16,12 @@ module.exports = Backbone.Model.extend({
     trainersLoaded: false,
     instructor: false, // instructor ID. False for ALL instructors (complete schedule)
     totalWorkouts: 0, // total number of workouts on schedule.
+
     mbFeedURL: false, // I'm pulling the URL from the page, WP's get_bloginfo is handy in this instance.
+    mbFeedSSL: 'https://secure147.inmotionhosting.com/~desig362/solfulfitness.com/2016/wp-content/themes/solful-2016-wp/MINDBODY/',
+
+    mbFeedUseSSL: true, // if we use the shared SSL
+
     signupURLbase: 'https://clients.mindbodyonline.com/ws.asp',
     urlMINDBODY: '',
     urlMBloginForm: '', // the link below the login form that allows the client to switch to MINDBODY and do what thyre looking to do there instead of here.
@@ -49,7 +54,6 @@ module.exports = Backbone.Model.extend({
     loginFormRendered: false,
 
     popoverVisible: false,
-    // popupVisible: false,
 
     loginFormVisible: false, // toggle login form visibility.
     loginFormWaiting: false, // when you click "Sign In" the form needs to wait for response from API

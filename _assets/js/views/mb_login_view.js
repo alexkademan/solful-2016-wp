@@ -23,7 +23,26 @@ module.exports = Backbone.View.extend({
 
     if( mbURL ){
       // set the needed var for the whole application,
-      this.model.set({mbFeedURL: mbURL});
+      if(
+        mbURL === 'http://192.168.1.110/~Alex/new/solful2016/wp-content/themes/solful-2016-wp/MINDBODY/'
+        && this.model.get('mbFeedUseSSL') === false // can toggle this for testing.
+      ) {
+        // the mbURL matches the one on my laptop. so keep with that...
+        this.model.set({
+          mbFeedURL: mbURL,
+          mbFeedUseSSL: false
+        });
+      }
+
+      if(this.model.get('mbFeedURL') === false ){
+        // We're on the production server, so use the SSL link:
+        this.model.set({
+          mbFeedURL: this.model.get('mbFeedSSL'),
+          mbFeedUseSSL: true
+        });
+      }
+
+
       this.model.on({'change:loggedIn': this.renderStatus}, this);
 
       // 'loginWorking' is the emergency shutoff to disable login feature.
