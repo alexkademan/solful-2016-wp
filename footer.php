@@ -13,7 +13,6 @@
 echo 	'</div>'; // #content
 echo '</span>'; // .main-bg
 echo '</div>'; // #page
-print_r($post->post_title);
 if($post->post_title == 'Contact Us'){
 	echo '<div id="map_canvas" class="map_canvas"></div>';
 }

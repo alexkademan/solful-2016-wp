@@ -34,3 +34,25 @@ div.feat-img {
     width: 100%;
   }
 }
+
+// side bar
+aside.flower{
+  display: none;
+}
+
+a.package-link {
+  display: block;
+  width: 100%;
+  background: url(../images/solful-banner-bg-20.svg) no-repeat right top;
+  background-size: pem(175);
+  background-color: darken($color-solful-red, 15%);
+  color: #FFF;
+
+  padding: 1.5em 0.5em;
+
+  .no-touchevents &:hover {
+    background-color: darken($color-solful-red, 10%);
+    color: #FFF;
+    text-decoration: none;
+  }
+}

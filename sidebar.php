@@ -7,23 +7,26 @@
  * @package _s
  */
 
-if ( ! is_active_sidebar( 'sidebar-1' ) ) {
-	return;
-}
-?>
+// if ( ! is_active_sidebar( 'sidebar-1' ) ) {
+// 	return;
+// }
 
-<aside id="secondary" class="widget-area" role="complementary">
-	<?php
 
-	// Facebook plugin for front page:
-	if( $post->post_title == "Solful Fitness" ){
+switch ($post->post_name) {
+	case 'home':
+		// Facebook plugin for front page:
 		get_template_part( 'template-parts/content', 'facebook_list' );
-	}
-	if( $post->post_title == "About" ){
-		get_template_part( 'template-parts/content', 'instafeed01' );
-	}
-	?>
+		break;
+	case 'trainers':
+		// gets nuthin'
+		break;
 
+	default:
+		echo '<aside id="secondary" class="widget-area flower" role="complementary">';
+		echo 	'<span class="flower">';
+		echo 		'<img src="' . get_bloginfo('template_url') . '/images/spacer_1x1.gif">';
+		echo 	'</span>';
+		echo '</aside>';
 
-
-</aside><!-- #secondary -->
+		break;
+}

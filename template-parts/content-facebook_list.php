@@ -6,7 +6,7 @@
  *
  * @package _s
  */
-
+echo '<aside id="secondary" class="widget-area" role="complementary">';
 ?>
 <ul id="fb_feed" class="fb_feed">
 	<li class="loading">
@@ -86,3 +86,5 @@
 	  <img src="<%- imgURL %>">
 	</script>
 </ul>
+
+<?php echo '</aside>'; // #secondary

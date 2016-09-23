@@ -11,25 +11,10 @@
  *
  * @package _s
  */
-// print_r($post->post_title);
-// if(
-// 	isset($post->post_title)
-// 	&& $post->post_title == "Solful Fitness"
-// ){
-// 	$has_sidebar = true;
-//
-// } else {
-// 	$has_sidebar = false;
-// };
 
 get_header();
-
-?>
-	<div id="primary" class="content-area">
-		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-<?php
-		// regular ol' page heading
-		// get_template_part('template-parts/content', 'page-headline');
+echo '<div id="primary" class="content-area">';
+echo		'<article id="post-' . get_the_ID() . '" class="' . implode(' ', get_post_class()) .  '">';
 
 		// MINDBODY pages:
 		if($post->post_name == 'schedule') {
@@ -50,10 +35,8 @@ get_header();
 				get_template_part( 'template-parts/content', 'page' );
 			endwhile; // End of the loop.
 		}
-?>
-		</article><!-- #post-## -->
-	</div><!-- #primary -->
 
-<?php
+echo 		'</article>'; // #post-##
+echo 	'</div>'; // #primary
 get_sidebar();
 get_footer();

@@ -3056,22 +3056,22 @@ body.main_nav_on span.toggle_menu {
       transition-property: transform, -webkit-transform;
       -webkit-transition-duration: 40s;
       transition-duration: 40s;
-      -webkit-animation-name: rotate;
-      animation-name: rotate;
+      -webkit-animation-name: mh_rotate;
+      animation-name: mh_rotate;
       -webkit-animation-duration: 40s;
       animation-duration: 40s;
       -webkit-animation-iteration-count: infinite;
       animation-iteration-count: infinite;
       -webkit-animation-timing-function: linear;
       animation-timing-function: linear; }
-  @-webkit-keyframes rotate {
+  @-webkit-keyframes mh_rotate {
     from {
       -webkit-transform: rotate(0deg);
       transform: rotate(0deg); }
     to {
       -webkit-transform: rotate(360deg);
       transform: rotate(360deg); } }
-  @keyframes rotate {
+  @keyframes mh_rotate {
     from {
       -webkit-transform: rotate(0deg);
       transform: rotate(0deg); }
@@ -3188,6 +3188,22 @@ div.feat-img {
     top: 0;
     width: 100%; }
 
+aside.flower {
+  display: none; }
+
+a.package-link {
+  display: block;
+  width: 100%;
+  background: url(../images/solful-banner-bg-20.svg) no-repeat right top;
+  background-size: 10.9375em;
+  background-color: #c91a10;
+  color: #FFF;
+  padding: 1.5em 0.5em; }
+  .no-touchevents a.package-link:hover {
+    background-color: #e11d12;
+    color: #FFF;
+    text-decoration: none; }
+
 .map_canvas {
   height: 12.5em;
   width: 100%;
@@ -3246,6 +3262,12 @@ div.feat-img {
       margin-right: 0; }
   .site-footer > a {
     float: right; }
+  aside.flower {
+    display: block; }
+  aside.flower img {
+    width: 100%;
+    background: url("../images/solful-with-sun.png") no-repeat center;
+    background-size: contain; }
   .image-gradient-dynamic .copy h1 {
     font-size: 4em; } }
 

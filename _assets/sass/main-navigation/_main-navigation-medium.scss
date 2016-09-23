@@ -219,16 +219,16 @@ span.sunflower {
 
     transition-property: transform;
     transition-duration: 40s;
-    animation-name: rotate;
+    animation-name: mh_rotate;
     animation-duration: 40s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 
   }
 
-  @keyframes rotate {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
+  @keyframes mh_rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 }
 body.notPageTop span.sunflower {

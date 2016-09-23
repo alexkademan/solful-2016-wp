@@ -18,17 +18,16 @@ echo '<main id="main" class="site-main" role="main">';
 get_template_part('template-parts/content', 'page-headline');
 echo	'<div class="entry-content">';
 
+the_content();
 
 if($post->post_name == 'home'){
 	get_template_part( 'template-parts/content', 'home-blog-feed' );
-} else {
-	the_content();
 }
 
-			wp_link_pages( array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', '_s' ),
-				'after'  => '</div>',
-			) );
+wp_link_pages( array(
+	'before' => '<div class="page-links">' . esc_html__( 'Pages:', '_s' ),
+	'after'  => '</div>',
+) );
 
 echo 	'</div>'; // entry-content
 
