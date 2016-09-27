@@ -5,3 +5,19 @@
     }
   }
 }
+
+// side bar
+aside.flower{
+  display: block;
+}
+
+aside.flower img {
+  width:100%;
+  background: url('../images/solful-with-sun.svg') no-repeat center;
+  background-size: contain;
+
+
+  .no-svg aside.flower img {
+    background: url('../images/solful-with-sun.png') no-repeat center;
+  }
+}

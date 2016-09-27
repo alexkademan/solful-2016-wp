@@ -64,13 +64,15 @@ module.exports = Backbone.View.extend({
     this.setBaseURL();
     this.keepTime();
 
-    // check to see if the user is already logged in:
-    // this is just looking at the SESSION stored on the server.
-    // switch this to cookie????
-    this.makeAJAXcall('login-status.php', 'login');
-
-
     if(this.$el.length == 1){
+
+      // check to see if the user is already logged in:
+      // this is just looking at the SESSION stored on the server.
+      // switch this to cookie????
+      app.mbLogInView.checkLoginStatus();
+
+      this.makeAJAXcall('login-status.php', 'login');
+
 
       // the slug has been printed to the DOM. like its 2013 or something !@#!@
       var wpSlug = this.$('span.slug');
@@ -122,13 +124,16 @@ module.exports = Backbone.View.extend({
   },
 
   makeAJAXcall: function( file, section ) {
-    if( file === undefined ){ return }
+    if( file === undefined ){ return };
 
     var thisURL = this.model.get('mbFeedURL') + file;
     var that = this;
 
-    console.log( this.model.get('mbFeedURL') );
 
+    ( this.model.get('mbFeedUseSSL') ?
+      console.log(this.model.get('mbFeedURL')) :
+      console.log(thisURL)
+    );
 
     $.getJSON(thisURL,function(data){
       that.ajaxDone(data, section);
@@ -379,6 +384,7 @@ module.exports = Backbone.View.extend({
     }
 
     this.model.set({'urlMINDBODY': baseMBlink + args});
-  }
+  },
+
 
 });

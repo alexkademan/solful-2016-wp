@@ -24,8 +24,10 @@ module.exports = Backbone.View.extend({
     if( mbURL ){
       // set the needed var for the whole application,
       if(
-        mbURL === 'http://192.168.1.110/~Alex/new/solful2016/wp-content/themes/solful-2016-wp/MINDBODY/'
-        && this.model.get('mbFeedUseSSL') === false // can toggle this for testing.
+        // are we asking the SSL pages for data? or keeping it local for testing?
+        this.model.get('mbFeedUseSSL') === false // can toggle this for testing.
+        // look to see if we're running on the laptop or not:
+        && mbURL === 'http://192.168.1.110/~Alex/new/solful2016/wp-content/themes/solful-2016-wp/MINDBODY/'
       ) {
         // the mbURL matches the one on my laptop. so keep with that...
         this.model.set({
@@ -119,6 +121,7 @@ module.exports = Backbone.View.extend({
 
       // keep the login username in the cookie for next time she loads the page:
       document.cookie = "mb-client-username=" + data['client']['Email'] + "; expires=Thu, 18 Dec 3016 12:00:00 UTC;";
+      document.cookie = "mb-client-info=" + JSON.stringify(data) + "; expires=Thu, 18 Dec 3016 12:00:00 UTC;";
 
 
     } else if(data['ValidateLoginResult']){
@@ -242,6 +245,17 @@ module.exports = Backbone.View.extend({
 
 
     }
+
+  },
+
+
+  checkLoginStatus: function() {
+    console.log('checkLoginStatus');
+
+    // get the cookies,
+    var cookieArray = app.mbMethods.mbGetCookieArray( document.cookie );
+
+    console.log(cookieArray['mb-client-info']);
 
   }
 

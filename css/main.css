@@ -3177,6 +3177,9 @@ div.feat-img-banner {
   background-repeat: no-repeat;
   background-size: cover; }
 
+div.entry-content p {
+  max-width: 37.5em; }
+
 div.feat-img {
   line-height: 0;
   position: relative;
@@ -3205,6 +3208,7 @@ a.package-link {
     text-decoration: none; }
 
 .map_canvas {
+  position: relative;
   height: 12.5em;
   width: 100%;
   display: block;
@@ -3262,14 +3266,16 @@ a.package-link {
       margin-right: 0; }
   .site-footer > a {
     float: right; }
+  .image-gradient-dynamic .copy h1 {
+    font-size: 4em; }
   aside.flower {
     display: block; }
   aside.flower img {
     width: 100%;
-    background: url("../images/solful-with-sun.png") no-repeat center;
+    background: url("../images/solful-with-sun.svg") no-repeat center;
     background-size: contain; }
-  .image-gradient-dynamic .copy h1 {
-    font-size: 4em; } }
+    aside.flower img .no-svg aside.flower img {
+      background: url("../images/solful-with-sun.png") no-repeat center; } }
 
 ul.fb_feed {
   position: relative; }
