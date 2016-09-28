@@ -39,6 +39,6 @@ if($post->post_title == 'About'){
 
 get_template_part( 'template-parts/content', 'login-underscore' ); // templates for login button within masthead.
 echo '<div id="popOverMB" class="popOverMB"></div>';
-
+get_template_part('googleAnalytics');
 echo '</body>';
 echo '</html>';
