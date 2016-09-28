@@ -64,17 +64,20 @@ module.exports = Backbone.View.extend({
     this.setBaseURL();
     this.keepTime();
 
+    // look for a cookie that has the client's login stored.
+    // if they logged into this website at another page, then loaded current page,
+    // then they're info is in the cookie. So log 'em into the models as this page renders.
+    var cookieArray = app.mbMethods.mbGetCookieArray( document.cookie );
+    if(cookieArray['mb-client-info']) {
+      app.mbLogInView.logClientIn( JSON.parse(cookieArray['mb-client-info']) );
+    }
+
     if(this.$el.length == 1){
 
       // check to see if the user is already logged in:
       // this is just looking at the SESSION stored on the server.
       // switch this to cookie????
-      var cookieArray = app.mbMethods.mbGetCookieArray( document.cookie );
-      app.mbLogInView.checkLoginStatus(cookieArray);
-
-      // this.checkSched(cookieArray);
       // this.makeAJAXcall('login-status.php', 'login');
-
 
       // the slug has been printed to the DOM. like its 2013 or something !@#!@
       var wpSlug = this.$('span.slug');
@@ -138,10 +141,10 @@ module.exports = Backbone.View.extend({
     var that = this;
 
 
-    ( this.model.get('mbFeedUseSSL') ?
-      console.log(this.model.get('mbFeedURL')) :
-      console.log(thisURL)
-    );
+    // ( this.model.get('mbFeedUseSSL') ?
+    //   console.log('ajax call') :
+    //   console.log(thisURL)
+    // );
 
     $.getJSON(thisURL,function(data){
       that.ajaxDone(data, section);
@@ -205,13 +208,14 @@ module.exports = Backbone.View.extend({
       var loginMaxTime = Number(this.model.get('loginMaxTime'));
 
       if(currentTime >= (loginTime + loginMaxTime)){
+
+        console.log('log out because of timer !!!!');
+
         // user login is expired:
         app.mbLogInView.logOutUser();
       } else {
         // login isn't expired:
         var secondsToLogout = (loginTime +loginMaxTime) - currentTime;
-
-        console.log(secondsToLogout);
 
         // record the countdown to the model
         this.model.set({
@@ -262,8 +266,6 @@ module.exports = Backbone.View.extend({
       }
     };
 
-    // console.log( JSON.stringify(sched) );
-    // document.cookie = 'mb-class-schedule' + JSON.stringify(sched);
     this.model.set({ schedLoaded: true });
   },
 

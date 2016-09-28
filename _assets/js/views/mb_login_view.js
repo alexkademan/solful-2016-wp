@@ -65,7 +65,8 @@ module.exports = Backbone.View.extend({
   logOutUser: function() {
     // this call erases the session, and removes session data from model.
     if(this.model.get('loggedIn') === true){
-      app.mindbodyView.makeAJAXcall('login-status.php?leave=true', 'login');
+      // app.mindbodyView.makeAJAXcall('login-status.php?leave=true', 'login');
+      this.logClientOut();
       this.model.set({loginFormWaiting: true});
     };
   },
@@ -84,7 +85,8 @@ module.exports = Backbone.View.extend({
 
     // kill off the schedule cookie
     this.adjustClientSchedule(false);
-    // document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+    document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    document.cookie = "mb-client-info=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
 
     // make the login form disappear, if it's still around:
     app.mbBackGroundShader.killPopOver();
@@ -147,10 +149,10 @@ module.exports = Backbone.View.extend({
 
 
       // keep the login username in the cookie for next time she loads the page:
-      document.cookie = "mb-client-username=" + data['client']['Email'] + "; expires=Thu, 18 Dec 3016 12:00:00 UTC;";
+      document.cookie = "mb-client-username=" + data['client']['Email'] + "; expires=Thu, 18 Dec 2500 12:00:00 UTC; path=/";
 
       // save all the info about the user in the cookie... this is to keep user logged in from page to page.
-      document.cookie = "mb-client-info=" + JSON.stringify(data) + "; expires=Thu, 18 Dec 3016 12:00:00 UTC;";
+      document.cookie = "mb-client-info=" + JSON.stringify(data) + "; expires=Thu, 18 Dec 2500 12:00:00 UTC; path=/";
 
 
     } else if(data['ValidateLoginResult']){
@@ -285,7 +287,7 @@ module.exports = Backbone.View.extend({
         'clientSchedCount': 0
       });
       // remove cookie if it's there (the schedule is empty):
-      document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+      document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC, path=/";
 
     } else {
       // the argument was an array so add it to the model:
@@ -295,7 +297,7 @@ module.exports = Backbone.View.extend({
       });
       // store in cookie for quicker response when page loads:
       // document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-      document.cookie = "mb-client-schedule=" + JSON.stringify(schedArray);
+      document.cookie = "mb-client-schedule=" + JSON.stringify(schedArray) + "; expires=Thu, 18 Dec 2500 12:00:00 UTC; path=/";
 
     }
   },
@@ -304,14 +306,7 @@ module.exports = Backbone.View.extend({
   checkLoginStatus: function(cookieArray) {
 
     if(cookieArray['mb-client-info']) {
-      // console.log(cookieArray['mb-client-info']);
-      // this.logInOut(cookieArray)
-
-      // this.logInOut( JSON.parse(cookieArray['mb-client-info']) );
-
-      // console.log( JSON.parse(cookieArray['mb-client-info']) );
       this.logClientIn( JSON.parse(cookieArray['mb-client-info']) );
-
     };
 
   }
