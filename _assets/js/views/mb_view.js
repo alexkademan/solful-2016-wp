@@ -69,9 +69,11 @@ module.exports = Backbone.View.extend({
       // check to see if the user is already logged in:
       // this is just looking at the SESSION stored on the server.
       // switch this to cookie????
-      app.mbLogInView.checkLoginStatus();
+      var cookieArray = app.mbMethods.mbGetCookieArray( document.cookie );
+      app.mbLogInView.checkLoginStatus(cookieArray);
 
-      this.makeAJAXcall('login-status.php', 'login');
+      // this.checkSched(cookieArray);
+      // this.makeAJAXcall('login-status.php', 'login');
 
 
       // the slug has been printed to the DOM. like its 2013 or something !@#!@
@@ -115,12 +117,18 @@ module.exports = Backbone.View.extend({
           schedArguments += '&duration=' + this.model.get('scheduleSpan');
           schedArguments += '&sessionLife=' + this.model.get('loginMaxTime');
 
-          this.makeAJAXcall('sched-02.php' + schedArguments, 'schedule');
+
+          // this.showSched(schedArguments);
+          this.makeAJAXcall('sched-03.php' + schedArguments, 'schedule');
           this.makeAJAXcall('trainers-01.php' + schedArguments, 'trainers');
 
         }
       };
     };
+  },
+
+  showSched: function(schedArguments) {
+
   },
 
   makeAJAXcall: function( file, section ) {
@@ -203,6 +211,8 @@ module.exports = Backbone.View.extend({
         // login isn't expired:
         var secondsToLogout = (loginTime +loginMaxTime) - currentTime;
 
+        console.log(secondsToLogout);
+
         // record the countdown to the model
         this.model.set({
           clientCountDown: secondsToLogout,
@@ -226,7 +236,11 @@ module.exports = Backbone.View.extend({
 
   },
 
-  weHaveSchedule: function(data) {
+  weHaveSchedule: function(sched) {
+
+    var startTime = sched.requestStartTime;
+    var data = sched.sched;
+
     for(var key in data) {
       var dayInfo = app.findDayInfo.findDayInfo(key);
 
@@ -246,8 +260,10 @@ module.exports = Backbone.View.extend({
           app.mbDays.get(key).get('appointments').add(data[key][appointment]);
         }
       }
-    }
+    };
 
+    // console.log( JSON.stringify(sched) );
+    // document.cookie = 'mb-class-schedule' + JSON.stringify(sched);
     this.model.set({ schedLoaded: true });
   },
 
