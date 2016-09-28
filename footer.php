@@ -30,7 +30,6 @@ echo 	'</a>';
 echo '</footer>'; // #colophon
 wp_footer();
 
-echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/bundle.js"></script>';
 
 if($post->post_title == 'Contact Us'){ get_template_part( 'template-parts/content', 'location-map' ); }
 if($post->post_title == 'About'){
@@ -38,7 +37,12 @@ if($post->post_title == 'About'){
 }
 
 get_template_part( 'template-parts/content', 'login-underscore' ); // templates for login button within masthead.
+echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/bundle.js"></script>';
 echo '<div id="popOverMB" class="popOverMB"></div>';
-get_template_part('googleAnalytics');
+
+if( $_SERVER['HTTP_HOST'] != '192.168.1.110'){
+  get_template_part('googleAnalytics');
+}
+
 echo '</body>';
 echo '</html>';
