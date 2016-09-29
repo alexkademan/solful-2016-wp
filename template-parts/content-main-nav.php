@@ -1,5 +1,8 @@
-<nav id="site-nav" class="site-nav">
-  <span><?php // this span is to get the height of the hidden menu via jquery
+<?php
+echo '<nav id="site-nav" class="site-nav">';
+echo   '<span>';
+
+ // this span is to get the height of the hidden menu via jquery
 if(isset($GLOBALS['this_site']['navigation'])) {
 
   echo '<span class="mn">';
@@ -14,21 +17,5 @@ if(isset($GLOBALS['this_site']['navigation'])) {
   echo  '</span>';
 }
 
-// if(isset($GLOBALS['this_site']['sub_navigation'])) {
-//
-//   echo '<span class="sn">';
-//   echo  '<span>';
-//   echo    '<ul class="subNav">';
-//
-//   foreach($GLOBALS['this_site']['sub_navigation'] as $key1=>$item) {
-//     echo '<li><a href="' . $item['permalink'] . '">' . $item['title'] . '</a></li>';
-//   }
-//
-//   echo    '</ul>';
-//   echo   '</span>';
-//   echo  '</span>';
-// }
-?>
-  <?php // get_template_part( 'template-parts/content', 'login' ); ?>
-  </span>
-</nav>
+echo  '</span>';
+echo '</nav>';

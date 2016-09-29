@@ -22,11 +22,13 @@ switch ($post->post_name) {
 		break;
 
 	default:
-		echo '<aside id="secondary" class="widget-area flower" role="complementary">';
-		echo 	'<span class="flower">';
-		echo 		'<img src="' . get_bloginfo('template_url') . '/images/spacer_1x1.gif">';
-		echo 	'</span>';
-		echo '</aside>';
 
+		if($post->post_parent != 13){ // not a page for a trainer.
+			echo '<aside id="secondary" class="widget-area flower" role="complementary">';
+			echo 	'<span class="flower">';
+			echo 		'<img src="' . get_bloginfo('template_url') . '/images/spacer_1x1.gif">';
+			echo 	'</span>';
+			echo '</aside>';
+		}
 		break;
 }

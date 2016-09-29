@@ -138,14 +138,11 @@ module.exports = Backbone.View.extend({
   makeAJAXcall: function( file, section ) {
     if( file === undefined ){ return };
 
-    var thisURL = this.model.get('mbFeedURL') + file;
+    var thisURL = this.model.get("mbFeedURL") + file;
     var that = this;
 
 
-    // ( this.model.get('mbFeedUseSSL') ?
-    //   console.log('ajax call') :
-    //   console.log(thisURL)
-    // );
+    if( this.model.get("mbFeedUseSSL") == true ){ console.log(thisURL) }
 
     $.getJSON(thisURL,function(data){
       that.ajaxDone(data, section);

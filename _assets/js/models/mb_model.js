@@ -21,7 +21,7 @@ module.exports = Backbone.Model.extend({
     mbFeedURL: false, // I'm pulling the URL from the page, WP's get_bloginfo is handy in this instance.
     mbFeedSSL: 'https://secure147.inmotionhosting.com/~desig362/solfulfitness.com/2016/wp-content/themes/solful-2016-wp/MINDBODY/',
 
-    mbFeedUseSSL: true, // if we use the shared SSL
+    mbFeedUseSSL: false, // if we use the shared SSL
 
     signupURLbase: 'https://clients.mindbodyonline.com/ws.asp',
     urlMINDBODY: '',
