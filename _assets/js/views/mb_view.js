@@ -108,7 +108,7 @@ module.exports = Backbone.View.extend({
             availableTrainers[i] = key;
             ++i;
           }
-          console.log( availableTrainers );
+
           // Thow this to the model so that we have the order of available trainers
           // to be displayed on the trainers page.
           this.model.set({"availableTrainers": availableTrainers});
@@ -142,7 +142,7 @@ module.exports = Backbone.View.extend({
     var that = this;
 
 
-    if( this.model.get("mbFeedUseSSL") == true ){ console.log(thisURL) }
+    if( this.model.get("mbFeedUseSSL") == false ){ console.log(thisURL) }
 
     $.getJSON(thisURL,function(data){
       that.ajaxDone(data, section);
