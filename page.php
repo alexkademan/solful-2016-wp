@@ -23,7 +23,7 @@ echo		'<article id="post-' . get_the_ID() . '" class="' . implode(' ', get_post_
 			get_template_part( 'template-parts/content', 'schedule-underscore' );
 			get_template_part( 'template-parts/content', 'trainers-underscore' );
 
-		} else if($post->post_name == 'trainers') {
+		} else if($post->post_name == 'trainers' || $post->post_parent == 13) {
 			get_template_part( 'template-parts/content', 'trainers' );
 			// MINDBODY underscore templates:
 			get_template_part( 'template-parts/content', 'schedule-underscore' );

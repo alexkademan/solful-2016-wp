@@ -381,6 +381,13 @@ h6 {
   font-size: 1.25em;
   line-height: 1.1em;
   margin: 0 0 0.75em; }
+  .entry-content h1, .entry-content
+  h2, .entry-content
+  h3, .entry-content
+  h4, .entry-content
+  h5, .entry-content
+  h6 {
+    margin-bottom: 0; }
   h1 strong,
   h2 strong,
   h3 strong,
@@ -3127,6 +3134,23 @@ body > div.site > .main-bg > div.content,
     clear: both;
     content: "";
     display: block; }
+
+.entry-content img {
+  max-width: 45%; }
+
+span.block,
+.entry-content h1,
+.entry-content h2 {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%; }
+
+span.block {
+  padding-bottom: 1em; }
+
+img.alignright {
+  float: right; }
 
 .site-main,
 .full-width,

@@ -38,7 +38,25 @@ body > div.site > .main-bg > div.content,
 body > div.site > .main-bg > div.content {
   // padding-top: pem(30);
 }
+.entry-content img {
+  max-width: 45%;
+}
+span.block,
+.entry-content h1,
+.entry-content h2 {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+}
 
+span.block {
+  padding-bottom: 1em;
+}
+
+img.alignright {
+  float: right;
+}
 // .full-width,
 .site-main,
 .full-width,

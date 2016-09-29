@@ -1,17 +1,17 @@
 // app.mbLogInView
 // model: app.mindbodyModel
 
-var Backbone = require ('backbone');
-var _ = require ('underscore');
-var $ = require ('jquery');
+var Backbone = require ("backbone");
+var _ = require ("underscore");
+var $ = require ("jquery");
 
 module.exports = Backbone.View.extend({
-  el: '#mastheadLogin',
+  el: "#mastheadLogin",
 
   events:{
-    'click a.logIn': 'logInUser',
-    'click a.logOut': 'logOutUser',
-    'click a.mbAccount span': 'toggleAccountInfo'
+    "click a.logIn": "logInUser",
+    "click a.logOut": "logOutUser",
+    "click a.mbAccount span": "toggleAccountInfo"
   },
 
   initialize: function() {
@@ -19,15 +19,15 @@ module.exports = Backbone.View.extend({
     // more efficiently get the full URL to the program out of
     // WP than I can out of JS. This is just to keep things portable.
     // (but its not the nicest solution...)
-    var mbURL = this.$('#mb-login-mbFeedURL')[0].href;
+    var mbURL = this.$("#mb-login-mbFeedURL")[0].href;
 
     if( mbURL ){
       // set the needed var for the whole application,
       if(
         // are we asking the SSL pages for data? or keeping it local for testing?
-        this.model.get('mbFeedUseSSL') === false // can toggle this for testing.
+        this.model.get("mbFeedUseSSL") === false // can toggle this for testing.
         // look to see if we're running on the laptop or not:
-        && mbURL === 'http://192.168.1.110/~Alex/new/solful2016/wp-content/themes/solful-2016-wp/MINDBODY/'
+        && mbURL === "http://192.168.1.110/~Alex/new/solful2016/wp-content/themes/solful-2016-wp/MINDBODY/"
       ) {
         // the mbURL matches the one on my laptop. so keep with that...
         this.model.set({
@@ -36,39 +36,39 @@ module.exports = Backbone.View.extend({
         });
       }
 
-      if(this.model.get('mbFeedURL') === false ){
+      if(this.model.get("mbFeedURL") === false ){
         // We're on the production server, so use the SSL link:
         this.model.set({
-          mbFeedURL: this.model.get('mbFeedSSL'),
+          mbFeedURL: this.model.get("mbFeedSSL"),
           mbFeedUseSSL: true
         });
       }
 
 
-      this.model.on({'change:loggedIn': this.renderStatus}, this);
+      this.model.on({"change:loggedIn": this.renderStatus}, this);
 
       // 'loginWorking' is the emergency shutoff to disable login feature.
-      if(this.model.get('loginWorking') === true){
+      if(this.model.get("loginWorking") === true){
         this.renderStatus();
       }
-    };
+    }
   },
 
   logInUser: function() {
-    app.mbBackGroundShader.openPopUp('login');
+    app.mbBackGroundShader.openPopUp("login");
   },
 
   toggleAccountInfo: function() {
-    app.mbBackGroundShader.openPopUp('accountInfo');
+    app.mbBackGroundShader.openPopUp("accountInfo");
   },
 
   logOutUser: function() {
     // this call erases the session, and removes session data from model.
-    if(this.model.get('loggedIn') === true){
+    if(this.model.get("loggedIn") === true){
       // app.mindbodyView.makeAJAXcall('login-status.php?leave=true', 'login');
       this.logClientOut();
       this.model.set({loginFormWaiting: true});
-    };
+    }
   },
 
   logClientOut: function() {
@@ -78,7 +78,7 @@ module.exports = Backbone.View.extend({
       GUID: false,
       client: false,
       loggedIn: false,
-      loginTime: '',
+      loginTime: "",
       clientCountDown: false, // the countdown to auto-logout
       clientCountDownR: false // Readable client count down (like a clock)
     });
@@ -96,10 +96,10 @@ module.exports = Backbone.View.extend({
   logInOut: function(data){
     // data is returned from the AJAX call that is meant to
     // test if the client is logged into the website or "a stranger"
-    if(data === 'stranger'){
+    if(data === "stranger"){
       this.logClientOut();
 
-    } else if(data['GUID']) {
+    } else if(data["GUID"]) {
 
       // the user JUST got her login credentials.
       // OR reloaded the page while logged in.
@@ -108,11 +108,11 @@ module.exports = Backbone.View.extend({
 
       // the user JUST got her login credentials.
       // this is not a page load:
-      if( this.model.get('workoutRequested') === false){
+      if( this.model.get("workoutRequested") === false){
         this.model.set({popoverVisible: false});
 
       } else {
-        app.mbBackGroundShader.openPopUp('workout', this.model.get('workoutRequested'));
+        app.mbBackGroundShader.openPopUp("workout", this.model.get("workoutRequested"));
         // then remove the class from the model, so it's not in our way next time we come through here:
         this.model.set({workoutRequested: false});
 
@@ -122,8 +122,8 @@ module.exports = Backbone.View.extend({
       app.mindbodyView.checkStatus();
 
       // now that we're logged in, get info about the client:
-      this.getClientInfo(data);
-      if(this.model.get('client') !== false){
+      // this.getClientInfo(data);
+      if(this.model.get("client") !== false){
 
         // // get the cookies,
         // var cookieArray = app.mbMethods.mbGetCookieArray( document.cookie );
@@ -137,25 +137,25 @@ module.exports = Backbone.View.extend({
 
         // check the client's schedule again.
         // This may override the cookie that we just loaded into the model.
-        var argString = '';
-        argString += '?userID=' + this.model.get('client')['ID'];
-        argString += '&timeStart=' + this.model.get('pageLoadTime');
-        argString += '&duration=' + this.model.get('scheduleSpan');
+        var argString = "";
+        argString += "?userID=" + this.model.get("client")["ID"];
+        argString += "&timeStart=" + this.model.get("pageLoadTime");
+        argString += "&duration=" + this.model.get("scheduleSpan");
 
-        app.mindbodyView.makeAJAXcall('client-schedule-01.php' + argString, 'clientSchedule');
+        app.mindbodyView.makeAJAXcall("client-schedule-01.php" + argString, "clientSchedule");
 
       };
 
 
 
       // keep the login username in the cookie for next time she loads the page:
-      document.cookie = "mb-client-username=" + data['client']['Email'] + "; expires=Thu, 18 Dec 2500 12:00:00 UTC; path=/";
+      document.cookie = "mb-client-username=" + data["client"]["Email"] + "; expires=Thu, 18 Dec 2500 12:00:00 UTC; path=/";
 
       // save all the info about the user in the cookie... this is to keep user logged in from page to page.
       document.cookie = "mb-client-info=" + JSON.stringify(data) + "; expires=Thu, 18 Dec 2500 12:00:00 UTC; path=/";
 
 
-    } else if(data['ValidateLoginResult']){
+    } else if(data["ValidateLoginResult"]){
       // we caught an error message. from the AJAX request
       this.model.set({
         loginFormWaiting: false,
@@ -167,23 +167,23 @@ module.exports = Backbone.View.extend({
   logClientIn: function(data) {
     // data comes either from the AJAX call, or was pulled from the cookie (from the last page they had loaded.)
     this.model.set({
-      GUID: data['GUID'],
-      client: data['client'],
+      GUID: data["GUID"],
+      client: data["client"],
       loggedIn: true,
       loginFormWaiting: false,
-      loginTime: data['loginTime']
+      loginTime: data["loginTime"]
     });
 
 
-    if(this.model.get('client') !== false){
+    if(this.model.get("client") !== false){
 
       // get the cookies,
       var cookieArray = app.mbMethods.mbGetCookieArray( document.cookie );
 
-      if(cookieArray['mb-client-schedule']){
+      if(cookieArray["mb-client-schedule"]){
         // the schedule is cached to a JSON string in the cookie
         // add to the live model:
-        this.adjustClientSchedule( JSON.parse(cookieArray['mb-client-schedule']) );
+        this.adjustClientSchedule( JSON.parse(cookieArray["mb-client-schedule"]) );
 
       };
     }
@@ -192,10 +192,10 @@ module.exports = Backbone.View.extend({
   },
 
   renderStatus: function() {
-    if(this.model.get('loggedIn') === false){
+    if(this.model.get("loggedIn") === false){
       // client is NOT logged into MINDBODY:
       this.renderStranger();
-    }else if (this.model.get('loggedIn') === true){
+    }else if (this.model.get("loggedIn") === true){
       // client IS logged into MINDBODY:
       this.renderUser();
     };
@@ -203,47 +203,20 @@ module.exports = Backbone.View.extend({
   },
 
   renderStranger: function() {;
-    var templateStranger = _.template($('#mb-login-stranger').html());
+    var templateStranger = _.template($("#mb-login-stranger").html());
     // clean out the old:
     this.$el.empty();
     this.$el.append(templateStranger(this.model.toJSON()));
 
   },
   renderUser: function(){
-    var templateUser = _.template($('#mb-login-user').html());
+    var templateUser = _.template($("#mb-login-user").html());
     // clean out the old:
     this.$el.empty();
     this.$el.append(templateUser(this.model.toJSON()));
 
     // the stuff that display's info about the logged in client:
     // app.clientInfoView = new ClientInfo({model: this.model});
-  },
-
-  getClientInfo: function() {
-
-    // we JUST logged into MINDBODY
-    // if(this.model.get('client') !== false){
-    //
-    //   // get the cookies,
-    //   var cookieArray = app.mbMethods.mbGetCookieArray( document.cookie );
-    //
-    //   if(cookieArray['mb-client-schedule']){
-    //     // the schedule is cached to a JSON string in the cookie
-    //     // add to the live model:
-    //     this.adjustClientSchedule( JSON.parse(cookieArray['mb-client-schedule']) );
-    //
-    //   };
-    //
-    //   // check the client's schedule again.
-    //   // This may override the cookie that we just loaded into the model.
-    //   var argString = '';
-    //   argString += '?userID=' + this.model.get('client')['ID'];
-    //   argString += '&timeStart=' + this.model.get('pageLoadTime');
-    //   argString += '&duration=' + this.model.get('scheduleSpan');
-    //
-    //   app.mindbodyView.makeAJAXcall('client-schedule-01.php' + argString, 'clientSchedule');
-    //
-    // };
   },
 
   addRegisteredClasses: function(data) {
@@ -267,7 +240,7 @@ module.exports = Backbone.View.extend({
       } else {
         for(x in data) {
           // add every enrolled class to the array.
-          clientSched[clientSched.length] = data[x]['ClassID'];
+          clientSched[clientSched.length] = data[x]["ClassID"];
         }
       };
 
@@ -283,8 +256,8 @@ module.exports = Backbone.View.extend({
     if(schedArray === false) {
       // reset the client schedule
       this.model.set({
-        'clientSchedule': false,
-        'clientSchedCount': 0
+        clientSchedule : false,
+        clientSchedCount : 0
       });
       // remove cookie if it's there (the schedule is empty):
       document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC, path=/";
@@ -292,8 +265,8 @@ module.exports = Backbone.View.extend({
     } else {
       // the argument was an array so add it to the model:
       this.model.set({
-        'clientSchedule': schedArray,
-        'clientSchedCount': schedArray.length
+        clientSchedule : schedArray,
+        clientSchedCount : schedArray.length
       });
       // store in cookie for quicker response when page loads:
       // document.cookie = "mb-client-schedule=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -305,8 +278,8 @@ module.exports = Backbone.View.extend({
 
   checkLoginStatus: function(cookieArray) {
 
-    if(cookieArray['mb-client-info']) {
-      this.logClientIn( JSON.parse(cookieArray['mb-client-info']) );
+    if(cookieArray["mb-client-info"]) {
+      this.logClientIn( JSON.parse(cookieArray["mb-client-info"]) );
     };
 
   }

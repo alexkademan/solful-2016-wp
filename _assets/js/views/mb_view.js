@@ -1,32 +1,32 @@
 // app.mindbodyView
 // model: app.mindbodyModel
 
-var Backbone = require ('backbone');
-var _ = require ('underscore');
-var $ = require ('jquery');
+var Backbone = require ("backbone");
+var _ = require ("underscore");
+var $ = require ("jquery");
 
-var MindBodyButton = require('./mindbody_button');
-var MindBodyButtonFooter = require('./mindbody_button_footer');
+var MindBodyButton = require("./mindbody_button");
+var MindBodyButtonFooter = require("./mindbody_button_footer");
 
-var DaysCollection = require('./../models/mb_days_collection');
-var DayInfo = require('./mb_days_info');
-var DayView = require('./mb_day_view');
+var DaysCollection = require("./../models/mb_days_collection");
+var DayInfo = require("./mb_days_info");
+var DayView = require("./mb_day_view");
 
-var MBMethods = require('./mb_state_methods');
+var MBMethods = require("./mb_state_methods");
 
-var TrainersCollection = require('./../models/mb_trainers_collection');
-var TrainerView = require('./mb_trainer_view');
+var TrainersCollection = require("./../models/mb_trainers_collection");
+var TrainerView = require("./mb_trainer_view");
 
-var LoginView = require('./mb_login_view');
-var LoginForm = require('./mb_login_form_view');
-var SignUpForm = require('./mb_sign_up_view');
+var LoginView = require("./mb_login_view");
+var LoginForm = require("./mb_login_form_view");
+var SignUpForm = require("./mb_sign_up_view");
 
-var BackgroundShader = require('./mb_shader_view');
-var PageBackground = require('./mb_page_bg_adjust');
-var MindBodyControls = require('./mb_overall_Control');
+var BackgroundShader = require("./mb_shader_view");
+var PageBackground = require("./mb_page_bg_adjust");
+var MindBodyControls = require("./mb_overall_Control");
 
 
-var ClassSignInOut = require('./mb_class_sign_in_out');
+var ClassSignInOut = require("./mb_class_sign_in_out");
 
 module.exports = Backbone.View.extend({
 
@@ -51,14 +51,14 @@ module.exports = Backbone.View.extend({
     app.mindBodyButtonFooter = new MindBodyButtonFooter({model: this.model}); // link to MB from footer
 
     // save the time this page was executed.
-    this.model.set({'pageLoadTime': Math.round(new Date().getTime()/1000)});
+    this.model.set({"pageLoadTime": Math.round(new Date().getTime()/1000)});
 
-    // monitor the time. Used to log people out when they've been here too long.
-    this.model.on({'change:currentTime': this.checkStatus}, this);
-    this.model.on({'change:loggedIn': this.setBaseURL}, this);
+    // monitor the time. Used to log people out when they"ve been here too long.
+    this.model.on({"change:currentTime": this.checkStatus}, this);
+    this.model.on({"change:loggedIn": this.setBaseURL}, this);
 
     // listen for the ajax call to come back to begin the render process:
-    this.model.on({'change:requestStatus': this.adjustState}, this);
+    this.model.on({"change:requestStatus": this.adjustState}, this);
 
     // start some basic features:
     this.setBaseURL();
@@ -77,25 +77,29 @@ module.exports = Backbone.View.extend({
       // check to see if the user is already logged in:
       // this is just looking at the SESSION stored on the server.
       // switch this to cookie????
-      // this.makeAJAXcall('login-status.php', 'login');
+      // this.makeAJAXcall("login-status.php", "login");
 
       // the slug has been printed to the DOM. like its 2013 or something !@#!@
-      var wpSlug = this.$('span.slug');
+      var wpSlug = this.$("span.slug");
+      var wpCategory = this.$("span.wpCat");
 
       // IF we have the MINDBODY URL and the page slug:
       if(
-        this.model.get('mbFeedURL') !== false
-        && (wpSlug.length > 0 && wpSlug[0].innerHTML !== undefined && wpSlug[0].innerHTML !== '')
+        this.model.get("mbFeedURL") !== false
+        && (wpSlug.length > 0 && wpSlug[0].innerHTML !== undefined && wpSlug[0].innerHTML !== "")
+        && (wpCategory.length > 0 && wpCategory[0].innerHTML !== undefined && wpCategory[0].innerHTML !== "")
       ) {
 
         // we have found the current page slug:
-        this.model.set({ wpSlug: wpSlug[0].innerHTML });
-
+        this.model.set({
+          wpSlug: wpSlug[0].innerHTML ,
+          wpCategory: wpCategory[0].innerHTML
+        });
 
         // gather stuff about trainers page from WP:
-        if(this.model.get('wpSlug') === 'trainers'){
-          // we're on the trainers page, so I left some JSON data there that I need...
-          wpTrainers = JSON.parse(this.$('span.wpTrainers')[0].innerHTML);
+        if(this.model.get("wpCategory") === "trainers"){
+          // we"re on the trainers page, so I left some JSON data there that I need...
+          wpTrainers = JSON.parse(this.$("span.wpTrainers")[0].innerHTML);
 
           // turn wpTrainers into an array of names:
           var i = 1;
@@ -104,34 +108,31 @@ module.exports = Backbone.View.extend({
             availableTrainers[i] = key;
             ++i;
           }
+          console.log( availableTrainers );
           // Thow this to the model so that we have the order of available trainers
           // to be displayed on the trainers page.
-          this.model.set({'availableTrainers': availableTrainers});
+          this.model.set({"availableTrainers": availableTrainers});
         }
 
-        if(this.model.get('wpSlug') === 'schedule' || this.model.get('wpSlug') === 'trainers') {
+        if(this.model.get("wpCategory") === "schedule" || this.model.get("wpCategory") === "trainers") {
 
           app.mbDays = new DaysCollection();
           app.mbTrainers = new TrainersCollection();
 
           // look with start date defined as right now.
-          var schedArguments = '';
-          schedArguments += '?startTime=' + this.model.get('pageLoadTime');
-          schedArguments += '&duration=' + this.model.get('scheduleSpan');
-          schedArguments += '&sessionLife=' + this.model.get('loginMaxTime');
+          var schedArguments = "";
+          schedArguments += "?startTime=" + this.model.get("pageLoadTime");
+          schedArguments += "&duration=" + this.model.get("scheduleSpan");
+          schedArguments += "&sessionLife=" + this.model.get("loginMaxTime");
 
 
           // this.showSched(schedArguments);
-          this.makeAJAXcall('sched-03.php' + schedArguments, 'schedule');
-          this.makeAJAXcall('trainers-01.php' + schedArguments, 'trainers');
+          this.makeAJAXcall("sched-03.php" + schedArguments, "schedule");
+          this.makeAJAXcall("trainers-01.php" + schedArguments, "trainers");
 
         }
       };
     };
-  },
-
-  showSched: function(schedArguments) {
-
   },
 
   makeAJAXcall: function( file, section ) {
@@ -331,24 +332,24 @@ module.exports = Backbone.View.extend({
     // clean slate:
     this.$el.empty();
 
-    if(this.model.get('wpSlug') === 'schedule'){
+    if(this.model.get("wpCategory") === "schedule"){
       // render the schedule page:
       app.mbDays.each(function(day){
         var today = new DayView({model: day});
-        app.mindbodyView.$el.append(today.renderDay('all', 'schedule').el);
+        app.mindbodyView.$el.append(today.renderDay("all", "schedule").el);
       });
 
-    } else if (this.model.get('wpSlug') === 'trainers'){
+    } else if (this.model.get("wpCategory") === "trainers"){
       // render the trainers page:
-      if(this.model.get('availableTrainers') !== ''){
+      if(this.model.get("availableTrainers") !== ""){
         // Render the trainers that are in MINDBODY, but
-        // also have a place made for thim via WordPress.
-        var availableTrainers = this.model.get('availableTrainers');
+        // also have a place made for them via WordPress.
+        var availableTrainers = this.model.get("availableTrainers");
         // loop thru available trainers, and match them with the
         // MINDBODY trainer, and if there is a match, render to the page:
         for(i=1; i<availableTrainers.length; ++i) {
           app.mbTrainers.each(function(trainer){
-            if(availableTrainers[i] === trainer.get('Name')){
+            if(availableTrainers[i] === trainer.get("Name")){
               app.mindbodyView.renderAnotherTrainer(trainer);
               return;
             }

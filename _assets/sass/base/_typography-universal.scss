@@ -17,6 +17,10 @@ h6 {
   line-height: 1.1em;
   margin: 0 0 $small-spacing;
 
+  .entry-content & {
+    margin-bottom: 0;
+  }
+
   strong {
     font-family: 'bebas-bold';
     color: $color-solful-red;

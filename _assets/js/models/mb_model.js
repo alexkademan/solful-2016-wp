@@ -10,6 +10,7 @@ module.exports = Backbone.Model.extend({
 
     studioID: 44288,
     wpSlug: '', // match the slug from WordPress
+    wpCategory: '', // optional category for the current page.
     requestStatus: 0, // add one everytime an AJAX request is returned.
     schedLoaded: false,
     mainColRendered: false,
