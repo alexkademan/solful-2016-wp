@@ -1,27 +1,51 @@
 <?php
 
+function populate_database($table_name, $mb_config, $conn) {
+  // going to have to call the API.
+  // get all the things we need from MINDBODY
+  $data = get_data_from_API($mb_config);
 
-function check_table($table_name) {
-
-  $check_table = "
-  CREATE TABLE IF NOT EXISTS " . $table_name . " (
-    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    schedule LONGTEXT,
-    schedule_time INT(10),
-    trainers LONGTEXT,
-    trainers_time INT(10)
-  )";
-
-
-  return $check_table;
-}
-
-function get_information($info_name, $table_name) {
-  $get_info = "
-  SELECT " . $info_name . ", " . $info_name . "_time
-  FROM " . $table_name . "
-  WHERE id=1;
+  $query = "
+    LOCK TABLES `".$table_name."` WRITE;
+    UPDATE ".$table_name." SET schedule=:all_JSON, schedule_time=:right_now WHERE id=1;
+    UNLOCK TABLES;
   ";
 
-  return $get_info;
+
+  // Prepare statement
+  $statement = $conn->prepare($query);
+  $statement->bindParam(':all_JSON', $data);
+  $statement->bindParam(':right_now', time());
+
+  // execute the query
+  $statement->execute();
+
+
+  return $data;
+}
+
+function get_data_from_API($mb_config) {
+
+  // we have the required parts:
+	$start_stop_dates = [
+		'StartDateTime'=> date('c', $_GET['startTime']),
+		'EndDateTime'=> date('c', $_GET['startTime'] + $_GET['duration'])
+	];
+
+	$class_info = new get_MINDBODY_classes( $mb_config );
+	$data = $class_info->getScheduleData( $start_stop_dates );
+
+	if(gettype($data) == 'string') {
+		// it returned an error of some sort:
+    print_r($data);
+
+	} elseif(gettype($data) == 'array') {
+		// this is probably running correctly then:
+		$sched['sched'] = $data;
+		$sched['requestStartTime'] = $_GET['startTime'];
+		$sched = json_encode($sched);
+
+	}
+
+	return $sched;
 }
