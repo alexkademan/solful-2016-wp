@@ -142,6 +142,7 @@ module.exports = Backbone.View.extend({
     var that = this;
 
 
+    // if( this.model.get("mbFeedUseSSL") == true ){ console.log(thisURL) }
     if( this.model.get("mbFeedUseSSL") == false ){ console.log(thisURL) }
 
     $.getJSON(thisURL,function(data){
