@@ -16,6 +16,12 @@ module.exports = Backbone.View.extend({
   },
 
   initialize: function() {
+
+    // I'm having to add 5 hours to come back home from GMT apparently.
+    // thanks so much javascript.
+    var timeZoneFix = this.model.get("unixStartTime") + 17800;
+    this.model.set({unixStartTime: timeZoneFix});
+
     this.checkAvailable();
     // buttons:
     this.model.on({'change:toggleInfo': this.toggleInfo}, this);
@@ -175,6 +181,7 @@ module.exports = Backbone.View.extend({
         break;
 
       case 'missed':
+        console.log(this.model);
         this.$el.removeClass().addClass('missed');
         break;
 
@@ -237,12 +244,21 @@ module.exports = Backbone.View.extend({
         }
 
       } else {
+
+        // var startTime = app.mbMethods.readableTime(this.model.get('unixStartTime'));
+        // var startTime = app.mbMethods.readableTime(app.mindbodyModel.get('currentTime'));
+
+        // console.log( startTime ));
+        // secondsRemaining = this.model.get('unixStartTime') - app.mindbodyModel.get('currentTime');
+        // console.log( this.model.get('unixStartTime') + " - " + app.mindbodyModel.get('currentTime') + " = " + secondsRemaining );
+        // console.log( this.model.get('signInDeadline') );
         this.model.set({'classStatus': 'missed'});
       }
     }
 
     // overwrite the scheduled time with the current status: (for testing)
-    // this.$('h3').html( secondsRemaining );
+    this.$('h4').html( app.mbMethods.readableTime( this.model.get("unixStartTime") ) );
+    this.$('h5').html( "now: " + app.mbMethods.readableTime( app.mindbodyModel.get("currentTime")) );
     // this.$('h3').html( this.model.get('classStatus') );
     // this.$('h3').html( this.model.get('ID') );
 

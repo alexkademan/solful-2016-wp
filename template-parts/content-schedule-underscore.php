@@ -21,6 +21,8 @@ echo       '<%- classEnd["hourCivilian"] + ":" + classEnd["minutes"] + " " + cla
 echo       '<%- IsCanceled ? Staff["Name"] : "" %>';
 echo       '<span class="countdown"></span>';
 echo     '</h3>';
+// echo     '<h4></h4>';
+// echo     '<h5></h5>';
 echo   '</hgroup>';
 echo   '<div class="signUp">';
 echo   '</div>';

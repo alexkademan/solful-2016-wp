@@ -48,6 +48,7 @@ class get_MINDBODY_classes extends \DevinCrossman\Mindbody\MB_API {
 
       // add start time to the data via PHP, because JS doesn't do this as well.
       // JS has timezone issues. Was too much headache.
+
       $class['unixStartTime'] = strtotime($class['StartDateTime']);
       $classDate = date("Y-m-d", $class['unixStartTime']);
 
