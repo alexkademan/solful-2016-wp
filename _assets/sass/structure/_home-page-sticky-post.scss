@@ -1,0 +1,25 @@
+div.home-sticky {
+  padding: ($main-gutter / 3);
+  background-color: $color-solful-red;
+  background: linear-gradient( to left top, darken($color-solful-red, 25%), $color-solful-red);
+
+  transition: opacity 0.25s ease;
+  color: #FFF;
+
+  a {
+    color: #FFF;
+    transition: opacity 0.25s ease;
+  }
+
+  &:hover,
+  &:hover a {
+    color: rgba(255,255,255, 0.9);
+  }
+
+
+  h1,h2,h3,h4 {
+    font-family: 'bebas-bold';
+    font-size: 2.2em;
+    margin-bottom: 0;
+  }
+}

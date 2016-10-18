@@ -60,7 +60,8 @@ img.alignright {
 // .full-width,
 .site-main,
 .full-width,
-.widget-area {
+.widget-area,
+.home-sticky {
   @include span-columns(12);
 }
 
@@ -69,6 +70,9 @@ img.alignright {
 .widget-area {
   padding-top: $main-gutter;
   padding-bottom: $gutter;
+}
+.home-sticky {
+  margin-bottom: $gutter;
 }
 .site-footer {
   padding-top: $main-gutter;

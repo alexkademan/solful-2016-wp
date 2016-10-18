@@ -25,8 +25,8 @@ https://developers.google.com/maps/documentation/javascript/tutorial
 <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $google_maps_api_key; ?>"></script>
 <script>
   var bittersMap = (function () {
-    var myLatlng = new google.maps.LatLng(43.21756, -87.98904),
-        mapCenter = new google.maps.LatLng(43.21756, -87.98904),
+    var myLatlng = new google.maps.LatLng(43.17542299999999, -87.96530789999997), // http://www.gps-coordinates.net/
+        mapCenter = new google.maps.LatLng(43.17542299999999, -87.96530789999997),
         mapCanvas = document.getElementById('map_canvas'),
         mapOptions = {
           center: mapCenter,
@@ -38,7 +38,7 @@ https://developers.google.com/maps/documentation/javascript/tutorial
         },
         map = new google.maps.Map(mapCanvas, mapOptions),
         contentString =
-          '<a href="https://www.google.com/maps/place/10950+N+Buntrock+Ave,+Mequon,+WI+53092/@43.2175589,-87.9895935,19z/data=!3m1!4b1!4m5!3m4!1s0x8804e36b09cc5743:0xc11433df75d1ed8c!8m2!3d43.2175579!4d-87.989045!6m1!1e1">'+
+          '<a href="https://www.google.com/maps/place/8655+N+43rd+St,+Brown+Deer,+WI+53209/@43.175423,-87.9674966,17z/data=!3m1!4b1!4m5!3m4!1s0x8804e2679d511a67:0xbdedd1e89f3e08a!8m2!3d43.175423!4d-87.9653079">'+
           '<div id="content">'+
           '<div id="siteNotice">'+
           '</div>'+

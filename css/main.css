@@ -3154,14 +3154,16 @@ img.alignright {
 
 .site-main,
 .full-width,
-.widget-area {
+.widget-area,
+.home-sticky {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 100%; }
   .site-main:last-child,
   .full-width:last-child,
-  .widget-area:last-child {
+  .widget-area:last-child,
+  .home-sticky:last-child {
     margin-right: 0; }
 
 .site-main,
@@ -3169,6 +3171,9 @@ img.alignright {
 .widget-area {
   padding-top: 1.2135em;
   padding-bottom: 1.618em; }
+
+.home-sticky {
+  margin-bottom: 1.618em; }
 
 .site-footer {
   padding-top: 1.2135em;
@@ -3191,6 +3196,26 @@ img.alignright {
 
 div.entry-content {
   width: 100% !important; }
+
+div.home-sticky {
+  padding: 0.4045em;
+  background-color: #ef4137;
+  background: -webkit-linear-gradient(right bottom, #9a140c, #ef4137);
+  background: linear-gradient(to left top, #9a140c, #ef4137);
+  -webkit-transition: opacity 0.25s ease;
+  transition: opacity 0.25s ease;
+  color: #FFF; }
+  div.home-sticky a {
+    color: #FFF;
+    -webkit-transition: opacity 0.25s ease;
+    transition: opacity 0.25s ease; }
+  div.home-sticky:hover,
+  div.home-sticky:hover a {
+    color: rgba(255, 255, 255, 0.9); }
+  div.home-sticky h1, div.home-sticky h2, div.home-sticky h3, div.home-sticky h4 {
+    font-family: 'bebas-bold';
+    font-size: 2.2em;
+    margin-bottom: 0; }
 
 div.feat-img-banner {
   display: block;

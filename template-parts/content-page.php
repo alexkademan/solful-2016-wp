@@ -7,7 +7,6 @@
  * @package _s
  */
 
-
 // if($post->post_name == 'schedule' || $post->post_name == 'trainers'){
 // 	get_template_part( 'template-parts/content', 'underscore-schedule' );
 // 	get_template_part( 'template-parts/content', 'underscore-trainers' );
@@ -15,6 +14,12 @@
 
 
 echo '<main id="main" class="site-main" role="main">';
+
+if($post->post_name == 'home'){
+	get_template_part( 'template-parts/content', 'home-blog-sticky-post' );
+}
+
+
 get_template_part('template-parts/content', 'page-headline');
 echo	'<div class="entry-content">';
 
