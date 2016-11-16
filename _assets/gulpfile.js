@@ -35,7 +35,7 @@ gulp.task('sass', function () {
     .pipe(sourcemaps.init())
     .pipe(sass.sync().on('error', sass.logError))
     .pipe(autoprefixer({ browsers: ['> 1%', 'IE 7'], cascade: false }))
-    // .pipe(nano())
+    .pipe(nano())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./../css'))
     .pipe(notify({ message: 'Styles task complete' }));

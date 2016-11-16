@@ -7,8 +7,8 @@ module.exports = Backbone.Model.extend({
     toggleInstructor: false,
     unixStartTime: '',
 
-    signInDeadline: 3600, // can't sign in any more if there is less than one hour before class.
-    // signInDeadline: 4500, // for testing...
+    // signInDeadline: 3600, // DURING daylight savings time
+    signInDeadline: 0, // NOT daylight savings time, Winter.
 
     lateCancel: false, // if less than TWO HOURS before the class, late cancel is an option.
     lateCancelTime: 7200, // can't sign up for class within 7200 seconds (2 hour) of start of class

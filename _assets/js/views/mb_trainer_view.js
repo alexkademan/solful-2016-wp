@@ -88,7 +88,6 @@ module.exports = Backbone.View.extend({
   },
 
   removeHeight: function(theElement) {
-    console.log('hi there....');
     theElement.removeAttr('style');
     setTimeout(function(theElement){
       console.log(this);
