@@ -291,14 +291,19 @@ module.exports = Backbone.View.extend({
 
           // add increment to individual trainer in trainers collection:
           var trainerName = workout.get('Staff')['Name'];
-          app.mbTrainers.get(trainerName).set({
-            workoutCount: app.mbTrainers.get(trainerName).get('workoutCount') + 1
-          });
+          var thisTrainer = app.mbTrainers.get(trainerName);
 
-          // add to the day's model. today's total.
-          app.mbDays.get(day.get('date')).set({
-            totalWorkouts: app.mbDays.get(day.get('date')).get('totalWorkouts') + 1
-          });
+          if(thisTrainer){ // hot fix... --- this was crashing the whole app on 12/1/2016... sad face.
+
+            app.mbTrainers.get(trainerName).set({
+              workoutCount: app.mbTrainers.get(trainerName).get('workoutCount') + 1
+            });
+
+            // add to the day's model. today's total.
+            app.mbDays.get(day.get('date')).set({
+              totalWorkouts: app.mbDays.get(day.get('date')).get('totalWorkouts') + 1
+            });
+          }
         }
       });
 
