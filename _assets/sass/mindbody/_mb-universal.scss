@@ -170,3 +170,22 @@ ul.mb_data div.trainerName {
     text-decoration: underline;
   }
 }
+
+li.mbCalendarLink {
+
+  background-color: darken($color-solful-red, 15%);
+  background-image: url(../images/solful-banner-bg-20.svg);
+  background-size: pem(175);
+  background-repeat: no-repeat;
+  background-position: right top;
+
+  color: #FFF;
+  cursor: pointer;
+  transition: background-color 0.25s ease-in-out;
+  padding: 1em;
+  @include span-columns(12 of 12);
+
+  &:hover {
+    background-color: darken($color-solful-red, 25%);
+  }
+}

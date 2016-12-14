@@ -25,6 +25,8 @@ var BackgroundShader = require("./mb_shader_view");
 var PageBackground = require("./mb_page_bg_adjust");
 var MindBodyControls = require("./mb_overall_Control");
 
+var MindBodyFullCalendarButton = require("./mb_calendar_button");
+
 
 var ClassSignInOut = require("./mb_class_sign_in_out");
 
@@ -341,6 +343,11 @@ module.exports = Backbone.View.extend({
         var today = new DayView({model: day});
         app.mindbodyView.$el.append(today.renderDay("all", "schedule").el);
       });
+
+      // mb-appointment-nfo
+      // printed out in it's own view that will need to know if user has logged into the site or not.
+      var calendarButton = new MindBodyFullCalendarButton({model: this.model});
+      app.mindbodyView.$el.append( calendarButton.render().el );
 
     } else if (this.model.get("wpCategory") === "trainers"){
       // render the trainers page:

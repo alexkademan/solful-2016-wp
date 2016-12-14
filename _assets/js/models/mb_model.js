@@ -24,8 +24,10 @@ module.exports = Backbone.Model.extend({
     mbFeedUseSSL: true, // if we use the shared SSL
 
     signupURLbase: 'https://clients.mindbodyonline.com/ws.asp',
-    urlMINDBODY: '',
-    urlMBloginForm: '', // the link below the login form that allows the client to switch to MINDBODY and do what thyre looking to do there instead of here.
+    urlMINDBODY: "",
+    urlMBloginForm: "", // the link below the login form that allows the client to switch to MINDBODY and do what thyre looking to do there instead of here.
+
+    urlMBschedule: "https://clients.mindbodyonline.com/classic/ws?studioid=44288&stype=-7&sView=week&sLoc=0",
 
     workoutRequested: false, // if the user is trying to sign in for a workout, but hasn't logged in, store the workout model here temporarily.
     workoutRequestedID: false,
