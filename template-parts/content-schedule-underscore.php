@@ -64,5 +64,5 @@ echo '</script>';
 
 // the link to the full schedule that follows the one week sched on sched page:
 echo '<script type="text/template" id="mb-full-calendar-link">';
-echo  "Can't find the class that you're looking for? <br />Visit Solful Fitness on MINDBODY for our complete calendar";
+echo  "Can't find the class that you're looking for? <br />Visit <em>Solful Fitness on MINDBODY</em> for our complete calendar";
 echo '</script>';

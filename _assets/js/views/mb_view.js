@@ -347,7 +347,7 @@ module.exports = Backbone.View.extend({
       // mb-appointment-nfo
       // printed out in it's own view that will need to know if user has logged into the site or not.
       var calendarButton = new MindBodyFullCalendarButton({model: this.model});
-      app.mindbodyView.$el.append( calendarButton.render().el );
+      this.$el.append( calendarButton.render().el );
 
     } else if (this.model.get("wpCategory") === "trainers"){
       // render the trainers page:
