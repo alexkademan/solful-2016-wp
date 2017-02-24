@@ -7,17 +7,16 @@
 }
 
 // side bar
-aside.flower{
+.flower {
   display: block;
-}
 
-aside.flower img {
-  width:100%;
-  background: url('../images/solful-with-sun.svg') no-repeat center;
-  background-size: contain;
+  img {
+    background: url('../images/solful-with-sun.svg') no-repeat center;
+    background-size: contain;
+    width: 100%;
 
-
-  .no-svg aside.flower img {
-    background: url('../images/solful-with-sun.png') no-repeat center;
+    .no-svg & {
+      background: url('../images/solful-with-sun.png') no-repeat center;
+    }
   }
 }

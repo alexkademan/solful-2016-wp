@@ -1,23 +1,23 @@
 
-
-div.feat-img-banner {
-  display: block;
-  // float: left;
-  clear: both;
-  width: 100%;
-  background-color: #F4F4F4;
+.feat-img-banner {
+  background-color: $gray;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 
+  clear: both;
+  display: block;
+  width: 100%;
+
 }
 
-div.entry-content p {
-  max-width: pem(600);
+.entry-content {
+  p {
+    max-width: pem(600);
+  }
 }
 
-div.feat-img {
-
+.feat-img {
   line-height: 0;
   position: relative;
   width: 100%;
@@ -32,23 +32,78 @@ div.feat-img {
 }
 
 // side bar
-aside.flower{
+.flower {
   display: none;
 }
 
-a.package-link {
-  display: block;
+.package-link {
+  color: $white;
+  display: table-cell;
+  height: 100%;
+  min-height: 100%;
+  padding: 1em .5em .5em;
+  text-align: center;
   width: 100%;
-  background: url(../images/solful-banner-bg-20.svg) no-repeat right top;
-  background-size: pem(175);
-  background-color: darken($color-solful-red, 15%);
-  color: #FFF;
-
-  padding: 1.5em 0.5em;
 
   .no-touchevents &:hover {
-    background-color: darken($color-solful-red, 10%);
-    color: #FFF;
+    color: lighten($color-solful-red, 30%);;
     text-decoration: none;
   }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  h2 {
+    font-family: 'bebas-bold';
+    font-size: 2.5em;
+  }
+}
+
+.class-table {
+  border-collapse: collapse;
+  display: table;
+  margin: 0;
+  margin-bottom: ($gutter * .25);
+  width: 100%;
+
+  tr {
+    border: 0;
+    display: table-row;
+    position: relative;
+  }
+
+  td {
+    border: 0;
+    clear: none;
+    display: table-cell;
+    float: none;
+    height: 100%;
+    padding: 0;
+    position: relative;
+    vertical-align: top;
+
+    &:not(.spacer) {
+      background: url('../images/solful-banner-bg-20.svg') no-repeat right top;
+      background-color: darken($color-solful-red, 15%);
+      background-size: pem(175);
+
+      .no-touchevents &:hover {
+        background-color: darken($color-solful-red, 10%);
+        color: $white;
+        text-decoration: none;
+
+      }
+    }
+  }
+
+  .spacer {
+    height: auto;
+    width: ($gutter * .25);
+  }
+}
+
+.link100 {
+  @include span-columns(12 of 12);
+  @include omega(1n);
 }

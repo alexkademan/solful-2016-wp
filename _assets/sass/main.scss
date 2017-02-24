@@ -1,7 +1,4 @@
-@charset "utf-8";
-@-ms-viewport {
-  width: device-width;
-}
+@charset 'utf-8';
 
 @viewport {
   width: device-width;
@@ -9,17 +6,17 @@
 
 // add all of the the pre-requisites:
 @import
-  "normalize",
+'normalize',
 
-  "bourbon/bourbon",
-  "neat/neat",
-  "mixins/mixins",
-  "base/base",
+'bourbon/bourbon',
+'neat/neat',
+'mixins/mixins',
+'base/base',
 
-  "font-awesome/font-awesome",
-  "main-navigation/main-navigation",
-  "structure/structure",
-  "facebookfeed/facebookfeed",
-  "mindbody/mindbody",
-  "modules/accessibility"
+'font-awesome/font-awesome',
+'main-navigation/main-navigation',
+'structure/structure',
+'facebookfeed/facebookfeed',
+'mindbody/mindbody',
+'modules/accessibility'
 ;

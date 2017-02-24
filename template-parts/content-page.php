@@ -7,11 +7,6 @@
  * @package _s
  */
 
-// if($post->post_name == 'schedule' || $post->post_name == 'trainers'){
-// 	get_template_part( 'template-parts/content', 'underscore-schedule' );
-// 	get_template_part( 'template-parts/content', 'underscore-trainers' );
-// } else {
-
 
 echo '<main id="main" class="site-main" role="main">';
 
@@ -34,19 +29,11 @@ wp_link_pages( array(
 	'after'  => '</div>',
 ) );
 
+if($post->post_name == 'packages') {
+	get_template_part( 'template-parts/content', 'page-packages' );
+}
+
+
+
 echo 	'</div>'; // entry-content
-
-// echo 	'<footer class="entry-footer">';
-
-			// edit_post_link(
-			// 	sprintf(
-			// 		/* translators: %s: Name of current post */
-			// 		esc_html__( 'Edit %s', '_s' ),
-			// 		the_title( '<span class="screen-reader-text">"', '"</span>', false )
-			// 	),
-			// 	'<span class="edit-link">',
-			// 	'</span>'
-			// );
-
-// echo 	'</footer>'; // .entry-footer
-echo '</main>'; // #main
+echo '</main>'; // #main -->
