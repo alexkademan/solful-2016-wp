@@ -15,7 +15,7 @@
 switch ($post->post_name) {
 	case 'home':
 		// Facebook plugin for front page:
-		get_template_part( 'template-parts/content', 'facebook_list' );
+		// get_template_part( 'template-parts/content', 'facebook_list' );
 		break;
 	case 'trainers':
 		// gets nuthin'

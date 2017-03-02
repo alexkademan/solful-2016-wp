@@ -21,7 +21,8 @@ echo	'<div class="entry-content">';
 the_content();
 
 if($post->post_name == 'home'){
-	get_template_part( 'template-parts/content', 'home-blog-feed' );
+	// get_template_part( 'template-parts/content', 'home-blog-feed' );
+	get_template_part( 'template-parts/content', 'home-image-gallery' );
 }
 
 wp_link_pages( array(

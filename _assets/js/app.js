@@ -13,31 +13,35 @@ var FBfeed = require('./views/fb_feed_view');
 var MBmodel = require('./models/mb_model');
 var MBview = require('./views/mb_view');
 
+var PhotoGrid = require('./views/photo_grid');
+
 module.exports = {
   // this is the the whole app init'er
-  blastoff: function () {
-    var self = window.app = this;
+    blastoff: function () {
+        "use strict";
+        var self = window.app = this;
 
-    // wait for document ready to render our main view
-    // this ensures the document has a body, etc.
-    domReady(function () {
+        // wait for document ready to render our main view
+        // this ensures the document has a body, etc.
+        domReady(function () {
+            app.windowStatus = new WindowStatsModel();
+            app.windowStatusView = new WindowStatsView({ model : app.windowStatus });
 
-      app.windowStatus = new WindowStatsModel();
-      app.windowStatusView = new WindowStatsView({ model : app.windowStatus });
+            app.mainNavModel = new MainNavModel();
+            app.mainNav = new MainNavView({ model: app.mainNavModel });
 
-      app.mainNavModel = new MainNavModel();
-      app.mainNav = new MainNavView({ model: app.mainNavModel });
+            app.fbFeedModel = new FBfeedModel();
+            app.fbFeed = new FBfeed({ model : app.fbFeedModel });
 
-      app.fbFeedModel = new FBfeedModel();
-      app.fbFeed = new FBfeed({ model : app.fbFeedModel });
+            app.mindbodyModel = new MBmodel();
+            app.mindbodyView = new MBview({ model : app.mindbodyModel });
 
-      app.mindbodyModel = new MBmodel();
-      app.mindbodyView = new MBview({ model : app.mindbodyModel });
+            app.photoGrid = new PhotoGrid();
 
-    });
+        });
 
-  }
-}
+    }
+};
 
 // run it
 module.exports.blastoff();

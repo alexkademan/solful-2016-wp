@@ -5,7 +5,7 @@ echo "<table class=\"class-table\"><tbody><tr>";
 $link100 = "https://clients.mindbodyonline.com/classic/ws?studioid=44288&stype=41&sTG=3&prodId=10105";
 
 echo  "<td>";
-echo "<a href=\"" . $link100 . "\" class=\"link100 package-link\">";
+echo "<a href=\"" . $link100 . "\" class=\"package-link\">";
 echo    "<h1>Solful Unlimited</h1>";
 echo    "<h2>$130</h2>";
 echo    "<ul>";
@@ -59,7 +59,7 @@ echo "<td>";
 echo  "<a href=\"" . $link_five . "\" class=\"package-link\">";
 echo    "<h1>5 Class Pack</h1>";
 echo    "<h2>$75</h2>";
-echo    "<p>Enjoy 10 classes in a 3 month period</p>";
+echo    "<p>Enjoy 5 classes in a 3 month period</p>";
 echo  "</a>";
 echo  "</td>";
 
@@ -80,7 +80,7 @@ echo "<td>";
 echo  "<a href=\"" . $link_new_client . "\" class=\"package-link\">";
 echo    "<h1>New Client Special</h1>";
 echo    "<h2>$10</h2>";
-echo    "<p>10 days unliminated classes for $10 - New clients only.</p>";
+echo    "<p>10 days unlimited classes for $10 - New clients only.</p>";
 echo  "</a>";
 echo "</td>";
 
