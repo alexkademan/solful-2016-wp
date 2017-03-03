@@ -36,6 +36,17 @@ function pull_all_grid_images($image_dir) {
 shuffle($images); // randomize
 
 echo '<div id="photo-grid" class="photo-grid">';
+echo '<div class="hid">';
+$grid_info = [
+    "spacer_URL" => $spacer_URL,
+    "image_URL" => $image_URL,
+    "spacers" => $spacers,
+    "images" => $images,
+];
+
+print_r(json_encode($grid_info));
+
+echo '</div>';
 
 foreach ($images as $grid_image) {
 

@@ -21,6 +21,10 @@ module.exports = Backbone.View.extend({
             if (this.photos.length > 0) {
                 this.controlGrid();
             }
+
+            var gridJSON = this.$(".hid");
+            console.log(gridJSON);
+
         }
 
     },
@@ -39,9 +43,11 @@ module.exports = Backbone.View.extend({
 
         e.preventDefault();
 
-        app.mindbodyModel.set({
-            popoverVisible: true,
-        });
+        if (app.mindbodyModel.get("popoverVisible") !== true) {
+            app.mindbodyModel.set({
+                popoverVisible: true,
+            });
+        }
 
         console.log(e);
     },
