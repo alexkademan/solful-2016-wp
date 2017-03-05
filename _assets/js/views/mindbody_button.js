@@ -1,49 +1,59 @@
 // app.mindBodyButton
 
-var Backbone = require ('backbone');
-var _ = require ('underscore');
-var $ = require ('jquery');
+var Backbone = require('backbone');
+var _ = require('underscore');
+var $ = require('jquery');
 
 module.exports = Backbone.View.extend({
-  el: '#sign_up_now',
 
-  events: {
-    'click': 'openOrClose'
-  },
+    el: '#sign_up_now',
 
-  initialize: function() {
-    if(this.$el.length === 1) {
-      // the "sign up now" button is within the DOM
-      this.resetBanner();
-    };
-  },
+    events: {
+        'click': 'openOrClose'
+    },
 
-  resetBanner: function() {
-    this.$el.attr('style', 'height: 0px');
+    initialize: function () {
+        "use strict";
 
-    setTimeout(function(){
-      app.mindBodyButton.enlargeBanner();
-    }, 750);
-  },
+        if (this.$el.length === 1) {
 
-  enlargeBanner: function() {
-    var callOutHeight = this.$('.classes').outerHeight();
-    this.$el.attr('style', 'height: ' + callOutHeight + 'px');
-    // console.log(this.$el);
-  },
+            // the "sign up now" button is within the DOM
+            this.resetBanner();
+        }
+    },
 
-  openOrClose: function(e) {
-    e.preventDefault();
+    resetBanner: function () {
+        "use strict";
 
-    if(e.target.className === 'closeBtnTrigger') {
-      this.$el.attr('style', 'height: 0px');
+        this.$el.attr('style', 'height: 0px');
 
-    } else {
-      // app.mbMethods.launchMINDBODY(this.model.get('urlMINDBODY'));
-      // console.log(this.$el[0].href);
-      window.location.replace(this.$el[0].href);
+        setTimeout(function () {
+            app.mindBodyButton.enlargeBanner();
+        }, 750);
+    },
 
+    enlargeBanner: function () {
+        "use strict";
+
+        var callOutHeight = this.$('.classes').outerHeight();
+        this.$el.attr('style', 'height: ' + callOutHeight + 'px');
+        // console.log(this.$el);
+    },
+
+    openOrClose: function (e) {
+        "use strict";
+
+        e.preventDefault();
+
+        if (e.target.className === 'closeBtnTrigger') {
+            this.$el.attr('style', 'height: 0px');
+
+        } else {
+            // app.mbMethods.launchMINDBODY(this.model.get('urlMINDBODY'));
+            // console.log(this.$el[0].href);
+            window.location.replace(this.$el[0].href);
+
+        }
     }
-  }
 
 });

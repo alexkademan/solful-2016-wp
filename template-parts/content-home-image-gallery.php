@@ -33,7 +33,7 @@ function pull_all_grid_images($image_dir) {
 
 // render the thing:
 
-shuffle($images); // randomize
+// shuffle($images); // randomize
 
 echo '<div id="photo-grid" class="photo-grid">';
 echo '<div class="hid">';

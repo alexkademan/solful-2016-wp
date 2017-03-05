@@ -13,13 +13,14 @@ var FBfeed = require('./views/fb_feed_view');
 var MBmodel = require('./models/mb_model');
 var MBview = require('./views/mb_view');
 
+var PhotoGridModel = require('./models/photo_grid_model');
 var PhotoGrid = require('./views/photo_grid');
 
 module.exports = {
   // this is the the whole app init'er
     blastoff: function () {
         "use strict";
-        var self = window.app = this;
+        window.app = this;
 
         // wait for document ready to render our main view
         // this ensures the document has a body, etc.
@@ -36,7 +37,7 @@ module.exports = {
             app.mindbodyModel = new MBmodel();
             app.mindbodyView = new MBview({ model : app.mindbodyModel });
 
-            app.photoGrid = new PhotoGrid();
+            app.photoGrid = new PhotoGrid({model : new PhotoGridModel()});
 
         });
 

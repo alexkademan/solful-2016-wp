@@ -1,6 +1,6 @@
 var Backbone = require('backbone');
-var Class = require('./mb_class_model');
+var Image = require('./photo_grid_image_model');
 
 module.exports = Backbone.Collection.extend({
-    model: Class
+    model: Image
 });

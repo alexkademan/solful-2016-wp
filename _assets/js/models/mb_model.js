@@ -1,70 +1,71 @@
 // app.mindbodyModel
 
-var Backbone = require ('backbone');
+var Backbone = require('backbone');
 
 module.exports = Backbone.Model.extend({
 
-  defaults: {
+    defaults: {
 
-    loginWorking: true,
+        loginWorking: true,
 
-    studioID: 44288,
-    wpSlug: '', // match the slug from WordPress
-    wpCategory: '', // optional category for the current page.
-    requestStatus: 0, // add one everytime an AJAX request is returned.
-    schedLoaded: false,
-    mainColRendered: false,
-    trainersLoaded: false,
-    instructor: false, // instructor ID. False for ALL instructors (complete schedule)
-    totalWorkouts: 0, // total number of workouts on schedule.
+        studioID: 44288,
+        wpSlug: '', // match the slug from WordPress
+        wpCategory: '', // optional category for the current page.
+        requestStatus: 0, // add one everytime an AJAX request is returned.
+        schedLoaded: false,
+        mainColRendered: false,
+        trainersLoaded: false,
+        instructor: false, // instructor ID. False for ALL instructors (complete schedule)
+        totalWorkouts: 0, // total number of workouts on schedule.
 
-    mbFeedURL: false, // I'm pulling the URL from the page, WP's get_bloginfo is handy in this instance.
-    mbFeedSSL: 'https://secure147.inmotionhosting.com/~desig362/solfulfitness.com/wp-content/themes/solful-2016-wp/MINDBODY/',
+        mbFeedURL: false, // I'm pulling the URL from the page, WP's get_bloginfo is handy in this instance.
+        mbFeedSSL: 'https://secure222.inmotionhosting.com/~desig362/solfulfitness.com/wp-content/themes/solful-2016-wp/MINDBODY/',
 
-    mbFeedUseSSL: true, // if we use the shared SSL
 
-    signupURLbase: 'https://clients.mindbodyonline.com/ws.asp',
-    urlMINDBODY: "",
-    urlMBloginForm: "", // the link below the login form that allows the client to switch to MINDBODY and do what thyre looking to do there instead of here.
+        mbFeedUseSSL: true, // if we use the shared SSL
 
-    urlMBschedule: "https://clients.mindbodyonline.com/classic/ws?studioid=44288&stype=-7&sView=week&sLoc=0",
+        signupURLbase: 'https://clients.mindbodyonline.com/ws.asp',
+        urlMINDBODY: "",
+        urlMBloginForm: "", // the link below the login form that allows the client to switch to MINDBODY and do what thyre looking to do there instead of here.
 
-    workoutRequested: false, // if the user is trying to sign in for a workout, but hasn't logged in, store the workout model here temporarily.
-    workoutRequestedID: false,
+        urlMBschedule: "https://clients.mindbodyonline.com/classic/ws?studioid=44288&stype=-7&sView=week&sLoc=0",
 
-    pageLoadTime: '',
-    loginMaxTime: 3000, // need to automatically log the client out after 50 minutes. (3000 seconds)
-    loginTime: '', // the time that the client logged in.
-    currentTime: '', // time of day (in seconds)
+        workoutRequested: false, // if the user is trying to sign in for a workout, but hasn't logged in, store the workout model here temporarily.
+        workoutRequestedID: false,
 
-    availableTrainers: '', // array of names of trainers from WordPress to cross reference for availability.
+        pageLoadTime: '',
+        loginMaxTime: 3000, // need to automatically log the client out after 50 minutes. (3000 seconds)
+        loginTime: '', // the time that the client logged in.
+        currentTime: '', // time of day (in seconds)
 
-    scheduleSpan: 518400, // 518400 is the number of seconds in 6 days. Show today plus the rest of a week.
+        availableTrainers: '', // array of names of trainers from WordPress to cross reference for availability.
 
-    loggedIn: false,
-    cachedUserName: false, // this gets added to the cookie at successful login, to auto-fill the login form field.
-    GUID: false, // USER ID with MINDBODY issued at login.
-    client: false, // array of info that comes back from the API about the user.
+        scheduleSpan: 518400, // 518400 is the number of seconds in 6 days. Show today plus the rest of a week.
 
-    clientCountDown: false, // number of seconds until auto-logout
-    clientCountDownR: false, // Readable, (looks like a clock)
+        loggedIn: false,
+        cachedUserName: false, // this gets added to the cookie at successful login, to auto-fill the login form field.
+        GUID: false, // USER ID with MINDBODY issued at login.
+        client: false, // array of info that comes back from the API about the user.
 
-    clientInfoVisible: false, // show or hide the info about the logged in visitor
+        clientCountDown: false, // number of seconds until auto-logout
+        clientCountDownR: false, // Readable, (looks like a clock)
 
-    clientSchedule: false, // gonna be an array of the classes that the client is signed up for.
-    clientSchedCount: 0, // number of classes that the client is enrolled in. This will be watched for state changes.
+        clientInfoVisible: false, // show or hide the info about the logged in visitor
 
-    loginFormRendered: false,
+        clientSchedule: false, // gonna be an array of the classes that the client is signed up for.
+        clientSchedCount: 0, // number of classes that the client is enrolled in. This will be watched for state changes.
 
-    popoverVisible: false,
+        loginFormRendered: false,
 
-    loginFormVisible: false, // toggle login form visibility.
-    loginFormWaiting: false, // when you click "Sign In" the form needs to wait for response from API
-    loginERRmessage: '', // probably wrong username or password.
-    exitMessage: false, // probably wrong username or password.
+        popoverVisible: false,
 
-    popOverRenderedHeight: 0, // height of the pop over on the screen.
-    bgScroll: false // value to scroll the page to when the pop-over is visible
-  }
+        loginFormVisible: false, // toggle login form visibility.
+        loginFormWaiting: false, // when you click "Sign In" the form needs to wait for response from API
+        loginERRmessage: '', // probably wrong username or password.
+        exitMessage: false, // probably wrong username or password.
+
+        popOverRenderedHeight: 0, // height of the pop over on the screen.
+        bgScroll: false // value to scroll the page to when the pop-over is visible
+    }
 
 });
