@@ -26,7 +26,9 @@ module.exports = {
         // this ensures the document has a body, etc.
         domReady(function () {
             app.windowStatus = new WindowStatsModel();
-            app.windowStatusView = new WindowStatsView({ model : app.windowStatus });
+            app.windowStatusView = new WindowStatsView({
+                model : app.windowStatus
+            });
 
             app.mainNavModel = new MainNavModel();
             app.mainNav = new MainNavView({ model: app.mainNavModel });
@@ -37,7 +39,9 @@ module.exports = {
             app.mindbodyModel = new MBmodel();
             app.mindbodyView = new MBview({ model : app.mindbodyModel });
 
-            app.photoGrid = new PhotoGrid({model : new PhotoGridModel()});
+            app.photoGrid = new PhotoGrid({
+                model : new PhotoGridModel()
+            });
 
         });
 

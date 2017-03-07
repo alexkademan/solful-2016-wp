@@ -1,14 +1,28 @@
 <?php
 
-$image_URL = get_bloginfo('template_url') . "/image-grid-home/";
-$image_dir = get_template_directory() . "/image-grid-home/";
+$locate = [
+    "url" => get_bloginfo("template_url"),
+    "dir" => get_template_directory(),
+];
 
-$spacer_URL = get_bloginfo('template_url') . "/image-grid-spacers/";
-$spacer_dir = get_template_directory() . "/image-grid-spacers/";
+$grid_info = [
+    "spacer_URL" => $locate["url"] . "/image-grid-spacers/",
+    "image_URL" => $locate["url"] . "/image-grid-home/",
 
-$images = pull_all_grid_images($image_dir);
-$spacers = pull_all_grid_images($spacer_dir);
+    "spacers" => pull_all_grid_images($locate["dir"] .
+            "/image-grid-spacers/"),
+    "images" => pull_all_grid_images($locate["dir"] .
+            "/image-grid-home/"),
+];
 
+// render the thing:
+echo '<div id="photo-grid" class="photo-grid">';
+echo    '<div class="hid">';
+
+print_r(json_encode($grid_info));
+
+echo    '</div>';
+echo '</div>';
 
 function pull_all_grid_images($image_dir) {
 
@@ -30,37 +44,3 @@ function pull_all_grid_images($image_dir) {
     return $images;
 
 }
-
-// render the thing:
-
-// shuffle($images); // randomize
-
-echo '<div id="photo-grid" class="photo-grid">';
-echo '<div class="hid">';
-$grid_info = [
-    "spacer_URL" => $spacer_URL,
-    "image_URL" => $image_URL,
-    "spacers" => $spacers,
-    "images" => $images,
-];
-
-print_r(json_encode($grid_info));
-
-echo '</div>';
-
-foreach ($images as $grid_image) {
-
-    shuffle($spacers);
-
-    $this_image = $image_URL . $grid_image;
-    $this_spacer = $spacer_URL . $spacers[0];
-    $this_style = 'background-image:url(' . $this_image . ');';
-
-    echo '<div class="grid-photo">';
-    echo    '<img src="' . $this_spacer . '" />';
-    echo    '<img src="' . $this_spacer . '" style="' . $this_style . '" class="background" />';
-    echo    '<a href="' . $this_image . '"></a>';
-    echo '</div>';
-}
-
-echo '</div>';

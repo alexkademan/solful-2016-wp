@@ -50,7 +50,7 @@ echo  "</td>";
 echo "</tr></tbody></table>";
 
 // row 3:
-echo "<div class=\"grid-row\">";
+// echo "<div class=\"grid-row\">";
 echo "<table class=\"class-table\"><tbody><tr>";
 
 
@@ -85,4 +85,25 @@ echo  "</a>";
 echo "</td>";
 
 echo "</tr></tbody></table>";
-echo "</div>";
+// echo "</div>";
+
+echo "<table class=\"class-table\"><tbody><tr>";
+
+$link_buddy = "https://clients.mindbodyonline.com/classic/ws?studioid=44288&stype=40&prodId=102";
+
+echo  "<td>";
+echo "<a href=\"" . $link100 . "\" class=\"package-link\">";
+echo    "<h1>Workout Buddy Membership</h1>";
+echo    "<h2>$190</h2>";
+echo    "<ul>";
+echo        "<li>&bull; Unlimited classes for two people</li>";
+echo        "<li>&bull; 2 free guest passes each month</li>";
+echo        "<li>&bull; Discounts on workshops and special events</li>";
+echo        "<li>&bull; Cash bonus for referrals</li>";
+echo        "<li>&bull; Complimentary wellness consultation</li>";
+echo        "<li>&bull; 6 month commitment (one account on file)</li>";
+echo    "</ul>";
+echo "</a>";
+echo  "</td>";
+
+echo "</tr></tbody></table>";
