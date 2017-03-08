@@ -34,6 +34,7 @@ module.exports = Backbone.View.extend({
         this.errorTemplate = _.template($('#mb-login-form-error').html());
         this.$el.append(this.template());
         this.popOverLocation = this.$('span.main');
+        this.imageViewer = this.$(".img-viewer");
 
         app.mbLogInForm2 = new LogInForm({model: this.model});
         app.mbAccountInfo = new ClientInfo({model: this.model});
@@ -48,6 +49,7 @@ module.exports = Backbone.View.extend({
 
     clickScreen: function (e) {
         "use strict";
+
         if (e.target.className === 'popOverMB fullOpacity') {
             this.killPopOver();
         }
@@ -74,9 +76,6 @@ module.exports = Backbone.View.extend({
 
             this.model.set({bgScroll: bgScroll});
 
-            // this.$el.attr('style', 'top: ' + bgScroll + 'px');
-
-            // this.fadeInOut('intro');
             this.setPopOverStyle(); // set the height (inline style)
             this.$el.addClass('fullOpacity'); // this calss transitions opacity to 100%
 
@@ -114,8 +113,11 @@ module.exports = Backbone.View.extend({
 
     fadeOut: function () {
         "use strict";
+
         this.$el.attr('style', 'height: 0');
-        this.popOverLocation.empty();
+
+        this.popOverLocation.html("");
+        this.imageViewer.html("");
     },
 
     progressIcon: function () {
@@ -195,6 +197,10 @@ module.exports = Backbone.View.extend({
         case 'workout':
             this.popOverLocation.html(app.mbAppointmentPopOver.render(workoutModel));
             break;
+
+        case 'imageViewer':
+            this.model.set({popoverVisible: true});
+            return this.imageViewer;
 
         default:
             // just do nothing...

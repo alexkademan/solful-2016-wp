@@ -15,6 +15,8 @@ $grid_info = [
             "/image-grid-home/"),
 ];
 
+$grid_info["image_sizes"] = pull_all_image_sizes($grid_info["images"]);
+
 // render the thing:
 echo '<div id="photo-grid" class="photo-grid">';
 echo    '<div class="hid">';
@@ -33,7 +35,12 @@ function pull_all_grid_images($image_dir) {
         while (false !== ($entry = readdir($handle))) {
 
             if ($entry != "." && $entry != "..") {
-                $image = "$entry";
+
+                $image['filename'] = $entry;
+                $image['dimensions'] = getimagesize($image_dir . $entry);
+                $image['width'] = $image['dimensions'][0];
+                $image['height'] = $image['dimensions'][1];
+
                 array_push($images,  $image);
             }
         }
@@ -42,5 +49,13 @@ function pull_all_grid_images($image_dir) {
     }
 
     return $images;
+
+}
+
+function pull_all_image_sizes($image_array) {
+
+    // for($i = 0; $i < count($image_array); ++$i) {
+    //     print_r($image_array[$i]);
+    // }
 
 }

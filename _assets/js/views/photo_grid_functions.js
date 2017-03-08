@@ -38,4 +38,36 @@ module.exports = Backbone.View.extend({
 
         return Math.floor(Math.random() * (max - min)) + min;
     },
+
+    findSlideSize: function (imageInfo, windowWidth, windowHeight) {
+        "use strict";
+
+        // calculate the size of the image when it fits the slideshow
+        var fixedSize = [];
+
+        console.log(imageInfo);
+        console.log(windowWidth);
+        console.log(windowHeight);
+
+
+        if (imageInfo.width >= imageInfo.height) {
+
+            // landscape ratio
+
+        } else {
+
+            // portrait ratio (taller than wide)
+            fixedSize.height = windowHeight;
+
+            if(fixedSize.height > imageInfo.height) {
+                console.log(fixedSize.height / imageInfo.height);
+
+                fixedSize.width = imageInfo.width * (fixedSize.height / imageInfo.height);
+
+            }
+
+        }
+
+        return fixedSize;
+    },
 });

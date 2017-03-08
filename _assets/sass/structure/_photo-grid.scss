@@ -49,6 +49,40 @@
   }
 }
 
+.img-viewer {
+  // background: rgba(0, 0, 0, 0.2);
+  // the pop-over slideshow:
+  // height: 100%;
+  // left: 0;
+  // // padding: ($gutter * 1.5) ($gutter * .5) ($gutter * .5);
+  // overflow: hidden;
+  // position: absolute;
+  // top: 0;
+  // width: 100%;
+
+  img {
+    // display: none;
+
+    // height: auto;
+    // max-height: 100%;
+    // max-width: 100%;
+  }
+
+  // span {
+  //
+  //   display: none;
+  //
+  //   background-position: center;
+  //   background-repeat: no-repeat;
+  //   background-size: contain;
+  //   height: auto;
+  //   left: 2.5%;
+  //   position: absolute;
+  //   top: 2.5%;
+  //   width: 95%;
+  // }
+}
+
 
 @media (max-width: 1200px) {
   .photo-grid {

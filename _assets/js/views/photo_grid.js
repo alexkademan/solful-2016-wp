@@ -69,9 +69,9 @@ module.exports = Backbone.View.extend({
                 parentModel: this.model,
                 order: i,
                 spacerURL: this.model.get("spacerURL"),
-                spacerFile: spacers[randomInt],
+                spacer: spacers[randomInt],
                 imageURL: this.model.get("imageURL"),
-                imageFile: this.model.get("imagesShuffled")[i],
+                image: this.model.get("imagesShuffled")[i],
             });
         }
 
@@ -93,7 +93,11 @@ module.exports = Backbone.View.extend({
 
         var currSlide = this.model.get("currentSlide"),
             allImages = this.model.get("imageURL"),
-            image = "";
+            image = "",
+            imageViewer = "",
+            imageInfo = "",
+            xy = [],
+            imageHTML = "";
 
         if (currSlide !== false) {
 
@@ -101,7 +105,28 @@ module.exports = Backbone.View.extend({
                 app.mindbodyModel.set({popoverVisible : true});
             }
 
-            image = allImages + this.model.get("images")[currSlide];
+            // pull the array of info about the image:
+            imageInfo = this.model.get("images")[currSlide];
+
+            // calculate the size of the image when it fits the slideshow:
+            xy = this.funcs.findSlideSize(imageInfo,
+                app.windowStatus.get("windowWidth"),
+                app.windowStatus.get("windowHeight"));
+
+            // xy = 'width: ' + xy.width + 'px; height: ' + xy.height + 'px;';
+            xy = 'width: ' + xy.width + 'px;';
+
+            console.log(xy);
+
+            image = allImages + imageInfo.filename;
+            imageViewer = app.mbBackGroundShader.openPopUp("imageViewer");
+
+            imageHTML += '<div class="slide">';
+            imageHTML +=    '<img src="' + image + '" style="' + xy + '" />';
+            // imageHTML +=    '<span style="background-image:url(' + image + ')" />';
+            imageHTML += '</div>';
+
+            imageViewer.html(imageHTML);
 
         }
     },

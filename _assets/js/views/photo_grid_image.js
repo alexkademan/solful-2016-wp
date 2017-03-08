@@ -12,14 +12,13 @@ module.exports = Backbone.View.extend({
 
     initialize: function () {
         "use strict";
-        // console.log(this.model.get("order"));
 
         // console.log(this.model.attributes);
         var t = "",
             spacerLink = this.model.get("spacerURL") +
-                    this.model.get("spacerFile"),
+                    this.model.get("spacer").filename,
             imageLink = this.model.get("imageURL") +
-                    this.model.get("imageFile"),
+                    this.model.get("image").filename,
             background = "background-image:url(" + imageLink + ");";
 
 
@@ -31,13 +30,14 @@ module.exports = Backbone.View.extend({
         t += "</div>";
 
         this.template = _.template(t);
-
     },
 
     render: function () {
         "use strict";
         this.$el.html(this.template(this.model.toJSON()));
+
         return this;
+
     },
 
     popOverImage: function (e) {

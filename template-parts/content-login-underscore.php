@@ -18,6 +18,7 @@ echo    '<span class="main"></span>';
 echo    '<i class="fa fa-times fa-lg closeForm" aria-hidden="true"></i>';
 echo    '<span class="loading hid"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></span>';
 echo  '</div>'; // content
+echo  '<div class="img-viewer"></div>';
 echo '</script>';
 
 // error messages for pop-over forms:
