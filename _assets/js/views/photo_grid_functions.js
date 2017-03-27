@@ -1,6 +1,7 @@
 
 
 var Backbone = require("backbone");
+var _ = require("underscore");
 var $ = require("jquery");
 
 module.exports = Backbone.View.extend({
@@ -43,31 +44,44 @@ module.exports = Backbone.View.extend({
         "use strict";
 
         // calculate the size of the image when it fits the slideshow
-        var fixedSize = [];
+        var newSize = [];
 
-        console.log(imageInfo);
-        console.log(windowWidth);
-        console.log(windowHeight);
+        // console.log('window width: ' + windowWidth + ' height: ' + windowHeight);
+        // console.log('image width: ' + imageInfo.width + ' height: ' + imageInfo.height);
 
 
         if (imageInfo.width >= imageInfo.height) {
 
-            // landscape ratio
+            // landscape ratio:
+            newSize.width = windowWidth;
+            newSize.height = imageInfo.height * (windowWidth / imageInfo.width);
+
+            if (newSize.height > windowHeight) {
+                newSize.height = windowHeight;
+                newSize.width = imageInfo.width * (windowHeight / imageInfo.height);
+            }
 
         } else {
 
-            // portrait ratio (taller than wide)
-            fixedSize.height = windowHeight;
+            // portrait ratio:
+            newSize.height = windowHeight;
+            newSize.width = imageInfo.width * (windowHeight / imageInfo.height);
 
-            if(fixedSize.height > imageInfo.height) {
-                console.log(fixedSize.height / imageInfo.height);
-
-                fixedSize.width = imageInfo.width * (fixedSize.height / imageInfo.height);
-
+            if (newSize.width > windowWidth) {
+                newSize.width = windowWidth;
+                newSize.height = imageInfo.height * (windowWidth / imageInfo.width);
             }
-
         }
 
-        return fixedSize;
+        return newSize.width;
+    },
+
+    slideTemplate: function () {
+        "use strict";
+
+        var t = '<span class="padd"><div class="slide"></div></span>';
+        // t +=    '<img src="<%= image %>" style="<%= xy %>" />';
+
+        return _.template(t);
     },
 });

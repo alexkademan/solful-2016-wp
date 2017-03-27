@@ -36,6 +36,7 @@ echo '</script>';
 
 // Sign In pop-over:
 echo '<script type="text/template" id="mb-log-in-fields">';
+echo  '<div class="mb-modal">';
 echo   '<h3>Already a member? Sign in here:</h3>';
 echo   '<span class="error"></span>';
 echo   '<form>';
@@ -50,11 +51,13 @@ echo     '<a href="<%- urlMBloginForm %>">';
 echo       '<h3><%- formMessage %></h3>';
 echo       '<img src="<%- mbFeedURL %>../images/MINDBODY-company-logo.png" />';
 echo     '</a>';
-echo   '</div>';
+echo   '</div>'; // .new-user
+echo  '</div>'; // .mb-modal
 echo '</script>';
 
 // sign in to class pop over content
 echo '<script type="text/template" id="mb-sign-in-fields">';
+echo  '<div class="mb-modal">';
 echo   '<h3><%- dialogMessage %></h3>';
 echo   '<p>';
 echo     '<%- classStart.fullDate %><br />';
@@ -65,10 +68,12 @@ echo   '</p>';
 echo   '<span class="error"></span>';
 echo   '<a class="schedButton actionButton <%- buttonClass %>"><%- buttonConfirm %></a>';
 echo   '<a class="schedButton exitPopOver"><%- buttonEscape %></a>';
+echo  '</div>'; // .mb-modal
 echo '</script>';
 
 // client info pop-over. Displays info about MINDBODY account
 echo '<script type="text/template" id="mb-client-account-info">';
+echo '<div class="mb-modal">';
 echo   '<h1><%- client["FirstName"] %> <%- client["LastName"] %></h1>';
 echo   '<p><a class="schedButton logOut"><i class="fa fa-user-times" aria-hidden="true"></i>Sign Out</a></p>';
 echo   '<p>';
@@ -78,4 +83,7 @@ echo    '<%- client["City"] + " " + client["State"] + ", " + client["PostalCode"
 echo   '</p>';
 echo   '<p><a href="<%- urlMINDBODY %>" target="_blank">Manage my account with MINDBODY</a></p>';
 // echo   '<p>Automatic log out: <span class="countdown"><%- clientCountDownR %></span></p>';
+echo  '</div>'; // .mb-modal
 echo '</script>';
+
+// euh... image gallery pop-over:

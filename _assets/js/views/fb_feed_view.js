@@ -1,107 +1,115 @@
-var Backbone = require ('backbone');
-var _ = require ('underscore');
-var $ = require ('jquery');
+var Backbone = require('backbone');
+var $ = require('jquery');
 
 var FBposts = require('./../models/fb_post_collection');
 var FBavatars = require('./../models/fb_avatar_collection');
-var FBpostView = require ('./fb_post_view');
-
+var FBpostView = require('./fb_post_view');
 
 module.exports = Backbone.View.extend({
-  el: '#fb_feed',
+    el: '#fb_feed',
 
-  initialize: function() {
-    if( this.$el.length === 1){
-      // empty collection for the posts:
-      app.fbPosts = new FBposts();
+    initialize: function () {
+        "use strict";
+        if (this.$el.length === 1) {
 
-      // empty collection for the Avatars (profile pic of whoever made the post):
-      app.fbAvatars = new FBavatars();
+            // empty collection for the posts:
+            app.fbPosts = new FBposts();
 
-      this.getFBdata();
-      // fire new ajax request every time there is a new post added to the collection:
-      app.fbFeedModel.on(
-        'change:fetchedPosts', this.getIndividualPost
-      );
+            // empty collection for the Avatars (profile pic of whoever made the post):
+            app.fbAvatars = new FBavatars();
 
-    };
-  },
+            this.getFBdata();
 
-  getFBdata: function() {
-    // this function pulls all the IDs for each post that we need.
-    var request = app.fbFeedModel.get('fbFeedURL') + '?postID=IDs';
-    // console.log( request );
-    $.ajax({
-      // url: './fb_feed/?postID=IDs',
-      url: app.fbFeedModel.get('fbFeedURL') + '?postID=IDs',
-      dataType: 'json'
+            // fire new ajax request every time there is a new post added to the collection:
+            app.fbFeedModel.on(
+                'change:fetchedPosts',
+                this.getIndividualPost
+            );
 
-    }).done(function( data ) {
+        }
+    },
 
-      // add the post to the collection:
-      for(var key in data) {
-        data[key]['order'] = key;
-        app.fbPosts.add( data[key] );
-      };
-      // record the total number of posts we're looking for:
-      app.fbFeedModel.set({
-        postCount: app.fbPosts.length,
-        fetchedPosts: 0
-      });
-    });
-  },
+    getFBdata: function () {
+        "use strict";
+        var key;
 
-  getIndividualPost: function( post ) {
-    var thisID = app.fbFeedModel.get('fetchedPosts');
-    var thisNumber = app.fbPosts.models[thisID].id;
+        // this function pulls all the IDs for each post that we need.
+        $.ajax({
+            // url: './fb_feed/?postID=IDs',
+            url: app.fbFeedModel.get('fbFeedURL') + '?postID=IDs',
+            dataType: 'json'
 
-    var request = app.fbFeedModel.get('fbFeedURL') + '?postID=' + app.fbPosts.models[thisID].id;
-    // console.log( request );
-    $.ajax({
-      // url: 'fb_feed/?postID=' + app.fbPosts.models[thisID].id,
-      url: app.fbFeedModel.get('fbFeedURL') + '?postID=' + app.fbPosts.models[thisID].id,
-      dataType: 'json'
+        }).done(function (data) {
 
-    })
-    .done(function( data ) {
+            // add the post to the collection:
+            for (key in data) {
+                data[key].order = key;
+                app.fbPosts.add(data[key]);
+            }
 
-      if( app.fbAvatars.get(data.from.id) === undefined){
-        app.fbFeed.collectAvatar( data.from.id );
-      };
+            // record the total number of posts we're looking for:
+            app.fbFeedModel.set({
+                postCount: app.fbPosts.length,
+                fetchedPosts: 0
+            });
+        });
+    },
 
-      // match the ID to the array collection of posts that we're looking for
-      // so that we can load to the page in order.
-      var postModel = app.fbPosts.get(data.id);
+    getIndividualPost: function (post) {
+        "use strict";
 
-      // use a jquery utility to merge the object already created
-      // with the results of my request to the FB server:
-      postModel.attributes = $.extend(postModel.attributes, data);
+        var thisID = app.fbFeedModel.get('fetchedPosts'),
+            thisNumber = app.fbPosts.models[thisID].id,
+            request = app.fbFeedModel.get('fbFeedURL') + '?postID=' +
+                    app.fbPosts.models[thisID].id;
 
-      var view = new FBpostView({ model: postModel });
+        $.ajax({
+            // url: 'fb_feed/?postID=' + app.fbPosts.models[thisID].id,
+            url: app.fbFeedModel.get('fbFeedURL') + '?postID=' +
+                    app.fbPosts.models[thisID].id,
+            dataType: 'json'
 
-      var readyCountVal = app.fbFeedModel.get('readyCount') + 1;
-      app.fbFeedModel.set({ readyCount: readyCountVal });
+        })
+            .done(function (data) {
 
-      // EVERYTHING about the post has been gathered
-      // including the avatar,
-      // so we're ready to render to the DOM:
-      app.fbFeed.renderInOrder(view);
+                if (app.fbAvatars.get(data.from.id) === undefined) {
+                    app.fbFeed.collectAvatar(data.from.id);
+                }
 
-    })
-    .fail(function() {
-      console.log('error fetching results of page.');
-    });
+                // match the ID to the array collection of posts that we're looking for
+                // so that we can load to the page in order.
+                var postModel = app.fbPosts.get(data.id);
 
-    if( thisID < ( app.fbFeedModel.get('postCount') -1 ) ){
-      // only set fetchedPosts if there are more posts to pull from FB.
-      // The event listener waiting for this will cause
-      // this function to execute from the top immediately after this line.
-      app.fbFeedModel.set({
-        fetchedPosts: ++thisID
-      });
-    };
+                // use a jquery utility to merge the object already created
+                // with the results of my request to the FB server:
+                postModel.attributes = $.extend(postModel.attributes, data);
 
-  },
+                var view = new FBpostView({ model: postModel });
+
+                var readyCountVal = app.fbFeedModel.get('readyCount') + 1;
+                app.fbFeedModel.set({ readyCount: readyCountVal });
+
+                // EVERYTHING about the post has been gathered
+                // including the avatar,
+                // so we're ready to render to the DOM:
+                app.fbFeed.renderInOrder(view);
+
+        })
+        .fail(function() {
+            console.log('error fetching results of page.');
+        });
+
+        if( thisID < ( app.fbFeedModel.get('postCount') -1 ) ){
+
+            // only set fetchedPosts if there are more posts to pull from FB.
+            // The event listener waiting for this will cause
+            // this function to execute from the top immediately after this line.
+            app.fbFeedModel.set({
+            fetchedPosts: ++thisID
+            });
+        }
+
+    },
 
   renderInOrder: function(view) {
     this.hideLoadingSpinner();
@@ -166,7 +174,7 @@ module.exports = Backbone.View.extend({
     app.fbAvatars.add( { id: avatarID } );
 
     var request = app.fbFeedModel.get('fbFeedURL') + '?avatarID=' + avatarID;
-    // console.log( request );
+
     $.ajax({
       url: app.fbFeedModel.get('fbFeedURL') + '?avatarID=' + avatarID,
       dataType: 'json'

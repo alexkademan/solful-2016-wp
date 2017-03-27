@@ -37,6 +37,11 @@ div.popOverMB div.content {
 
 div.popOverMB div.content > .main {
   display: block;
+  // padding: $main-gutter;
+}
+
+.mb-modal {
+  display: block;
   padding: $main-gutter;
 }
 
@@ -78,12 +83,14 @@ div.popOverMB input[type="password"] {
 
 div.popOverMB input.mb-login-button {
   // display: block;
-  // margin: 0 auto;
+  margin: 0 auto;
 }
+
 div.popOverMB div.content span.main > h3 {
   // keep text from hitting the close button:
   padding-right: 1.5em;
 }
+
 div.popOverMB div.content span.loading {
   position: absolute;
   z-index: 100;

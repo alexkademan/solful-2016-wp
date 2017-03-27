@@ -21,6 +21,7 @@ module.exports = Backbone.View.extend({
             if (gridJSON.length === 1) {
 
                 this.funcs = new ImageGridFuncs();
+                this.template = this.funcs.slideTemplate();
 
                 // there is only one allowed div.hid
                 gridJSON = JSON.parse(gridJSON[0].innerHTML);
@@ -93,11 +94,10 @@ module.exports = Backbone.View.extend({
 
         var currSlide = this.model.get("currentSlide"),
             allImages = this.model.get("imageURL"),
-            image = "",
-            imageViewer = "",
-            imageInfo = "",
-            xy = [],
-            imageHTML = "";
+            imageInfo,
+            imageViewer,
+            imgWidth,
+            slideDiv;
 
         if (currSlide !== false) {
 
@@ -105,28 +105,29 @@ module.exports = Backbone.View.extend({
                 app.mindbodyModel.set({popoverVisible : true});
             }
 
+
+
+
+
+            // retrieve cached DOM object:
+            imageViewer = app.mbBackGroundShader.openPopUp("imageViewer");
+
+            // set the stage:
+            imageViewer.html(this.template(this.model.toJSON()));
+
+            // select div.slide, the ugly way:
+            slideDiv = imageViewer[0].getElementsByClassName("slide")[0];
+
             // pull the array of info about the image:
             imageInfo = this.model.get("images")[currSlide];
 
             // calculate the size of the image when it fits the slideshow:
-            xy = this.funcs.findSlideSize(imageInfo,
-                app.windowStatus.get("windowWidth"),
-                app.windowStatus.get("windowHeight"));
+            imgWidth = this.funcs.findSlideSize(imageInfo,
+                slideDiv.offsetWidth,
+                slideDiv.offsetHeight);
 
-            // xy = 'width: ' + xy.width + 'px; height: ' + xy.height + 'px;';
-            xy = 'width: ' + xy.width + 'px;';
-
-            console.log(xy);
-
-            image = allImages + imageInfo.filename;
-            imageViewer = app.mbBackGroundShader.openPopUp("imageViewer");
-
-            imageHTML += '<div class="slide">';
-            imageHTML +=    '<img src="' + image + '" style="' + xy + '" />';
-            // imageHTML +=    '<span style="background-image:url(' + image + ')" />';
-            imageHTML += '</div>';
-
-            imageViewer.html(imageHTML);
+            slideDiv.innerHTML = '<img src="' + allImages + imageInfo.filename +
+                    '" style="width: ' + imgWidth + 'px;" />';
 
         }
     },
