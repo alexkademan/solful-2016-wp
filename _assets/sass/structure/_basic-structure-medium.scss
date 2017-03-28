@@ -1,16 +1,22 @@
 .site-main {
-  padding-right: $gutter; // I DON'T KNOW WHY I HAVE TO DO THIS !!!!
   @include span-columns(8);
+  padding-right: $gutter;
 }
+
+.site-main-centered {
+  @include shift(2);
+}
+
 .widget-area {
   @include span-columns(4 of 12);
-  @include omega();
+  @include omega;
 }
-.site-footer {
-  padding-top: $gutter;
-  padding-bottom: pem(100);
 
+.site-footer {
+  padding-bottom: pem(100);
+  padding-top: $gutter;
 }
+
 .site-footer > div,
 .site-footer > a {
   @include span-columns(4 of 12);

@@ -16,28 +16,27 @@ body > div.site > .main-bg {
   width: 100%;
 }
 
-body > div.site > .main-bg {
-  background: #FFF;
+.site > .main-bg {
+  background: $white;
 }
+
 .outer {
   @include outer-container;
 }
+
 .hid {
   @include hidden;
 }
 
-body > div.site > .main-bg > div.content,
+.site > .main-bg > .content,
 .site-footer {
+  @include outer-container;
+  clear: both;
+  display: block;
   padding-left: $main-gutter;
   padding-right: $main-gutter;
-  display: block;
-  clear: both;
-  @include outer-container;
+}
 
-}
-body > div.site > .main-bg > div.content {
-  // padding-top: pem(30);
-}
 .entry-content img {
   max-width: 100%;
 }

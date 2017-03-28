@@ -8,10 +8,17 @@
  */
 echo '<aside id="secondary" class="widget-area" role="complementary">';
 ?>
+
 <ul id="fb_feed" class="fb_feed">
-	<li class="loading">
-	  <i class="fa fa-refresh fa-spin fa-2x"></i>
-	</li>
+	<?php
+		echo '<li class="loading">';
+		echo 	'<i class="fa fa-refresh fa-spin fa-2x"></i>';
+		echo '</li>';
+
+	 	echo '<span class="wpURL hid">';
+		echo 	get_bloginfo("template_url");
+		echo '</span>';
+	?>
 	<script type="text/template" id="fb_template">
 	  <li class="fbPost <%- 'id-' + id %>">
 			<header>

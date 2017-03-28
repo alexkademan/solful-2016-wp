@@ -12,26 +12,37 @@ module.exports = Backbone.View.extend({
         "use strict";
         if (this.$el.length === 1) {
 
-            // empty collection for the posts:
+            // empty collections:
             app.fbPosts = new FBposts();
-
-            // empty collection for the Avatars (profile pic of whoever made the post):
             app.fbAvatars = new FBavatars();
+            var wpURL = this.$(".wpURL"),
+                newURL = '';
 
-            this.getFBdata();
+            if (wpURL.length === 1) {
 
-            // fire new ajax request every time there is a new post added to the collection:
-            app.fbFeedModel.on(
-                'change:fetchedPosts',
-                this.getIndividualPost
-            );
+                // pull URL from the DOM
+                newURL = wpURL[0].innerText + this.model.get("fbFeedURL");
 
+                this.model.set({
+                    fbFeedURL : newURL
+                });
+
+                this.getFBdata();
+
+                // add every post via individual ajax request
+                app.fbFeedModel.on(
+                    'change:fetchedPosts',
+                    this.getIndividualPost
+                );
+            }
         }
     },
 
     getFBdata: function () {
         "use strict";
         var key;
+
+        console.log(app.fbFeedModel.get('fbFeedURL'));
 
         // this function pulls all the IDs for each post that we need.
         $.ajax({
@@ -59,14 +70,10 @@ module.exports = Backbone.View.extend({
         "use strict";
 
         var thisID = app.fbFeedModel.get('fetchedPosts'),
-            thisNumber = app.fbPosts.models[thisID].id,
-            request = app.fbFeedModel.get('fbFeedURL') + '?postID=' +
-                    app.fbPosts.models[thisID].id;
+            thisNumber = app.fbPosts.models[thisID].id;
 
         $.ajax({
-            // url: 'fb_feed/?postID=' + app.fbPosts.models[thisID].id,
-            url: app.fbFeedModel.get('fbFeedURL') + '?postID=' +
-                    app.fbPosts.models[thisID].id,
+            url: app.fbFeedModel.get('fbFeedURL') + '?postID=' + thisNumber,
             dataType: 'json'
 
         })
@@ -76,8 +83,10 @@ module.exports = Backbone.View.extend({
                     app.fbFeed.collectAvatar(data.from.id);
                 }
 
-                // match the ID to the array collection of posts that we're looking for
-                // so that we can load to the page in order.
+                /*
+                 * match the ID to the array collection of posts that we're
+                 * looking for so that we can load to the page in order.
+                 */
                 var postModel = app.fbPosts.get(data.id);
 
                 // use a jquery utility to merge the object already created
