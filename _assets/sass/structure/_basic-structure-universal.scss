@@ -1,18 +1,17 @@
 html,
 body {
+
   // this color fills out the footer
-  // background: darken($color-solful-red, 10%);
-  background: darken( #333, 0%);
-  background: #000;
+  background: $black;
 }
 
-body > div.site,
-body > div.site > .main-bg {
-  // body of the page.
+body > .site,
+body > .site > .main-bg {
+
   // (everything between the header and the footer)
+  clear: both;
   display: block;
   float: left;
-  clear: both;
   width: 100%;
 }
 
@@ -37,15 +36,18 @@ body > div.site > .main-bg {
   padding-right: $main-gutter;
 }
 
-.entry-content img {
-  max-width: 100%;
+.entry-content {
+  img {
+    max-width: 100%;
+  }
 }
+
 span.block,
 .entry-content h1,
 .entry-content h2 {
+  clear: both;
   display: block;
   float: left;
-  clear: both;
   width: 100%;
 }
 

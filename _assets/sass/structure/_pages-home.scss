@@ -1,0 +1,77 @@
+.feat-img-home {
+  padding: 15% 1em;
+
+  h1 {
+    // animation: fadein 3s;
+    color: $white;
+    text-align: center;
+    text-shadow: 0 0 .125em $black;
+
+  }
+
+  .fadein1 {
+    animation: fadein1 4s;
+    margin-bottom: .25em;
+  }
+
+  .fadein2 {
+    animation: fadein2 4s;
+  }
+
+  .fadein3 {
+    animation: fadein3 4s;
+  }
+
+  span {
+    background: transparent;
+    clear: both;
+    display: block;
+  }
+
+  a {
+    background: $color-white-50-opacity;
+    border: 2px $white solid;
+    color: $white;
+    padding: .25em;
+    transition: .25s ease;
+
+    .no-touchevents &:hover {
+      background: $color-white-25-opacity;
+      color: $white;
+      text-decoration: none;
+    }
+  }
+}
+
+.home-heading {
+  clear: both;
+  display: block;
+  float: left;
+  text-align: center;
+  width: 100%;
+
+}
+
+@keyframes fadein1 {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  50% { opacity: 1; }
+  75% { opacity: 1; }
+  100%   { opacity: 1; }
+}
+
+@keyframes fadein2 {
+  0% { opacity: 0; }
+  25% { opacity: 0; }
+  50% { opacity: 1; }
+  75% { opacity: 1; }
+  100%   { opacity: 1; }
+}
+
+@keyframes fadein3 {
+  0% { opacity: 0; }
+  25% { opacity: 0; }
+  50% { opacity: 0; }
+  75% { opacity: 1; }
+  100%   { opacity: 1; }
+}

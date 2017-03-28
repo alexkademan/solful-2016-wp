@@ -55,12 +55,19 @@ if(
 	isset($post->post_title)
 	&& $post->post_name == "home"
 ){
-	get_template_part( 'template-parts/content', 'sign-up-now-banner' );
+	get_template_part('template-parts/content', 'sign-up-now-banner');
 }
 
-if( has_post_thumbnail() ) {
-	get_template_part( 'template-parts/content', 'featured-image-banner' );
+if (has_post_thumbnail()) {
+
+	if ($post->post_name == 'home') {
+		get_template_part('template-parts/content', 'featured-image-home-banner');
+	} else {
+		get_template_part('template-parts/content', 'featured-image-banner');
+	}
+
 }
+
 ?>
 	<span class="main-bg">
 		<div class="content">

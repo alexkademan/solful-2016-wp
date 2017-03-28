@@ -1,7 +1,7 @@
 div.home-sticky {
   padding: ($main-gutter / 3);
   background-color: $color-solful-red;
-  background: linear-gradient( to left top, darken($color-solful-red, 25%), $color-solful-red);
+  background: linear-gradient(to left top, darken($color-solful-red, 25%), $color-solful-red);
 
   transition: opacity 0.25s ease;
   color: #FFF;

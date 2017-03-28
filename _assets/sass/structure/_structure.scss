@@ -2,6 +2,7 @@
 @import 'basic-structure-universal';
 @import 'home-page-sticky-post';
 @import 'pages-universal';
+@import 'pages-home';
 @import 'photo-grid';
 @import 'google-map';
 // @import 'footer';
@@ -9,5 +10,10 @@
 @media($medium-breakpoint) {
   @import 'basic-structure-medium';
   @import 'pages-medium';
+  @import 'pages-home-medium';
   // @import 'footer-medium';
+}
+
+@media($large-breakpoint) {
+  @import 'pages-home-large';
 }

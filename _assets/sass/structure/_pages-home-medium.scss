@@ -1,0 +1,17 @@
+.feat-img-home {
+
+  h1 {
+    font-size: 2.2em;
+  }
+
+  br {
+    @include hidden;
+  }
+}
+
+
+.home-heading {
+  h1 {
+    font-size: 2.2em;
+  }
+}
