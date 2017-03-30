@@ -2,11 +2,11 @@
   padding: 15% 1em;
 
   h1 {
+
     // animation: fadein 3s;
     color: $white;
     text-align: center;
     text-shadow: 0 0 .125em $black;
-
   }
 
   .fadein1 {
@@ -49,6 +49,22 @@
   float: left;
   text-align: center;
   width: 100%;
+
+  h1,
+  h3 {
+    clear: both;
+    display: block;
+    float: left;
+    width: 100%;
+  }
+
+  h3 {
+    padding-top: .5em;
+  }
+
+  a {
+    color: $base-font-color;
+  }
 
 }
 

@@ -10,8 +10,14 @@
  */
 
 
+
 echo 	'</div>'; // #content
+if ($post->post_name == 'home') {
+    get_template_part('template-parts/content', 'home-post-1');
+}
 echo '</span>'; // .main-bg
+
+
 if($post->post_title == 'Contact Us'){ echo '<div id="map_canvas" class="map_canvas"></div>'; }
 echo '</div>'; // #page
 
@@ -31,10 +37,10 @@ echo '</footer>'; // #colophon
 wp_footer();
 
 
-if($post->post_title == 'Contact Us'){ get_template_part( 'template-parts/content', 'location-map' ); }
-if($post->post_title == 'About'){
-	// echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/instafeed.min.js"></script>';
+if($post->post_title == 'Contact Us'){
+    get_template_part('template-parts/content', 'location-map');
 }
+
 
 get_template_part( 'template-parts/content', 'login-underscore' ); // templates for login button within masthead.
 echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/bundle.js"></script>';
